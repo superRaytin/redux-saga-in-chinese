@@ -2,7 +2,7 @@
 
 文档版本号：0.9.5
 
-> 在线 Gitbook 地址：http://superRaytin.github.io/redux-saga
+> 在线 Gitbook 地址：http://superRaytin.github.io/redux-saga-in-chinese
 >
 > 英文原版：http://yelouafi.github.io/redux-saga
 
