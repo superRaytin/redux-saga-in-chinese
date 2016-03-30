@@ -1,0 +1,36 @@
+{
+  "name": "redux-saga-in-chinese",
+  "version": "0.9.5",
+  "description": "Redux-saga 中文文档",
+  "scripts": {
+    "clean": "rimraf _book",
+    "build": "gitbook build -g superRaytin/redux-saga-in-chinese",
+    "watch": "gitbook serve",
+    "publish": "npm run clean && npm run build && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push git@github.com:superRaytin/redux-saga-in-chinese gh-pages --force"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/superRaytin/redux-saga-in-chinese.git"
+  },
+  "keywords": [
+    "javascript",
+    "redux",
+    "middleware",
+    "saga",
+    "effects",
+    "side effects"
+  ],
+  "author": "Cam Song <neosoyn@gmail.com> (http://github.com/superRaytin)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/superRaytin/redux-saga-in-chinese/issues"
+  },
+  "homepage": "https://github.com/superRaytin/redux-saga-in-chinese",
+  "devDependencies": {
+    "gitbook-cli": "^0.3.4",
+    "gitbook-plugin-prism": "^0.1.1",
+    "gitbook-plugin-ga": "^0.2.1",
+    "gitbook-plugin-edit-link": "^1.4.1",
+    "rimraf": "^2.3.4"
+  }
+}
