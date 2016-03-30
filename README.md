@@ -234,3 +234,11 @@ npm run real-world
 //sorry, no tests yet
 ```
 
+### 贡献者
+
+> 定期更新，感谢各位辛勤贡献
+
+- [Leon Shi@superRaytin](https://github.com/superRaytin)
+
+**本文档翻译流程按照 [ETC 翻译规范](https://github.com/react-guide/ETC)，欢迎你来一起完善**
+
