@@ -6,7 +6,7 @@
     "clean": "rimraf _book",
     "build": "gitbook build -g superRaytin/redux-saga-in-chinese",
     "watch": "gitbook serve",
-    "publish": "tnpm run prepublish && tnpm run gh-pages",
+    "publish": "npm run prepublish && npm run gh-pages",
     "gh-pages": "./node_modules/gh-pages/bin/gh-pages -d _book -r git@github.com:superRaytin/redux-saga-in-chinese.git",
     "prepublish": "npm run clean && npm run build && cd _book && git init && git config user.name 'leon.shi' && git config user.email 'superRaytin@163.com' && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book'",
   },
