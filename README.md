@@ -19,7 +19,7 @@ This means application logic lives in 2 places:
 - Sagas are responsible for orchestrating complex/asynchronous operations.
 
 Sagas are created using Generator functions. If you're not familiar with them you may find
-[some useful links here](http://yelouafi.github.io/redux-saga/docs/ExternalResources.html)
+[some useful links here](http://superRaytin.github.io/redux-saga-in-chinese/docs/ExternalResources.html)
 
 Unlike Thunks which get invoked on every action by Action Creators, Sagas are fired only
 once at the start of the application (but startup Sagas may fire other Sagas dynamically).
@@ -133,14 +133,14 @@ const store = createStore(
 
 # Documentation
 
-- [Introduction](http://yelouafi.github.io/redux-saga/docs/introduction/index.html)
-- [Basic Concepts](http://yelouafi.github.io/redux-saga/docs/basics/index.html)
-- [Advanced Concepts](http://yelouafi.github.io/redux-saga/docs/advanced/index.html)
-- [Recipes](http://yelouafi.github.io/redux-saga/docs/recipes/index.html)
-- [External Resources](http://yelouafi.github.io/redux-saga/docs/ExternalResources.html)
-- [Troubleshooting](http://yelouafi.github.io/redux-saga/docs/Troubleshooting.html)
-- [Glossary](http://yelouafi.github.io/redux-saga/docs/Glossary.html)
-- [API Reference](http://yelouafi.github.io/redux-saga/docs/api/index.html)
+- [Introduction](http://superRaytin.github.io/redux-saga-in-chinese/docs/introduction/index.html)
+- [Basic Concepts](http://superRaytin.github.io/redux-saga-in-chinese/docs/basics/index.html)
+- [Advanced Concepts](http://superRaytin.github.io/redux-saga-in-chinese/docs/advanced/index.html)
+- [Recipes](http://superRaytin.github.io/redux-saga-in-chinese/docs/recipes/index.html)
+- [External Resources](http://superRaytin.github.io/redux-saga-in-chinese/docs/ExternalResources.html)
+- [Troubleshooting](http://superRaytin.github.io/redux-saga-in-chinese/docs/Troubleshooting.html)
+- [Glossary](http://superRaytin.github.io/redux-saga-in-chinese/docs/Glossary.html)
+- [API Reference](http://superRaytin.github.io/redux-saga-in-chinese/docs/api/index.html)
 
 # Using umd build in the browser
 
