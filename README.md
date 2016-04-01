@@ -1,65 +1,47 @@
 # [Redux-saga 中文文档](https://github.com/superRaytin/redux-saga-in-chinese)
 
-文档版本号：0.9.5
+**文档版本号：0.9.5**
 
 > 在线 Gitbook 地址：http://superRaytin.github.io/redux-saga-in-chinese
 >
 > 英文原版：http://yelouafi.github.io/redux-saga
 
-[![Join the chat at https://gitter.im/yelouafi/redux-saga](https://badges.gitter.im/yelouafi/redux-saga.svg)](https://gitter.im/yelouafi/redux-saga?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+redux-saga 是一个用于管理 Redux 应用异步操作（Side Effects，译注：直译成 “副作用” 不太通顺，所以这里译为 “异步操作” 更好理解，redux-saga 不只能处理异步控制流，也可以用来处理复杂的业务逻辑）的中间件（又称异步 actions）。
+redux-saga 通过创建 *Sagas* 将所有的异步操作逻辑收集在一个地方集中处理，可以用来代替 `redux-thunk` 中间件。
 
-An alternative Side Effects middleware (aka Asynchronous Actions) for Redux applications.
-Instead of dispatching Thunks which get handled by the `redux-thunk` middleware, you
-create *Sagas* to gather all your Side Effects logic in a central place.
+这意味着应用的逻辑会存在两个地方：
 
-This means application logic lives in 2 places:
+- Reducers 负责处理 action 的 state 更新。
 
-- Reducers are responsible for handling state transitions between actions.
+- Sagas 负责协调那些复杂或异步的操作。
 
-- Sagas are responsible for orchestrating complex/asynchronous operations.
+Sagas 是通过 Generator 函数来创建的。如果你还不熟悉 Generator，可以在这里找到 [一些有用的链接](http://superRaytin.github.io/redux-saga-in-chinese/docs/ExternalResources.html)。
 
-Sagas are created using Generator functions. If you're not familiar with them you may find
-[some useful links here](http://superRaytin.github.io/redux-saga-in-chinese/docs/ExternalResources.html)
+Sagas 不同于 Thunks，Thunks 是在 action 被创建时调用，而 Sagas 只会在应用启动时调用（但初始启动的 Sagas 可能会动态调用其他 Sagas）。
+Sagas 可以被看作是在后台运行的进程。Sagas 监听发起的 action，然后决定基于这个 action 来做什么：是发起一个异步调用（比如一个 Ajax 请求），还是发起其他的 action 到 Store，甚至是调用其他的 Sagas。
 
-Unlike Thunks which get invoked on every action by Action Creators, Sagas are fired only
-once at the start of the application (but startup Sagas may fire other Sagas dynamically).
-They can be seen as Processes running in the background. Sagas watch the actions dispatched
-to the Store, then decide what to do based on dispatched actions: Either making an asynchronous
-call (like an AJAX request), dispatching other actions to the Store, or even starting other
-Sagas dynamically.
+在 `redux-saga` 的世界里，所有的任务都通用 yield **Effects** 来完成（译注：Effect 可以看作是 redux-saga 的任务单元）。Effects 都是简单的 Javascript 对象，包含了要被 Saga middleware 执行的信息（打个比方，你可以看到 Redux action 其实是一个个包含执行信息的对象）。
+`redux-saga` 为各项任务提供了各种 Effect 创建器，比如调用一个异步函数，发起一个 action 到 Store，启动一个后台任务或者等待一个满足某些条件的未来的 action。
 
-In `redux-saga` all the above tasks are achieved by yielding **Effects**. Effects are simply
-JavaScript Objects containing instructions to be executed by the Saga middleware (As an analogy,
-you can see Redux actions as Objects containing instructions to be executed by the Store).
-`redux-saga` provides Effect creators for various tasks like calling an asynchronous function,
-dispatching an action to the Store, starting a background task or waiting for a future action
-that satisfies a certain condition.
+因为使用了 Generator，`redux-saga` 允许你以同步的方式写异步代码。就像你可以使用 `async/await` 函数所能做的一样。但 Generator 允许你做一些 `async` 函数做不到的事情。
 
-Using Generators, `redux-saga` allows you to write your asynchronous code in a simple
-synchronous style. Just like you can do with `async/await` functions. But Generators
-allow some things that aren't possible with `async` functions.
+事实上 Sagas yield 普通对象的方式让你能容易地测试 Generator 里所有的业务逻辑，可以通过简单地迭代 yield 过的对象进行简单的单元测试。
 
-The fact that Sagas yield plain Objects makes it easy to test all the logic inside your Generator
-by simply iterating over the yielded Objects and doing simple equality tests.
+此外，`redux-saga` 启动的任务可以在任何时候通过手动取消，也可以把任务和其他的 Effects 放到 race 方法里以自动取消。
 
-Furthermore, tasks started in `redux-saga` can be cancelled at any moment either manually
-or automatically by putting them in a race with other Effects.
+# 开始
 
-# Getting started
-
-## Install
+## 安装
 
 ```
 npm install --save redux-saga
 ```
 
-Alternatively, you may use the provided UMD builds directly in the `<script>` tag of
-an HTML page. See [this section](#using-umd-build-in-the-browser)
+你也可以直接在 HTML 页面中通过 `<script>` 标签使用提供的 UMD 构建版本，看 [这里](#using-umd-build-in-the-browser)。
 
-## Usage Example
+## 使用示例
 
-Suppose we have an UI to fetch some user data from a remote server when a button is clicked
-(For brevity, we'll just show the action triggering code).
+假设我们有一个 UI 界面，在单击按钮时从远程服务器获取一些用户数据（为简单起见，我们只列出 action 触发代码）。
 
 ```javascript
 class UserComponent extends React.Component {
@@ -72,9 +54,7 @@ class UserComponent extends React.Component {
 }
 ```
 
-The Component dispatches a plain Object action to the Store. We'll create a Saga that
-watches for all `USER_FETCH_REQUESTED` actions and triggers an API call to fetch the
-user data
+这个组件发起一个普通对象的 action 到 Store。我们将创建一个 Saga 来监听所有的 `USER_FETCH_REQUESTED` action，并触发一个 API 调用以获取用户数据。
 
 #### `sagas.js`
 ```javascript
@@ -82,7 +62,7 @@ import { takeEvery, takeLatest } from 'redux-saga'
 import { call, put } from 'redux-saga/effects'
 import Api from '...'
 
-// worker Saga : will be fired on USER_FETCH_REQUESTED actions
+// workder Saga : 将在 USER_FETCH_REQUESTED action 被发起时调用
 function* fetchUser(action) {
    try {
       const user = yield call(Api.fetchUser, action.payload.userId);
@@ -93,26 +73,26 @@ function* fetchUser(action) {
 }
 
 /*
-  starts fetchUser on each dispatched `USER_FETCH_REQUESTED` action
-  Allow concurrent fetches of user
+  在每个 `USER_FETCH_REQUESTED` action 被发起时调用 fetchUser
+  允许并发（译注：即同时处理多个相同的 action）
 */
 function* mySaga() {
   yield* takeEvery("USER_FETCH_REQUESTED", fetchUser);
 }
 
 /*
-  Alternatively you may use takeLatest
+  也可以使用 takeLatest
 
-  Do not allow concurrent fetches of user, If "USER_FETCH_REQUESTED" gets
-  dispatched while a fetch is already pending, that pending fetch is cancelled
-  and only the latest one will be run
+  不允许并发，发起一个 `USER_FETCH_REQUESTED` action 时，
+  如果在这之前已经有一个 `USER_FETCH_REQUESTED` action 在处理中，
+  那么处理中的 action 会被取消，只会执行当前的
 */
 function* mySaga() {
   yield* takeLatest("USER_FETCH_REQUESTED", fetchUser);
 }
 ```
 
-To run our Saga, we'll have to connect it to the Redux Store using the `redux-saga` middleware
+为了能跑起 Saga，我们需要使用 `redux-saga` 中间件将 Saga 与 Redux Store 建立连接。
 
 #### `main.js`
 ```javascript
@@ -131,33 +111,30 @@ const store = createStore(
 // render the application
 ```
 
-# Documentation
+# 文档
 
-- [Introduction](http://superRaytin.github.io/redux-saga-in-chinese/docs/introduction/index.html)
-- [Basic Concepts](http://superRaytin.github.io/redux-saga-in-chinese/docs/basics/index.html)
-- [Advanced Concepts](http://superRaytin.github.io/redux-saga-in-chinese/docs/advanced/index.html)
-- [Recipes](http://superRaytin.github.io/redux-saga-in-chinese/docs/recipes/index.html)
-- [External Resources](http://superRaytin.github.io/redux-saga-in-chinese/docs/ExternalResources.html)
-- [Troubleshooting](http://superRaytin.github.io/redux-saga-in-chinese/docs/Troubleshooting.html)
-- [Glossary](http://superRaytin.github.io/redux-saga-in-chinese/docs/Glossary.html)
-- [API Reference](http://superRaytin.github.io/redux-saga-in-chinese/docs/api/index.html)
+- [介绍](http://superRaytin.github.io/redux-saga-in-chinese/docs/introduction/index.html)
+- [基本概念](http://superRaytin.github.io/redux-saga-in-chinese/docs/basics/index.html)
+- [高级概念](http://superRaytin.github.io/redux-saga-in-chinese/docs/advanced/index.html)
+- [实例](http://superRaytin.github.io/redux-saga-in-chinese/docs/recipes/index.html)
+- [外部资源](http://superRaytin.github.io/redux-saga-in-chinese/docs/ExternalResources.html)
+- [故障排除](http://superRaytin.github.io/redux-saga-in-chinese/docs/Troubleshooting.html)
+- [名词解释](http://superRaytin.github.io/redux-saga-in-chinese/docs/Glossary.html)
+- [API 参考](http://superRaytin.github.io/redux-saga-in-chinese/docs/api/index.html)
 
-# Using umd build in the browser
+# 在浏览器中使用 umd 构建版本
 
-There's also an **umd** build of `redux-saga` available in the `dist/` folder. When using the umd build
-`redux-saga` is available as `ReduxSaga` in the window object.
+在 `dist/` 文件夹有一个可用的 **umd** `redux-saga` 构建文件。`redux-saga` 以 `ReduxSaga` 挂载在全局 window 对象中。
 
-The umd version is useful if you don't use Webpack or Browserify. You can access it directly from [npmcdn](npmcdn.com).
+如果你不使用 Webpack 或 Browserify，umd 版本非常有用。你可以通过 [npmcdn](npmcdn.com) 直接使用。
 
-The following builds are available:
+以下是可用的构建：
 
 - [https://npmcdn.com/redux-saga/dist/redux-saga.js](https://npmcdn.com/redux-saga/dist/redux-saga.js)
 - [https://npmcdn.com/redux-saga/dist/redux-saga.min.js](https://npmcdn.com/redux-saga/dist/redux-saga.min.js)
 
-**Important!** If the browser you are targeting doesn't support _es2015 generators_ you must provide a valid polyfill,
-for example the one provided by *babel*:
-[browser-polyfill.min.js](https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.25/browser-polyfill.min.js).
-The polyfill must be imported before **redux-saga**.
+**重要提示！** 如果你的目标浏览器不支持 _es2015 generators_，那么你必须再使用一个可用的 polyfill，比如 **babel** 提供的：[browser-polyfill.min.js](https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.25/browser-polyfill.min.js)。
+这个 polyfill 必须在 **redux-saga** 之前被加载。
 
 ```javascript
 import 'babel-polyfill'
@@ -165,7 +142,7 @@ import 'babel-polyfill'
 import sagaMiddleware from 'redux-saga'
 ```
 
-# Building examples from sources
+# 从资源构建示例
 
 ```
 git clone https://github.com/yelouafi/redux-saga.git
@@ -174,25 +151,23 @@ npm install
 npm test
 ```
 
-Below are the examples ported (so far) from the Redux repos
+以下的例子是从 Redux 仓库移植过来的（到目前为止）。
 
-### Counter examples
+### 计数器示例
 
-There are 3 counter examples
+有 3 个计数器例子。
 
 #### counter-vanilla
 
-Demo using vanilla JavaScript and UMD builds. All source is inlined in `index.html`
+这个例子使用了 vanilla Javascript 和 UMD 构建版本。所有资源都在 `index.html` 中引入。
 
-To launch the example, just open `index.html` in your browser
+在浏览器中打开 `index.html` 运行这个例子。
 
->Important
-Your browser must support Generators. Latest versions of Chrome/Firefox/Edge are suitable.
-
+> 重要：你的浏览器必须支持 Generator。比如最新版本的 Chrome/Firefox/Edge。
 
 #### counter
 
-Demo using webpack and high level API `takeEvery`
+这个例子使用了 webpack 和高阶 API `takeEvery`。
 
 ```
 npm run counter
@@ -203,13 +178,13 @@ npm run test-counter
 
 #### cancellable-counter
 
-Demo using low level API. Demonstrate task cancellation
+这个例子使用低阶 API，演示任务取消。
 
 ```
 npm run cancellable-counter
 ```
 
-### Shopping Cart example
+### 购物车示例
 
 ```
 npm run shop
@@ -218,7 +193,7 @@ npm run shop
 npm run test-shop
 ```
 
-### async example
+### 异步示例
 
 ```
 npm run async
@@ -226,7 +201,7 @@ npm run async
 //sorry, no tests yet
 ```
 
-### real-world example (with webpack hot reloading)
+### 真实项目示例（使用 webpack 的热重载）
 
 ```
 npm run real-world
@@ -236,7 +211,7 @@ npm run real-world
 
 ### 贡献者
 
-> 定期更新，感谢各位辛勤贡献
+> 定期更新
 
 - [Leon Shi@superRaytin](https://github.com/superRaytin)
 
