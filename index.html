@@ -50,7 +50,7 @@
     <body>
         
         
-    <div class="book" data-level="0" data-chapter-title="Read Me" data-filepath="README.md" data-basepath="." data-revision="Fri Apr 01 2016 16:24:54 GMT+0800 (CST)">
+    <div class="book" data-level="0" data-chapter-title="Read Me" data-filepath="README.md" data-basepath="." data-revision="Fri Apr 01 2016 23:16:24 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -530,7 +530,7 @@ Sagas &#x53EF;&#x4EE5;&#x88AB;&#x770B;&#x4F5C;&#x662F;&#x5728;&#x540E;&#x53F0;&#
 <h1 id="&#x5F00;&#x59CB;">&#x5F00;&#x59CB;</h1>
 <h2 id="&#x5B89;&#x88C5;">&#x5B89;&#x88C5;</h2>
 <pre><code>npm install <span class="token operator">--</span>save redux<span class="token operator">-</span>saga
-</code></pre><p>&#x4F60;&#x4E5F;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x5728; HTML &#x9875;&#x9762;&#x4E2D;&#x901A;&#x8FC7; <code></code> &#x6807;&#x7B7E;&#x4F7F;&#x7528;&#x63D0;&#x4F9B;&#x7684; UMD &#x6784;&#x5EFA;&#x7248;&#x672C;&#xFF0C;&#x770B; <a href="#using-umd-build-in-the-browser">&#x8FD9;&#x91CC;</a>&#x3002;</p>
+</code></pre><p>&#x4F60;&#x4E5F;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x5728; HTML &#x9875;&#x9762;&#x4E2D;&#x901A;&#x8FC7; <code><span class="token operator">&lt;</span>script<span class="token operator">&gt;</span></code> &#x6807;&#x7B7E;&#x4F7F;&#x7528;&#x63D0;&#x4F9B;&#x7684; UMD &#x6784;&#x5EFA;&#x7248;&#x672C;&#xFF0C;&#x770B; <a href="#using-umd-build-in-the-browser">&#x8FD9;&#x91CC;</a>&#x3002;</p>
 <h2 id="&#x4F7F;&#x7528;&#x793A;&#x4F8B;">&#x4F7F;&#x7528;&#x793A;&#x4F8B;</h2>
 <p>&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x6709;&#x4E00;&#x4E2A; UI &#x754C;&#x9762;&#xFF0C;&#x5728;&#x5355;&#x51FB;&#x6309;&#x94AE;&#x65F6;&#x4ECE;&#x8FDC;&#x7A0B;&#x670D;&#x52A1;&#x5668;&#x83B7;&#x53D6;&#x4E00;&#x4E9B;&#x7528;&#x6237;&#x6570;&#x636E;&#xFF08;&#x4E3A;&#x7B80;&#x5355;&#x8D77;&#x89C1;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x5217;&#x51FA; action &#x89E6;&#x53D1;&#x4EE3;&#x7801;&#xFF09;&#x3002;</p>
 <pre><code class="lang-javascript"><span class="token keyword">class</span> <span class="token class-name">UserComponent</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">{</span>
@@ -542,7 +542,7 @@ Sagas &#x53EF;&#x4EE5;&#x88AB;&#x770B;&#x4F5C;&#x662F;&#x5728;&#x540E;&#x53F0;&#
   <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>&#x8FD9;&#x4E2A;&#x7EC4;&#x4EF6;&#x53D1;&#x8D77;&#x4E00;&#x4E2A;&#x666E;&#x901A;&#x5BF9;&#x8C61;&#x7684; action &#x5230; Store&#x3002;&#x6211;&#x4EEC;&#x5C06;&#x521B;&#x5EFA;&#x4E00;&#x4E2A; Saga &#x6765;&#x76D1;&#x542C;&#x6240;&#x6709;&#x7684; <code>USER_FETCH_REQUESTED</code> action&#xFF0C;&#x5E76;&#x89E6;&#x53D1;&#x4E00;&#x4E2A; API &#x8C03;&#x7528;&#x4EE5;&#x83B7;&#x53D6;&#x7528;&#x6237;&#x6570;&#x636E;&#x3002;</p>
+<p>&#x8FD9;&#x4E2A;&#x7EC4;&#x4EF6;&#x53D1;&#x8D77;&#x4E00;&#x4E2A;&#x666E;&#x901A;&#x5BF9;&#x8C61;&#x683C;&#x5F0F;&#x7684; action &#x5230; Store&#x3002;&#x6211;&#x4EEC;&#x5C06;&#x521B;&#x5EFA;&#x4E00;&#x4E2A; Saga &#x6765;&#x76D1;&#x542C;&#x6240;&#x6709;&#x7684; <code>USER_FETCH_REQUESTED</code> action&#xFF0C;&#x5E76;&#x89E6;&#x53D1;&#x4E00;&#x4E2A; API &#x8C03;&#x7528;&#x4EE5;&#x83B7;&#x53D6;&#x7528;&#x6237;&#x6570;&#x636E;&#x3002;</p>
 <h4 id="sagasjs"><code>sagas<span class="token punctuation">.</span>js</code></h4>
 <pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> takeEvery<span class="token punctuation">,</span> takeLatest <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga&apos;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> call<span class="token punctuation">,</span> put <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga/effects&apos;</span>
