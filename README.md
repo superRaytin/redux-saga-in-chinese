@@ -37,7 +37,7 @@ Sagas 可以被看作是在后台运行的进程。Sagas 监听发起的 action�
 npm install --save redux-saga
 ```
 
-你也可以直接在 HTML 页面中通过 `<script>` 标签使用提供的 UMD 构建版本，看 [这里](#using-umd-build-in-the-browser)。
+你也可以直接在 HTML 页面中通过 `&lt;script&gt;` 标签使用提供的 UMD 构建版本，看 [这里](#using-umd-build-in-the-browser)。
 
 ## 使用示例
 
@@ -54,7 +54,7 @@ class UserComponent extends React.Component {
 }
 ```
 
-这个组件发起一个普通对象的 action 到 Store。我们将创建一个 Saga 来监听所有的 `USER_FETCH_REQUESTED` action，并触发一个 API 调用以获取用户数据。
+这个组件发起一个普通对象格式的 action 到 Store。我们将创建一个 Saga 来监听所有的 `USER_FETCH_REQUESTED` action，并触发一个 API 调用以获取用户数据。
 
 #### `sagas.js`
 ```javascript
