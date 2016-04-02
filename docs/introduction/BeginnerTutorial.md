@@ -1,4 +1,4 @@
-# Beginner Tutorial
+# 初级教程
 
 ## Objectives of this tutorial
 
