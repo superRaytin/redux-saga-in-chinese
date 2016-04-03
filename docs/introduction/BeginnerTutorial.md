@@ -1,52 +1,47 @@
 # 初级教程
 
-## Objectives of this tutorial
+## 本教程的目标
 
-This tutorial attempts to introduce redux-saga in a (hopefully) accessible way.
+本教程尝试用一种易于接受的方式（希望如此）来介绍 redux-saga。
 
-For our getting started tutorial, we are going to use the trivial Counter demo from the Redux repo.
-The application is quite simple but is a good fit to illustrate the basic concepts of redux-saga
-without being lost in excessive details.
+我们将使用 Redux 仓库那个很小的计数器例子作为我们的入门教程。
+这个应用比较简单，但是非常适合用来演示说明 redux-saga 的基本概念，不至于在迷失在过多的细节里。
 
-### The initials setup
+### 初始步骤
 
-Before we start, you have to clone the repository at
+在我们开始前，需要先 clone 这个仓库：
 
 https://github.com/yelouafi/redux-saga-beginner-tutorial
 
->The final code of this tutorial is located in the sagas branch
+> 此教程最终的代码位于 sagas 分支
 
-Then in the command line, type
+然后在命令行输入：
 
 ```
 cd redux-saga-beginner-tutorial
 npm install
 ```
 
-To run the application type
+接着启动应用：
 
 ```
 npm start
 ```
 
-We are starting with the simplest use case: 2 buttons to `Increment` and `Decrement` a counter.
-Later, we will introduce asynchronous calls.
+我们先从最简单的用例开始：2 个按钮 `增加（Increment）` 和 `减少（Decrement）` 计数。之后我们将介绍异步调用。
 
-If things go well, you should see 2 buttons `Increment` and `Decrement` along with a message
-below showing `Counter : 0`.
+不出意外的话，你应该能看到 2 个按钮 `Increment` 和 `Decrement`，以及按钮下方 `Counter : 0` 的文字。
 
->In case you encountered an issue with running the application. Feel free to create an issue
-on the Tutorial repo
+> 如果你在运行这个应用的时候遇到问题，可随时在这个教程的仓库上创建 issue
 
 >https://github.com/yelouafi/redux-saga-beginner-tutorial/issues
 
 
-## Hello Sagas!
+## 雷猴，Sagas！
 
-We are going to create our first Saga. Following the tradition, we will write our 'Hello, world'
-version for Sagas.
+接下来将创建我们的第一个 Saga。按照传统，我们将编写一个 Sagas 版本的 'Hello, world'。
 
-Create a file `sagas.js` then add the following snippet
+创建一个 `sagas.js` 的文件，然后添加以下代码片段：
 
 ```javascript
 export function* helloSaga() {
@@ -54,16 +49,14 @@ export function* helloSaga() {
 }
 ```
 
-So nothing scary, just a normal function (Ok except for the `*`). All it does
-is print a greeting message into the console.
+所以并没有什么吓人的东西，只是一个很普通的功能（好吧，除了 `*`）。这段代码的作用是打印一句问候消息到控制台。
 
-In order to run our Saga, we need to
+为了运行我们的 Saga，我们需要：
 
-- create a Saga middleware with a list of Sagas to run (so far we have only one `helloSaga`)
-- connect the Saga middleware to the Redux store
+- 以 Sagas 列表创建一个 Saga middleware（目前我们只有一个 `helloSaga`）
+- 将这个 Saga middleware 连接至 Redux store.
 
-
-We will make the changes to `main.js`
+我们修改一下 `main.js`：
 
 ```javascript
 // ...
@@ -81,20 +74,18 @@ const store = createStore(
 // rest unchanged
 ```
 
-First we import our Saga from the `./sagas` module. Then we create a middleware using the factory function
-`createSagaMiddleware` exported by the `redux-saga` library. `createSagaMiddleware` accepts a list of Sagas
-which will be started immediately by the middleware.
+首先我们引入 `./sagas` 模块中的 Saga。然后使用 `redux-saga` 模块的 `createSagaMiddleware` 工厂函数来创建一个 Saga middleware。
+`createSagaMiddleware` 接受 Sagas 列表，这些 Sagas 将会通过创建的 middleware 被立即执行。
 
 
-So far, our Saga does nothing special. It just logs a message then exits.
+到目前为止，我们的 Saga 并没做什么特别的事情。它只是打印了一条消息，然后退出。
 
 
-## Making Asynchronous calls
+## 发起异步调用
 
-Now let's add something closer to the original Counter demo. To illustrate asynchronous calls, we will add another button
-to increment the counter 1 second after the click.
+现在我们来添加一些更接近原始计数器例子的东西。为了演示异步调用，我们将添加另外一个按钮，用于点击后 1 秒增加计数。
 
-First things first, we'll provide an additional callback `onIncrementAsync` to the UI component.
+首先，我们需要提供一个额外的回调 `onIncrementAsync`。
 
 ```javascript
 const Counter = ({ value, onIncrement, onDecrement, onIncrementAsync }) =>
@@ -107,9 +98,9 @@ const Counter = ({ value, onIncrement, onDecrement, onIncrementAsync }) =>
   </div>
 ```
 
-Next we should connect the `onIncrementAsync` of the Component to a Store action.
+接下来我们需要使 `onIncrementAsync` 与 Store action 联系起来。
 
-We will modify the `main.js` module as follows
+修改 `main.js` 模块：
 
 ```javascript
 function render() {
@@ -123,38 +114,38 @@ function render() {
 }
 ```
 
-Note that unlike in redux-thunk, our component dispatches a plain object action.
+注意，与 redux-thunk 不同，上面组件发起的 action 是普通对象格式的。
 
-Now we will introduce another Saga to perform the asynchronous call. Our use case is as follows
+现在我们将介绍另一种执行异步调用的 Saga。我们的用例如下：
 
-> On each `INCREMENT_ASYNC` action, we want to start a task that will do the following
+> 在每个 `INCREMENT_ASYNC` action 发起后，我们想要启动一个做以下事情的任务：
 
->- Wait 1 second then increment the counter
+>- 等待 1 秒，然后增加计数
 
 
-Add the following code to the `sagas.js` module
+添加以下代码到 `sagas.js` 模块：
 
 ```javascript
 import { takeEvery } from 'redux-saga'
 import { put } from 'redux-saga/effects'
 
-// an utility function: return a Promise that will resolve after 1 second
+// 一个工具函数：返回一个 Promise，这个 Promise 将在 1 秒后 resolve
 export const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 
-// Our worker Saga: will perform the async increment task
+// Our worker Saga: 将异步执行 increment 任务
 export function* incrementAsync() {
   yield delay(1000)
   yield put({ type: 'INCREMENT' })
 }
 
-// Our watcher Saga: spawn a new incrementAsync task on each INCREMENT_ASYNC
+// Our watcher Saga: 在每个 INCREMENT_ASYNC action 调用后，派发一个新的 incrementAsync 任务
 export function* watchIncrementAsync() {
   yield* takeEvery('INCREMENT_ASYNC', incrementAsync)
 }
 ```
 
-Ok time for some explanations. First we create an utility function `delay` which returns a Promise
-that will resolve after a specified number of milliseconds. We'll use this function to *block* the Generator.
+好吧，该解释一下了。首先我们创建一个工具函数 `delay`，用于返回一个延迟 1 秒 resolve 的 Promise。
+我们将使用这个函数去 *阻塞* Generator。
 
 Sagas, which are implemented as Generator functions, yield objects to the
 redux-saga middleware. The yielded objects are a kind of instructions to be interpreted by
