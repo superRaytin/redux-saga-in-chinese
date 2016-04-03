@@ -52,7 +52,7 @@
     <body>
         
         
-    <div class="book" data-level="1.1" data-chapter-title="初级教程" data-filepath="docs/introduction/BeginnerTutorial.md" data-basepath="../.." data-revision="Fri Apr 01 2016 23:16:24 GMT+0800 (CST)">
+    <div class="book" data-level="1.1" data-chapter-title="初级教程" data-filepath="docs/introduction/BeginnerTutorial.md" data-basepath="../.." data-revision="Sun Apr 03 2016 22:41:00 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -506,48 +506,42 @@
                 
                     <section class="normal" id="section-">
                     
-                        <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/introduction/BeginnerTutorial.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h1 id="beginner-tutorial">Beginner Tutorial</h1>
-<h2 id="objectives-of-this-tutorial">Objectives of this tutorial</h2>
-<p>This tutorial attempts to introduce redux-saga in a (hopefully) accessible way.</p>
-<p>For our getting started tutorial, we are going to use the trivial Counter demo from the Redux repo.
-The application is quite simple but is a good fit to illustrate the basic concepts of redux-saga
-without being lost in excessive details.</p>
-<h3 id="the-initials-setup">The initials setup</h3>
-<p>Before we start, you have to clone the repository at</p>
+                        <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/introduction/BeginnerTutorial.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h1 id="&#x521D;&#x7EA7;&#x6559;&#x7A0B;">&#x521D;&#x7EA7;&#x6559;&#x7A0B;</h1>
+<h2 id="&#x672C;&#x6559;&#x7A0B;&#x7684;&#x76EE;&#x6807;">&#x672C;&#x6559;&#x7A0B;&#x7684;&#x76EE;&#x6807;</h2>
+<p>&#x672C;&#x6559;&#x7A0B;&#x5C1D;&#x8BD5;&#x7528;&#x4E00;&#x79CD;&#x6613;&#x4E8E;&#x63A5;&#x53D7;&#x7684;&#x65B9;&#x5F0F;&#xFF08;&#x5E0C;&#x671B;&#x5982;&#x6B64;&#xFF09;&#x6765;&#x4ECB;&#x7ECD; redux-saga&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x5C06;&#x4F7F;&#x7528; Redux &#x4ED3;&#x5E93;&#x90A3;&#x4E2A;&#x5F88;&#x5C0F;&#x7684;&#x8BA1;&#x6570;&#x5668;&#x4F8B;&#x5B50;&#x4F5C;&#x4E3A;&#x6211;&#x4EEC;&#x7684;&#x5165;&#x95E8;&#x6559;&#x7A0B;&#x3002;
+&#x8FD9;&#x4E2A;&#x5E94;&#x7528;&#x6BD4;&#x8F83;&#x7B80;&#x5355;&#xFF0C;&#x4F46;&#x662F;&#x975E;&#x5E38;&#x9002;&#x5408;&#x7528;&#x6765;&#x6F14;&#x793A;&#x8BF4;&#x660E; redux-saga &#x7684;&#x57FA;&#x672C;&#x6982;&#x5FF5;&#xFF0C;&#x4E0D;&#x81F3;&#x4E8E;&#x5728;&#x8FF7;&#x5931;&#x5728;&#x8FC7;&#x591A;&#x7684;&#x7EC6;&#x8282;&#x91CC;&#x3002;</p>
+<h3 id="&#x521D;&#x59CB;&#x6B65;&#x9AA4;">&#x521D;&#x59CB;&#x6B65;&#x9AA4;</h3>
+<p>&#x5728;&#x6211;&#x4EEC;&#x5F00;&#x59CB;&#x524D;&#xFF0C;&#x9700;&#x8981;&#x5148; clone &#x8FD9;&#x4E2A;&#x4ED3;&#x5E93;&#xFF1A;</p>
 <p><a href="https://github.com/yelouafi/redux-saga-beginner-tutorial" target="_blank">https://github.com/yelouafi/redux-saga-beginner-tutorial</a></p>
 <blockquote>
-<p>The final code of this tutorial is located in the sagas branch</p>
+<p>&#x6B64;&#x6559;&#x7A0B;&#x6700;&#x7EC8;&#x7684;&#x4EE3;&#x7801;&#x4F4D;&#x4E8E; sagas &#x5206;&#x652F;</p>
 </blockquote>
-<p>Then in the command line, type</p>
+<p>&#x7136;&#x540E;&#x5728;&#x547D;&#x4EE4;&#x884C;&#x8F93;&#x5165;&#xFF1A;</p>
 <pre><code>cd redux<span class="token operator">-</span>saga<span class="token operator">-</span>beginner<span class="token operator">-</span>tutorial
 npm install
-</code></pre><p>To run the application type</p>
+</code></pre><p>&#x63A5;&#x7740;&#x542F;&#x52A8;&#x5E94;&#x7528;&#xFF1A;</p>
 <pre><code>npm start
-</code></pre><p>We are starting with the simplest use case: 2 buttons to <code>Increment</code> and <code>Decrement</code> a counter.
-Later, we will introduce asynchronous calls.</p>
-<p>If things go well, you should see 2 buttons <code>Increment</code> and <code>Decrement</code> along with a message
-below showing <code>Counter <span class="token punctuation">:</span> <span class="token number">0</span></code>.</p>
+</code></pre><p>&#x6211;&#x4EEC;&#x5148;&#x4ECE;&#x6700;&#x7B80;&#x5355;&#x7684;&#x7528;&#x4F8B;&#x5F00;&#x59CB;&#xFF1A;2 &#x4E2A;&#x6309;&#x94AE; <code>&#x589E;&#x52A0;&#xFF08;Increment&#xFF09;</code> &#x548C; <code>&#x51CF;&#x5C11;&#xFF08;Decrement&#xFF09;</code> &#x8BA1;&#x6570;&#x3002;&#x4E4B;&#x540E;&#x6211;&#x4EEC;&#x5C06;&#x4ECB;&#x7ECD;&#x5F02;&#x6B65;&#x8C03;&#x7528;&#x3002;</p>
+<p>&#x4E0D;&#x51FA;&#x610F;&#x5916;&#x7684;&#x8BDD;&#xFF0C;&#x4F60;&#x5E94;&#x8BE5;&#x80FD;&#x770B;&#x5230; 2 &#x4E2A;&#x6309;&#x94AE; <code>Increment</code> &#x548C; <code>Decrement</code>&#xFF0C;&#x4EE5;&#x53CA;&#x6309;&#x94AE;&#x4E0B;&#x65B9; <code>Counter <span class="token punctuation">:</span> <span class="token number">0</span></code> &#x7684;&#x6587;&#x5B57;&#x3002;</p>
 <blockquote>
-<p>In case you encountered an issue with running the application. Feel free to create an issue
-on the Tutorial repo</p>
+<p>&#x5982;&#x679C;&#x4F60;&#x5728;&#x8FD0;&#x884C;&#x8FD9;&#x4E2A;&#x5E94;&#x7528;&#x7684;&#x65F6;&#x5019;&#x9047;&#x5230;&#x95EE;&#x9898;&#xFF0C;&#x53EF;&#x968F;&#x65F6;&#x5728;&#x8FD9;&#x4E2A;&#x6559;&#x7A0B;&#x7684;&#x4ED3;&#x5E93;&#x4E0A;&#x521B;&#x5EFA; issue</p>
 <p><a href="https://github.com/yelouafi/redux-saga-beginner-tutorial/issues" target="_blank">https://github.com/yelouafi/redux-saga-beginner-tutorial/issues</a></p>
 </blockquote>
-<h2 id="hello-sagas">Hello Sagas!</h2>
-<p>We are going to create our first Saga. Following the tradition, we will write our &apos;Hello, world&apos;
-version for Sagas.</p>
-<p>Create a file <code>sagas<span class="token punctuation">.</span>js</code> then add the following snippet</p>
+<h2 id="&#x96F7;&#x7334;&#xFF0C;sagas&#xFF01;">&#x96F7;&#x7334;&#xFF0C;Sagas&#xFF01;</h2>
+<p>&#x63A5;&#x4E0B;&#x6765;&#x5C06;&#x521B;&#x5EFA;&#x6211;&#x4EEC;&#x7684;&#x7B2C;&#x4E00;&#x4E2A; Saga&#x3002;&#x6309;&#x7167;&#x4F20;&#x7EDF;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x7F16;&#x5199;&#x4E00;&#x4E2A; Sagas &#x7248;&#x672C;&#x7684; &apos;Hello, world&apos;&#x3002;</p>
+<p>&#x521B;&#x5EFA;&#x4E00;&#x4E2A; <code>sagas<span class="token punctuation">.</span>js</code> &#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x7136;&#x540E;&#x6DFB;&#x52A0;&#x4EE5;&#x4E0B;&#x4EE3;&#x7801;&#x7247;&#x6BB5;&#xFF1A;</p>
 <pre><code class="lang-javascript"><span class="token keyword">export</span> <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">helloSaga</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&apos;Hello Sagas!&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>So nothing scary, just a normal function (Ok except for the <code><span class="token operator">*</span></code>). All it does
-is print a greeting message into the console.</p>
-<p>In order to run our Saga, we need to</p>
+<p>&#x6240;&#x4EE5;&#x5E76;&#x6CA1;&#x6709;&#x4EC0;&#x4E48;&#x5413;&#x4EBA;&#x7684;&#x4E1C;&#x897F;&#xFF0C;&#x53EA;&#x662F;&#x4E00;&#x4E2A;&#x5F88;&#x666E;&#x901A;&#x7684;&#x529F;&#x80FD;&#xFF08;&#x597D;&#x5427;&#xFF0C;&#x9664;&#x4E86; <code><span class="token operator">*</span></code>&#xFF09;&#x3002;&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x7684;&#x4F5C;&#x7528;&#x662F;&#x6253;&#x5370;&#x4E00;&#x53E5;&#x95EE;&#x5019;&#x6D88;&#x606F;&#x5230;&#x63A7;&#x5236;&#x53F0;&#x3002;</p>
+<p>&#x4E3A;&#x4E86;&#x8FD0;&#x884C;&#x6211;&#x4EEC;&#x7684; Saga&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#xFF1A;</p>
 <ul>
-<li>create a Saga middleware with a list of Sagas to run (so far we have only one <code>helloSaga</code>)</li>
-<li>connect the Saga middleware to the Redux store</li>
+<li>&#x4EE5; Sagas &#x5217;&#x8868;&#x521B;&#x5EFA;&#x4E00;&#x4E2A; Saga middleware&#xFF08;&#x76EE;&#x524D;&#x6211;&#x4EEC;&#x53EA;&#x6709;&#x4E00;&#x4E2A; <code>helloSaga</code>&#xFF09;</li>
+<li>&#x5C06;&#x8FD9;&#x4E2A; Saga middleware &#x8FDE;&#x63A5;&#x81F3; Redux store.</li>
 </ul>
-<p>We will make the changes to <code>main<span class="token punctuation">.</span>js</code></p>
+<p>&#x6211;&#x4EEC;&#x4FEE;&#x6539;&#x4E00;&#x4E0B; <code>main<span class="token punctuation">.</span>js</code>&#xFF1A;</p>
 <pre><code class="lang-javascript"><span class="token comment" spellcheck="true">// ...</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> createStore<span class="token punctuation">,</span> applyMiddleware <span class="token punctuation">}</span> from <span class="token string">&apos;redux&apos;</span>
 <span class="token keyword">import</span> createSagaMiddleware from <span class="token string">&apos;redux-saga&apos;</span>
@@ -562,14 +556,12 @@ is print a greeting message into the console.</p>
 
 <span class="token comment" spellcheck="true">// rest unchanged</span>
 </code></pre>
-<p>First we import our Saga from the <code><span class="token punctuation">.</span><span class="token operator">/</span>sagas</code> module. Then we create a middleware using the factory function
-<code>createSagaMiddleware</code> exported by the <code>redux<span class="token operator">-</span>saga</code> library. <code>createSagaMiddleware</code> accepts a list of Sagas
-which will be started immediately by the middleware.</p>
-<p>So far, our Saga does nothing special. It just logs a message then exits.</p>
-<h2 id="making-asynchronous-calls">Making Asynchronous calls</h2>
-<p>Now let&apos;s add something closer to the original Counter demo. To illustrate asynchronous calls, we will add another button
-to increment the counter 1 second after the click.</p>
-<p>First things first, we&apos;ll provide an additional callback <code>onIncrementAsync</code> to the UI component.</p>
+<p>&#x9996;&#x5148;&#x6211;&#x4EEC;&#x5F15;&#x5165; <code><span class="token punctuation">.</span><span class="token operator">/</span>sagas</code> &#x6A21;&#x5757;&#x4E2D;&#x7684; Saga&#x3002;&#x7136;&#x540E;&#x4F7F;&#x7528; <code>redux<span class="token operator">-</span>saga</code> &#x6A21;&#x5757;&#x7684; <code>createSagaMiddleware</code> &#x5DE5;&#x5382;&#x51FD;&#x6570;&#x6765;&#x521B;&#x5EFA;&#x4E00;&#x4E2A; Saga middleware&#x3002;
+<code>createSagaMiddleware</code> &#x63A5;&#x53D7; Sagas &#x5217;&#x8868;&#xFF0C;&#x8FD9;&#x4E9B; Sagas &#x5C06;&#x4F1A;&#x901A;&#x8FC7;&#x521B;&#x5EFA;&#x7684; middleware &#x88AB;&#x7ACB;&#x5373;&#x6267;&#x884C;&#x3002;</p>
+<p>&#x5230;&#x76EE;&#x524D;&#x4E3A;&#x6B62;&#xFF0C;&#x6211;&#x4EEC;&#x7684; Saga &#x5E76;&#x6CA1;&#x505A;&#x4EC0;&#x4E48;&#x7279;&#x522B;&#x7684;&#x4E8B;&#x60C5;&#x3002;&#x5B83;&#x53EA;&#x662F;&#x6253;&#x5370;&#x4E86;&#x4E00;&#x6761;&#x6D88;&#x606F;&#xFF0C;&#x7136;&#x540E;&#x9000;&#x51FA;&#x3002;</p>
+<h2 id="&#x53D1;&#x8D77;&#x5F02;&#x6B65;&#x8C03;&#x7528;">&#x53D1;&#x8D77;&#x5F02;&#x6B65;&#x8C03;&#x7528;</h2>
+<p>&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x6765;&#x6DFB;&#x52A0;&#x4E00;&#x4E9B;&#x66F4;&#x63A5;&#x8FD1;&#x539F;&#x59CB;&#x8BA1;&#x6570;&#x5668;&#x4F8B;&#x5B50;&#x7684;&#x4E1C;&#x897F;&#x3002;&#x4E3A;&#x4E86;&#x6F14;&#x793A;&#x5F02;&#x6B65;&#x8C03;&#x7528;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x6DFB;&#x52A0;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x6309;&#x94AE;&#xFF0C;&#x7528;&#x4E8E;&#x70B9;&#x51FB;&#x540E; 1 &#x79D2;&#x589E;&#x52A0;&#x8BA1;&#x6570;&#x3002;</p>
+<p>&#x9996;&#x5148;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x989D;&#x5916;&#x7684;&#x56DE;&#x8C03; <code>onIncrementAsync</code>&#x3002;</p>
 <pre><code class="lang-javascript"><span class="token keyword">const</span> Counter <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">{</span> value<span class="token punctuation">,</span> onIncrement<span class="token punctuation">,</span> onDecrement<span class="token punctuation">,</span> onIncrementAsync <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span>
   
     <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
@@ -579,8 +571,8 @@ to increment the counter 1 second after the click.</p>
     Clicked<span class="token punctuation">:</span> <span class="token punctuation">{</span>value<span class="token punctuation">}</span> times
   
 </code></pre>
-<p>Next we should connect the <code>onIncrementAsync</code> of the Component to a Store action.</p>
-<p>We will modify the <code>main<span class="token punctuation">.</span>js</code> module as follows</p>
+<p>&#x63A5;&#x4E0B;&#x6765;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4F7F; <code>onIncrementAsync</code> &#x4E0E; Store action &#x8054;&#x7CFB;&#x8D77;&#x6765;&#x3002;</p>
+<p>&#x4FEE;&#x6539; <code>main<span class="token punctuation">.</span>js</code> &#x6A21;&#x5757;&#xFF1A;</p>
 <pre><code class="lang-javascript"><span class="token keyword">function</span> <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   ReactDOM<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>
      <span class="token function">action</span><span class="token punctuation">(</span><span class="token string">&apos;INCREMENT_ASYNC&apos;</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
@@ -589,34 +581,34 @@ to increment the counter 1 second after the click.</p>
   <span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>Note that unlike in redux-thunk, our component dispatches a plain object action.</p>
-<p>Now we will introduce another Saga to perform the asynchronous call. Our use case is as follows</p>
+<p>&#x6CE8;&#x610F;&#xFF0C;&#x4E0E; redux-thunk &#x4E0D;&#x540C;&#xFF0C;&#x4E0A;&#x9762;&#x7EC4;&#x4EF6;&#x53D1;&#x8D77;&#x7684; action &#x662F;&#x666E;&#x901A;&#x5BF9;&#x8C61;&#x683C;&#x5F0F;&#x7684;&#x3002;</p>
+<p>&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x5C06;&#x4ECB;&#x7ECD;&#x53E6;&#x4E00;&#x79CD;&#x6267;&#x884C;&#x5F02;&#x6B65;&#x8C03;&#x7528;&#x7684; Saga&#x3002;&#x6211;&#x4EEC;&#x7684;&#x7528;&#x4F8B;&#x5982;&#x4E0B;&#xFF1A;</p>
 <blockquote>
-<p>On each <code>INCREMENT_ASYNC</code> action, we want to start a task that will do the following</p>
+<p>&#x5728;&#x6BCF;&#x4E2A; <code>INCREMENT_ASYNC</code> action &#x53D1;&#x8D77;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x505A;&#x4EE5;&#x4E0B;&#x4E8B;&#x60C5;&#x7684;&#x4EFB;&#x52A1;&#xFF1A;</p>
 <ul>
-<li>Wait 1 second then increment the counter</li>
+<li>&#x7B49;&#x5F85; 1 &#x79D2;&#xFF0C;&#x7136;&#x540E;&#x589E;&#x52A0;&#x8BA1;&#x6570;</li>
 </ul>
 </blockquote>
-<p>Add the following code to the <code>sagas<span class="token punctuation">.</span>js</code> module</p>
+<p>&#x6DFB;&#x52A0;&#x4EE5;&#x4E0B;&#x4EE3;&#x7801;&#x5230; <code>sagas<span class="token punctuation">.</span>js</code> &#x6A21;&#x5757;&#xFF1A;</p>
 <pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> takeEvery <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga&apos;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> put <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga/effects&apos;</span>
 
-<span class="token comment" spellcheck="true">// an utility function: return a Promise that will resolve after 1 second</span>
+<span class="token comment" spellcheck="true">// &#x4E00;&#x4E2A;&#x5DE5;&#x5177;&#x51FD;&#x6570;&#xFF1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A; Promise&#xFF0C;&#x8FD9;&#x4E2A; Promise &#x5C06;&#x5728; 1 &#x79D2;&#x540E; resolve</span>
 <span class="token keyword">export</span> <span class="token keyword">const</span> delay <span class="token operator">=</span> ms <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span>resolve <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token function">setTimeout</span><span class="token punctuation">(</span>resolve<span class="token punctuation">,</span> ms<span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-<span class="token comment" spellcheck="true">// Our worker Saga: will perform the async increment task</span>
+<span class="token comment" spellcheck="true">// Our worker Saga: &#x5C06;&#x5F02;&#x6B65;&#x6267;&#x884C; increment &#x4EFB;&#x52A1;</span>
 <span class="token keyword">export</span> <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">incrementAsync</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">yield</span> <span class="token function">delay</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span>
   <span class="token keyword">yield</span> <span class="token function">put</span><span class="token punctuation">(</span><span class="token punctuation">{</span> type<span class="token punctuation">:</span> <span class="token string">&apos;INCREMENT&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 
-<span class="token comment" spellcheck="true">// Our watcher Saga: spawn a new incrementAsync task on each INCREMENT_ASYNC</span>
+<span class="token comment" spellcheck="true">// Our watcher Saga: &#x5728;&#x6BCF;&#x4E2A; INCREMENT_ASYNC action &#x8C03;&#x7528;&#x540E;&#xFF0C;&#x6D3E;&#x53D1;&#x4E00;&#x4E2A;&#x65B0;&#x7684; incrementAsync &#x4EFB;&#x52A1;</span>
 <span class="token keyword">export</span> <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">watchIncrementAsync</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">yield</span><span class="token operator">*</span> <span class="token function">takeEvery</span><span class="token punctuation">(</span><span class="token string">&apos;INCREMENT_ASYNC&apos;</span><span class="token punctuation">,</span> incrementAsync<span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>Ok time for some explanations. First we create an utility function <code>delay</code> which returns a Promise
-that will resolve after a specified number of milliseconds. We&apos;ll use this function to <em>block</em> the Generator.</p>
+<p>&#x597D;&#x5427;&#xFF0C;&#x8BE5;&#x89E3;&#x91CA;&#x4E00;&#x4E0B;&#x4E86;&#x3002;&#x9996;&#x5148;&#x6211;&#x4EEC;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5DE5;&#x5177;&#x51FD;&#x6570; <code>delay</code>&#xFF0C;&#x7528;&#x4E8E;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5EF6;&#x8FDF; 1 &#x79D2; resolve &#x7684; Promise&#x3002;
+&#x6211;&#x4EEC;&#x5C06;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x53BB; <em>&#x963B;&#x585E;</em> Generator&#x3002;</p>
 <p>Sagas, which are implemented as Generator functions, yield objects to the
 redux-saga middleware. The yielded objects are a kind of instructions to be interpreted by
 the middleware. When the middleware retrieves a yielded Promise, it&apos;ll suspend the Saga until
