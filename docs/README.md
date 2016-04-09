@@ -5,7 +5,7 @@
   * [初级教程](/docs/introduction/BeginnerTutorial.md)
   * [Saga background](/docs/introduction/SagaBackground.md)
 * [基本概念](/docs/basics/README.md)
-  * [使用 Saga Helpers](/docs/basics/UsingSagaHelpers.md)
+  * [使用 Saga 辅助函数](/docs/basics/UsingSagaHelpers.md)
   * [声明式 Effects](/docs/basics/DeclarativeEffects.md)
   * [发起 actions](/docs/basics/DispatchingActions.md)
   * [错误处理](/docs/basics/ErrorHandling.md)
