@@ -1,4 +1,4 @@
-# API Reference
+# API 参考
 
 * [`Middleware API`](#middleware-api)
   * [`createSagaMiddleware(...sagas)`](#createsagamiddlewaresagas)
@@ -33,11 +33,11 @@
 
 ### `createSagaMiddleware(...sagas)`
 
-Creates a Redux middleware and connects the Sagas to the Redux Store
+创建一个 Redux 中间件，将 Sagas 与 Redux Store 建立连接。
 
-- `sagas: Array<Function>` - A list of Generator functions
+- `sagas: Array<Function>` - Generator 函数列表
 
-#### Example
+#### 例子
 
 ```JavaScript
 import createSagaMiddleware from 'redux-saga'
@@ -45,7 +45,7 @@ import reducer from './path/to/reducer'
 import sagas from './path/to/sagas'
 
 export default function configureStore(initialState) {
-  // Note: passing middleware as the last argument to createStore requires redux@>=3.1.0
+  // 注意：redux@>=3.1.0 的版本才支持把 middleware 作为 createStore 方法的最后一个参数
   return createStore(
     reducer,
     initialState,
@@ -55,62 +55,52 @@ export default function configureStore(initialState) {
 
 ```
 
-#### Notes
+#### 注意事项
 
-Each Generator functions in `sagas` is invoked by the middleware with `getState`
-method of the Redux Store as a first argument.
+`sagas` 中的每个 Generator 函数被调用时，都会被传入 Redux Store 的 `getState` 方法作为第一个参数。
 
-Each function in `sagas` must return a [Generator Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator).
-The middleware will then iterate over the Generator and execute all yielded Effects.
+`sagas` 中的每个函数都必须返回一个 [Generator 对象](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator)。
+middleware 会迭代这个 Generator 并执行所有 yield 后的 Effect（译注：Effect 可以看作是 redux-saga 的任务单元，参考 [名词解释](/docs/Glossary.html)）。
 
-In the first iteration, the middleware invokes the `next()` method to retrieve the next Effect. The
-middleware then executes the yielded Effect as specified by the Effects API below. Meanwhile, the Generator
-will be suspended until the effect execution terminates. Upon receiving
-the result of the execution, the middleware calls `next(result)` on the Generator passing it the retrieved
-result as argument. This process is repeated until the Generator terminates normally or by throwing some error.
+在第一次迭代里，middleware 会调用 `next()` 方法以取得下一个 Effect。然后 middleware 会通过下面提到的 Effects API 来执行 yield 后的 Effect。
+与此同时，Generator 会暂停，直到 Effect 执行结束。当接收到执行的结果，middleware 在 Generator 里接着调用 `next(result)`，并将得到的结果作为参数传入。
+这个过程会一直重复，直到 Generator 正常或通过抛出一些错误结束。
 
-If the execution results in an error (as specified by each Effect creator) then the
-`throw(error)` method of the Generator is called instead. If the Generator function defines
-a `try/catch` surrounding the current yield instruction, then the `catch` block will be invoked
-by the underlying Generator runtime.
+如果执行引发了一个错误（像提到的那些 Effect 创建器），就会调用 Generator 的 `throw(error)` 方法来代替。如果定义了一个 `try/catch` 包裹当前的 yield 指令，
+那么 `catch` 区块将被底层 Generator runtime 调用。
 
 ### `middleware.run(saga, ...args)`
 
-Dynamically run `saga`. Can be used to run Sagas after the `applyMiddleware` phase
+动态执行 `saga`。用于 `applyMiddleware` 阶段之后执行 Sagas。
 
-- `saga: Function`: A Generator function  
-- `args: Array<any>`: arguments to be provided to `saga` (in addition to Store's `getState`)
+- `saga: Function`: 一个 Generator 函数
+- `args: Array<any>`: 提供给 `saga` 的参数 (除了 Store 的 `getState` 方法)
 
-The method returns a [Task descriptor](#task-descriptor)
+这个方法返回一个 [Task 描述对象](#task-descriptor)
 
-#### Notes
+#### 注意事项
 
-In some use cases, like in large applications using code splitting (modules are loaded
-in demand from the server), or in server side environments, it may be desirable or even
-necessary to start Sagas after the `applyMiddleware` phase has completed.
+在某些场景中，比如在大型应用中使用 code splitting（模块按需从服务器上加载），又或者处于服务端环境中，
+在这些情况下，我们可能希望或者需要在 `applyMiddleware` 阶段完成之后启动 Sagas。
 
-When you create a middleware instance
+当你创建一个 middleware 实例：
 
 ```javascript
 import createSagaMiddleware from 'redux-saga'
 import startupSagas from './path/to/sagas'
 
-// middleware instance
+// middleware 实例
 const sagaMiddleware = createSagaMiddleware(...startupSagas)
 ```
 
-The middleware instance exposes a `run` method. You can use this method to run Sagas and
-connect them to the Store at a later point in time.
+middleware 实例暴露了一个 `run` 方法。你可以用这个方法来执行 Sagas，并在稍后的某个时间点连接 Store。
 
-The Saga will be provided `getState` method of the store as the first argument. If `run`
-was provided with a non empty `...args`. All elements of `args` will be passed to `saga`
-as additional parameters.
+Saga 的第一个参数为 Redux Store 的 `getState` 方法。如果 `run` 方法被提供了非空的 `...args`，那么 `args` 的所有元素将作为 `saga` 的额外参数。
 
-#### Example
+#### 例子
 
-This example exports the Saga middleware from `configureStore.js`. Then imports
-it from `someModule`. `someModule` dynamically loads a Saga from the server, then
-use the `run` method of the imported middleware to run the loaded Saga.
+这个例子中，从 `configureStore.js` 输出 Saga middleware。然后在 `someModule` 中引入它，`someModule` 从服务端动态加载一个 Saga，
+然后使用引入的 middleware 的 `run` 方法来执行载入的 Saga。
 
 ##### `configureStore.js`
 
@@ -122,7 +112,7 @@ import startupSagas from './path/to/sagas'
 export const sagaMiddleware = createSagaMiddleware(...startupSagas)
 
 export default function configureStore(initialState) {
-  // Note: passing middleware as the last argument to createStore requires redux@>=3.1.0
+  // 注意：redux@>=3.1.0 的版本才支持把 middleware 作为 createStore 方法的最后一个参数
   return createStore(
     reducer,
     initialState,
@@ -142,30 +132,26 @@ require.ensure(["dynamicSaga"], (require) => {
 });
 ```
 
-## Saga Helpers
+## Saga 辅助函数
 --------------------------
 
->#### Notes, the following functions are helper functions built on top of the Effect creators
-below
+>#### 注意，以下的函数都是辅助函数，是在 Effect 创建器的基础之上构建的（译注：即高阶 API）
 
 ### `takeEvery(pattern, saga, ...args)`
 
-Spawns a `saga` on each action dispatched to the Store that matches `pattern`
+在发起的 action 与 `pattern` 匹配时派生指定的 `saga`。
 
-Each time an action is dispatched to the store. And if this action matches `pattern`, `takeEvery`
-starts a new `saga` task in the background.
+每次发起一个 action 到 Store，并且这个 action 与 `pattern` 相匹配，那么 `takeEvery` 将会在后台启动一个新的 `saga` 任务。
 
-- `pattern: String | Array | Function` - for more information see docs for [`take(pattern)`](#takepattern)
+- `pattern: String | Array | Function` - 要查看更多信息可查看文档 [`take(pattern)`](#takepattern)
 
-- `saga: Function` - a Generator function
+- `saga: Function` - 一个 Generator 函数
 
-- `args: Array<any>` - arguments to be passed to the started task. `takeEvery` will add the
-incoming action to the argument list (i.e. the action will be the last argument provided to `saga`)
+- `args: Array<any>` - 将被传入启动的任务作为参数。`takeEvery` 会把当前的 action 放入参数列表（action 将作为 `saga` 的最后一个参数）
 
-#### Example
+#### 例子
 
-In the following example, we create a simple task `fetchUser`. We use `takeEvery` to
-start a new `fetchUser` task on each dispatched `USER_REQUESTED` action
+接下来的例子，我们创建了一个简单的任务 `fetchUser`。在每次 `USER_REQUESTED` action 被发起时，使用 `takeEvery` 来启动一个新的 `fetchUser` 任务。
 
 ```javascript
 import { takeEvery } from `redux-saga`
@@ -179,9 +165,9 @@ function* watchFetchUser() {
 }
 ```
 
-#### Notes
+#### 注意事项
 
-`takeEvery` is a high level API built using `take` and `fork`. Here is how the helper is implemented
+`takeEvery` 是一个高阶 API，是使用 `take` 和 `fork` 构建的。下面演示这个辅助函数是如何实现的：
 
 ```javascript
 function* takeEvery(pattern, saga, ...args) {
@@ -192,31 +178,25 @@ function* takeEvery(pattern, saga, ...args) {
 }
 ```
 
-`takeEvery` allows concurrent actions to be handled. In the exmaple above, when a `USER_REQUESTED`
-action is dispatched, a new `fetchUser` task is started even if a previous `fetchUser` is still pending
-(for example, the user clicks on a `Load User` button 2 consecutive times at a rapid rate, the 2nd
-click will dispatch a `USER_REQUESTED` action while the `fetchUser` fired on the first one hasn't yet terminated)
+`takeEvery` 允许处理并发的 action（译注：即同时触发相同的 action）。在上面的例子里，当发起一个 `USER_REQUESTED` action 时，
+将会启动一个新的 `fetchUser` 任务，即使前一个 `fetchUser` 任务还未处理结束
+（举个例子，用户以极快的速度连续点击一个 `Load User` 按钮 2 次，第二次点击依然会发起一个 `USER_REQUESTED` action，即使第一个触发的 `fetchUser` 任务还未结束）
 
-`takeEvery` doesn't handle out of order responses from tasks. There is no guarantee that the tasks will
-termiate in the same order they were started. To handle out of order responses, you may consider `takeLatest`
-below
+`takeEvery` 不会对多个任务的响应返回进行排序，并且也无法保证任务将会按照启动的顺序结束。如果要对响应进行排序，可以关注以下的 `takeLatest`。
 
 ### `takeLatest(pattern, saga, ...args)`
 
-Spawns a `saga` on each action dispatched to the Store that matches `pattern`. And automatically cancels
-any previous `saga` task started previous if it's still running.
+在发起的 action 与 `pattern` 匹配时派生指定的 `saga`。并且自动取消之前启动的所有 `saga` 任务（如果在执行中）。
 
-Each time an action is dispatched to the store. And if this action matches `pattern`, `takeLatest`
-starts a new `saga` task in the background. If a `saga` task was started previously (on the last action dispatched
-before the actual action), and if this task is still running, the task will be cancelled by throwing
-a `SagaCancellationException` inside it.
+每次发起一个 action 到 Store，并且这个 action 与 `pattern` 相匹配，那么 `takeLatest` 将会在后台启动一个新的 `saga` 任务。
+如果之前已经有一个 `saga` 任务启动了（当前 action 之前的最后发起的 action），并且这个任务在执行中，那这个任务将被取消，
+并抛出一个 `SagaCancellationException` 错误。
 
-- `pattern: String | Array | Function` - for more information see docs for [`take(pattern)`](#takepattern)
+- `pattern: String | Array | Function` - 要查看更多信息可查看文档 [`take(pattern)`](#takepattern)
 
-- `saga: Function` - a Generator function
+- `saga: Function` - 一个 Generator 函数
 
-- `args: Array<any>` - arguments to be passed to the started task. `takeEvery` will add the
-incoming action to the argument list (i.e. the action will be the last argument provided to `saga`)
+- `args: Array<any>` - 将被传入启动的任务作为参数。`takeLatest` 会把当前的 action 放入参数列表（action 将作为 `saga` 的最后一个参数）
 
 #### Example
 
