@@ -50,7 +50,7 @@
     <body>
         
         
-    <div class="book" data-level="8" data-chapter-title="API 参考" data-filepath="docs/api/README.md" data-basepath="../.." data-revision="Sun Apr 03 2016 22:59:28 GMT+0800 (CST)">
+    <div class="book" data-level="8" data-chapter-title="API 参考" data-filepath="docs/api/README.md" data-basepath="../.." data-revision="Sat Apr 09 2016 21:33:58 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -154,7 +154,7 @@
                         
                             <b>2.1.</b>
                         
-                        使用 Saga Helpers
+                        使用 Saga 辅助函数
                     </a>
             
             
@@ -504,7 +504,7 @@
                 
                     <section class="normal" id="section-">
                     
-                        <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/api/README.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h1 id="api-reference">API Reference</h1>
+                        <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/api/README.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h1 id="api-&#x53C2;&#x8003;">API &#x53C2;&#x8003;</h1>
 <ul>
 <li><a href="#middleware-api"><code>Middleware API</code></a><ul>
 <li><a href="#createsagamiddlewaresagas"><code><span class="token function">createSagaMiddleware</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>sagas<span class="token punctuation">)</span></code></a></li>
@@ -548,17 +548,17 @@
 <h2 id="middleware-api">Middleware API</h2>
 <hr>
 <h3 id="createsagamiddlewaresagas"><code><span class="token function">createSagaMiddleware</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>sagas<span class="token punctuation">)</span></code></h3>
-<p>Creates a Redux middleware and connects the Sagas to the Redux Store</p>
+<p>&#x521B;&#x5EFA;&#x4E00;&#x4E2A; Redux &#x4E2D;&#x95F4;&#x4EF6;&#xFF0C;&#x5C06; Sagas &#x4E0E; Redux Store &#x5EFA;&#x7ACB;&#x8FDE;&#x63A5;&#x3002;</p>
 <ul>
-<li><code>sagas<span class="token punctuation">:</span> Array</code> - A list of Generator functions</li>
+<li><code>sagas<span class="token punctuation">:</span> Array</code> - Generator &#x51FD;&#x6570;&#x5217;&#x8868;</li>
 </ul>
-<h4 id="example">Example</h4>
+<h4 id="&#x4F8B;&#x5B50;">&#x4F8B;&#x5B50;</h4>
 <pre><code class="lang-JavaScript"><span class="token keyword">import</span> createSagaMiddleware from <span class="token string">&apos;redux-saga&apos;</span>
 <span class="token keyword">import</span> reducer from <span class="token string">&apos;./path/to/reducer&apos;</span>
 <span class="token keyword">import</span> sagas from <span class="token string">&apos;./path/to/sagas&apos;</span>
 
 <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">configureStore</span><span class="token punctuation">(</span>initialState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token comment" spellcheck="true">// Note: passing middleware as the last argument to createStore requires redux@&gt;=3.1.0</span>
+  <span class="token comment" spellcheck="true">// &#x6CE8;&#x610F;&#xFF1A;redux@&gt;=3.1.0 &#x7684;&#x7248;&#x672C;&#x624D;&#x652F;&#x6301;&#x628A; middleware &#x4F5C;&#x4E3A; createStore &#x65B9;&#x6CD5;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x53C2;&#x6570;</span>
   <span class="token keyword">return</span> <span class="token function">createStore</span><span class="token punctuation">(</span>
     reducer<span class="token punctuation">,</span>
     initialState<span class="token punctuation">,</span>
@@ -566,47 +566,37 @@
   <span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h4 id="notes">Notes</h4>
-<p>Each Generator functions in <code>sagas</code> is invoked by the middleware with <code>getState</code>
-method of the Redux Store as a first argument.</p>
-<p>Each function in <code>sagas</code> must return a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator" target="_blank">Generator Object</a>.
-The middleware will then iterate over the Generator and execute all yielded Effects.</p>
-<p>In the first iteration, the middleware invokes the <code><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> method to retrieve the next Effect. The
-middleware then executes the yielded Effect as specified by the Effects API below. Meanwhile, the Generator
-will be suspended until the effect execution terminates. Upon receiving
-the result of the execution, the middleware calls <code><span class="token function">next</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span></code> on the Generator passing it the retrieved
-result as argument. This process is repeated until the Generator terminates normally or by throwing some error.</p>
-<p>If the execution results in an error (as specified by each Effect creator) then the
-<code><span class="token keyword">throw</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span></code> method of the Generator is called instead. If the Generator function defines
-a <code><span class="token keyword">try</span><span class="token operator">/</span><span class="token keyword">catch</span></code> surrounding the current yield instruction, then the <code><span class="token keyword">catch</span></code> block will be invoked
-by the underlying Generator runtime.</p>
+<h4 id="&#x6CE8;&#x610F;&#x4E8B;&#x9879;">&#x6CE8;&#x610F;&#x4E8B;&#x9879;</h4>
+<p><code>sagas</code> &#x4E2D;&#x7684;&#x6BCF;&#x4E2A; Generator &#x51FD;&#x6570;&#x88AB;&#x8C03;&#x7528;&#x65F6;&#xFF0C;&#x90FD;&#x4F1A;&#x88AB;&#x4F20;&#x5165; Redux Store &#x7684; <code>getState</code> &#x65B9;&#x6CD5;&#x4F5C;&#x4E3A;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x3002;</p>
+<p><code>sagas</code> &#x4E2D;&#x7684;&#x6BCF;&#x4E2A;&#x51FD;&#x6570;&#x90FD;&#x5FC5;&#x987B;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A; <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator" target="_blank">Generator &#x5BF9;&#x8C61;</a>&#x3002;
+middleware &#x4F1A;&#x8FED;&#x4EE3;&#x8FD9;&#x4E2A; Generator &#x5E76;&#x6267;&#x884C;&#x6240;&#x6709; yield &#x540E;&#x7684; Effect&#xFF08;&#x8BD1;&#x6CE8;&#xFF1A;Effect &#x53EF;&#x4EE5;&#x770B;&#x4F5C;&#x662F; redux-saga &#x7684;&#x4EFB;&#x52A1;&#x5355;&#x5143;&#xFF0C;&#x53C2;&#x8003; <a href="docs/Glossary.html">&#x540D;&#x8BCD;&#x89E3;&#x91CA;</a>&#xFF09;&#x3002;</p>
+<p>&#x5728;&#x7B2C;&#x4E00;&#x6B21;&#x8FED;&#x4EE3;&#x91CC;&#xFF0C;middleware &#x4F1A;&#x8C03;&#x7528; <code><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> &#x65B9;&#x6CD5;&#x4EE5;&#x53D6;&#x5F97;&#x4E0B;&#x4E00;&#x4E2A; Effect&#x3002;&#x7136;&#x540E; middleware &#x4F1A;&#x901A;&#x8FC7;&#x4E0B;&#x9762;&#x63D0;&#x5230;&#x7684; Effects API &#x6765;&#x6267;&#x884C; yield &#x540E;&#x7684; Effect&#x3002;
+&#x4E0E;&#x6B64;&#x540C;&#x65F6;&#xFF0C;Generator &#x4F1A;&#x6682;&#x505C;&#xFF0C;&#x76F4;&#x5230; Effect &#x6267;&#x884C;&#x7ED3;&#x675F;&#x3002;&#x5F53;&#x63A5;&#x6536;&#x5230;&#x6267;&#x884C;&#x7684;&#x7ED3;&#x679C;&#xFF0C;middleware &#x5728; Generator &#x91CC;&#x63A5;&#x7740;&#x8C03;&#x7528; <code><span class="token function">next</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span></code>&#xFF0C;&#x5E76;&#x5C06;&#x5F97;&#x5230;&#x7684;&#x7ED3;&#x679C;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#x4F20;&#x5165;&#x3002;
+&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x4F1A;&#x4E00;&#x76F4;&#x91CD;&#x590D;&#xFF0C;&#x76F4;&#x5230; Generator &#x6B63;&#x5E38;&#x6216;&#x901A;&#x8FC7;&#x629B;&#x51FA;&#x4E00;&#x4E9B;&#x9519;&#x8BEF;&#x7ED3;&#x675F;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x6267;&#x884C;&#x5F15;&#x53D1;&#x4E86;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;&#xFF08;&#x50CF;&#x63D0;&#x5230;&#x7684;&#x90A3;&#x4E9B; Effect &#x521B;&#x5EFA;&#x5668;&#xFF09;&#xFF0C;&#x5C31;&#x4F1A;&#x8C03;&#x7528; Generator &#x7684; <code><span class="token keyword">throw</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span></code> &#x65B9;&#x6CD5;&#x6765;&#x4EE3;&#x66FF;&#x3002;&#x5982;&#x679C;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x4E2A; <code><span class="token keyword">try</span><span class="token operator">/</span><span class="token keyword">catch</span></code> &#x5305;&#x88F9;&#x5F53;&#x524D;&#x7684; yield &#x6307;&#x4EE4;&#xFF0C;
+&#x90A3;&#x4E48; <code><span class="token keyword">catch</span></code> &#x533A;&#x5757;&#x5C06;&#x88AB;&#x5E95;&#x5C42; Generator runtime &#x8C03;&#x7528;&#x3002;</p>
 <h3 id="middlewarerunsaga-args"><code>middleware<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>saga<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span></code></h3>
-<p>Dynamically run <code>saga</code>. Can be used to run Sagas after the <code>applyMiddleware</code> phase</p>
+<p>&#x52A8;&#x6001;&#x6267;&#x884C; <code>saga</code>&#x3002;&#x7528;&#x4E8E; <code>applyMiddleware</code> &#x9636;&#x6BB5;&#x4E4B;&#x540E;&#x6267;&#x884C; Sagas&#x3002;</p>
 <ul>
-<li><code>saga<span class="token punctuation">:</span> Function</code>: A Generator function  </li>
-<li><code>args<span class="token punctuation">:</span> Array</code>: arguments to be provided to <code>saga</code> (in addition to Store&apos;s <code>getState</code>)</li>
+<li><code>saga<span class="token punctuation">:</span> Function</code>: &#x4E00;&#x4E2A; Generator &#x51FD;&#x6570;</li>
+<li><code>args<span class="token punctuation">:</span> Array</code>: &#x63D0;&#x4F9B;&#x7ED9; <code>saga</code> &#x7684;&#x53C2;&#x6570; (&#x9664;&#x4E86; Store &#x7684; <code>getState</code> &#x65B9;&#x6CD5;)</li>
 </ul>
-<p>The method returns a <a href="#task-descriptor">Task descriptor</a></p>
-<h4 id="notes">Notes</h4>
-<p>In some use cases, like in large applications using code splitting (modules are loaded
-in demand from the server), or in server side environments, it may be desirable or even
-necessary to start Sagas after the <code>applyMiddleware</code> phase has completed.</p>
-<p>When you create a middleware instance</p>
+<p>&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A; <a href="#task-descriptor">Task &#x63CF;&#x8FF0;&#x5BF9;&#x8C61;</a></p>
+<h4 id="&#x6CE8;&#x610F;&#x4E8B;&#x9879;">&#x6CE8;&#x610F;&#x4E8B;&#x9879;</h4>
+<p>&#x5728;&#x67D0;&#x4E9B;&#x573A;&#x666F;&#x4E2D;&#xFF0C;&#x6BD4;&#x5982;&#x5728;&#x5927;&#x578B;&#x5E94;&#x7528;&#x4E2D;&#x4F7F;&#x7528; code splitting&#xFF08;&#x6A21;&#x5757;&#x6309;&#x9700;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x52A0;&#x8F7D;&#xFF09;&#xFF0C;&#x53C8;&#x6216;&#x8005;&#x5904;&#x4E8E;&#x670D;&#x52A1;&#x7AEF;&#x73AF;&#x5883;&#x4E2D;&#xFF0C;
+&#x5728;&#x8FD9;&#x4E9B;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x80FD;&#x5E0C;&#x671B;&#x6216;&#x8005;&#x9700;&#x8981;&#x5728; <code>applyMiddleware</code> &#x9636;&#x6BB5;&#x5B8C;&#x6210;&#x4E4B;&#x540E;&#x542F;&#x52A8; Sagas&#x3002;</p>
+<p>&#x5F53;&#x4F60;&#x521B;&#x5EFA;&#x4E00;&#x4E2A; middleware &#x5B9E;&#x4F8B;&#xFF1A;</p>
 <pre><code class="lang-javascript"><span class="token keyword">import</span> createSagaMiddleware from <span class="token string">&apos;redux-saga&apos;</span>
 <span class="token keyword">import</span> startupSagas from <span class="token string">&apos;./path/to/sagas&apos;</span>
 
-<span class="token comment" spellcheck="true">// middleware instance</span>
+<span class="token comment" spellcheck="true">// middleware &#x5B9E;&#x4F8B;</span>
 <span class="token keyword">const</span> sagaMiddleware <span class="token operator">=</span> <span class="token function">createSagaMiddleware</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>startupSagas<span class="token punctuation">)</span>
 </code></pre>
-<p>The middleware instance exposes a <code>run</code> method. You can use this method to run Sagas and
-connect them to the Store at a later point in time.</p>
-<p>The Saga will be provided <code>getState</code> method of the store as the first argument. If <code>run</code>
-was provided with a non empty <code><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args</code>. All elements of <code>args</code> will be passed to <code>saga</code>
-as additional parameters.</p>
-<h4 id="example">Example</h4>
-<p>This example exports the Saga middleware from <code>configureStore<span class="token punctuation">.</span>js</code>. Then imports
-it from <code>someModule</code>. <code>someModule</code> dynamically loads a Saga from the server, then
-use the <code>run</code> method of the imported middleware to run the loaded Saga.</p>
+<p>middleware &#x5B9E;&#x4F8B;&#x66B4;&#x9732;&#x4E86;&#x4E00;&#x4E2A; <code>run</code> &#x65B9;&#x6CD5;&#x3002;&#x4F60;&#x53EF;&#x4EE5;&#x7528;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x6765;&#x6267;&#x884C; Sagas&#xFF0C;&#x5E76;&#x5728;&#x7A0D;&#x540E;&#x7684;&#x67D0;&#x4E2A;&#x65F6;&#x95F4;&#x70B9;&#x8FDE;&#x63A5; Store&#x3002;</p>
+<p>Saga &#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x4E3A; Redux Store &#x7684; <code>getState</code> &#x65B9;&#x6CD5;&#x3002;&#x5982;&#x679C; <code>run</code> &#x65B9;&#x6CD5;&#x88AB;&#x63D0;&#x4F9B;&#x4E86;&#x975E;&#x7A7A;&#x7684; <code><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args</code>&#xFF0C;&#x90A3;&#x4E48; <code>args</code> &#x7684;&#x6240;&#x6709;&#x5143;&#x7D20;&#x5C06;&#x4F5C;&#x4E3A; <code>saga</code> &#x7684;&#x989D;&#x5916;&#x53C2;&#x6570;&#x3002;</p>
+<h4 id="&#x4F8B;&#x5B50;">&#x4F8B;&#x5B50;</h4>
+<p>&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x4ECE; <code>configureStore<span class="token punctuation">.</span>js</code> &#x8F93;&#x51FA; Saga middleware&#x3002;&#x7136;&#x540E;&#x5728; <code>someModule</code> &#x4E2D;&#x5F15;&#x5165;&#x5B83;&#xFF0C;<code>someModule</code> &#x4ECE;&#x670D;&#x52A1;&#x7AEF;&#x52A8;&#x6001;&#x52A0;&#x8F7D;&#x4E00;&#x4E2A; Saga&#xFF0C;
+&#x7136;&#x540E;&#x4F7F;&#x7528;&#x5F15;&#x5165;&#x7684; middleware &#x7684; <code>run</code> &#x65B9;&#x6CD5;&#x6765;&#x6267;&#x884C;&#x8F7D;&#x5165;&#x7684; Saga&#x3002;</p>
 <h5 id="configurestorejs"><code>configureStore<span class="token punctuation">.</span>js</code></h5>
 <pre><code class="lang-javascript"><span class="token keyword">import</span> createSagaMiddleware from <span class="token string">&apos;redux-saga&apos;</span>
 <span class="token keyword">import</span> reducer from <span class="token string">&apos;./path/to/reducer&apos;</span>
@@ -615,7 +605,7 @@ use the <code>run</code> method of the imported middleware to run the loaded Sag
 <span class="token keyword">export</span> <span class="token keyword">const</span> sagaMiddleware <span class="token operator">=</span> <span class="token function">createSagaMiddleware</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>startupSagas<span class="token punctuation">)</span>
 
 <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">configureStore</span><span class="token punctuation">(</span>initialState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token comment" spellcheck="true">// Note: passing middleware as the last argument to createStore requires redux@&gt;=3.1.0</span>
+  <span class="token comment" spellcheck="true">// &#x6CE8;&#x610F;&#xFF1A;redux@&gt;=3.1.0 &#x7684;&#x7248;&#x672C;&#x624D;&#x652F;&#x6301;&#x628A; middleware &#x4F5C;&#x4E3A; createStore &#x65B9;&#x6CD5;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x53C2;&#x6570;</span>
   <span class="token keyword">return</span> <span class="token function">createStore</span><span class="token punctuation">(</span>
     reducer<span class="token punctuation">,</span>
     initialState<span class="token punctuation">,</span>
@@ -631,28 +621,24 @@ require<span class="token punctuation">.</span><span class="token function">ensu
     <span class="token keyword">const</span> task <span class="token operator">=</span> sagaMiddleware<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>dynamicSaga<span class="token punctuation">)</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<h2 id="saga-helpers">Saga Helpers</h2>
+<h2 id="saga-&#x8F85;&#x52A9;&#x51FD;&#x6570;">Saga &#x8F85;&#x52A9;&#x51FD;&#x6570;</h2>
 <hr>
 <blockquote>
-<h4 id="notes-the-following-functions-are-helper-functions-built-on-top-of-the-effect-creators">Notes, the following functions are helper functions built on top of the Effect creators</h4>
-<p>below</p>
+<h4 id="&#x6CE8;&#x610F;&#xFF0C;&#x4EE5;&#x4E0B;&#x7684;&#x51FD;&#x6570;&#x90FD;&#x662F;&#x8F85;&#x52A9;&#x51FD;&#x6570;&#xFF0C;&#x662F;&#x5728;-effect-&#x521B;&#x5EFA;&#x5668;&#x7684;&#x57FA;&#x7840;&#x4E4B;&#x4E0A;&#x6784;&#x5EFA;&#x7684;&#xFF08;&#x8BD1;&#x6CE8;&#xFF1A;&#x5373;&#x9AD8;&#x9636;-api&#xFF09;">&#x6CE8;&#x610F;&#xFF0C;&#x4EE5;&#x4E0B;&#x7684;&#x51FD;&#x6570;&#x90FD;&#x662F;&#x8F85;&#x52A9;&#x51FD;&#x6570;&#xFF0C;&#x662F;&#x5728; Effect &#x521B;&#x5EFA;&#x5668;&#x7684;&#x57FA;&#x7840;&#x4E4B;&#x4E0A;&#x6784;&#x5EFA;&#x7684;&#xFF08;&#x8BD1;&#x6CE8;&#xFF1A;&#x5373;&#x9AD8;&#x9636; API&#xFF09;</h4>
 </blockquote>
 <h3 id="takeeverypattern-saga-args"><code><span class="token function">takeEvery</span><span class="token punctuation">(</span>pattern<span class="token punctuation">,</span> saga<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span></code></h3>
-<p>Spawns a <code>saga</code> on each action dispatched to the Store that matches <code>pattern</code></p>
-<p>Each time an action is dispatched to the store. And if this action matches <code>pattern</code>, <code>takeEvery</code>
-starts a new <code>saga</code> task in the background.</p>
+<p>&#x5728;&#x53D1;&#x8D77;&#x7684; action &#x4E0E; <code>pattern</code> &#x5339;&#x914D;&#x65F6;&#x6D3E;&#x751F;&#x6307;&#x5B9A;&#x7684; <code>saga</code>&#x3002;</p>
+<p>&#x6BCF;&#x6B21;&#x53D1;&#x8D77;&#x4E00;&#x4E2A; action &#x5230; Store&#xFF0C;&#x5E76;&#x4E14;&#x8FD9;&#x4E2A; action &#x4E0E; <code>pattern</code> &#x76F8;&#x5339;&#x914D;&#xFF0C;&#x90A3;&#x4E48; <code>takeEvery</code> &#x5C06;&#x4F1A;&#x5728;&#x540E;&#x53F0;&#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x65B0;&#x7684; <code>saga</code> &#x4EFB;&#x52A1;&#x3002;</p>
 <ul>
-<li><p><code>pattern<span class="token punctuation">:</span> String <span class="token operator">|</span> Array <span class="token operator">|</span> Function</code> - for more information see docs for <a href="#takepattern"><code><span class="token function">take</span><span class="token punctuation">(</span>pattern<span class="token punctuation">)</span></code></a></p>
+<li><p><code>pattern<span class="token punctuation">:</span> String <span class="token operator">|</span> Array <span class="token operator">|</span> Function</code> - &#x8981;&#x67E5;&#x770B;&#x66F4;&#x591A;&#x4FE1;&#x606F;&#x53EF;&#x67E5;&#x770B;&#x6587;&#x6863; <a href="#takepattern"><code><span class="token function">take</span><span class="token punctuation">(</span>pattern<span class="token punctuation">)</span></code></a></p>
 </li>
-<li><p><code>saga<span class="token punctuation">:</span> Function</code> - a Generator function</p>
+<li><p><code>saga<span class="token punctuation">:</span> Function</code> - &#x4E00;&#x4E2A; Generator &#x51FD;&#x6570;</p>
 </li>
-<li><p><code>args<span class="token punctuation">:</span> Array</code> - arguments to be passed to the started task. <code>takeEvery</code> will add the
-incoming action to the argument list (i.e. the action will be the last argument provided to <code>saga</code>)</p>
+<li><p><code>args<span class="token punctuation">:</span> Array</code> - &#x5C06;&#x88AB;&#x4F20;&#x5165;&#x542F;&#x52A8;&#x7684;&#x4EFB;&#x52A1;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#x3002;<code>takeEvery</code> &#x4F1A;&#x628A;&#x5F53;&#x524D;&#x7684; action &#x653E;&#x5165;&#x53C2;&#x6570;&#x5217;&#x8868;&#xFF08;action &#x5C06;&#x4F5C;&#x4E3A; <code>saga</code> &#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF09;</p>
 </li>
 </ul>
-<h4 id="example">Example</h4>
-<p>In the following example, we create a simple task <code>fetchUser</code>. We use <code>takeEvery</code> to
-start a new <code>fetchUser</code> task on each dispatched <code>USER_REQUESTED</code> action</p>
+<h4 id="&#x4F8B;&#x5B50;">&#x4F8B;&#x5B50;</h4>
+<p>&#x63A5;&#x4E0B;&#x6765;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;&#x6211;&#x4EEC;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x4EFB;&#x52A1; <code>fetchUser</code>&#x3002;&#x5728;&#x6BCF;&#x6B21; <code>USER_REQUESTED</code> action &#x88AB;&#x53D1;&#x8D77;&#x65F6;&#xFF0C;&#x4F7F;&#x7528; <code>takeEvery</code> &#x6765;&#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x65B0;&#x7684; <code>fetchUser</code> &#x4EFB;&#x52A1;&#x3002;</p>
 <pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> takeEvery <span class="token punctuation">}</span> from `redux<span class="token operator">-</span>saga`
 
 <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">fetchUser</span><span class="token punctuation">(</span>action<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -663,8 +649,8 @@ start a new <code>fetchUser</code> task on each dispatched <code>USER_REQUESTED<
   <span class="token keyword">yield</span><span class="token operator">*</span> <span class="token function">takeEvery</span><span class="token punctuation">(</span><span class="token string">&apos;USER_REQUESTED&apos;</span><span class="token punctuation">,</span> fetchUser<span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h4 id="notes">Notes</h4>
-<p><code>takeEvery</code> is a high level API built using <code>take</code> and <code>fork</code>. Here is how the helper is implemented</p>
+<h4 id="&#x6CE8;&#x610F;&#x4E8B;&#x9879;">&#x6CE8;&#x610F;&#x4E8B;&#x9879;</h4>
+<p><code>takeEvery</code> &#x662F;&#x4E00;&#x4E2A;&#x9AD8;&#x9636; API&#xFF0C;&#x662F;&#x4F7F;&#x7528; <code>take</code> &#x548C; <code>fork</code> &#x6784;&#x5EFA;&#x7684;&#x3002;&#x4E0B;&#x9762;&#x6F14;&#x793A;&#x8FD9;&#x4E2A;&#x8F85;&#x52A9;&#x51FD;&#x6570;&#x662F;&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x7684;&#xFF1A;</p>
 <pre><code class="lang-javascript"><span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">takeEvery</span><span class="token punctuation">(</span>pattern<span class="token punctuation">,</span> saga<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">const</span> action <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">take</span><span class="token punctuation">(</span>pattern<span class="token punctuation">)</span>
@@ -672,27 +658,21 @@ start a new <code>fetchUser</code> task on each dispatched <code>USER_REQUESTED<
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p><code>takeEvery</code> allows concurrent actions to be handled. In the exmaple above, when a <code>USER_REQUESTED</code>
-action is dispatched, a new <code>fetchUser</code> task is started even if a previous <code>fetchUser</code> is still pending
-(for example, the user clicks on a <code>Load User</code> button 2 consecutive times at a rapid rate, the 2nd
-click will dispatch a <code>USER_REQUESTED</code> action while the <code>fetchUser</code> fired on the first one hasn&apos;t yet terminated)</p>
-<p><code>takeEvery</code> doesn&apos;t handle out of order responses from tasks. There is no guarantee that the tasks will
-termiate in the same order they were started. To handle out of order responses, you may consider <code>takeLatest</code>
-below</p>
+<p><code>takeEvery</code> &#x5141;&#x8BB8;&#x5904;&#x7406;&#x5E76;&#x53D1;&#x7684; action&#xFF08;&#x8BD1;&#x6CE8;&#xFF1A;&#x5373;&#x540C;&#x65F6;&#x89E6;&#x53D1;&#x76F8;&#x540C;&#x7684; action&#xFF09;&#x3002;&#x5728;&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x91CC;&#xFF0C;&#x5F53;&#x53D1;&#x8D77;&#x4E00;&#x4E2A; <code>USER_REQUESTED</code> action &#x65F6;&#xFF0C;
+&#x5C06;&#x4F1A;&#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x65B0;&#x7684; <code>fetchUser</code> &#x4EFB;&#x52A1;&#xFF0C;&#x5373;&#x4F7F;&#x524D;&#x4E00;&#x4E2A; <code>fetchUser</code> &#x4EFB;&#x52A1;&#x8FD8;&#x672A;&#x5904;&#x7406;&#x7ED3;&#x675F;
+&#xFF08;&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;&#xFF0C;&#x7528;&#x6237;&#x4EE5;&#x6781;&#x5FEB;&#x7684;&#x901F;&#x5EA6;&#x8FDE;&#x7EED;&#x70B9;&#x51FB;&#x4E00;&#x4E2A; <code>Load User</code> &#x6309;&#x94AE; 2 &#x6B21;&#xFF0C;&#x7B2C;&#x4E8C;&#x6B21;&#x70B9;&#x51FB;&#x4F9D;&#x7136;&#x4F1A;&#x53D1;&#x8D77;&#x4E00;&#x4E2A; <code>USER_REQUESTED</code> action&#xFF0C;&#x5373;&#x4F7F;&#x7B2C;&#x4E00;&#x4E2A;&#x89E6;&#x53D1;&#x7684; <code>fetchUser</code> &#x4EFB;&#x52A1;&#x8FD8;&#x672A;&#x7ED3;&#x675F;&#xFF09;</p>
+<p><code>takeEvery</code> &#x4E0D;&#x4F1A;&#x5BF9;&#x591A;&#x4E2A;&#x4EFB;&#x52A1;&#x7684;&#x54CD;&#x5E94;&#x8FD4;&#x56DE;&#x8FDB;&#x884C;&#x6392;&#x5E8F;&#xFF0C;&#x5E76;&#x4E14;&#x4E5F;&#x65E0;&#x6CD5;&#x4FDD;&#x8BC1;&#x4EFB;&#x52A1;&#x5C06;&#x4F1A;&#x6309;&#x7167;&#x542F;&#x52A8;&#x7684;&#x987A;&#x5E8F;&#x7ED3;&#x675F;&#x3002;&#x5982;&#x679C;&#x8981;&#x5BF9;&#x54CD;&#x5E94;&#x8FDB;&#x884C;&#x6392;&#x5E8F;&#xFF0C;&#x53EF;&#x4EE5;&#x5173;&#x6CE8;&#x4EE5;&#x4E0B;&#x7684; <code>takeLatest</code>&#x3002;</p>
 <h3 id="takelatestpattern-saga-args"><code><span class="token function">takeLatest</span><span class="token punctuation">(</span>pattern<span class="token punctuation">,</span> saga<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span></code></h3>
-<p>Spawns a <code>saga</code> on each action dispatched to the Store that matches <code>pattern</code>. And automatically cancels
-any previous <code>saga</code> task started previous if it&apos;s still running.</p>
-<p>Each time an action is dispatched to the store. And if this action matches <code>pattern</code>, <code>takeLatest</code>
-starts a new <code>saga</code> task in the background. If a <code>saga</code> task was started previously (on the last action dispatched
-before the actual action), and if this task is still running, the task will be cancelled by throwing
-a <code>SagaCancellationException</code> inside it.</p>
+<p>&#x5728;&#x53D1;&#x8D77;&#x7684; action &#x4E0E; <code>pattern</code> &#x5339;&#x914D;&#x65F6;&#x6D3E;&#x751F;&#x6307;&#x5B9A;&#x7684; <code>saga</code>&#x3002;&#x5E76;&#x4E14;&#x81EA;&#x52A8;&#x53D6;&#x6D88;&#x4E4B;&#x524D;&#x542F;&#x52A8;&#x7684;&#x6240;&#x6709; <code>saga</code> &#x4EFB;&#x52A1;&#xFF08;&#x5982;&#x679C;&#x5728;&#x6267;&#x884C;&#x4E2D;&#xFF09;&#x3002;</p>
+<p>&#x6BCF;&#x6B21;&#x53D1;&#x8D77;&#x4E00;&#x4E2A; action &#x5230; Store&#xFF0C;&#x5E76;&#x4E14;&#x8FD9;&#x4E2A; action &#x4E0E; <code>pattern</code> &#x76F8;&#x5339;&#x914D;&#xFF0C;&#x90A3;&#x4E48; <code>takeLatest</code> &#x5C06;&#x4F1A;&#x5728;&#x540E;&#x53F0;&#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x65B0;&#x7684; <code>saga</code> &#x4EFB;&#x52A1;&#x3002;
+&#x5982;&#x679C;&#x4E4B;&#x524D;&#x5DF2;&#x7ECF;&#x6709;&#x4E00;&#x4E2A; <code>saga</code> &#x4EFB;&#x52A1;&#x542F;&#x52A8;&#x4E86;&#xFF08;&#x5F53;&#x524D; action &#x4E4B;&#x524D;&#x7684;&#x6700;&#x540E;&#x53D1;&#x8D77;&#x7684; action&#xFF09;&#xFF0C;&#x5E76;&#x4E14;&#x8FD9;&#x4E2A;&#x4EFB;&#x52A1;&#x5728;&#x6267;&#x884C;&#x4E2D;&#xFF0C;&#x90A3;&#x8FD9;&#x4E2A;&#x4EFB;&#x52A1;&#x5C06;&#x88AB;&#x53D6;&#x6D88;&#xFF0C;
+&#x5E76;&#x629B;&#x51FA;&#x4E00;&#x4E2A; <code>SagaCancellationException</code> &#x9519;&#x8BEF;&#x3002;</p>
 <ul>
-<li><p><code>pattern<span class="token punctuation">:</span> String <span class="token operator">|</span> Array <span class="token operator">|</span> Function</code> - for more information see docs for <a href="#takepattern"><code><span class="token function">take</span><span class="token punctuation">(</span>pattern<span class="token punctuation">)</span></code></a></p>
+<li><p><code>pattern<span class="token punctuation">:</span> String <span class="token operator">|</span> Array <span class="token operator">|</span> Function</code> - &#x8981;&#x67E5;&#x770B;&#x66F4;&#x591A;&#x4FE1;&#x606F;&#x53EF;&#x67E5;&#x770B;&#x6587;&#x6863; <a href="#takepattern"><code><span class="token function">take</span><span class="token punctuation">(</span>pattern<span class="token punctuation">)</span></code></a></p>
 </li>
-<li><p><code>saga<span class="token punctuation">:</span> Function</code> - a Generator function</p>
+<li><p><code>saga<span class="token punctuation">:</span> Function</code> - &#x4E00;&#x4E2A; Generator &#x51FD;&#x6570;</p>
 </li>
-<li><p><code>args<span class="token punctuation">:</span> Array</code> - arguments to be passed to the started task. <code>takeEvery</code> will add the
-incoming action to the argument list (i.e. the action will be the last argument provided to <code>saga</code>)</p>
+<li><p><code>args<span class="token punctuation">:</span> Array</code> - &#x5C06;&#x88AB;&#x4F20;&#x5165;&#x542F;&#x52A8;&#x7684;&#x4EFB;&#x52A1;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#x3002;<code>takeLatest</code> &#x4F1A;&#x628A;&#x5F53;&#x524D;&#x7684; action &#x653E;&#x5165;&#x53C2;&#x6570;&#x5217;&#x8868;&#xFF08;action &#x5C06;&#x4F5C;&#x4E3A; <code>saga</code> &#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF09;</p>
 </li>
 </ul>
 <h4 id="example">Example</h4>
