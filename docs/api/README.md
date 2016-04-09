@@ -60,7 +60,7 @@ export default function configureStore(initialState) {
 `sagas` 中的每个 Generator 函数被调用时，都会被传入 Redux Store 的 `getState` 方法作为第一个参数。
 
 `sagas` 中的每个函数都必须返回一个 [Generator 对象](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator)。
-middleware 会迭代这个 Generator 并执行所有 yield 后的 Effect（译注：Effect 可以看作是 redux-saga 的任务单元，参考 [名词解释](/docs/Glossary.html)）。
+middleware 会迭代这个 Generator 并执行所有 yield 后的 Effect（译注：Effect 可以看作是 redux-saga 的任务单元，参考 [名词解释](http://leonshi.com/redux-saga-in-chinese/docs/Glossary.html)）。
 
 在第一次迭代里，middleware 会调用 `next()` 方法以取得下一个 Effect。然后 middleware 会通过下面提到的 Effects API 来执行 yield 后的 Effect。
 与此同时，Generator 会暂停，直到 Effect 执行结束。当接收到执行的结果，middleware 在 Generator 里接着调用 `next(result)`，并将得到的结果作为参数传入。
@@ -167,7 +167,7 @@ function* watchFetchUser() {
 
 #### 注意事项
 
-`takeEvery` 是一个高阶 API，是使用 `take` 和 `fork` 构建的。下面演示这个辅助函数是如何实现的：
+`takeEvery` 是一个高阶 API，是使用 `take` 和 `fork` 构建的。下面演示了这个辅助函数是如何实现的：
 
 ```javascript
 function* takeEvery(pattern, saga, ...args) {
@@ -198,12 +198,10 @@ function* takeEvery(pattern, saga, ...args) {
 
 - `args: Array<any>` - 将被传入启动的任务作为参数。`takeLatest` 会把当前的 action 放入参数列表（action 将作为 `saga` 的最后一个参数）
 
-#### Example
+#### 例子
 
-In the following example, we create a simple task `fetchUser`. We use `takeLatest` to
-start a new `fetchUser` task on each dispatched `USER_REQUESTED` action. Since `takeLatest`
-cancels any pending task started previously, we ensure that if a user triggers multiple consecutive
-`USER_REQUESTED` actions rapidly, we'll only conclude with the latest action
+在以下的例子中，我们创建了一个简单的任务 `fetchUser`。在每次 `USER_REQUESTED` action 被发起时，使用 `takeLatest` 来启动一个新的 `fetchUser` 任务。
+由于 `takeLatest` 取消了所有之前启动的未完成的任务，这样就可以保证：如果用户以极快的速度连续多次触发 `USER_REQUESTED` action，将会以最后的那个结束。
 
 ```javascript
 import { takeLatest } from `redux-saga`
@@ -217,9 +215,9 @@ function* watchLastFetchUser() {
 }
 ```
 
-#### Notes
+#### 注意事项
 
-`takeLatest` is a high level API built using `take` and `fork`. Here is how the helper is implemented
+`takeLatest` 是一个高阶 API，是使用 `take` 和 `fork` 构建的。下面演示了这个辅助函数是如何实现的：
 
 ```javascript
 function* takeLatest(pattern, saga, ...args) {
@@ -227,14 +225,14 @@ function* takeLatest(pattern, saga, ...args) {
   while(true) {
     const action = yield take(pattern)
     if(lastTask)
-      yield cancel(lastTask) // cancel is no-op if the task has alerady terminateds
+      yield cancel(lastTask) // 如果任务已经终止，取消就是空操作
 
     lastTask = yield fork(saga, ...args.concat(action))
   }
 }
 ```
 
-## Effect creators
+## Effect 创建器
 -------------------------
 
 >#### Notes
