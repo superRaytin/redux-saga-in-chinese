@@ -37,7 +37,7 @@ npm start
 >https://github.com/yelouafi/redux-saga-beginner-tutorial/issues
 
 
-## 雷猴，Sagas！
+## 你好，Sagas！
 
 接下来将创建我们的第一个 Saga。按照传统，我们将编写一个 Sagas 版本的 'Hello, world'。
 
