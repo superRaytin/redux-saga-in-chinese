@@ -235,10 +235,10 @@ function* takeLatest(pattern, saga, ...args) {
 ## Effect 创建器
 -------------------------
 
->#### Notes
-Each function below returns a plain JavaScript object and do not perform any execution
-The execution is performed by the middleware during the Iteration process described above.
-The middleware examines each Effect description and performs the appropriate action.
+>#### 注意
+以下每个函数都会返回一个 plain Javascript object (纯文本 Javascript 对象) 并且不会执行任何其它的操作。
+执行是由 middleware 在上述迭代过程中进行的。
+middleware 检查每个 Effect 的信息，并进行相应的操作。
 
 ### `take(pattern)`
 
