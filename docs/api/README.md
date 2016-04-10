@@ -242,7 +242,7 @@ middleware 检查每个 Effect 的信息，并进行相应的操作。
 
 ### `take(pattern)`
 
-创建一个 Effect 描述信息，指示 middleware 等待 Store 上指定的 action。
+创建一条 Effect 描述信息，指示 middleware 等待 Store 上指定的 action。
 Generator 会暂停，直到一个与 `pattern` 匹配的 action 被发起。
 
 用以下规则来解释 `pattern`：
@@ -258,44 +258,37 @@ Generator 会暂停，直到一个与 `pattern` 匹配的 action 被发起。
 
 ### `put(action)`
 
-Creates an Effect description that instructs the middleware to dispatch an action to the Store.
+创建一条 Effect 描述信息，指示 middleware 发起一个 action 到 Store。
 
+- `action: Object` - [完整信息可查看 Redux 的 `dispatch` 文档](http://redux.js.org/docs/api/Store.html#dispatch)
 
-- `action: Object` - [see Redux `dispatch` documentation for complete infos](http://redux.js.org/docs/api/Store.html#dispatch)
+#### 注意
 
-#### Notes
-
-The `put` effect is run asynchronously, i.e. as a separate microtask and thus does not happen immediately. 
-
+`put` 执行是异步的。即作为一个单独的 microtask，因此不会立即发生。
 
 ### `call(fn, ...args)`
 
-Creates an Effect description that instructs the middleware to call the function `fn` with `args` as arguments.
+创建一条 Effect 描述信息，指示 middleware 调用 `fn` 函数并以 `args` 为参数。
 
-- `fn: Function` - A Generator function, or normal function which returns a Promise as result
+- `fn: Function` - 一个 Generator 函数, 或者返回 Promise 的普通函数
 
-- `args: Array<any>` - An array of values to be passed as arguments to `fn`
+- `args: Array<any>` - 一个数组，作为 `fn` 的参数
 
-#### Notes
+#### 注意
 
-`fn` can be either a *normal* or a Generator function.
+`fn` 既可以是一个*普通*函数，也可以是一个 Generator 函数。
 
-The middleware invokes the function and examines its result.
+middleware 调用这个函数并检查它的结果。
 
-If the result is a Generator object, the middleware will run it just like he did with the
-startup Generators (passed to the middleware on startup). The parent Generator will be
-suspended until the child Generator terminates normally, in which case the parent Generator
-is resumed with the value returned by the child Generator. Or until the child aborts with some
-error, in which case an error will be thrown inside the parent Generator.
+如果结果是一个 Generator 对象，middleware 会执行它，就像在启动 Generator （startup Generators，启动时被传给 middleware）时做的。
+父级 Generator 会暂停直到子级 Generator 正常结束，这种情况下，父级 Generator 将会在子级 Generator 返回后继续执行，或者直到子级 Generator 被某些错误中止，
+如果是这种情况，将在父级 Generator 中抛出一个错误。
 
-If the result is a Promise, the middleware will suspend the Generator until the Promise is
-resolved, in which case the Generator is resumed with the resolved value. or until the Promise
-is rejected, in which case an error is thrown inside the Generator.
+如果结果是一个 Promise，middleware 会暂停直到这个 Promise 被 resolve，resolve 后 Generator 会继续执行。
+或者直到 Promise 被 reject 了，如果是这种情况，将在 Generator 中抛出一个错误。
 
-When an error is thrown inside the Generator. If it has a `try/catch` block surrounding the
-current `yield` instruction, the control will be passed to the `catch` block. Otherwise,
-the Generator aborts with the raised error, and if this Generator was called by another
-Generator, the error will propagate to the calling Generator.
+当 Generator 中抛出了一个错误，如果有一个 `try/catch` 包裹当前的 yield 指令，控制权将被转交给 `catch`。
+否则，Generator 会被错误中止，并且如果这个 Generator 被其他 Generator 调用了，错误都会传到调用的 Generator。
 
 ### `call([context, fn], ...args)`
 
