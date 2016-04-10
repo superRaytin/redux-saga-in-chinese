@@ -281,59 +281,53 @@ Generator 会暂停，直到一个与 `pattern` 匹配的 action 被发起。
 middleware 调用这个函数并检查它的结果。
 
 如果结果是一个 Generator 对象，middleware 会执行它，就像在启动 Generator （startup Generators，启动时被传给 middleware）时做的。
-父级 Generator 会暂停直到子级 Generator 正常结束，这种情况下，父级 Generator 将会在子级 Generator 返回后继续执行，或者直到子级 Generator 被某些错误中止，
+如果有子级 Generator，那么在子级 Generator 正常结束前，父级 Generator 会暂停，这种情况下，父级 Generator 将会在子级 Generator 返回后继续执行，或者直到子级 Generator 被某些错误中止，
 如果是这种情况，将在父级 Generator 中抛出一个错误。
 
 如果结果是一个 Promise，middleware 会暂停直到这个 Promise 被 resolve，resolve 后 Generator 会继续执行。
 或者直到 Promise 被 reject 了，如果是这种情况，将在 Generator 中抛出一个错误。
 
 当 Generator 中抛出了一个错误，如果有一个 `try/catch` 包裹当前的 yield 指令，控制权将被转交给 `catch`。
-否则，Generator 会被错误中止，并且如果这个 Generator 被其他 Generator 调用了，错误都会传到调用的 Generator。
+否则，Generator 会被错误中止，并且如果这个 Generator 被其他 Generator 调用了，错误将会传到调用的 Generator。
 
 ### `call([context, fn], ...args)`
 
-Some as `call(fn, ...args)` but supports passing a `this` context to `fn`. This is useful to
-invoke object methods.
+类似 `call(fn, ...args)`，但支持为 `fn` 指定一个 `this` 上下文。用于调用对象的方法。
 
 ### `apply(context, fn, args)`
 
-Alias for `call([context, fn], ...args)`
+类似 `call([context, fn], ...args)`
 
 ### `cps(fn, ...args)`
 
-Creates an Effect description that instructs the middleware to invoke `fn` as a Node style function.
+创建一条 Effect 描述信息，指示 middleware 以 Node 风格调用 `fn` 函数。
 
-- `fn: Function` - a Node style function. i.e. a function which accepts in addition to its arguments,
-an additional callback to be invoked by `fn` when it terminates. The callback accepts two parameters,
-where the first parameter is used to report errors while the second is used to report successful results
+- `fn: Function` - 一个 Node 风格的函数。即不仅接受它自己的参数，`fn` 结束后会调用一个附加的回调函数。回调函数接受两个参数，第一个参数是报错信息，第二个是成功的结果。
 
-- `args: Array<any>` - an array to be passed as arguments for `fn`
+- `args: Array<any>` - 一个数组，作为 `fn` 的参数
 
-#### Notes
+#### 注意
 
-The middleware will perform a call `fn(...arg, cb)`. The `cb` is a callback passed by the middleware to
-`fn`. If `fn` terminates normally, it must call `cb(null, result)` to notify the middleware
-of a successful result. If `fn` encounters some error, then it must call `cb(error)` in order to
-notify the middleware that an error has occurred.
+middleware 将执行 `fn(...arg, cb)`。`cb` 是被 middleware 传给 `fn` 的回调函数。如果 `fn` 正常结束，会调用 `cb(null, result)` 通知 middleware 成功了。
+如果 `fn` 遇到了某些错误，会调用 `cb(error)` 通知 middleware 出错了。
 
-The middleware remains suspended until `fn` terminates.
+`fn` 结束之前 middleware 会保持暂停状态。
 
 ### `cps([context, fn], ...args)`
 
-Supports passing a `this` context to `fn` (object method invocation)
-
+支持为 `fn` 指定一个 `this` 上下文（调用对象方法）。
 
 ### `fork(fn, ...args)`
 
-Creates an Effect description that instructs the middleware to perform a *non blocking call* on `fn`
+创建一条 Effect 描述信息，指示 middleware 以 *无阻塞调用* 方式执行 `fn`。
 
-#### Arguments
+#### 参数
 
-- `fn: Function` - A Generator function, or normal function which returns a Promise as result
+- `fn: Function` - 一个 Generator 函数, 或者返回 Promise 的普通函数
 
-- `args: Array<any>` - An array of values to be passed as arguments to `fn`
+- `args: Array<any>` - 一个数组，作为 `fn` 的参数
 
-#### Note
+#### 注意
 
 `fork`, like `call`, can be used to invoke both normal and Generator functions. But, the calls are
 non blocking, the middleware doesn't suspend the Generator while waiting for the result of `fn`.
