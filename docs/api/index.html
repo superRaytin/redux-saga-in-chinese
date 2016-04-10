@@ -50,7 +50,7 @@
     <body>
         
         
-    <div class="book" data-level="8" data-chapter-title="API 参考" data-filepath="docs/api/README.md" data-basepath="../.." data-revision="Sun Apr 10 2016 00:10:00 GMT+0800 (CST)">
+    <div class="book" data-level="8" data-chapter-title="API 参考" data-filepath="docs/api/README.md" data-basepath="../.." data-revision="Sun Apr 10 2016 23:28:32 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -340,7 +340,7 @@
                         
                             <b>3.7.</b>
                         
-                        取消任务
+                        任务的取消
                     </a>
             
             
@@ -638,7 +638,7 @@ require<span class="token punctuation">.</span><span class="token function">ensu
 </li>
 </ul>
 <h4 id="&#x4F8B;&#x5B50;">&#x4F8B;&#x5B50;</h4>
-<p>&#x63A5;&#x4E0B;&#x6765;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;&#x6211;&#x4EEC;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x4EFB;&#x52A1; <code>fetchUser</code>&#x3002;&#x5728;&#x6BCF;&#x6B21; <code>USER_REQUESTED</code> action &#x88AB;&#x53D1;&#x8D77;&#x65F6;&#xFF0C;&#x4F7F;&#x7528; <code>takeEvery</code> &#x6765;&#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x65B0;&#x7684; <code>fetchUser</code> &#x4EFB;&#x52A1;&#x3002;</p>
+<p>&#x5728;&#x4EE5;&#x4E0B;&#x7684;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x4EFB;&#x52A1; <code>fetchUser</code>&#x3002;&#x5728;&#x6BCF;&#x6B21; <code>USER_REQUESTED</code> action &#x88AB;&#x53D1;&#x8D77;&#x65F6;&#xFF0C;&#x4F7F;&#x7528; <code>takeEvery</code> &#x6765;&#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x65B0;&#x7684; <code>fetchUser</code> &#x4EFB;&#x52A1;&#x3002;</p>
 <pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> takeEvery <span class="token punctuation">}</span> from `redux<span class="token operator">-</span>saga`
 
 <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">fetchUser</span><span class="token punctuation">(</span>action<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -650,7 +650,7 @@ require<span class="token punctuation">.</span><span class="token function">ensu
 <span class="token punctuation">}</span>
 </code></pre>
 <h4 id="&#x6CE8;&#x610F;&#x4E8B;&#x9879;">&#x6CE8;&#x610F;&#x4E8B;&#x9879;</h4>
-<p><code>takeEvery</code> &#x662F;&#x4E00;&#x4E2A;&#x9AD8;&#x9636; API&#xFF0C;&#x662F;&#x4F7F;&#x7528; <code>take</code> &#x548C; <code>fork</code> &#x6784;&#x5EFA;&#x7684;&#x3002;&#x4E0B;&#x9762;&#x6F14;&#x793A;&#x4E86;&#x8FD9;&#x4E2A;&#x8F85;&#x52A9;&#x51FD;&#x6570;&#x662F;&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x7684;&#xFF1A;</p>
+<p><code>takeEvery</code> &#x662F;&#x4E00;&#x4E2A;&#x9AD8;&#x9636; API&#xFF0C;&#x4F7F;&#x7528; <code>take</code> &#x548C; <code>fork</code> &#x6784;&#x5EFA;&#x3002;&#x4E0B;&#x9762;&#x6F14;&#x793A;&#x4E86;&#x8FD9;&#x4E2A;&#x8F85;&#x52A9;&#x51FD;&#x6570;&#x662F;&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x7684;&#xFF1A;</p>
 <pre><code class="lang-javascript"><span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">takeEvery</span><span class="token punctuation">(</span>pattern<span class="token punctuation">,</span> saga<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">const</span> action <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">take</span><span class="token punctuation">(</span>pattern<span class="token punctuation">)</span>
@@ -689,7 +689,7 @@ require<span class="token punctuation">.</span><span class="token function">ensu
 <span class="token punctuation">}</span>
 </code></pre>
 <h4 id="&#x6CE8;&#x610F;&#x4E8B;&#x9879;">&#x6CE8;&#x610F;&#x4E8B;&#x9879;</h4>
-<p><code>takeLatest</code> &#x662F;&#x4E00;&#x4E2A;&#x9AD8;&#x9636; API&#xFF0C;&#x662F;&#x4F7F;&#x7528; <code>take</code> &#x548C; <code>fork</code> &#x6784;&#x5EFA;&#x7684;&#x3002;&#x4E0B;&#x9762;&#x6F14;&#x793A;&#x4E86;&#x8FD9;&#x4E2A;&#x8F85;&#x52A9;&#x51FD;&#x6570;&#x662F;&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x7684;&#xFF1A;</p>
+<p><code>takeLatest</code> &#x662F;&#x4E00;&#x4E2A;&#x9AD8;&#x9636; API&#xFF0C;&#x4F7F;&#x7528; <code>take</code> &#x548C; <code>fork</code> &#x6784;&#x5EFA;&#x3002;&#x4E0B;&#x9762;&#x6F14;&#x793A;&#x4E86;&#x8FD9;&#x4E2A;&#x8F85;&#x52A9;&#x51FD;&#x6570;&#x662F;&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x7684;&#xFF1A;</p>
 <pre><code class="lang-javascript"><span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">takeLatest</span><span class="token punctuation">(</span>pattern<span class="token punctuation">,</span> saga<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">let</span> lastTask
   <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -710,84 +710,72 @@ require<span class="token punctuation">.</span><span class="token function">ensu
 middleware &#x68C0;&#x67E5;&#x6BCF;&#x4E2A; Effect &#x7684;&#x4FE1;&#x606F;&#xFF0C;&#x5E76;&#x8FDB;&#x884C;&#x76F8;&#x5E94;&#x7684;&#x64CD;&#x4F5C;&#x3002;</p>
 </blockquote>
 <h3 id="takepattern"><code><span class="token function">take</span><span class="token punctuation">(</span>pattern<span class="token punctuation">)</span></code></h3>
-<p>Creates an Effect description that instructs the middleware to wait for a specified action on the Store.
-The Generator is suspended until an action that matches <code>pattern</code> is dispatched.</p>
-<p><code>pattern</code> is interpreted using the following rules:</p>
+<p>&#x521B;&#x5EFA;&#x4E00;&#x6761; Effect &#x63CF;&#x8FF0;&#x4FE1;&#x606F;&#xFF0C;&#x6307;&#x793A; middleware &#x7B49;&#x5F85; Store &#x4E0A;&#x6307;&#x5B9A;&#x7684; action&#x3002;
+Generator &#x4F1A;&#x6682;&#x505C;&#xFF0C;&#x76F4;&#x5230;&#x4E00;&#x4E2A;&#x4E0E; <code>pattern</code> &#x5339;&#x914D;&#x7684; action &#x88AB;&#x53D1;&#x8D77;&#x3002;</p>
+<p>&#x7528;&#x4EE5;&#x4E0B;&#x89C4;&#x5219;&#x6765;&#x89E3;&#x91CA; <code>pattern</code>&#xFF1A;</p>
 <ul>
-<li><p>If <code>take</code> is called with no arguments or <code><span class="token string">&apos;*&apos;</span></code> all dispatched actions are matched (e.g. <code><span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> will match all actions)</p>
+<li><p>&#x5982;&#x679C;&#x8C03;&#x7528; <code>take</code> &#x65F6;&#x53C2;&#x6570;&#x4E3A;&#x7A7A;&#xFF0C;&#x6216;&#x8005;&#x4F20;&#x5165; <code><span class="token string">&apos;*&apos;</span></code>&#xFF0C;&#x90A3;&#x5C06;&#x4F1A;&#x5339;&#x914D;&#x6240;&#x6709;&#x53D1;&#x8D77;&#x7684; action&#xFF08;&#x4F8B;&#x5982;&#xFF0C;<code><span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> &#x4F1A;&#x5339;&#x914D;&#x6240;&#x6709;&#x7684; action&#xFF09;&#x3002;</p>
 </li>
-<li><p>If it is a function, the action is matched if <code><span class="token function">pattern</span><span class="token punctuation">(</span>action<span class="token punctuation">)</span></code> is true (e.g. <code><span class="token function">take</span><span class="token punctuation">(</span>action <span class="token operator">=</span><span class="token operator">&gt;</span> action<span class="token punctuation">.</span>entities<span class="token punctuation">)</span></code>
-will match all actions having a (truthy) <code>entities</code>field.)</p>
+<li><p>&#x5982;&#x679C;&#x662F;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;action &#x4F1A;&#x5728; <code><span class="token function">pattern</span><span class="token punctuation">(</span>action<span class="token punctuation">)</span></code> &#x8FD4;&#x56DE;&#x4E3A; true &#x65F6;&#x88AB;&#x5339;&#x914D;&#xFF08;&#x4F8B;&#x5982;&#xFF0C;<code><span class="token function">take</span><span class="token punctuation">(</span>action <span class="token operator">=</span><span class="token operator">&gt;</span> action<span class="token punctuation">.</span>entities<span class="token punctuation">)</span></code> &#x4F1A;&#x5339;&#x914D;&#x90A3;&#x4E9B; <code>entities</code> &#x5B57;&#x6BB5;&#x4E3A;&#x771F;&#x7684; action&#xFF09;&#x3002;</p>
 </li>
-<li><p>If it is a String, the action is matched if <code>action<span class="token punctuation">.</span>type <span class="token operator">===</span> pattern</code> (e.g. <code><span class="token function">take</span><span class="token punctuation">(</span>INCREMENT_ASYNC<span class="token punctuation">)</span></code></p>
+<li><p>&#x5982;&#x679C;&#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;action &#x4F1A;&#x5728; <code>action<span class="token punctuation">.</span>type <span class="token operator">===</span> pattern</code> &#x65F6;&#x88AB;&#x5339;&#x914D;&#xFF08;&#x4F8B;&#x5982;&#xFF0C;<code><span class="token function">take</span><span class="token punctuation">(</span>INCREMENT_ASYNC<span class="token punctuation">)</span></code>&#xFF09;&#x3002;</p>
 </li>
-<li><p>If it is an array, <code>action<span class="token punctuation">.</span>type</code> is matched against all items in the array (e.g. <code><span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">[</span>INCREMENT<span class="token punctuation">,</span> DECREMENT<span class="token punctuation">]</span><span class="token punctuation">)</span></code> will
-match either actions of type <code>INCREMENT</code> or <code>DECREMENT</code>).</p>
+<li><p>&#x5982;&#x679C;&#x53C2;&#x6570;&#x662F;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#xFF0C;&#x4F1A;&#x9488;&#x5BF9;&#x6570;&#x7EC4;&#x6240;&#x6709;&#x9879;&#xFF0C;&#x5339;&#x914D;&#x4E0E; <code>action<span class="token punctuation">.</span>type</code> &#x76F8;&#x7B49;&#x7684; action&#xFF08;&#x4F8B;&#x5982;&#xFF0C;<code><span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">[</span>INCREMENT<span class="token punctuation">,</span> DECREMENT<span class="token punctuation">]</span><span class="token punctuation">)</span></code> &#x4F1A;&#x5339;&#x914D; <code>INCREMENT</code> &#x6216; <code>DECREMENT</code> &#x7C7B;&#x578B;&#x7684; action&#xFF09;&#x3002;</p>
 </li>
 </ul>
 <h3 id="putaction"><code><span class="token function">put</span><span class="token punctuation">(</span>action<span class="token punctuation">)</span></code></h3>
-<p>Creates an Effect description that instructs the middleware to dispatch an action to the Store.</p>
+<p>&#x521B;&#x5EFA;&#x4E00;&#x6761; Effect &#x63CF;&#x8FF0;&#x4FE1;&#x606F;&#xFF0C;&#x6307;&#x793A; middleware &#x53D1;&#x8D77;&#x4E00;&#x4E2A; action &#x5230; Store&#x3002;</p>
 <ul>
-<li><code>action<span class="token punctuation">:</span> Object</code> - <a href="http://redux.js.org/docs/api/Store.html#dispatch" target="_blank">see Redux <code>dispatch</code> documentation for complete infos</a></li>
+<li><code>action<span class="token punctuation">:</span> Object</code> - <a href="http://redux.js.org/docs/api/Store.html#dispatch" target="_blank">&#x5B8C;&#x6574;&#x4FE1;&#x606F;&#x53EF;&#x67E5;&#x770B; Redux &#x7684; <code>dispatch</code> &#x6587;&#x6863;</a></li>
 </ul>
-<h4 id="notes">Notes</h4>
-<p>The <code>put</code> effect is run asynchronously, i.e. as a separate microtask and thus does not happen immediately. </p>
+<h4 id="&#x6CE8;&#x610F;">&#x6CE8;&#x610F;</h4>
+<p><code>put</code> &#x6267;&#x884C;&#x662F;&#x5F02;&#x6B65;&#x7684;&#x3002;&#x5373;&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x5355;&#x72EC;&#x7684; microtask&#xFF0C;&#x56E0;&#x6B64;&#x4E0D;&#x4F1A;&#x7ACB;&#x5373;&#x53D1;&#x751F;&#x3002;</p>
 <h3 id="callfn-args"><code><span class="token function">call</span><span class="token punctuation">(</span>fn<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span></code></h3>
-<p>Creates an Effect description that instructs the middleware to call the function <code>fn</code> with <code>args</code> as arguments.</p>
+<p>&#x521B;&#x5EFA;&#x4E00;&#x6761; Effect &#x63CF;&#x8FF0;&#x4FE1;&#x606F;&#xFF0C;&#x6307;&#x793A; middleware &#x8C03;&#x7528; <code>fn</code> &#x51FD;&#x6570;&#x5E76;&#x4EE5; <code>args</code> &#x4E3A;&#x53C2;&#x6570;&#x3002;</p>
 <ul>
-<li><p><code>fn<span class="token punctuation">:</span> Function</code> - A Generator function, or normal function which returns a Promise as result</p>
+<li><p><code>fn<span class="token punctuation">:</span> Function</code> - &#x4E00;&#x4E2A; Generator &#x51FD;&#x6570;, &#x6216;&#x8005;&#x8FD4;&#x56DE; Promise &#x7684;&#x666E;&#x901A;&#x51FD;&#x6570;</p>
 </li>
-<li><p><code>args<span class="token punctuation">:</span> Array</code> - An array of values to be passed as arguments to <code>fn</code></p>
+<li><p><code>args<span class="token punctuation">:</span> Array</code> - &#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#xFF0C;&#x4F5C;&#x4E3A; <code>fn</code> &#x7684;&#x53C2;&#x6570;</p>
 </li>
 </ul>
-<h4 id="notes">Notes</h4>
-<p><code>fn</code> can be either a <em>normal</em> or a Generator function.</p>
-<p>The middleware invokes the function and examines its result.</p>
-<p>If the result is a Generator object, the middleware will run it just like he did with the
-startup Generators (passed to the middleware on startup). The parent Generator will be
-suspended until the child Generator terminates normally, in which case the parent Generator
-is resumed with the value returned by the child Generator. Or until the child aborts with some
-error, in which case an error will be thrown inside the parent Generator.</p>
-<p>If the result is a Promise, the middleware will suspend the Generator until the Promise is
-resolved, in which case the Generator is resumed with the resolved value. or until the Promise
-is rejected, in which case an error is thrown inside the Generator.</p>
-<p>When an error is thrown inside the Generator. If it has a <code><span class="token keyword">try</span><span class="token operator">/</span><span class="token keyword">catch</span></code> block surrounding the
-current <code><span class="token keyword">yield</span></code> instruction, the control will be passed to the <code><span class="token keyword">catch</span></code> block. Otherwise,
-the Generator aborts with the raised error, and if this Generator was called by another
-Generator, the error will propagate to the calling Generator.</p>
+<h4 id="&#x6CE8;&#x610F;">&#x6CE8;&#x610F;</h4>
+<p><code>fn</code> &#x65E2;&#x53EF;&#x4EE5;&#x662F;&#x4E00;&#x4E2A;<em>&#x666E;&#x901A;</em>&#x51FD;&#x6570;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x662F;&#x4E00;&#x4E2A; Generator &#x51FD;&#x6570;&#x3002;</p>
+<p>middleware &#x8C03;&#x7528;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x5E76;&#x68C0;&#x67E5;&#x5B83;&#x7684;&#x7ED3;&#x679C;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x7ED3;&#x679C;&#x662F;&#x4E00;&#x4E2A; Generator &#x5BF9;&#x8C61;&#xFF0C;middleware &#x4F1A;&#x6267;&#x884C;&#x5B83;&#xFF0C;&#x5C31;&#x50CF;&#x5728;&#x542F;&#x52A8; Generator &#xFF08;startup Generators&#xFF0C;&#x542F;&#x52A8;&#x65F6;&#x88AB;&#x4F20;&#x7ED9; middleware&#xFF09;&#x65F6;&#x505A;&#x7684;&#x3002;
+&#x5982;&#x679C;&#x6709;&#x5B50;&#x7EA7; Generator&#xFF0C;&#x90A3;&#x4E48;&#x5728;&#x5B50;&#x7EA7; Generator &#x6B63;&#x5E38;&#x7ED3;&#x675F;&#x524D;&#xFF0C;&#x7236;&#x7EA7; Generator &#x4F1A;&#x6682;&#x505C;&#xFF0C;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x7236;&#x7EA7; Generator &#x5C06;&#x4F1A;&#x5728;&#x5B50;&#x7EA7; Generator &#x8FD4;&#x56DE;&#x540E;&#x7EE7;&#x7EED;&#x6267;&#x884C;&#xFF0C;&#x6216;&#x8005;&#x76F4;&#x5230;&#x5B50;&#x7EA7; Generator &#x88AB;&#x67D0;&#x4E9B;&#x9519;&#x8BEF;&#x4E2D;&#x6B62;&#xFF0C;
+&#x5982;&#x679C;&#x662F;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#xFF0C;&#x5C06;&#x5728;&#x7236;&#x7EA7; Generator &#x4E2D;&#x629B;&#x51FA;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x7ED3;&#x679C;&#x662F;&#x4E00;&#x4E2A; Promise&#xFF0C;middleware &#x4F1A;&#x6682;&#x505C;&#x76F4;&#x5230;&#x8FD9;&#x4E2A; Promise &#x88AB; resolve&#xFF0C;resolve &#x540E; Generator &#x4F1A;&#x7EE7;&#x7EED;&#x6267;&#x884C;&#x3002;
+&#x6216;&#x8005;&#x76F4;&#x5230; Promise &#x88AB; reject &#x4E86;&#xFF0C;&#x5982;&#x679C;&#x662F;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#xFF0C;&#x5C06;&#x5728; Generator &#x4E2D;&#x629B;&#x51FA;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;&#x3002;</p>
+<p>&#x5F53; Generator &#x4E2D;&#x629B;&#x51FA;&#x4E86;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x4E00;&#x4E2A; <code><span class="token keyword">try</span><span class="token operator">/</span><span class="token keyword">catch</span></code> &#x5305;&#x88F9;&#x5F53;&#x524D;&#x7684; yield &#x6307;&#x4EE4;&#xFF0C;&#x63A7;&#x5236;&#x6743;&#x5C06;&#x88AB;&#x8F6C;&#x4EA4;&#x7ED9; <code><span class="token keyword">catch</span></code>&#x3002;
+&#x5426;&#x5219;&#xFF0C;Generator &#x4F1A;&#x88AB;&#x9519;&#x8BEF;&#x4E2D;&#x6B62;&#xFF0C;&#x5E76;&#x4E14;&#x5982;&#x679C;&#x8FD9;&#x4E2A; Generator &#x88AB;&#x5176;&#x4ED6; Generator &#x8C03;&#x7528;&#x4E86;&#xFF0C;&#x9519;&#x8BEF;&#x5C06;&#x4F1A;&#x4F20;&#x5230;&#x8C03;&#x7528;&#x7684; Generator&#x3002;</p>
 <h3 id="callcontext-fn-args"><code><span class="token function">call</span><span class="token punctuation">(</span><span class="token punctuation">[</span>context<span class="token punctuation">,</span> fn<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span></code></h3>
-<p>Some as <code><span class="token function">call</span><span class="token punctuation">(</span>fn<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span></code> but supports passing a <code><span class="token keyword">this</span></code> context to <code>fn</code>. This is useful to
-invoke object methods.</p>
+<p>&#x7C7B;&#x4F3C; <code><span class="token function">call</span><span class="token punctuation">(</span>fn<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span></code>&#xFF0C;&#x4F46;&#x652F;&#x6301;&#x4E3A; <code>fn</code> &#x6307;&#x5B9A;&#x4E00;&#x4E2A; <code><span class="token keyword">this</span></code> &#x4E0A;&#x4E0B;&#x6587;&#x3002;&#x7528;&#x4E8E;&#x8C03;&#x7528;&#x5BF9;&#x8C61;&#x7684;&#x65B9;&#x6CD5;&#x3002;</p>
 <h3 id="applycontext-fn-args"><code><span class="token function">apply</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> fn<span class="token punctuation">,</span> args<span class="token punctuation">)</span></code></h3>
-<p>Alias for <code><span class="token function">call</span><span class="token punctuation">(</span><span class="token punctuation">[</span>context<span class="token punctuation">,</span> fn<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span></code></p>
+<p>&#x7C7B;&#x4F3C; <code><span class="token function">call</span><span class="token punctuation">(</span><span class="token punctuation">[</span>context<span class="token punctuation">,</span> fn<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span></code></p>
 <h3 id="cpsfn-args"><code><span class="token function">cps</span><span class="token punctuation">(</span>fn<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span></code></h3>
-<p>Creates an Effect description that instructs the middleware to invoke <code>fn</code> as a Node style function.</p>
+<p>&#x521B;&#x5EFA;&#x4E00;&#x6761; Effect &#x63CF;&#x8FF0;&#x4FE1;&#x606F;&#xFF0C;&#x6307;&#x793A; middleware &#x4EE5; Node &#x98CE;&#x683C;&#x8C03;&#x7528; <code>fn</code> &#x51FD;&#x6570;&#x3002;</p>
 <ul>
-<li><p><code>fn<span class="token punctuation">:</span> Function</code> - a Node style function. i.e. a function which accepts in addition to its arguments,
-an additional callback to be invoked by <code>fn</code> when it terminates. The callback accepts two parameters,
-where the first parameter is used to report errors while the second is used to report successful results</p>
+<li><p><code>fn<span class="token punctuation">:</span> Function</code> - &#x4E00;&#x4E2A; Node &#x98CE;&#x683C;&#x7684;&#x51FD;&#x6570;&#x3002;&#x5373;&#x4E0D;&#x4EC5;&#x63A5;&#x53D7;&#x5B83;&#x81EA;&#x5DF1;&#x7684;&#x53C2;&#x6570;&#xFF0C;<code>fn</code> &#x7ED3;&#x675F;&#x540E;&#x4F1A;&#x8C03;&#x7528;&#x4E00;&#x4E2A;&#x9644;&#x52A0;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x3002;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x63A5;&#x53D7;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x662F;&#x62A5;&#x9519;&#x4FE1;&#x606F;&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x662F;&#x6210;&#x529F;&#x7684;&#x7ED3;&#x679C;&#x3002;</p>
 </li>
-<li><p><code>args<span class="token punctuation">:</span> Array</code> - an array to be passed as arguments for <code>fn</code></p>
+<li><p><code>args<span class="token punctuation">:</span> Array</code> - &#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#xFF0C;&#x4F5C;&#x4E3A; <code>fn</code> &#x7684;&#x53C2;&#x6570;</p>
 </li>
 </ul>
-<h4 id="notes">Notes</h4>
-<p>The middleware will perform a call <code><span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>arg<span class="token punctuation">,</span> cb<span class="token punctuation">)</span></code>. The <code>cb</code> is a callback passed by the middleware to
-<code>fn</code>. If <code>fn</code> terminates normally, it must call <code><span class="token function">cb</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> result<span class="token punctuation">)</span></code> to notify the middleware
-of a successful result. If <code>fn</code> encounters some error, then it must call <code><span class="token function">cb</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span></code> in order to
-notify the middleware that an error has occurred.</p>
-<p>The middleware remains suspended until <code>fn</code> terminates.</p>
+<h4 id="&#x6CE8;&#x610F;">&#x6CE8;&#x610F;</h4>
+<p>middleware &#x5C06;&#x6267;&#x884C; <code><span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>arg<span class="token punctuation">,</span> cb<span class="token punctuation">)</span></code>&#x3002;<code>cb</code> &#x662F;&#x88AB; middleware &#x4F20;&#x7ED9; <code>fn</code> &#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x3002;&#x5982;&#x679C; <code>fn</code> &#x6B63;&#x5E38;&#x7ED3;&#x675F;&#xFF0C;&#x4F1A;&#x8C03;&#x7528; <code><span class="token function">cb</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> result<span class="token punctuation">)</span></code> &#x901A;&#x77E5; middleware &#x6210;&#x529F;&#x4E86;&#x3002;
+&#x5982;&#x679C; <code>fn</code> &#x9047;&#x5230;&#x4E86;&#x67D0;&#x4E9B;&#x9519;&#x8BEF;&#xFF0C;&#x4F1A;&#x8C03;&#x7528; <code><span class="token function">cb</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span></code> &#x901A;&#x77E5; middleware &#x51FA;&#x9519;&#x4E86;&#x3002;</p>
+<p><code>fn</code> &#x7ED3;&#x675F;&#x4E4B;&#x524D; middleware &#x4F1A;&#x4FDD;&#x6301;&#x6682;&#x505C;&#x72B6;&#x6001;&#x3002;</p>
 <h3 id="cpscontext-fn-args"><code><span class="token function">cps</span><span class="token punctuation">(</span><span class="token punctuation">[</span>context<span class="token punctuation">,</span> fn<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span></code></h3>
-<p>Supports passing a <code><span class="token keyword">this</span></code> context to <code>fn</code> (object method invocation)</p>
+<p>&#x652F;&#x6301;&#x4E3A; <code>fn</code> &#x6307;&#x5B9A;&#x4E00;&#x4E2A; <code><span class="token keyword">this</span></code> &#x4E0A;&#x4E0B;&#x6587;&#xFF08;&#x8C03;&#x7528;&#x5BF9;&#x8C61;&#x65B9;&#x6CD5;&#xFF09;&#x3002;</p>
 <h3 id="forkfn-args"><code><span class="token function">fork</span><span class="token punctuation">(</span>fn<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span></code></h3>
-<p>Creates an Effect description that instructs the middleware to perform a <em>non blocking call</em> on <code>fn</code></p>
-<h4 id="arguments">Arguments</h4>
+<p>&#x521B;&#x5EFA;&#x4E00;&#x6761; Effect &#x63CF;&#x8FF0;&#x4FE1;&#x606F;&#xFF0C;&#x6307;&#x793A; middleware &#x4EE5; <em>&#x65E0;&#x963B;&#x585E;&#x8C03;&#x7528;</em> &#x65B9;&#x5F0F;&#x6267;&#x884C; <code>fn</code>&#x3002;</p>
+<h4 id="&#x53C2;&#x6570;">&#x53C2;&#x6570;</h4>
 <ul>
-<li><p><code>fn<span class="token punctuation">:</span> Function</code> - A Generator function, or normal function which returns a Promise as result</p>
+<li><p><code>fn<span class="token punctuation">:</span> Function</code> - &#x4E00;&#x4E2A; Generator &#x51FD;&#x6570;, &#x6216;&#x8005;&#x8FD4;&#x56DE; Promise &#x7684;&#x666E;&#x901A;&#x51FD;&#x6570;</p>
 </li>
-<li><p><code>args<span class="token punctuation">:</span> Array</code> - An array of values to be passed as arguments to <code>fn</code></p>
+<li><p><code>args<span class="token punctuation">:</span> Array</code> - &#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#xFF0C;&#x4F5C;&#x4E3A; <code>fn</code> &#x7684;&#x53C2;&#x6570;</p>
 </li>
 </ul>
-<h4 id="note">Note</h4>
+<h4 id="&#x6CE8;&#x610F;">&#x6CE8;&#x610F;</h4>
 <p><code>fork</code>, like <code>call</code>, can be used to invoke both normal and Generator functions. But, the calls are
 non blocking, the middleware doesn&apos;t suspend the Generator while waiting for the result of <code>fn</code>.
 Instead as soon as <code>fn</code> is invoked, the Generator resumes immediately.</p>
