@@ -151,7 +151,7 @@ require.ensure(["dynamicSaga"], (require) => {
 
 #### 例子
 
-接下来的例子，我们创建了一个简单的任务 `fetchUser`。在每次 `USER_REQUESTED` action 被发起时，使用 `takeEvery` 来启动一个新的 `fetchUser` 任务。
+在以下的例子中，我们创建了一个简单的任务 `fetchUser`。在每次 `USER_REQUESTED` action 被发起时，使用 `takeEvery` 来启动一个新的 `fetchUser` 任务。
 
 ```javascript
 import { takeEvery } from `redux-saga`
@@ -167,7 +167,7 @@ function* watchFetchUser() {
 
 #### 注意事项
 
-`takeEvery` 是一个高阶 API，是使用 `take` 和 `fork` 构建的。下面演示了这个辅助函数是如何实现的：
+`takeEvery` 是一个高阶 API，使用 `take` 和 `fork` 构建。下面演示了这个辅助函数是如何实现的：
 
 ```javascript
 function* takeEvery(pattern, saga, ...args) {
@@ -217,7 +217,7 @@ function* watchLastFetchUser() {
 
 #### 注意事项
 
-`takeLatest` 是一个高阶 API，是使用 `take` 和 `fork` 构建的。下面演示了这个辅助函数是如何实现的：
+`takeLatest` 是一个高阶 API，使用 `take` 和 `fork` 构建。下面演示了这个辅助函数是如何实现的：
 
 ```javascript
 function* takeLatest(pattern, saga, ...args) {
@@ -242,20 +242,18 @@ middleware 检查每个 Effect 的信息，并进行相应的操作。
 
 ### `take(pattern)`
 
-Creates an Effect description that instructs the middleware to wait for a specified action on the Store.
-The Generator is suspended until an action that matches `pattern` is dispatched.
+创建一个 Effect 描述信息，指示 middleware 等待 Store 上指定的 action。
+Generator 会暂停，直到一个与 `pattern` 匹配的 action 被发起。
 
-`pattern` is interpreted using the following rules:
+用以下规则来解释 `pattern`：
 
-- If `take` is called with no arguments or `'*'` all dispatched actions are matched (e.g. `take()` will match all actions)
+- 如果调用 `take` 时参数为空，或者传入 `'*'`，那将会匹配所有发起的 action（例如，`take()` 会匹配所有的 action）。
 
-- If it is a function, the action is matched if `pattern(action)` is true (e.g. `take(action => action.entities)`
-will match all actions having a (truthy) `entities`field.)
+- 如果是一个函数，action 会在 `pattern(action)` 返回为 true 时被匹配（例如，`take(action => action.entities)` 会匹配那些 `entities` 字段为真的 action）。
 
-- If it is a String, the action is matched if `action.type === pattern` (e.g. `take(INCREMENT_ASYNC)`
+- 如果是一个字符串，action 会在 `action.type === pattern` 时被匹配（例如，`take(INCREMENT_ASYNC)`）。
 
-- If it is an array, `action.type` is matched against all items in the array (e.g. `take([INCREMENT, DECREMENT])` will
-match either actions of type `INCREMENT` or `DECREMENT`).
+- 如果参数是一个数组，会针对数组所有项，匹配与 `action.type` 相等的 action（例如，`take([INCREMENT, DECREMENT])` 会匹配 `INCREMENT` 或 `DECREMENT` 类型的 action）。
 
 
 ### `put(action)`
