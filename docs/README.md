@@ -17,7 +17,7 @@
   * [在多个 Effects 之间启动 race](/docs/advanced/RacingEffects.md)
   * [使用 yield* 对 Sagas 进行排序](/docs/advanced/SequencingSagas.md)
   * [组合 Sagas](/docs/advanced/ComposingSagas.md)
-  * [取消任务](/docs/advanced/TaskCancellation.md)
+  * [任务的取消](/docs/advanced/TaskCancellation.md)
   * [常见的并发模式](/docs/advanced/Concurrency.md)
   * [Sagas 测试示例](/docs/advanced/Testing.md)
   * [连接 Sagas 至外部输入和输出](/docs/advanced/UsingRunSaga.md)
