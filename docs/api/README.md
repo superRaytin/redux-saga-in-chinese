@@ -392,36 +392,26 @@ function* mySaga() {
 
 ### `select(selector, ...args)`
 
-Creates an effect that instructs the middleware to invoke the provided selector on the
-current Store's state (i.e. returns the result of `selector(getState(), ...args)`).
+创建一条 Effect 描述信息，指示 middleware 调用提供的选择器获取 Store state 上的数据（例如，返回 `selector(getState(), ...args)` 的结果）。
 
-- `selector: Function` - a function `(state, ...args) => args`. It takes the
-current state and optionally some arguments and returns a slice of the current Store's state
+- `selector: Function` - 一个 `(state, ...args) => args` 函数. 通过当前 state 和一些可选参数，返回当前 Store state 上的部分数据。
 
-- `args: Array<any>` - optional arguments to be passed to the selector in addition of `getState`.
+- `args: Array<any>` - 可选参数，传递给选择器（附加在 `getState` 后）
 
-If `select` is called without argument (i.e. `yield select()`) then the effect is resolved
-with the entire state (the same result of a `getState()` call).
+如果 `select` 调用时参数为空（即 `yield select()`），那 effect 会取得整个的 state（和调用 `getState()` 的结果一样）。
 
->It's important to note that when an action is dispatched to the store. The middleware first
-forwards the action to the reducers then notifies the Sagas. It means that when you query the
-Store's State, you get the state **after** the action has been applied
+>重要提醒：在发起 action 到 store 时，middleware 首先会转发 action 到 reducers 然后通知 Sagas。这意味着，当你查询 Store 的 state，
+你获取的是 action 被处理之后的 state。
 
-#### Notes
+#### 注意
 
-Preferably, a Saga should be autonomous and should not depend on the Store's state. This makes
-it easy to modify the state implementation without affecting the Saga code. A saga should preferably
-depend only on its own internal control state when possible. But sometimes, one could
-find it more convenient for a Saga to query the state instead of maintaining the needed data by itself
-(for example, when a Saga duplicates the logic of invoking some reducer to compute a state that was
-already computed by the Store).
+Saga 最好是自主独立的，不应依赖 Store 的 state。这使得很容易修改 state 实现部分而不影响 Saga 代码。
+Saga 最好只依赖它自己内部的控制 state，并尽可能这样做。但有时，我们可能会发现在 Saga 中查询 state 而不是自行维护所需的数据，会更加方便（比如，当一个 Saga 重复调用 reducer 的逻辑，来计算那些已经被 Store 计算的 state）。
 
-Normally, *top Sagas* (Sagas started by the middleware) are passed the Store's `getState` method
-which allows them to query the current Store's state. But the `getState` function must be
-passed around in order for *nested Sagas* (child Sagas started from inside other Sagas)
-to access the state.
+一般来说，*顶级 Sagas* (middleware 启动的 Sagas) 会被传入 Store 的 `getState` 方法，这个方法允许 Sagas 查询当前 Store 的 state。
+但是 `getState` 函数必须在 *嵌套 Sagas*（其他 Sagas 启动的子级 Sagas）时被传来传去，以便访问 state。
 
-for example, suppose we have this state shape in our application
+举个例子，假设我们我们的应用有这样结构的一份 state：
 
 ```javascript
 state = {
@@ -429,48 +419,42 @@ state = {
 }
 ```
 
-And then we have our Sagas like this
+并且有这样的 Sagas：
 
 `./sagas.js`
 ```javascript
 import { take, fork, ... } from 'redux-saga/effects'
 
 function* checkout(getState) {
-  // must know where `cart` is stored
+  // 必须知道 `cart` 存在哪
   const cart = getState().cart
 
-  // ... call some Api endpoint then dispatch a success/error action
+  // ... 调用某些 Api 然后发起一个 success/error action
 }
 
-// rootSaga automatically gets the getState param from the middleware
+// rootSaga 会在 middleware 自动它时，自动获得 getState 参数
 export default function* rootSaga(getState) {
   while(true) {
     yield take('CHECKOUT_REQUEST')
 
-    // needs to pass the getState to child Saga
+    // 需要将 getState 传递给子级 Saga
     yield fork(checkout, getState)
   }
 }
 ```
 
-One problem with the above code, besides the fact that `getState` needs to be passed
-explicitly down the call/fork chain, is that `checkout` must know where the `cart`
-slice is stored within the global State atom (e.g. in the `cart` field). The Saga is now coupled
-with the State shape. If that shape changes in the future (for example  via some
-normalization process) then we must also take care to change the code inside the
-`checkout` Saga. If we have other Sagas that also access the `cart` slice, then this can
-cause some subtle errors in our application if we forget to update one of the dependent
-Sagas.
+以上代码有一个问题，除了 `getState` 需要显式地向下传递给 call/fork 调用链，`checkout` 还必须知道 `cart` 被存在全局 state 的哪个地方（比如，在 `cart` 字段里）。
+Saga 与 State 结构藕合了。如果未来 state 结构改变了（比如通过某些正常处理流程），那我们也必须小心更改 `checkout` Saga 里面的代码。
+如果我们还有另外的 Sagas 也访问了 `cart`，并且如果我们忘记更新其中一个依赖的 Sagas，那就会引起一些细小的错误。
 
-To alleviate this, we can create a *selector*, i.e. a function which knows how to extract
-the `cart` data from the State
+为了缓解这种情况，我们可心创建一个 *选择器*（selector），即一个知道如何从 State 提取 `cart` 数据的函数。
 
 `./selectors`
 ```javascript
 export const getCart = state => state.cart
 ```
 
-Then we can use that selector from inside the `checkout` Saga
+然后我们可以在 `checkout` Saga 中使用这个选择器：
 
 `./sagas.js`
 ```javascript
@@ -478,31 +462,28 @@ import { take, fork, select } from 'redux-saga/effects'
 import { getCart } from './selectors'
 
 function* checkout() {
-  // query the state using the exported selector
+  // 使用选择器查询 state
   const cart = yield select(getCart)
 
-  // ... call some Api endpoint then dispatch a success/error action
+  // ... 调用某些 Api 然后发起一个 success/error action
 }
 
 export default function* rootSaga() {
   while(true) {
     yield take('CHECKOUT_REQUEST')
 
-    // No more need to pass the getState param
+    // 不再需要传递 getState 参数了
     yield fork(checkout)
   }
 }
 ```
 
-First thing to note is that `rootSaga` doesn't use the `getState` param. There is
-no need for it to pass `getState` to the child Saga. `rootSaga` no longer have to make
-assumptions about `checkout` (i.e. whether `checkout` needs to access the state or not).
+首先要注意的是，`rootSaga` 没有使用 `getState` 参数。没有必要为子级 Saga 传递 `getState`。
+`rootSaga` 再也不需要做关于 `checkout` 的假设（即：`checkout` 是否需要访问 state）。
 
-Second thing is that `checkout` can now get the needed information directly by using
-`select(getCart)`. The Saga is now coupled only with the `getCart` selector. If we have
-many Sagas (or React Components) that needs to access the `cart` slice, they will all be
-coupled to the same function `getCart`. And if we now change the state shape, we need only
-to update `getCart`.
+其次，`checkout` 现在可以通过 `select(getCart)` 直接得到需要的信息。Saga 现在只与 `getCart` 选择器藕合。
+如果我们有许多需要访问 `cart` 的 Sagas（或 React Components），它们都将藕合到统一的 `getCart` 函数。
+并且如果我们改变了 state 结构，我们只需要更新 `getCart` 即可。
 
 ## Effect combinators
 ----------------------------
