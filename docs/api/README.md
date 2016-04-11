@@ -292,7 +292,7 @@ middleware 调用这个函数并检查它的结果。
 
 ### `call([context, fn], ...args)`
 
-类似 `call(fn, ...args)`，但支持为 `fn` 指定一个 `this` 上下文。用于调用对象的方法。
+类似 `call(fn, ...args)`，但支持为 `fn` 指定 `this` 上下文。用于调用对象的方法。
 
 ### `apply(context, fn, args)`
 
@@ -315,7 +315,7 @@ middleware 将执行 `fn(...arg, cb)`。`cb` 是被 middleware 传给 `fn` 的�
 
 ### `cps([context, fn], ...args)`
 
-支持为 `fn` 指定一个 `this` 上下文（调用对象方法）。
+支持为 `fn` 指定 `this` 上下文（调用对象方法）。
 
 ### `fork(fn, ...args)`
 
@@ -329,58 +329,46 @@ middleware 将执行 `fn(...arg, cb)`。`cb` 是被 middleware 传给 `fn` 的�
 
 #### 注意
 
-`fork`, like `call`, can be used to invoke both normal and Generator functions. But, the calls are
-non blocking, the middleware doesn't suspend the Generator while waiting for the result of `fn`.
-Instead as soon as `fn` is invoked, the Generator resumes immediately.
+`fork` 类似于 `call`，可以用来调用普通函数和 Generator 函数。但 `fork` 的调用是无阻塞的，在等待 `fn` 返回结果时，middleware 不会暂停 Generator。
+相反，一旦 `fn` 被调用，Generator 立即恢复执行。
 
-`fork`, alongside `race`, is a central Effect for managing concurrency between Sagas.
+`fork` 与 `race` 类似，是一个中心化的 Effect，管理 Sagas 间的并发。
 
-The result of `yield fork(fn ...args)` is a [Task](#task) object.  An object with some useful
-methods and properties
-
+`yield fork(fn ...args)` 的结果是一个 [Task](#task) 对象 —— 一个具备某些有用的方法和属性的对象。
 
 
 ### `fork([context, fn], ...args)`
 
-Supports invoking forked functions with a `this` context
+支持为 `fn` 指定 `this` 上下文（调用对象方法）。
 
 ### `join(task)`
 
-Creates an Effect description that instructs the middleware to wait for the result
-of a previously forked task.
+创建一条 Effect 描述信息，指示 middleware 等待之前的 fork 任务返回结果。
 
-- `task: Task` - A [Task](#task) object returned by a previous `fork`
+- `task: Task` - 之前的 `fork` 指令返回的 [Task](#task) 对象
 
 ### `cancel(task)`
 
-Creates an Effect description that instructs the middleware to cancel a previously forked task.
+创建一条 Effect 描述信息，指示 middleware 取消之前的 fork 任务。
 
-- `task: Task` - A [Task](#task) object returned by a previous `fork`
+- `task: Task` - 之前的 `fork` 指令返回的 [Task](#task) 对象
 
-#### Notes
+#### 注意
 
-To cancel a running Generator, the middleware will throw a `SagaCancellationException` inside
-it.
+取消执行中的 Generator，middleware 将会抛出一个 `SagaCancellationException` 的错误。
 
-Cancellation propagates downward. When cancelling a Generator, the middleware will also
-cancel the current Effect where the Generator is currently blocked. If the current Effect
-is a call to another Generator, then the Generator will also be cancelled.
+取消会向下传播。当取消 Generator 时，middleware 会同时取消当前 Effect（阻塞当前 Generator 的 Effect）。
+如果当前 Effect 调用了另一个 Generator，那这个 Generator 也会被取消。
 
-A cancelled Generator can catch `SagaCancellationException`s in order to perform some cleanup
-logic before it terminates (e.g. clear a `isFetching` flag in the state if the Generator was
-in middle of an AJAX call).
+被取消的 Generator 可以捕获 `SagaCancellationException` 错误，以便在它结束前执行某些清理逻辑（例如，如果 Generator 正处于 AJAX 调用，清除 state 中的 `isFetching` 标识）。
 
-*Note that uncaught `SagaCancellationException`s are not bubbled upward, if a Generator
-doesn't handle cancellation exceptions, the exception will not bubble to its parent
-Generator.
+注意，未被捕获的 `SagaCancellationException` 不会向上冒泡，如果 Generator 不处理取消异常，异常将不会冒泡至它的父级 Generator。
 
-`cancel` is a non blocking Effect. i.e. the Generator will resume immediately after
-throwing the cancellation exception.
+`cancel` 是一个无阻塞 Effect。也就是说，Generator 将在取消异常被抛出后立即恢复。
 
-For functions which return Promise results, you can plug your own cancellation logic
-by attaching a `[CANCEL]` to the promise.
+对于返回 Promise 结果的函数，你可以通过给 promise 附加一个 `[CANCEL]` 来插入自己的取消逻辑。
 
-The following example shows how to attach cancellation logic to a Promise result :
+以下的例子演示了如何给 Promise 结果附加一个取消逻辑：
 
 ```javascript
 import { fork, cancel, CANCEL } from 'redux-saga/effects'
@@ -396,8 +384,8 @@ function* mySaga() {
 
   const task = yield fork(myApi)
 
-  // ... later
-  // will call promise[CANCEL] on the result of myApi
+  // ... 过一会儿
+  // 将会调用 myApi 上的 promise[CANCEL]
   yield cancel(task)
 }
 ```
