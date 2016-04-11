@@ -50,7 +50,7 @@
     <body>
         
         
-    <div class="book" data-level="8" data-chapter-title="API 参考" data-filepath="docs/api/README.md" data-basepath="../.." data-revision="Mon Apr 11 2016 23:53:01 GMT+0800 (CST)">
+    <div class="book" data-level="8" data-chapter-title="API 参考" data-filepath="docs/api/README.md" data-basepath="../.." data-revision="Tue Apr 12 2016 01:18:06 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -820,101 +820,82 @@ Generator &#x4F1A;&#x6682;&#x505C;&#xFF0C;&#x76F4;&#x5230;&#x4E00;&#x4E2A;&#x4E0
 <span class="token punctuation">}</span>
 </code></pre>
 <h3 id="selectselector-args"><code><span class="token function">select</span><span class="token punctuation">(</span>selector<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span></code></h3>
-<p>Creates an effect that instructs the middleware to invoke the provided selector on the
-current Store&apos;s state (i.e. returns the result of <code><span class="token function">selector</span><span class="token punctuation">(</span><span class="token function">getState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span></code>).</p>
+<p>&#x521B;&#x5EFA;&#x4E00;&#x6761; Effect &#x63CF;&#x8FF0;&#x4FE1;&#x606F;&#xFF0C;&#x6307;&#x793A; middleware &#x8C03;&#x7528;&#x63D0;&#x4F9B;&#x7684;&#x9009;&#x62E9;&#x5668;&#x83B7;&#x53D6; Store state &#x4E0A;&#x7684;&#x6570;&#x636E;&#xFF08;&#x4F8B;&#x5982;&#xFF0C;&#x8FD4;&#x56DE; <code><span class="token function">selector</span><span class="token punctuation">(</span><span class="token function">getState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span></code> &#x7684;&#x7ED3;&#x679C;&#xFF09;&#x3002;</p>
 <ul>
-<li><p><code>selector<span class="token punctuation">:</span> Function</code> - a function <code><span class="token punctuation">(</span>state<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> args</code>. It takes the
-current state and optionally some arguments and returns a slice of the current Store&apos;s state</p>
+<li><p><code>selector<span class="token punctuation">:</span> Function</code> - &#x4E00;&#x4E2A; <code><span class="token punctuation">(</span>state<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> args</code> &#x51FD;&#x6570;. &#x901A;&#x8FC7;&#x5F53;&#x524D; state &#x548C;&#x4E00;&#x4E9B;&#x53EF;&#x9009;&#x53C2;&#x6570;&#xFF0C;&#x8FD4;&#x56DE;&#x5F53;&#x524D; Store state &#x4E0A;&#x7684;&#x90E8;&#x5206;&#x6570;&#x636E;&#x3002;</p>
 </li>
-<li><p><code>args<span class="token punctuation">:</span> Array</code> - optional arguments to be passed to the selector in addition of <code>getState</code>.</p>
+<li><p><code>args<span class="token punctuation">:</span> Array</code> - &#x53EF;&#x9009;&#x53C2;&#x6570;&#xFF0C;&#x4F20;&#x9012;&#x7ED9;&#x9009;&#x62E9;&#x5668;&#xFF08;&#x9644;&#x52A0;&#x5728; <code>getState</code> &#x540E;&#xFF09;</p>
 </li>
 </ul>
-<p>If <code>select</code> is called without argument (i.e. <code><span class="token keyword">yield</span> <span class="token function">select</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code>) then the effect is resolved
-with the entire state (the same result of a <code><span class="token function">getState</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> call).</p>
+<p>&#x5982;&#x679C; <code>select</code> &#x8C03;&#x7528;&#x65F6;&#x53C2;&#x6570;&#x4E3A;&#x7A7A;&#xFF08;&#x5373; <code><span class="token keyword">yield</span> <span class="token function">select</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code>&#xFF09;&#xFF0C;&#x90A3; effect &#x4F1A;&#x53D6;&#x5F97;&#x6574;&#x4E2A;&#x7684; state&#xFF08;&#x548C;&#x8C03;&#x7528; <code><span class="token function">getState</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> &#x7684;&#x7ED3;&#x679C;&#x4E00;&#x6837;&#xFF09;&#x3002;</p>
 <blockquote>
-<p>It&apos;s important to note that when an action is dispatched to the store. The middleware first
-forwards the action to the reducers then notifies the Sagas. It means that when you query the
-Store&apos;s State, you get the state <strong>after</strong> the action has been applied</p>
+<p>&#x91CD;&#x8981;&#x63D0;&#x9192;&#xFF1A;&#x5728;&#x53D1;&#x8D77; action &#x5230; store &#x65F6;&#xFF0C;middleware &#x9996;&#x5148;&#x4F1A;&#x8F6C;&#x53D1; action &#x5230; reducers &#x7136;&#x540E;&#x901A;&#x77E5; Sagas&#x3002;&#x8FD9;&#x610F;&#x5473;&#x7740;&#xFF0C;&#x5F53;&#x4F60;&#x67E5;&#x8BE2; Store &#x7684; state&#xFF0C;
+&#x4F60;&#x83B7;&#x53D6;&#x7684;&#x662F; action &#x88AB;&#x5904;&#x7406;&#x4E4B;&#x540E;&#x7684; state&#x3002;</p>
 </blockquote>
-<h4 id="notes">Notes</h4>
-<p>Preferably, a Saga should be autonomous and should not depend on the Store&apos;s state. This makes
-it easy to modify the state implementation without affecting the Saga code. A saga should preferably
-depend only on its own internal control state when possible. But sometimes, one could
-find it more convenient for a Saga to query the state instead of maintaining the needed data by itself
-(for example, when a Saga duplicates the logic of invoking some reducer to compute a state that was
-already computed by the Store).</p>
-<p>Normally, <em>top Sagas</em> (Sagas started by the middleware) are passed the Store&apos;s <code>getState</code> method
-which allows them to query the current Store&apos;s state. But the <code>getState</code> function must be
-passed around in order for <em>nested Sagas</em> (child Sagas started from inside other Sagas)
-to access the state.</p>
-<p>for example, suppose we have this state shape in our application</p>
+<h4 id="&#x6CE8;&#x610F;">&#x6CE8;&#x610F;</h4>
+<p>Saga &#x6700;&#x597D;&#x662F;&#x81EA;&#x4E3B;&#x72EC;&#x7ACB;&#x7684;&#xFF0C;&#x4E0D;&#x5E94;&#x4F9D;&#x8D56; Store &#x7684; state&#x3002;&#x8FD9;&#x4F7F;&#x5F97;&#x5F88;&#x5BB9;&#x6613;&#x4FEE;&#x6539; state &#x5B9E;&#x73B0;&#x90E8;&#x5206;&#x800C;&#x4E0D;&#x5F71;&#x54CD; Saga &#x4EE3;&#x7801;&#x3002;
+Saga &#x6700;&#x597D;&#x53EA;&#x4F9D;&#x8D56;&#x5B83;&#x81EA;&#x5DF1;&#x5185;&#x90E8;&#x7684;&#x63A7;&#x5236; state&#xFF0C;&#x5E76;&#x5C3D;&#x53EF;&#x80FD;&#x8FD9;&#x6837;&#x505A;&#x3002;&#x4F46;&#x6709;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x80FD;&#x4F1A;&#x53D1;&#x73B0;&#x5728; Saga &#x4E2D;&#x67E5;&#x8BE2; state &#x800C;&#x4E0D;&#x662F;&#x81EA;&#x884C;&#x7EF4;&#x62A4;&#x6240;&#x9700;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x4F1A;&#x66F4;&#x52A0;&#x65B9;&#x4FBF;&#xFF08;&#x6BD4;&#x5982;&#xFF0C;&#x5F53;&#x4E00;&#x4E2A; Saga &#x91CD;&#x590D;&#x8C03;&#x7528; reducer &#x7684;&#x903B;&#x8F91;&#xFF0C;&#x6765;&#x8BA1;&#x7B97;&#x90A3;&#x4E9B;&#x5DF2;&#x7ECF;&#x88AB; Store &#x8BA1;&#x7B97;&#x7684; state&#xFF09;&#x3002;</p>
+<p>&#x4E00;&#x822C;&#x6765;&#x8BF4;&#xFF0C;<em>&#x9876;&#x7EA7; Sagas</em> (middleware &#x542F;&#x52A8;&#x7684; Sagas) &#x4F1A;&#x88AB;&#x4F20;&#x5165; Store &#x7684; <code>getState</code> &#x65B9;&#x6CD5;&#xFF0C;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x5141;&#x8BB8; Sagas &#x67E5;&#x8BE2;&#x5F53;&#x524D; Store &#x7684; state&#x3002;
+&#x4F46;&#x662F; <code>getState</code> &#x51FD;&#x6570;&#x5FC5;&#x987B;&#x5728; <em>&#x5D4C;&#x5957; Sagas</em>&#xFF08;&#x5176;&#x4ED6; Sagas &#x542F;&#x52A8;&#x7684;&#x5B50;&#x7EA7; Sagas&#xFF09;&#x65F6;&#x88AB;&#x4F20;&#x6765;&#x4F20;&#x53BB;&#xFF0C;&#x4EE5;&#x4FBF;&#x8BBF;&#x95EE; state&#x3002;</p>
+<p>&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;&#xFF0C;&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x6211;&#x4EEC;&#x7684;&#x5E94;&#x7528;&#x6709;&#x8FD9;&#x6837;&#x7ED3;&#x6784;&#x7684;&#x4E00;&#x4EFD; state&#xFF1A;</p>
 <pre><code class="lang-javascript">state <span class="token operator">=</span> <span class="token punctuation">{</span>
   cart<span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>And then we have our Sagas like this</p>
+<p>&#x5E76;&#x4E14;&#x6709;&#x8FD9;&#x6837;&#x7684; Sagas&#xFF1A;</p>
 <p><code><span class="token punctuation">.</span><span class="token operator">/</span>sagas<span class="token punctuation">.</span>js</code></p>
 <pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> take<span class="token punctuation">,</span> fork<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga/effects&apos;</span>
 
 <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">checkout</span><span class="token punctuation">(</span>getState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token comment" spellcheck="true">// must know where `cart` is stored</span>
+  <span class="token comment" spellcheck="true">// &#x5FC5;&#x987B;&#x77E5;&#x9053; `cart` &#x5B58;&#x5728;&#x54EA;</span>
   <span class="token keyword">const</span> cart <span class="token operator">=</span> <span class="token function">getState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>cart
 
-  <span class="token comment" spellcheck="true">// ... call some Api endpoint then dispatch a success/error action</span>
+  <span class="token comment" spellcheck="true">// ... &#x8C03;&#x7528;&#x67D0;&#x4E9B; Api &#x7136;&#x540E;&#x53D1;&#x8D77;&#x4E00;&#x4E2A; success/error action</span>
 <span class="token punctuation">}</span>
 
-<span class="token comment" spellcheck="true">// rootSaga automatically gets the getState param from the middleware</span>
+<span class="token comment" spellcheck="true">// rootSaga &#x4F1A;&#x5728; middleware &#x81EA;&#x52A8;&#x5B83;&#x65F6;&#xFF0C;&#x81EA;&#x52A8;&#x83B7;&#x5F97; getState &#x53C2;&#x6570;</span>
 <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">rootSaga</span><span class="token punctuation">(</span>getState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">yield</span> <span class="token function">take</span><span class="token punctuation">(</span><span class="token string">&apos;CHECKOUT_REQUEST&apos;</span><span class="token punctuation">)</span>
 
-    <span class="token comment" spellcheck="true">// needs to pass the getState to child Saga</span>
+    <span class="token comment" spellcheck="true">// &#x9700;&#x8981;&#x5C06; getState &#x4F20;&#x9012;&#x7ED9;&#x5B50;&#x7EA7; Saga</span>
     <span class="token keyword">yield</span> <span class="token function">fork</span><span class="token punctuation">(</span>checkout<span class="token punctuation">,</span> getState<span class="token punctuation">)</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>One problem with the above code, besides the fact that <code>getState</code> needs to be passed
-explicitly down the call/fork chain, is that <code>checkout</code> must know where the <code>cart</code>
-slice is stored within the global State atom (e.g. in the <code>cart</code> field). The Saga is now coupled
-with the State shape. If that shape changes in the future (for example  via some
-normalization process) then we must also take care to change the code inside the
-<code>checkout</code> Saga. If we have other Sagas that also access the <code>cart</code> slice, then this can
-cause some subtle errors in our application if we forget to update one of the dependent
-Sagas.</p>
-<p>To alleviate this, we can create a <em>selector</em>, i.e. a function which knows how to extract
-the <code>cart</code> data from the State</p>
+<p>&#x4EE5;&#x4E0A;&#x4EE3;&#x7801;&#x6709;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x9664;&#x4E86; <code>getState</code> &#x9700;&#x8981;&#x663E;&#x5F0F;&#x5730;&#x5411;&#x4E0B;&#x4F20;&#x9012;&#x7ED9; call/fork &#x8C03;&#x7528;&#x94FE;&#xFF0C;<code>checkout</code> &#x8FD8;&#x5FC5;&#x987B;&#x77E5;&#x9053; <code>cart</code> &#x88AB;&#x5B58;&#x5728;&#x5168;&#x5C40; state &#x7684;&#x54EA;&#x4E2A;&#x5730;&#x65B9;&#xFF08;&#x6BD4;&#x5982;&#xFF0C;&#x5728; <code>cart</code> &#x5B57;&#x6BB5;&#x91CC;&#xFF09;&#x3002;
+Saga &#x4E0E; State &#x7ED3;&#x6784;&#x85D5;&#x5408;&#x4E86;&#x3002;&#x5982;&#x679C;&#x672A;&#x6765; state &#x7ED3;&#x6784;&#x6539;&#x53D8;&#x4E86;&#xFF08;&#x6BD4;&#x5982;&#x901A;&#x8FC7;&#x67D0;&#x4E9B;&#x6B63;&#x5E38;&#x5904;&#x7406;&#x6D41;&#x7A0B;&#xFF09;&#xFF0C;&#x90A3;&#x6211;&#x4EEC;&#x4E5F;&#x5FC5;&#x987B;&#x5C0F;&#x5FC3;&#x66F4;&#x6539; <code>checkout</code> Saga &#x91CC;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x3002;
+&#x5982;&#x679C;&#x6211;&#x4EEC;&#x8FD8;&#x6709;&#x53E6;&#x5916;&#x7684; Sagas &#x4E5F;&#x8BBF;&#x95EE;&#x4E86; <code>cart</code>&#xFF0C;&#x5E76;&#x4E14;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x5FD8;&#x8BB0;&#x66F4;&#x65B0;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x4F9D;&#x8D56;&#x7684; Sagas&#xFF0C;&#x90A3;&#x5C31;&#x4F1A;&#x5F15;&#x8D77;&#x4E00;&#x4E9B;&#x7EC6;&#x5C0F;&#x7684;&#x9519;&#x8BEF;&#x3002;</p>
+<p>&#x4E3A;&#x4E86;&#x7F13;&#x89E3;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x5FC3;&#x521B;&#x5EFA;&#x4E00;&#x4E2A; <em>&#x9009;&#x62E9;&#x5668;</em>&#xFF08;selector&#xFF09;&#xFF0C;&#x5373;&#x4E00;&#x4E2A;&#x77E5;&#x9053;&#x5982;&#x4F55;&#x4ECE; State &#x63D0;&#x53D6; <code>cart</code> &#x6570;&#x636E;&#x7684;&#x51FD;&#x6570;&#x3002;</p>
 <p><code><span class="token punctuation">.</span><span class="token operator">/</span>selectors</code></p>
 <pre><code class="lang-javascript"><span class="token keyword">export</span> <span class="token keyword">const</span> getCart <span class="token operator">=</span> state <span class="token operator">=</span><span class="token operator">&gt;</span> state<span class="token punctuation">.</span>cart
 </code></pre>
-<p>Then we can use that selector from inside the <code>checkout</code> Saga</p>
+<p>&#x7136;&#x540E;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728; <code>checkout</code> Saga &#x4E2D;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x9009;&#x62E9;&#x5668;&#xFF1A;</p>
 <p><code><span class="token punctuation">.</span><span class="token operator">/</span>sagas<span class="token punctuation">.</span>js</code></p>
 <pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> take<span class="token punctuation">,</span> fork<span class="token punctuation">,</span> select <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga/effects&apos;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> getCart <span class="token punctuation">}</span> from <span class="token string">&apos;./selectors&apos;</span>
 
 <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">checkout</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token comment" spellcheck="true">// query the state using the exported selector</span>
+  <span class="token comment" spellcheck="true">// &#x4F7F;&#x7528;&#x9009;&#x62E9;&#x5668;&#x67E5;&#x8BE2; state</span>
   <span class="token keyword">const</span> cart <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">select</span><span class="token punctuation">(</span>getCart<span class="token punctuation">)</span>
 
-  <span class="token comment" spellcheck="true">// ... call some Api endpoint then dispatch a success/error action</span>
+  <span class="token comment" spellcheck="true">// ... &#x8C03;&#x7528;&#x67D0;&#x4E9B; Api &#x7136;&#x540E;&#x53D1;&#x8D77;&#x4E00;&#x4E2A; success/error action</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">rootSaga</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">yield</span> <span class="token function">take</span><span class="token punctuation">(</span><span class="token string">&apos;CHECKOUT_REQUEST&apos;</span><span class="token punctuation">)</span>
 
-    <span class="token comment" spellcheck="true">// No more need to pass the getState param</span>
+    <span class="token comment" spellcheck="true">// &#x4E0D;&#x518D;&#x9700;&#x8981;&#x4F20;&#x9012; getState &#x53C2;&#x6570;&#x4E86;</span>
     <span class="token keyword">yield</span> <span class="token function">fork</span><span class="token punctuation">(</span>checkout<span class="token punctuation">)</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>First thing to note is that <code>rootSaga</code> doesn&apos;t use the <code>getState</code> param. There is
-no need for it to pass <code>getState</code> to the child Saga. <code>rootSaga</code> no longer have to make
-assumptions about <code>checkout</code> (i.e. whether <code>checkout</code> needs to access the state or not).</p>
-<p>Second thing is that <code>checkout</code> can now get the needed information directly by using
-<code><span class="token function">select</span><span class="token punctuation">(</span>getCart<span class="token punctuation">)</span></code>. The Saga is now coupled only with the <code>getCart</code> selector. If we have
-many Sagas (or React Components) that needs to access the <code>cart</code> slice, they will all be
-coupled to the same function <code>getCart</code>. And if we now change the state shape, we need only
-to update <code>getCart</code>.</p>
+<p>&#x9996;&#x5148;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;<code>rootSaga</code> &#x6CA1;&#x6709;&#x4F7F;&#x7528; <code>getState</code> &#x53C2;&#x6570;&#x3002;&#x6CA1;&#x6709;&#x5FC5;&#x8981;&#x4E3A;&#x5B50;&#x7EA7; Saga &#x4F20;&#x9012; <code>getState</code>&#x3002;
+<code>rootSaga</code> &#x518D;&#x4E5F;&#x4E0D;&#x9700;&#x8981;&#x505A;&#x5173;&#x4E8E; <code>checkout</code> &#x7684;&#x5047;&#x8BBE;&#xFF08;&#x5373;&#xFF1A;<code>checkout</code> &#x662F;&#x5426;&#x9700;&#x8981;&#x8BBF;&#x95EE; state&#xFF09;&#x3002;</p>
+<p>&#x5176;&#x6B21;&#xFF0C;<code>checkout</code> &#x73B0;&#x5728;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <code><span class="token function">select</span><span class="token punctuation">(</span>getCart<span class="token punctuation">)</span></code> &#x76F4;&#x63A5;&#x5F97;&#x5230;&#x9700;&#x8981;&#x7684;&#x4FE1;&#x606F;&#x3002;Saga &#x73B0;&#x5728;&#x53EA;&#x4E0E; <code>getCart</code> &#x9009;&#x62E9;&#x5668;&#x85D5;&#x5408;&#x3002;
+&#x5982;&#x679C;&#x6211;&#x4EEC;&#x6709;&#x8BB8;&#x591A;&#x9700;&#x8981;&#x8BBF;&#x95EE; <code>cart</code> &#x7684; Sagas&#xFF08;&#x6216; React Components&#xFF09;&#xFF0C;&#x5B83;&#x4EEC;&#x90FD;&#x5C06;&#x85D5;&#x5408;&#x5230;&#x7EDF;&#x4E00;&#x7684; <code>getCart</code> &#x51FD;&#x6570;&#x3002;
+&#x5E76;&#x4E14;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x6539;&#x53D8;&#x4E86; state &#x7ED3;&#x6784;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x66F4;&#x65B0; <code>getCart</code> &#x5373;&#x53EF;&#x3002;</p>
 <h2 id="effect-combinators">Effect combinators</h2>
 <hr>
 <h3 id="raceeffects"><code><span class="token function">race</span><span class="token punctuation">(</span>effects<span class="token punctuation">)</span></code></h3>
