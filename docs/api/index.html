@@ -50,7 +50,7 @@
     <body>
         
         
-    <div class="book" data-level="8" data-chapter-title="API 参考" data-filepath="docs/api/README.md" data-basepath="../.." data-revision="Tue Apr 12 2016 01:18:06 GMT+0800 (CST)">
+    <div class="book" data-level="8" data-chapter-title="API 参考" data-filepath="docs/api/README.md" data-basepath="../.." data-revision="Tue Apr 12 2016 22:52:59 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -118,7 +118,7 @@
                         
                             <b>1.2.</b>
                         
-                        Saga background
+                        Saga 的背景
                     </a>
             
             
@@ -896,17 +896,16 @@ Saga &#x4E0E; State &#x7ED3;&#x6784;&#x85D5;&#x5408;&#x4E86;&#x3002;&#x5982;&#x6
 <p>&#x5176;&#x6B21;&#xFF0C;<code>checkout</code> &#x73B0;&#x5728;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <code><span class="token function">select</span><span class="token punctuation">(</span>getCart<span class="token punctuation">)</span></code> &#x76F4;&#x63A5;&#x5F97;&#x5230;&#x9700;&#x8981;&#x7684;&#x4FE1;&#x606F;&#x3002;Saga &#x73B0;&#x5728;&#x53EA;&#x4E0E; <code>getCart</code> &#x9009;&#x62E9;&#x5668;&#x85D5;&#x5408;&#x3002;
 &#x5982;&#x679C;&#x6211;&#x4EEC;&#x6709;&#x8BB8;&#x591A;&#x9700;&#x8981;&#x8BBF;&#x95EE; <code>cart</code> &#x7684; Sagas&#xFF08;&#x6216; React Components&#xFF09;&#xFF0C;&#x5B83;&#x4EEC;&#x90FD;&#x5C06;&#x85D5;&#x5408;&#x5230;&#x7EDF;&#x4E00;&#x7684; <code>getCart</code> &#x51FD;&#x6570;&#x3002;
 &#x5E76;&#x4E14;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x6539;&#x53D8;&#x4E86; state &#x7ED3;&#x6784;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x66F4;&#x65B0; <code>getCart</code> &#x5373;&#x53EF;&#x3002;</p>
-<h2 id="effect-combinators">Effect combinators</h2>
+<h2 id="effect-&#x7EC4;&#x5408;&#x5668;&#xFF08;combinators&#xFF09;">Effect &#x7EC4;&#x5408;&#x5668;&#xFF08;combinators&#xFF09;</h2>
 <hr>
 <h3 id="raceeffects"><code><span class="token function">race</span><span class="token punctuation">(</span>effects<span class="token punctuation">)</span></code></h3>
-<p>Creates an Effect description that instructs the middleware to run a <em>Race</em> between
-multiple Effects (this is similar to how <code>Promise<span class="token punctuation">.</span><span class="token function">race</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">)</span></code> behaves).</p>
-<p><code>effects<span class="token punctuation">:</span> Object</code> - a dictionary Object of the form {label: effect, ...}</p>
-<h4 id="example">Example</h4>
-<p>The following example run a race between 2 effects :</p>
+<p>&#x521B;&#x5EFA;&#x4E00;&#x6761; Effect &#x63CF;&#x8FF0;&#x4FE1;&#x606F;&#xFF0C;&#x6307;&#x793A; middleware &#x5728;&#x591A;&#x4E2A; Effect &#x4E4B;&#x95F4;&#x6267;&#x884C;&#x4E00;&#x4E2A; <em>race</em>&#xFF08;&#x7C7B;&#x4F3C; <code>Promise<span class="token punctuation">.</span><span class="token function">race</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">)</span></code> &#x7684;&#x884C;&#x4E3A;&#xFF09;&#x3002;</p>
+<p><code>effects<span class="token punctuation">:</span> Object</code> - &#x4E00;&#x4E2A; {label: effect, ...} &#x5F62;&#x5F0F;&#x7684;&#x5B57;&#x5178;&#x5BF9;&#x8C61;</p>
+<h4 id="&#x4F8B;&#x5B50;">&#x4F8B;&#x5B50;</h4>
+<p>&#x4EE5;&#x4E0B;&#x7684;&#x4F8B;&#x5B50;&#x5728; 2 &#x4E2A; Effect &#x95F4;&#x6267;&#x884C; race&#xFF1A;</p>
 <ol>
-<li>A call to a function <code>fetchUsers</code> which returns a Promise</li>
-<li>A <code>CANCEL_FETCH</code> action which may be eventually dispatched on the Store</li>
+<li>&#x4E00;&#x4E2A;&#x8C03;&#x7528; <code>fetchUsers</code> &#x51FD;&#x6570;&#xFF0C;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x8FD4;&#x56DE; Promise</li>
+<li>&#x4E00;&#x4E2A; <code>CANCEL_FETCH</code> action&#xFF0C;&#x6700;&#x7EC8;&#x4F1A;&#x88AB;&#x53D1;&#x8D77;&#x5230; Store</li>
 </ol>
 <pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> take<span class="token punctuation">,</span> call <span class="token punctuation">}</span> from `redux<span class="token operator">-</span>saga<span class="token operator">/</span>effects`
 <span class="token keyword">import</span> fetchUsers from <span class="token string">&apos;./path/to/fetchUsers&apos;</span>
@@ -918,17 +917,14 @@ multiple Effects (this is similar to how <code>Promise<span class="token punctua
   <span class="token punctuation">}</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>If <code><span class="token function">call</span><span class="token punctuation">(</span>fetchUsers<span class="token punctuation">)</span></code> resolves (or rejects) first, the result of <code>race</code> will be an object
-with a single keyed object <code><span class="token punctuation">{</span>response<span class="token punctuation">:</span> result<span class="token punctuation">}</span></code> where <code>result</code> is the resolved result of <code>fetchUsers</code>.</p>
-<p>If an action of type <code>CANCEL_FETCH</code> is dispatched on the Store before <code>fetchUsers</code> completes, the result
-will be a single keyed object <code><span class="token punctuation">{</span>cancel<span class="token punctuation">:</span> action<span class="token punctuation">}</span></code>, where action is the dispatched action.</p>
-<h4 id="notes">Notes</h4>
-<p>When resolving a <code>race</code>, the middleware automatically cancels all the losing Effects.</p>
-<h3 id="effects-parallel-effects"><code><span class="token punctuation">[</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>effects<span class="token punctuation">]</span> <span class="token punctuation">(</span>parallel effects<span class="token punctuation">)</span></code></h3>
-<p>Creates an Effect description that instructs the middleware to run multiple Effects
-in parallel and wait for all of them to complete.</p>
-<h4 id="example">Example</h4>
-<p>The following example run 2 blocking calls in parallel :</p>
+<p>&#x5982;&#x679C; <code><span class="token function">call</span><span class="token punctuation">(</span>fetchUsers<span class="token punctuation">)</span></code> &#x5148; resolve&#xFF08;&#x6216; reject&#xFF09;&#xFF0C;<code>race</code> &#x7684;&#x7ED3;&#x679C;&#x5C06;&#x4F1A;&#x662F;&#x4E00;&#x4E2A;&#x5355;&#x952E;&#x503C;&#x5BF9;&#x8C61; <code><span class="token punctuation">{</span>response<span class="token punctuation">:</span> result<span class="token punctuation">}</span></code>&#xFF0C;&#x5176;&#x4E2D; <code>result</code> &#x662F; <code>fetchUsers</code> resolve &#x540E;&#x7684;&#x7ED3;&#x679C;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x4E00;&#x4E2A; <code>CANCEL_FETCH</code> &#x7C7B;&#x578B;&#x7684; action &#x5728; <code>fetchUser</code> &#x5B8C;&#x6210;&#x4E4B;&#x524D;&#x88AB;&#x53D1;&#x8D77;&#x5230; Store&#xFF0C;&#x7ED3;&#x679C;&#x5C06;&#x662F;&#x4E00;&#x4E2A;&#x5355;&#x952E;&#x503C;&#x5BF9;&#x8C61; <code><span class="token punctuation">{</span>cancel<span class="token punctuation">:</span> action<span class="token punctuation">}</span></code>&#xFF0C;&#x5176;&#x4E2D; <code>action</code> &#x662F;&#x88AB;&#x53D1;&#x8D77;&#x7684; action&#x3002;</p>
+<h4 id="&#x6CE8;&#x610F;">&#x6CE8;&#x610F;</h4>
+<p>&#x5728; resolve <code>race</code> &#x7684;&#x65F6;&#x5019;&#xFF0C;middleware &#x4F1A;&#x81EA;&#x52A8;&#x53D6;&#x6D88;&#x6240;&#x6709;&#x5931;&#x6548;&#x7684; Effect&#xFF08;&#x8BD1;&#x6CE8;&#xFF1A;&#x5373;&#x5269;&#x4F59;&#x7684; Effect&#xFF09;&#x3002;</p>
+<h3 id="effects-&#x5E76;&#x884C;&#x7684;-effects"><code><span class="token punctuation">[</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>effects<span class="token punctuation">]</span> <span class="token punctuation">(</span>&#x5E76;&#x884C;&#x7684; effects<span class="token punctuation">)</span></code></h3>
+<p>&#x521B;&#x5EFA;&#x4E00;&#x6761; Effect &#x63CF;&#x8FF0;&#x4FE1;&#x606F;&#xFF0C;&#x6307;&#x793A; middleware &#x5E76;&#x884C;&#x6267;&#x884C;&#x591A;&#x4E2A; Effect&#xFF0C;&#x5E76;&#x7B49;&#x5F85;&#x6240;&#x6709; Effect &#x5B8C;&#x6210;&#x3002;</p>
+<h4 id="&#x4F8B;&#x5B50;">&#x4F8B;&#x5B50;</h4>
+<p>&#x4EE5;&#x4E0B;&#x7684;&#x4F8B;&#x5B50;&#x6267;&#x884C;&#x5E76;&#x884C;&#x6267;&#x884C;&#x4E86; 2 &#x4E2A;&#x963B;&#x585E;&#x8C03;&#x7528;&#xFF1A;</p>
 <pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> fetchCustomers<span class="token punctuation">,</span> fetchProducts <span class="token punctuation">}</span> from <span class="token string">&apos;./path/to/api&apos;</span>
 
 <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">mySaga</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -938,101 +934,93 @@ in parallel and wait for all of them to complete.</p>
   <span class="token punctuation">]</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h4 id="notes">Notes</h4>
-<p>When running Effects in parallel, the middleware suspends the Generator until one
-of the followings :  </p>
+<h4 id="&#x6CE8;&#x610F;">&#x6CE8;&#x610F;</h4>
+<p>&#x5E76;&#x884C;&#x6267;&#x884C;&#x591A;&#x4E2A; Effect &#x65F6;&#xFF0C;middleware &#x4F1A;&#x6682;&#x505C; Generator&#xFF0C;&#x76F4;&#x5230;&#x4EE5;&#x4E0B;&#x60C5;&#x51B5;&#x4E4B;&#x4E00;&#xFF1A;</p>
 <ul>
-<li><p>All the Effects completed with success: resumes the Generator with an array containing
-the results of all Effects.</p>
+<li><p>&#x6240;&#x6709; Effect &#x6210;&#x529F;&#x5B8C;&#x6210;&#xFF1A;Generator &#x6062;&#x590D;&#x5E76;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5305;&#x542B;&#x6240;&#x6709; Effect &#x7ED3;&#x679C;&#x7684;&#x6570;&#x7EC4;&#x3002;</p>
 </li>
-<li><p>One of the Effects was rejected before all the effects complete: throw the rejection
-error inside the Generator.</p>
+<li><p>&#x5728;&#x6240;&#x6709; Effect &#x5B8C;&#x6210;&#x4E4B;&#x524D;&#xFF0C;&#x6709;&#x4E00;&#x4E2A; Effect &#x88AB; reject &#x4E86;&#xFF1A;Generator &#x629B;&#x51FA; reject &#x9519;&#x8BEF;&#x3002;</p>
 </li>
 </ul>
-<h2 id="interfaces">Interfaces</h2>
+<h2 id="&#x63A5;&#x53E3;">&#x63A5;&#x53E3;</h2>
 <hr>
 <h3 id="task">Task</h3>
-<p>The Task interface specifies the result of running a Saga using <code>fork</code>, <code>middleware<span class="token punctuation">.</span>run</code> or <code>runSaga</code></p>
+<p>Task &#x63A5;&#x53E3;&#x6307;&#x5B9A;&#x4E86;&#x901A;&#x8FC7; <code>fork</code>&#xFF0C;<code>middleware<span class="token punctuation">.</span>run</code> &#x6216; <code>runSaga</code> &#x6267;&#x884C; Saga &#x7684;&#x7ED3;&#x679C;&#x3002;</p>
 <table id="task-descriptor">
   <tr>
-    <th>method</th>
-    <th>return value</th>
+    <th>&#x65B9;&#x6CD5;</th>
+    <th>&#x8FD4;&#x56DE;&#x503C;</th>
   </tr>
   <tr>
     <td>task.isRunning()</td>
-    <td>true if the task hasn&apos;t yet returned or thrown an error</td>
+    <td>&#x5982;&#x679C;&#x4EFB;&#x52A1;&#x8FD8;&#x672A;&#x8FD4;&#x56DE;&#x6216;&#x629B;&#x51FA;&#x4E86;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;&#x5219;&#x8FD4;&#x56DE; true</td>
   </tr>
   <tr>
     <td>task.result()</td>
-    <td>task return value. `undefined` if task is still running</td>
+    <td>&#x4EFB;&#x52A1;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x3002;&#x5982;&#x679C;&#x4EFB;&#x52A1;&#x6B63;&#x5728;&#x6267;&#x884C;&#x4E2D;&#x5219;&#x8FD4;&#x56DE; `undefined`</td>
   </tr>
   <tr>
     <td>task.error()</td>
-    <td>task thrown error. `undefined` if task is still running</td>
+    <td>&#x4EFB;&#x52A1;&#x629B;&#x51FA;&#x7684;&#x9519;&#x8BEF;&#x3002;&#x5982;&#x679C;&#x4EFB;&#x52A1;&#x6B63;&#x5728;&#x6267;&#x884C;&#x4E2D;&#x5219;&#x8FD4;&#x56DE; `undefined`</td>
   </tr>
   <tr>
     <td>task.done</td>
     <td>
-      a Promise which is either:
+      &#x4E00;&#x4E2A; Promise&#xFF0C;&#x4EE5;&#x4E0B;&#x4E8C;&#x8005;&#x4E4B;&#x4E00;&#xFF1A;
         <ul>
-          <li>resolved with task&apos;s return value</li>
-          <li>rejected with task&apos;s thrown error</li>
+          <li>&#x4EE5;&#x4EFB;&#x52A1;&#x7684;&#x8FD4;&#x56DE;&#x503C; resolve</li>
+          <li>&#x4EE5;&#x4EFB;&#x52A1;&#x629B;&#x51FA;&#x7684;&#x9519;&#x8BEF; reject</li>
         </ul>
       </td>
   </tr>
   <tr>
     <td>task.cancel()</td>
-    <td>Cancels the task (If it is still running)</td>
+    <td>&#x53D6;&#x6D88;&#x4EFB;&#x52A1;&#xFF08;&#x5982;&#x679C;&#x4EFB;&#x52A1;&#x8FD8;&#x5728;&#x6267;&#x884C;&#x4E2D;&#xFF09;</td>
   </tr>
 </table>
 
 
 
 
-<h2 id="external-api">External API</h2>
+<h2 id="&#x5916;&#x90E8;-api">&#x5916;&#x90E8; API</h2>
 <hr>
 <h3 id="runsagaiterator-subscribe-dispatch-getstate-monitor"><code><span class="token function">runSaga</span><span class="token punctuation">(</span>iterator<span class="token punctuation">,</span> <span class="token punctuation">{</span>subscribe<span class="token punctuation">,</span> dispatch<span class="token punctuation">,</span> getState<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>monitor<span class="token punctuation">]</span><span class="token punctuation">)</span></code></h3>
-<p>Allows starting sagas outside the Redux middleware environment. Useful if you want to
-connect a Saga to external input/output, other than store actions.</p>
-<p><code>runSaga</code> returns a Task object. Just like the one returned from a <code>fork</code> effect.</p>
+<p>&#x5141;&#x8BB8;&#x5728; Redux middleware &#x73AF;&#x5883;&#x5916;&#x90E8;&#x542F;&#x52A8; sagas&#x3002;&#x5F53;&#x4F60;&#x60F3;&#x5C06; Saga &#x8FDE;&#x63A5;&#x81F3;&#x5916;&#x90E8;&#x7684;&#x8F93;&#x5165;&#x548C;&#x8F93;&#x51FA;&#xFF08;&#x8BD1;&#x6CE8;&#xFF1A;&#x5373;&#x5728;&#x5916;&#x90E8;&#x6267;&#x884C; Saga&#xFF09;&#x65F6;&#xFF0C;&#x800C;&#x4E0D;&#x662F; store &#x7684; action&#xFF0C;&#x4F1A;&#x5F88;&#x6709;&#x7528;&#x3002;</p>
+<p><code>runSaga</code> &#x8FD4;&#x56DE;&#x4E00;&#x4E2A; Task &#x5BF9;&#x8C61;&#x3002;&#x5C31;&#x50CF; <code>fork</code> Effect &#x8FD4;&#x56DE;&#x7684;&#x3002;</p>
 <ul>
-<li><p><code>iterator<span class="token punctuation">:</span> <span class="token punctuation">{</span>next<span class="token punctuation">,</span> <span class="token keyword">throw</span><span class="token punctuation">}</span></code> - an Iterator object, Typically created by invoking a Generator function</p>
+<li><p><code>iterator<span class="token punctuation">:</span> <span class="token punctuation">{</span>next<span class="token punctuation">,</span> <span class="token keyword">throw</span><span class="token punctuation">}</span></code> - &#x4E00;&#x4E2A; Iterator &#x5BF9;&#x8C61;&#xFF0C;&#x901A;&#x5E38;&#x662F;&#x901A;&#x8FC7;&#x8C03;&#x7528; Generator &#x51FD;&#x6570;&#x521B;&#x5EFA;&#x3002;</p>
 </li>
-<li><p><code><span class="token punctuation">{</span>subscribe<span class="token punctuation">,</span> dispatch<span class="token punctuation">,</span> getState<span class="token punctuation">}</span><span class="token punctuation">:</span> Object</code> - an Object which exposes <code>subscribe</code>, <code>dispatch</code> and <code>getState</code> methods</p>
+<li><p><code><span class="token punctuation">{</span>subscribe<span class="token punctuation">,</span> dispatch<span class="token punctuation">,</span> getState<span class="token punctuation">}</span><span class="token punctuation">:</span> Object</code> - &#x4E00;&#x4E2A;&#x66B4;&#x9732; <code>subscribe</code>, <code>dispatch</code> &#x548C; <code>getState</code> &#x65B9;&#x6CD5;&#x7684;&#x5BF9;&#x8C61;</p>
 <ul>
-<li><p><code><span class="token function">subscribe</span><span class="token punctuation">(</span>callback<span class="token punctuation">)</span><span class="token punctuation">:</span> Function</code> - A function which accepts a callback and returns an <code>unsubscribe</code> function</p>
+<li><p><code><span class="token function">subscribe</span><span class="token punctuation">(</span>callback<span class="token punctuation">)</span><span class="token punctuation">:</span> Function</code> - &#x4E00;&#x4E2A;&#x63A5;&#x53D7;&#x56DE;&#x8C03;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A; <code>unsubscribe</code> &#x51FD;&#x6570;</p>
 <ul>
-<li><p><code><span class="token function">callback</span><span class="token punctuation">(</span>input<span class="token punctuation">)</span><span class="token punctuation">:</span> Function</code> - callback(provided by runSaga) used to subscribe to input events. <code>subscribe</code> must support registering multiple subscriptions.</p>
+<li><p><code><span class="token function">callback</span><span class="token punctuation">(</span>input<span class="token punctuation">)</span><span class="token punctuation">:</span> Function</code> - callback&#xFF08;&#x7531; runSaga &#x63D0;&#x4F9B;&#xFF09;&#x7528;&#x4E8E;&#x8BA2;&#x9605;&#x8F93;&#x5165;&#x7684;&#x4E8B;&#x4EF6;&#x3002;<code>subscribe</code> &#x652F;&#x6301;&#x6CE8;&#x518C;&#x591A;&#x4E2A;&#x8BA2;&#x9605;&#x3002;</p>
 <ul>
-<li><code>input<span class="token punctuation">:</span> any</code> - argument passed by <code>subscribe</code> to <code>callback</code> (see Notes below)</li>
+<li><code>input<span class="token punctuation">:</span> any</code> - &#x7531; <code>subscribe</code> &#x4F20;&#x9012;&#x7ED9; <code>callback</code> &#x7684;&#x53C2;&#x6570;&#xFF08;&#x53C2;&#x8003;&#x4E0B;&#x65B9;&#x7684;&#x6CE8;&#x610F;&#x4E8B;&#x9879;&#xFF09;&#x3002;</li>
 </ul>
 </li>
-<li><p><code><span class="token function">dispatch</span><span class="token punctuation">(</span>output<span class="token punctuation">)</span><span class="token punctuation">:</span> Function</code> - used to fulfill <code>put</code> effects.</p>
+<li><p><code><span class="token function">dispatch</span><span class="token punctuation">(</span>output<span class="token punctuation">)</span><span class="token punctuation">:</span> Function</code> - &#x7528;&#x4E8E;&#x5C65;&#x884C; <code>put</code> effect &#x7684;&#x804C;&#x8D23;&#x3002;</p>
 <ul>
-<li><code>output <span class="token punctuation">:</span> any</code> -  argument provided by the Saga to the <code>put</code> Effect (see Notes below).</li>
+<li><code>output <span class="token punctuation">:</span> any</code> -  &#x7531; Saga &#x4F20;&#x9012;&#x7ED9; <code>put</code> Effect &#x7684;&#x53C2;&#x6570;&#xFF08;&#x53C2;&#x8003;&#x4E0B;&#x65B9;&#x7684;&#x6CE8;&#x610F;&#x4E8B;&#x9879;&#xFF09;&#x3002;</li>
 </ul>
 </li>
-<li><p><code><span class="token function">getState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> Function</code> - used to fulfill <code>select</code> and <code>getState</code> effects</p>
-</li>
-</ul>
+<li><p><code><span class="token function">getState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> Function</code> - &#x7528;&#x4E8E;&#x5C65;&#x884C; <code>select</code> &#x548C; <code>getState</code> Effect &#x7684;&#x804C;&#x8D23;&#x3002;</p>
 </li>
 </ul>
 </li>
-<li><p><code><span class="token function">monitor</span><span class="token punctuation">(</span>sagaAction<span class="token punctuation">)</span><span class="token punctuation">:</span> Function</code> (optional): a callback which is used to dispatch all Saga related events. In the middleware version, all actions are dispatched to the Redux store. See the <a href="https://github.com/yelouafi/redux-saga/tree/master/examples/sagaMonitor" target="_blank">sagaMonitor example</a> for usage.</p>
+</ul>
+</li>
+<li><p><code><span class="token function">monitor</span><span class="token punctuation">(</span>sagaAction<span class="token punctuation">)</span><span class="token punctuation">:</span> Function</code> (&#x53EF;&#x9009;): &#x4E00;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF0C;&#x7528;&#x4E8E;&#x8C03;&#x7528;&#x6240;&#x6709; Saga &#x76F8;&#x5173;&#x7684;&#x4E8B;&#x4EF6;&#x3002;&#x5728; middleware &#x7248;&#x672C;&#x4E2D;&#xFF0C;&#x6240;&#x6709;&#x7684; action &#x88AB;&#x53D1;&#x8D77;&#x5230; Redux store&#x3002;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x67E5;&#x770B; <a href="https://github.com/yelouafi/redux-saga/tree/master/examples/sagaMonitor" target="_blank">sagaMonitor &#x4F8B;&#x5B50;</a></p>
 <ul>
-<li><code>sagaAction<span class="token punctuation">:</span> Object</code> - action dispatched by Sagas to notify <code>monitor</code> of Saga related events.</li>
+<li><code>sagaAction<span class="token punctuation">:</span> Object</code> - &#x7531; Sagas &#x53D1;&#x8D77;&#x7684; action&#xFF0C;&#x7528;&#x4E8E;&#x901A;&#x77E5; <code>monitor</code> Saga &#x76F8;&#x5173;&#x7684;&#x4E8B;&#x4EF6;&#x3002;</li>
 </ul>
 </li>
 </ul>
-<h4 id="notes">Notes</h4>
-<p>The <code><span class="token punctuation">{</span>subscribe<span class="token punctuation">,</span> dispatch<span class="token punctuation">}</span></code> is used to fulfill <code>take</code> and <code>put</code> Effects. This defines the Input/Output
-interface of the Saga.</p>
-<p><code>subscribe</code> is used to fulfill <code><span class="token function">take</span><span class="token punctuation">(</span>PATTERN<span class="token punctuation">)</span></code> effects. It must call <code>callback</code> every time it
-has an input to dispatch (e.g. on every mouse click if the Saga is connected to DOM click events).
-Each time <code>subscribe</code> emits an input to its callbacks, if the Saga is blocked on a <code>take</code> effect, and
-if the take pattern matches the currently incoming input, the Saga is resumed with that input.</p>
-<p><code>dispatch</code> is used to fulfill <code>put</code> effects. Each time the Saga emits a <code><span class="token keyword">yield</span> <span class="token function">put</span><span class="token punctuation">(</span>output<span class="token punctuation">)</span></code>, <code>dispatch</code>
-is invoked with output.</p>
+<h4 id="&#x6CE8;&#x610F;">&#x6CE8;&#x610F;</h4>
+<p><code><span class="token punctuation">{</span>subscribe<span class="token punctuation">,</span> dispatch<span class="token punctuation">}</span></code> &#x7528;&#x4E8E;&#x5C65;&#x884C; <code>take</code> &#x548C; <code>put</code> Effect&#x3002;&#x5B83;&#x5B9A;&#x4E49;&#x4E86; Saga &#x7684;&#x8F93;&#x5165;&#x548C;&#x8F93;&#x51FA;&#x3002;</p>
+<p><code>subscribe</code> &#x7528;&#x4E8E;&#x5C65;&#x884C; <code><span class="token function">take</span><span class="token punctuation">(</span>PATTERN<span class="token punctuation">)</span></code> effect&#x3002;&#x5B83;&#x4F1A;&#x5728;&#x6BCF;&#x6B21;&#x6709;&#x8F93;&#x5165;&#x8981;&#x53D1;&#x8D77;&#x65F6;&#x8C03;&#x7528; <code>callback</code>&#xFF08;&#x4F8B;&#x5982;&#x6BCF;&#x6B21;&#x9F20;&#x6807;&#x7684;&#x70B9;&#x51FB;&#xFF0C;&#x5982;&#x679C; Saga &#x8FDE;&#x63A5;&#x5230;&#x4E86; DOM &#x7684;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;&#x7684;&#x8BDD;&#xFF09;&#x3002;
+&#x6BCF;&#x6B21; <code>subscribe</code> &#x53D1;&#x5C04;&#x4E00;&#x4E2A;&#x8F93;&#x5165;&#x5230;&#x5B83;&#x7684; callback&#xFF0C;&#x5982;&#x679C; Saga &#x88AB;&#x4E00;&#x4E2A; <code>take</code> Effect &#x963B;&#x585E;&#x4E86;&#xFF0C;&#x5E76;&#x4E14; take pattern &#x548C;&#x5F53;&#x524D;&#x8F93;&#x5165;&#x76F8;&#x5339;&#x914D;&#xFF0C;Saga &#x5C06;&#x4EE5;&#x90A3;&#x4E2A;&#x8F93;&#x5165;&#x6062;&#x590D;&#x3002;</p>
+<p><code>dispatch</code> &#x7528;&#x4E8E;&#x5C65;&#x884C; <code>put</code> Effect&#x3002;&#x6BCF;&#x6B21; Saga &#x53D1;&#x5C04;&#x4E00;&#x4E2A; <code><span class="token keyword">yield</span> <span class="token function">put</span><span class="token punctuation">(</span>output<span class="token punctuation">)</span></code> &#x65F6;&#xFF0C;&#x5C06;&#x4EE5; <code>output</code> &#x8C03;&#x7528; <code>dispatch</code>&#x3002;</p>
 
                     
                     </section>

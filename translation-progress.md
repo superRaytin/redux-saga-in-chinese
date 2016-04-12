@@ -3,7 +3,7 @@
 * [x] [Read Me](/README.md)
 * [ ] [介绍](/docs/introduction/README.md)
   * [ ] [初级教程](/docs/introduction/BeginnerTutorial.md) `ing`
-  * [ ] [Saga background](/docs/introduction/SagaBackground.md)
+  * [x] [Saga 的背景](/docs/introduction/SagaBackground.md)
 * [ ] [基本概念](/docs/basics/README.md)
   * [ ] [使用 Saga 辅助函数](/docs/basics/UsingSagaHelpers.md)
   * [ ] [声明式 Effects](/docs/basics/DeclarativeEffects.md)
@@ -25,4 +25,4 @@
 * [ ] [外部资源](/docs/ExternalResources.md)
 * [ ] [故障排除](/docs/Troubleshooting.md)
 * [ ] [名词解释](/docs/Glossary.md)
-* [ ] [API 参考](/docs/api/README.md) `ing`
+* [x] [API 参考](/docs/api/README.md)
