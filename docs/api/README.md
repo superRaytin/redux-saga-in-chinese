@@ -485,22 +485,21 @@ export default function* rootSaga() {
 如果我们有许多需要访问 `cart` 的 Sagas（或 React Components），它们都将藕合到统一的 `getCart` 函数。
 并且如果我们改变了 state 结构，我们只需要更新 `getCart` 即可。
 
-## Effect combinators
+## Effect 组合器（combinators）
 ----------------------------
 
 ### `race(effects)`
 
-Creates an Effect description that instructs the middleware to run a *Race* between
-multiple Effects (this is similar to how `Promise.race([...])` behaves).
+创建一条 Effect 描述信息，指示 middleware 在多个 Effect 之间执行一个 *race*（类似 `Promise.race([...])` 的行为）。
 
-`effects: Object` - a dictionary Object of the form {label: effect, ...}
+`effects: Object` - 一个 {label: effect, ...} 形式的字典对象
 
-#### Example
+#### 例子
 
-The following example run a race between 2 effects :
+以下的例子在 2 个 Effect 间执行 race：
 
-1. A call to a function `fetchUsers` which returns a Promise
-2. A `CANCEL_FETCH` action which may be eventually dispatched on the Store
+1. 一个调用 `fetchUsers` 函数，这个函数返回 Promise
+2. 一个 `CANCEL_FETCH` action，最终会被发起到 Store
 
 ```javascript
 import { take, call } from `redux-saga/effects`
@@ -514,25 +513,21 @@ function* fetchUsersSaga {
 }
 ```
 
-If `call(fetchUsers)` resolves (or rejects) first, the result of `race` will be an object
-with a single keyed object `{response: result}` where `result` is the resolved result of `fetchUsers`.
+如果 `call(fetchUsers)` 先 resolve（或 reject），`race` 的结果将会是一个单键值对象 `{response: result}`，其中 `result` 是 `fetchUsers` resolve 后的结果。
 
-If an action of type `CANCEL_FETCH` is dispatched on the Store before `fetchUsers` completes, the result
-will be a single keyed object `{cancel: action}`, where action is the dispatched action.
+如果一个 `CANCEL_FETCH` 类型的 action 在 `fetchUser` 完成之前被发起到 Store，结果将是一个单键值对象 `{cancel: action}`，其中 `action` 是被发起的 action。
 
-#### Notes
+#### 注意
 
-When resolving a `race`, the middleware automatically cancels all the losing Effects.
+在 resolve `race` 的时候，middleware 会自动取消所有失效的 Effect（译注：即剩余的 Effect）。
 
+### `[...effects] (并行的 effects)`
 
-### `[...effects] (parallel effects)`
+创建一条 Effect 描述信息，指示 middleware 并行执行多个 Effect，并等待所有 Effect 完成。
 
-Creates an Effect description that instructs the middleware to run multiple Effects
-in parallel and wait for all of them to complete.
+#### 例子
 
-#### Example
-
-The following example run 2 blocking calls in parallel :
+以下的例子执行并行执行了 2 个阻塞调用：
 
 ```javascript
 import { fetchCustomers, fetchProducts } from './path/to/api'
@@ -545,98 +540,88 @@ function* mySaga() {
 }
 ```
 
-#### Notes
+#### 注意
 
-When running Effects in parallel, the middleware suspends the Generator until one
-of the followings :  
+并行执行多个 Effect 时，middleware 会暂停 Generator，直到以下情况之一：
 
-- All the Effects completed with success: resumes the Generator with an array containing
-the results of all Effects.
+- 所有 Effect 成功完成：Generator 恢复并返回一个包含所有 Effect 结果的数组。
 
-- One of the Effects was rejected before all the effects complete: throw the rejection
-error inside the Generator.
+- 在所有 Effect 完成之前，有一个 Effect 被 reject 了：Generator 抛出 reject 错误。
 
-## Interfaces
+## 接口
 ---------------------
 
 ### Task
 
-The Task interface specifies the result of running a Saga using `fork`, `middleware.run` or `runSaga`
-
+Task 接口指定了通过 `fork`，`middleware.run` 或 `runSaga` 执行 Saga 的结果。
 
 <table id="task-descriptor">
   <tr>
-    <th>method</th>
-    <th>return value</th>
+    <th>方法</th>
+    <th>返回值</th>
   </tr>
   <tr>
     <td>task.isRunning()</td>
-    <td>true if the task hasn't yet returned or thrown an error</td>
+    <td>如果任务还未返回或抛出了一个错误则返回 true</td>
   </tr>
   <tr>
     <td>task.result()</td>
-    <td>task return value. `undefined` if task is still running</td>
+    <td>任务的返回值。如果任务正在执行中则返回 `undefined`</td>
   </tr>
   <tr>
     <td>task.error()</td>
-    <td>task thrown error. `undefined` if task is still running</td>
+    <td>任务抛出的错误。如果任务正在执行中则返回 `undefined`</td>
   </tr>
   <tr>
     <td>task.done</td>
     <td>
-      a Promise which is either:
+      一个 Promise，以下二者之一：
         <ul>
-          <li>resolved with task's return value</li>
-          <li>rejected with task's thrown error</li>
+          <li>以任务的返回值 resolve</li>
+          <li>以任务抛出的错误 reject</li>
         </ul>
       </td>
   </tr>
   <tr>
     <td>task.cancel()</td>
-    <td>Cancels the task (If it is still running)</td>
+    <td>取消任务（如果任务还在执行中）</td>
   </tr>
 </table>
 
 
 
 
-## External API
+## 外部 API
 ------------------------
 
 ### `runSaga(iterator, {subscribe, dispatch, getState}, [monitor])`
 
-Allows starting sagas outside the Redux middleware environment. Useful if you want to
-connect a Saga to external input/output, other than store actions.
+允许在 Redux middleware 环境外部启动 sagas。当你想将 Saga 连接至外部的输入和输出（译注：即在外部执行 Saga）时，而不是 store 的 action，会很有用。
 
-`runSaga` returns a Task object. Just like the one returned from a `fork` effect.
+`runSaga` 返回一个 Task 对象。就像 `fork` Effect 返回的。
 
+- `iterator: {next, throw}` - 一个 Iterator 对象，通常是通过调用 Generator 函数创建。
 
-- `iterator: {next, throw}` - an Iterator object, Typically created by invoking a Generator function
+- `{subscribe, dispatch, getState}: Object` - 一个暴露 `subscribe`, `dispatch` 和 `getState` 方法的对象
 
-- `{subscribe, dispatch, getState}: Object` - an Object which exposes `subscribe`, `dispatch` and `getState` methods
+  - `subscribe(callback): Function` - 一个接受回调的函数，返回一个 `unsubscribe` 函数
 
-  - `subscribe(callback): Function` - A function which accepts a callback and returns an `unsubscribe` function
+    - `callback(input): Function` - callback（由 runSaga 提供）用于订阅输入的事件。`subscribe` 支持注册多个订阅。
+      - `input: any` - 由 `subscribe` 传递给 `callback` 的参数（参考下方的注意事项）。
 
-    - `callback(input): Function` - callback(provided by runSaga) used to subscribe to input events. `subscribe` must support registering multiple subscriptions.
-      - `input: any` - argument passed by `subscribe` to `callback` (see Notes below)
+    - `dispatch(output): Function` - 用于履行 `put` effect 的职责。
+      - `output : any` -  由 Saga 传递给 `put` Effect 的参数（参考下方的注意事项）。
 
-    - `dispatch(output): Function` - used to fulfill `put` effects.
-      - `output : any` -  argument provided by the Saga to the `put` Effect (see Notes below).
+    - `getState() : Function` - 用于履行 `select` 和 `getState` Effect 的职责。
 
-    - `getState() : Function` - used to fulfill `select` and `getState` effects
+- `monitor(sagaAction): Function` (可选): 一个回调函数，用于调用所有 Saga 相关的事件。在 middleware 版本中，所有的 action 被发起到 Redux store。使用方法查看 [sagaMonitor 例子](https://github.com/yelouafi/redux-saga/tree/master/examples/sagaMonitor)
+  - `sagaAction: Object` - 由 Sagas 发起的 action，用于通知 `monitor` Saga 相关的事件。
 
-- `monitor(sagaAction): Function` (optional): a callback which is used to dispatch all Saga related events. In the middleware version, all actions are dispatched to the Redux store. See the [sagaMonitor example](https://github.com/yelouafi/redux-saga/tree/master/examples/sagaMonitor) for usage.
-  - `sagaAction: Object` - action dispatched by Sagas to notify `monitor` of Saga related events.
+#### 注意
 
-#### Notes
+`{subscribe, dispatch}` 用于履行 `take` 和 `put` Effect。它定义了 Saga 的输入和输出。
 
-The `{subscribe, dispatch}` is used to fulfill `take` and `put` Effects. This defines the Input/Output
-interface of the Saga.
+`subscribe` 用于履行 `take(PATTERN)` effect。它会在每次有输入要发起时调用 `callback`（例如每次鼠标的点击，如果 Saga 连接到了 DOM 的点击事件的话）。
+每次 `subscribe` 发射一个输入到它的 callback，如果 Saga 被一个 `take` Effect 阻塞了，并且 take pattern 和当前输入相匹配，Saga 将以那个输入恢复。
 
-`subscribe` is used to fulfill `take(PATTERN)` effects. It must call `callback` every time it
-has an input to dispatch (e.g. on every mouse click if the Saga is connected to DOM click events).
-Each time `subscribe` emits an input to its callbacks, if the Saga is blocked on a `take` effect, and
-if the take pattern matches the currently incoming input, the Saga is resumed with that input.
-
-`dispatch` is used to fulfill `put` effects. Each time the Saga emits a `yield put(output)`, `dispatch`
-is invoked with output.
+`dispatch` 用于履行 `put` Effect。每次 Saga 发射一个 `yield put(output)` 时，将以 `output` 调用 `dispatch`。
