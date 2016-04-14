@@ -1,19 +1,15 @@
-# Using Saga Helpers
+# 使用 Saga 辅助函数
 
-redux-saga provides some helper functions to spawn tasks when some specific actions are
-dispatched to the Store.
+redux-saga 提供了一些辅助函数，用来在一些特定的 action 被发起到 Store 时派生任务。
 
-The helper functions are built on top of the lower level API. In the advanced section,
-we'll see how those functions can be implemented.
+这些辅助函数构建在低阶 API 之上。我们将会在高级概念一节看到这些函数是如何实现的。
 
-The first function, `takeEvery` is the most familiar and provides a behavior similar to
-redux-thunk.
+第一个函数，`takeEvery` 的最常见的，它提供了类似 redux-thunk 的行为。
 
-Let's illustrate with the common AJAX example. On each click on a Fetch button
-we dispatch a `FETCH_REQUESTED` action. We want to handle this action by launching
-a task that will fetch some data from the server.
+让我们演示一下常见的 AJAX 例子。每次点击 Fetch 按钮时，我们发起一个 `FETCH_REQUESTED` 的 action。
+我们想通过启动一个任务从服务器获取一些数据，来处理这个 action。
 
-First we create the task that will perform the asynchronous action
+首先我们创建将执行异步 action 的任务：
 
 ```javascript
 import { call, put } from 'redux-saga/effects'
@@ -28,7 +24,7 @@ export function* fetchData(action) {
 }
 ```
 
-To launch the above task on each `FETCH_REQUESTED` action
+然后在每次 `FETCH_REQUESTED` action 被发起时启动上面的任务。
 
 ```javascript
 import { takeEvery } from 'redux-saga'
@@ -38,13 +34,10 @@ function* watchFetchData() {
 }
 ```
 
-In the above example, `takeEvery` allows multiple `fetchData` instances to be started
-concurrently. At a given moment, we can start a new `fetchData` task while there are
-still one or more previous `fetchData` which have not yet terminated.
+在上面的例子中，`takeEvery` 允许多个 `fetchData` 实例同时启动。在某个特定时刻，我们可以启动一个新的 `fetchData` 任务，
+尽管之前还有一个或多个 `fetchData` 尚未结束。
 
-If we want a behavior where we want only to get the response of the latest request fired
-(e.g. to display always the latest version of data). We can use the `takeLatest`
-helper.
+如果我们只想得到最新那个请求的响应（例如，始终显示最新版本的数据）。我们可以使用 `takeLatest` 辅助函数。
 
 
 ```javascript
@@ -55,6 +48,5 @@ function* watchFetchData() {
 }
 ```
 
-Unlike `takeEvery`, `takeLatest` allows only one `fetchData` task to run at any moment. And it's
-the latest started task. In the case of a previous task is still running, it'll be automatically
-cancelled.
+和 `takeEvery` 不同，在任何时刻 `takeLatest` 只允许执行一个 `fetchData` 任务。并且这个任务是最后被启动的那个。
+如果之前已经有一个任务在执行，那之前的这个任务会自动被取消。
