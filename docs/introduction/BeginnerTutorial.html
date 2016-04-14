@@ -52,7 +52,7 @@
     <body>
         
         
-    <div class="book" data-level="1.1" data-chapter-title="初级教程" data-filepath="docs/introduction/BeginnerTutorial.md" data-basepath="../.." data-revision="Tue Apr 12 2016 22:52:59 GMT+0800 (CST)">
+    <div class="book" data-level="1.1" data-chapter-title="初级教程" data-filepath="docs/introduction/BeginnerTutorial.md" data-basepath="../.." data-revision="Thu Apr 14 2016 23:25:23 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -609,11 +609,9 @@ npm install
 </code></pre>
 <p>&#x597D;&#x5427;&#xFF0C;&#x8BE5;&#x89E3;&#x91CA;&#x4E00;&#x4E0B;&#x4E86;&#x3002;&#x9996;&#x5148;&#x6211;&#x4EEC;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5DE5;&#x5177;&#x51FD;&#x6570; <code>delay</code>&#xFF0C;&#x7528;&#x4E8E;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5EF6;&#x8FDF; 1 &#x79D2; resolve &#x7684; Promise&#x3002;
 &#x6211;&#x4EEC;&#x5C06;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x53BB; <em>&#x963B;&#x585E;</em> Generator&#x3002;</p>
-<p>Sagas, which are implemented as Generator functions, yield objects to the
-redux-saga middleware. The yielded objects are a kind of instructions to be interpreted by
-the middleware. When the middleware retrieves a yielded Promise, it&apos;ll suspend the Saga until
-the Promise completes. In the above example, the <code>incrementAsync</code> Saga will be suspended until
-the Promise returned by <code>delay</code> resolves, which will happen after 1 second.</p>
+<p>Sagas &#x88AB;&#x5B9E;&#x73B0;&#x4E3A; Generator &#x51FD;&#x6570;&#xFF0C;&#x5B83; yield &#x5BF9;&#x8C61;&#x5230; redux-saga middleware&#x3002;
+&#x88AB; yield &#x7684;&#x5BF9;&#x8C61;&#x90FD;&#x662F;&#x4E00;&#x7C7B;&#x6307;&#x4EE4;&#xFF0C;&#x6307;&#x4EE4;&#x53EF;&#x88AB; middleware &#x89E3;&#x91CA;&#x6267;&#x884C;&#x3002;&#x5F53; middleware &#x53D6;&#x5F97;&#x4E00;&#x4E2A; yield &#x540E;&#x7684; Promise&#xFF0C;middleware &#x4F1A;&#x6682;&#x505C; Saga&#xFF0C;&#x76F4;&#x5230; Promise &#x5B8C;&#x6210;&#x3002;
+&#x5728;&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;<code>incrementAsync</code> &#x8FD9;&#x4E2A; Saga &#x4F1A;&#x6682;&#x505C;&#x76F4;&#x5230; <code>delay</code> &#x8FD4;&#x56DE;&#x7684; Promise &#x88AB; resolve&#xFF0C;&#x8FD9;&#x4E2A; Promise &#x5C06;&#x5728; 1 &#x79D2;&#x540E; resolve&#x3002;</p>
 <p>Once the Promise is resolved, the middleware will resume the Saga to execute the next statement
 (more accurately to execute all the following statements until the next yield). In our case, the
 next statement is another yielded object: which is the result of calling <code><span class="token function">put</span><span class="token punctuation">(</span><span class="token punctuation">{</span>type<span class="token punctuation">:</span> <span class="token string">&apos;INCREMENT&apos;</span><span class="token punctuation">}</span><span class="token punctuation">)</span></code>.
