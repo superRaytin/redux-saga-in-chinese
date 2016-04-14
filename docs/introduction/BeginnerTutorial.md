@@ -147,11 +147,9 @@ export function* watchIncrementAsync() {
 好吧，该解释一下了。首先我们创建一个工具函数 `delay`，用于返回一个延迟 1 秒 resolve 的 Promise。
 我们将使用这个函数去 *阻塞* Generator。
 
-Sagas, which are implemented as Generator functions, yield objects to the
-redux-saga middleware. The yielded objects are a kind of instructions to be interpreted by
-the middleware. When the middleware retrieves a yielded Promise, it'll suspend the Saga until
-the Promise completes. In the above example, the `incrementAsync` Saga will be suspended until
-the Promise returned by `delay` resolves, which will happen after 1 second.
+Sagas 被实现为 Generator 函数，它 yield 对象到 redux-saga middleware。
+被 yield 的对象都是一类指令，指令可被 middleware 解释执行。当 middleware 取得一个 yield 后的 Promise，middleware 会暂停 Saga，直到 Promise 完成。
+在上面的例子中，`incrementAsync` 这个 Saga 会暂停直到 `delay` 返回的 Promise 被 resolve，这个 Promise 将在 1 秒后 resolve。
 
 Once the Promise is resolved, the middleware will resume the Saga to execute the next statement
 (more accurately to execute all the following statements until the next yield). In our case, the
