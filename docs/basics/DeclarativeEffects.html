@@ -52,7 +52,7 @@
     <body>
         
         
-    <div class="book" data-level="2.2" data-chapter-title="声明式 Effects" data-filepath="docs/basics/DeclarativeEffects.md" data-basepath="../.." data-revision="Thu Apr 14 2016 23:25:23 GMT+0800 (CST)">
+    <div class="book" data-level="2.2" data-chapter-title="声明式 Effects" data-filepath="docs/basics/DeclarativeEffects.md" data-basepath="../.." data-revision="Sat Apr 16 2016 14:49:32 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -186,7 +186,7 @@
                         
                             <b>2.3.</b>
                         
-                        发起 actions
+                        发起 action
                     </a>
             
             
@@ -507,17 +507,13 @@
                     <section class="normal" id="section-">
                     
                         <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/basics/DeclarativeEffects.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h1 id="&#x58F0;&#x660E;&#x5F0F;-effects">&#x58F0;&#x660E;&#x5F0F; Effects</h1>
-<p>In <code>redux<span class="token operator">-</span>saga</code>, Sagas are implemented using Generator functions. To express the Saga logic
-we yield plain JavaScript Objects from the Generator. We call those Objects <em>Effects</em>. An
-Effect is simply an object which contains some information to be interpreted by the middleware.
-You can view Effects like instructions to the middleware to perform some operation (invoke
-some asynchronous function, dispatch an action to the store).</p>
-<p>To create Effects, you use the functions provided by the library in the <code>redux<span class="token operator">-</span>saga<span class="token operator">/</span>effects</code> package.</p>
-<p>In this section and the following, we will introduce some basic Effects. And see how the concept
-allows the Sagas to be easily tested.</p>
-<p>Sagas can yield Effects in multiple forms. The simplest way is to yield a Promise.</p>
-<p>For example suppose we have a Saga that watches a <code>PRODUCTS_REQUESTED</code> action. On each matching
-action, it starts a task to fetch a list of products from a server.</p>
+<p>&#x5728; <code>redux<span class="token operator">-</span>saga</code> &#x7684;&#x4E16;&#x754C;&#x91CC;&#xFF0C;Sagas &#x90FD;&#x7528; Generator &#x51FD;&#x6570;&#x5B9E;&#x73B0;&#x3002;&#x6211;&#x4EEC;&#x4ECE; Generator &#x91CC; yield &#x7EAF; JavaScript &#x5BF9;&#x8C61;&#x4EE5;&#x8868;&#x8FBE; Saga &#x903B;&#x8F91;&#x3002;
+&#x6211;&#x4EEC;&#x79F0;&#x547C;&#x90A3;&#x4E9B;&#x5BF9;&#x8C61;&#x4E3A; <em>Effect</em>&#x3002;Effect &#x662F;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x5305;&#x542B;&#x4E86;&#x4E00;&#x4E9B;&#x7ED9; middleware &#x89E3;&#x91CA;&#x6267;&#x884C;&#x7684;&#x4FE1;&#x606F;&#x3002;
+&#x4F60;&#x53EF;&#x4EE5;&#x628A; Effect &#x770B;&#x4F5C;&#x662F;&#x53D1;&#x9001;&#x7ED9; middleware &#x7684;&#x6307;&#x4EE4;&#x4EE5;&#x6267;&#x884C;&#x67D0;&#x4E9B;&#x64CD;&#x4F5C;&#xFF08;&#x8C03;&#x7528;&#x67D0;&#x4E9B;&#x5F02;&#x6B65;&#x51FD;&#x6570;&#xFF0C;&#x53D1;&#x8D77;&#x4E00;&#x4E2A; action &#x5230; store&#xFF09;&#x3002;</p>
+<p>&#x4F60;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>redux<span class="token operator">-</span>saga<span class="token operator">/</span>effects</code> &#x5305;&#x91CC;&#x63D0;&#x4F9B;&#x7684;&#x51FD;&#x6570;&#x6765;&#x521B;&#x5EFA; Effect&#x3002;</p>
+<p>&#x8FD9;&#x4E00;&#x90E8;&#x5206;&#x548C;&#x63A5;&#x4E0B;&#x6765;&#x7684;&#x90E8;&#x5206;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x4ECB;&#x7ECD;&#x4E00;&#x4E9B;&#x57FA;&#x7840;&#x7684; Effect&#x3002;&#x5E76;&#x89C1;&#x8BC6;&#x5230;&#x8FD9;&#x4E9B; Effect &#x6982;&#x5FF5;&#x662F;&#x5982;&#x4F55;&#x8BA9; Sagas &#x5F88;&#x5BB9;&#x6613;&#x5730;&#x88AB;&#x6D4B;&#x8BD5;&#x7684;&#x3002;</p>
+<p>Sagas &#x53EF;&#x4EE5;&#x591A;&#x79CD;&#x5F62;&#x5F0F; yield Effect&#x3002;&#x6700;&#x7B80;&#x5355;&#x7684;&#x65B9;&#x5F0F;&#x662F; yield &#x4E00;&#x4E2A; Promise&#x3002;</p>
+<p>&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;&#xFF0C;&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x6709;&#x4E00;&#x4E2A;&#x76D1;&#x542C; <code>PRODUCTS_REQUESTED</code> action &#x7684; Saga&#x3002;&#x6BCF;&#x6B21;&#x5339;&#x914D;&#x5230; action&#xFF0C;&#x5B83;&#x4F1A;&#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x83B7;&#x53D6;&#x4EA7;&#x54C1;&#x5217;&#x8868;&#x7684;&#x4EFB;&#x52A1;&#x3002;</p>
 <pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> takeEvery <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga&apos;</span>
 <span class="token keyword">import</span> Api from <span class="token string">&apos;./path/to/api&apos;</span>
 
@@ -530,23 +526,19 @@ action, it starts a task to fetch a list of products from a server.</p>
   console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>products<span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>In the example above, we are invoking <code>Api<span class="token punctuation">.</span>fetch</code> directly from inside the Generator (In
-Generator functions, any expression at the right of <code><span class="token keyword">yield</span></code> is evaluated then the result is
-yielded to the caller).</p>
-<p><code>Api<span class="token punctuation">.</span><span class="token function">fetch</span><span class="token punctuation">(</span><span class="token string">&apos;/products&apos;</span><span class="token punctuation">)</span></code> triggers an AJAX request and returns a Promise that will resolve
-with the resolved response, the AJAX request will be executed immediately. Simple and idiomatic but...</p>
-<p>Suppose we want to test generator above:</p>
+<p>&#x5728;&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x5728; Generator &#x4E2D;&#x76F4;&#x63A5;&#x8C03;&#x7528;&#x4E86; <code>Api<span class="token punctuation">.</span>fetch</code>&#xFF08;&#x5728; Generator &#x51FD;&#x6570;&#x4E2D;&#xFF0C;<code><span class="token keyword">yield</span></code> &#x53F3;&#x8FB9;&#x7684;&#x4EFB;&#x4F55;&#x8868;&#x8FBE;&#x5F0F;&#x90FD;&#x4F1A;&#x88AB;&#x6C42;&#x503C;&#xFF0C;&#x7ED3;&#x679C;&#x4F1A;&#x88AB; yield &#x7ED9;&#x8C03;&#x7528;&#x8005;&#xFF09;&#x3002;</p>
+<p><code>Api<span class="token punctuation">.</span><span class="token function">fetch</span><span class="token punctuation">(</span><span class="token string">&apos;/products&apos;</span><span class="token punctuation">)</span></code> &#x89E6;&#x53D1;&#x4E86;&#x4E00;&#x4E2A; AJAX &#x8BF7;&#x6C42;&#x5E76;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A; Promise&#xFF0C;Promise &#x4F1A; resolve &#x8BF7;&#x6C42;&#x7684;&#x54CD;&#x5E94;&#xFF0C;
+&#x8FD9;&#x4E2A; AJAX &#x8BF7;&#x6C42;&#x5C06;&#x7ACB;&#x5373;&#x6267;&#x884C;&#x3002;&#x770B;&#x8D77;&#x6765;&#x7B80;&#x5355;&#x53C8;&#x5730;&#x9053;&#xFF0C;&#x4F46;...</p>
+<p>&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x60F3;&#x6D4B;&#x8BD5;&#x4E0A;&#x9762;&#x7684; generator&#xFF1A;</p>
 <pre><code class="lang-javascript"><span class="token keyword">const</span> iterator <span class="token operator">=</span> <span class="token function">fetchProducts</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-assert<span class="token punctuation">.</span><span class="token function">deepEqual</span><span class="token punctuation">(</span> iterator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>value<span class="token punctuation">,</span> <span class="token operator">?</span><span class="token operator">?</span> <span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// what do we expect ?</span>
+assert<span class="token punctuation">.</span><span class="token function">deepEqual</span><span class="token punctuation">(</span> iterator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>value<span class="token punctuation">,</span> <span class="token operator">?</span><span class="token operator">?</span> <span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// &#x6211;&#x4EEC;&#x671F;&#x671B;&#x5F97;&#x5230;&#x4EC0;&#x4E48;&#xFF1F;</span>
 </code></pre>
-<p>We want to check the result of the first value yielded by the generator. In our case it&apos;s the result of running
-<code>Api<span class="token punctuation">.</span><span class="token function">fetch</span><span class="token punctuation">(</span><span class="token string">&apos;/products&apos;</span><span class="token punctuation">)</span></code> which is a Promise . Executing the real service during tests is neither a viable nor
-practical approach, so we have to <em>mock</em> the <code>Api<span class="token punctuation">.</span>fetch</code> function, i.e. we&apos;ll have to replace the real
-function with a fake one which doesn&apos;t actually run the AJAX request but only checks that we&apos;ve called <code>Api<span class="token punctuation">.</span>fetch</code>
-with the right arguments (<code><span class="token string">&apos;/products&apos;</span></code> in our case).</p>
-<p>Mocks make testing more difficult and less reliable. On the other hand, functions that simply return values are
-easier to test, since we can use a simple <code><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> to check the result. This is the way to write the most reliable tests.</p>
-<p>Not convinced? I encourage you to read <a href="https://medium.com/javascript-scene/what-every-unit-test-needs-f6cd34d9836d#.4ttnnzpgc" target="_blank">Eric Elliott&apos;s article</a>:</p>
+<p>&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x68C0;&#x67E5; generator yield &#x7684;&#x7ED3;&#x679C;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x503C;&#x3002;&#x5728;&#x6211;&#x4EEC;&#x7684;&#x60C5;&#x51B5;&#x91CC;&#xFF0C;&#x8FD9;&#x4E2A;&#x503C;&#x662F;&#x6267;&#x884C; <code>Api<span class="token punctuation">.</span><span class="token function">fetch</span><span class="token punctuation">(</span><span class="token string">&apos;/products&apos;</span><span class="token punctuation">)</span></code> &#x8FD9;&#x4E2A; Promise &#x7684;&#x7ED3;&#x679C;&#x3002;
+&#x5728;&#x6D4B;&#x8BD5;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6267;&#x884C;&#x771F;&#x6B63;&#x7684;&#x670D;&#x52A1;&#xFF08;real service&#xFF09;&#x662F;&#x4E00;&#x4E2A;&#x65E2;&#x4E0D;&#x53EF;&#x884C;&#x4E5F;&#x4E0D;&#x5B9E;&#x7528;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x5FC5;&#x987B; <em>&#x6A21;&#x62DF;&#xFF08;mock&#xFF09;</em> <code>Api<span class="token punctuation">.</span>fetch</code> &#x51FD;&#x6570;&#x3002;
+&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5C06;&#x771F;&#x5B9E;&#x7684;&#x51FD;&#x6570;&#x66FF;&#x6362;&#x4E3A;&#x4E00;&#x4E2A;&#x5047;&#x7684;&#xFF0C;&#x8FD9;&#x4E2A;&#x5047;&#x7684;&#x51FD;&#x6570;&#x5E76;&#x4E0D;&#x4F1A;&#x771F;&#x7684;&#x53D1;&#x9001; AJAX &#x8BF7;&#x6C42;&#x800C;&#x53EA;&#x4F1A;&#x68C0;&#x67E5;&#x662F;&#x5426;&#x7528;&#x6B63;&#x786E;&#x7684;&#x53C2;&#x6570;&#x8C03;&#x7528;&#x4E86; <code>Api<span class="token punctuation">.</span>fetch</code>&#xFF08;&#x5728;&#x6211;&#x4EEC;&#x7684;&#x60C5;&#x51B5;&#x91CC;&#xFF0C;&#x6B63;&#x786E;&#x7684;&#x53C2;&#x6570;&#x662F; <code><span class="token string">&apos;/products&apos;</span></code>&#xFF09;&#x3002;</p>
+<p>&#x6A21;&#x62DF;&#x4F7F;&#x6D4B;&#x8BD5;&#x66F4;&#x52A0;&#x56F0;&#x96BE;&#x548C;&#x4E0D;&#x53EF;&#x9760;&#x3002;&#x53E6;&#x4E00;&#x65B9;&#x9762;&#xFF0C;&#x90A3;&#x4E9B;&#x53EA;&#x7B80;&#x5355;&#x5730;&#x8FD4;&#x56DE;&#x503C;&#x7684;&#x51FD;&#x6570;&#x66F4;&#x52A0;&#x5BB9;&#x6613;&#x6D4B;&#x8BD5;&#xFF0C;&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x7B80;&#x5355;&#x7684; <code><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> &#x6765;&#x68C0;&#x67E5;&#x7ED3;&#x679C;&#x3002;
+&#x8FD9;&#x662F;&#x7F16;&#x5199;&#x6700;&#x53EF;&#x9760;&#x6D4B;&#x8BD5;&#x7528;&#x4F8B;&#x7684;&#x65B9;&#x6CD5;&#x3002;</p>
+<p>&#x4E0D;&#x76F8;&#x4FE1;&#xFF1F;&#x6211;&#x5EFA;&#x8BAE;&#x4F60;&#x9605;&#x8BFB; <a href="https://medium.com/javascript-scene/what-every-unit-test-needs-f6cd34d9836d#.4ttnnzpgc" target="_blank">Eric Elliott&apos;s article</a>:</p>
 <blockquote>
 <p>(...)<code><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code>, by nature answers the two most important questions every unit test must answer,
 but most don&#x2019;t:</p>
@@ -557,12 +549,9 @@ but most don&#x2019;t:</p>
 <p>If you finish a test without answering those two questions, you don&#x2019;t have a real unit test.
 You have a sloppy, half-baked test.</p>
 </blockquote>
-<p>What we actually need is just to make sure the <code>fetchProducts</code> task yields a call with the right function
-and the right arguments.</p>
-<p>Instead of invoking the asynchronous function directly from inside the Generator,
-<strong>we can yield only a description of the function invocation</strong>. i.e. We&apos;ll simply yield
- an object which looks like</p>
-<pre><code class="lang-javascript"><span class="token comment" spellcheck="true">// Effect -&gt; call the function Api.fetch with `./products` as argument</span>
+<p>&#x5B9E;&#x9645;&#x4E0A;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7684;&#x53EA;&#x662F;&#x4FDD;&#x8BC1; <code>fetchProducts</code> &#x4EFB;&#x52A1; yield &#x4E00;&#x4E2A;&#x8C03;&#x7528;&#x6B63;&#x786E;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x5E76;&#x4E14;&#x51FD;&#x6570;&#x6709;&#x7740;&#x6B63;&#x786E;&#x7684;&#x53C2;&#x6570;&#x3002;</p>
+<p>&#x76F8;&#x6BD4;&#x4E8E;&#x5728; Generator &#x4E2D;&#x76F4;&#x63A5;&#x8C03;&#x7528;&#x5F02;&#x6B65;&#x51FD;&#x6570;&#xFF0C;<strong>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4EC5;&#x4EC5; yield &#x4E00;&#x6761;&#x63CF;&#x8FF0;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x7684;&#x4FE1;&#x606F;</strong>&#x3002;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x7B80;&#x5355;&#x5730; yield &#x4E00;&#x4E2A;&#x770B;&#x8D77;&#x6765;&#x50CF;&#x4E0B;&#x9762;&#x8FD9;&#x6837;&#x7684;&#x5BF9;&#x8C61;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="token comment" spellcheck="true">// Effect -&gt; &#x8C03;&#x7528; Api.fetch &#x51FD;&#x6570;&#x5E76;&#x4F20;&#x9012; `./products` &#x4F5C;&#x4E3A;&#x53C2;&#x6570;</span>
 <span class="token punctuation">{</span>
   CALL<span class="token punctuation">:</span> <span class="token punctuation">{</span>
     fn<span class="token punctuation">:</span> Api<span class="token punctuation">.</span>fetch<span class="token punctuation">,</span>
@@ -570,11 +559,9 @@ and the right arguments.</p>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>Put another way, the Generator will yield plain Objects containing <em>instructions</em>, and the <code>redux<span class="token operator">-</span>saga</code>
-middleware will take care of executing those instructions and giving back the result of their
-execution to the Generator. This way, when testing the Generator, all we need to do is to check
-that it yields the expected instruction by doing a simple <code>deepEqual</code> on the yielded Object.</p>
-<p>For this reason, the library provides a different way to perform asynchronous calls.</p>
+<p>&#x6362;&#x53E5;&#x8BDD;&#x8BF4;&#xFF0C;Generator &#x5C06;&#x4F1A; yield &#x5305;&#x542B; <em>&#x6307;&#x4EE4;</em> &#x7684;&#x6587;&#x672C;&#x5BF9;&#x8C61;&#xFF08;plain Objects&#xFF09;&#xFF0C;<code>redux<span class="token operator">-</span>saga</code> middleware &#x5C06;&#x786E;&#x4FDD;&#x6267;&#x884C;&#x8FD9;&#x4E9B;&#x6307;&#x4EE4;&#x5E76;&#x5C06;&#x6307;&#x4EE4;&#x7684;&#x7ED3;&#x679C;&#x56DE;&#x9988;&#x7ED9; Generator&#x3002;
+&#x8FD9;&#x6837;&#x7684;&#x8BDD;&#xFF0C;&#x5728;&#x6D4B;&#x8BD5; Generator &#x65F6;&#xFF0C;&#x6240;&#x6709;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x505A;&#x7684;&#x5C31;&#x662F;&#xFF0C;&#x5C06; yield &#x540E;&#x7684;&#x5BF9;&#x8C61;&#x4F5C;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684; <code>deepEqual</code> &#x6765;&#x68C0;&#x67E5;&#x5B83;&#x662F;&#x5426; yield &#x4E86;&#x6211;&#x4EEC;&#x671F;&#x671B;&#x7684;&#x6307;&#x4EE4;&#x3002;</p>
+<p>&#x51FA;&#x4E8E;&#x8FD9;&#x6837;&#x7684;&#x539F;&#x56E0;&#xFF0C;<code>redux<span class="token operator">-</span>saga</code> &#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x4E0D;&#x4E00;&#x6837;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x6267;&#x884C;&#x5F02;&#x6B65;&#x8C03;&#x7528;&#x3002;</p>
 <pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> call <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga/effects&apos;</span>
 
 <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">fetchProducts</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -582,13 +569,10 @@ that it yields the expected instruction by doing a simple <code>deepEqual</code>
   <span class="token comment" spellcheck="true">// ...</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>We&apos;re using now the <code><span class="token function">call</span><span class="token punctuation">(</span>fn<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span></code> function. <strong>The difference from the preceding example is that now we&apos;re not
-executing the fetch call immediately, instead, <code>call</code> creates a description of the effect</strong>. Just as in
-Redux you use action creators to create a plain object describing the action that will get executed by the Store,
-<code>call</code> creates a plain object describing the function call. The redux-saga middleware takes care of executing
-the function call and resuming the generator with the resolved response.</p>
-<p>This allows us to easily test the Generator outside the Redux environment. Because <code>call</code> is just a
-function which returns a plain Object.</p>
+<p>&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x4E86; <code><span class="token function">call</span><span class="token punctuation">(</span>fn<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span></code> &#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x3002;<strong>&#x4E0E;&#x524D;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x4E0D;&#x540C;&#x7684;&#x662F;&#xFF0C;&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x4E0D;&#x7ACB;&#x5373;&#x6267;&#x884C;&#x5F02;&#x6B65;&#x8C03;&#x7528;&#xFF0C;&#x76F8;&#x53CD;&#xFF0C;<code>call</code> &#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x6761;&#x63CF;&#x8FF0;&#x7ED3;&#x679C;&#x7684;&#x4FE1;&#x606F;</strong>&#x3002;
+&#x5C31;&#x50CF;&#x5728; Redux &#x91CC;&#x4F60;&#x4F7F;&#x7528; action &#x521B;&#x5EFA;&#x5668;&#xFF0C;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5C06;&#x88AB; Store &#x6267;&#x884C;&#x7684;&#x3001;&#x63CF;&#x8FF0; action &#x7684;&#x7EAF;&#x6587;&#x672C;&#x5BF9;&#x8C61;&#x3002;
+<code>call</code> &#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x7EAF;&#x6587;&#x672C;&#x5BF9;&#x8C61;&#x63CF;&#x8FF0;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x3002;<code>redux<span class="token operator">-</span>saga</code> middleware &#x786E;&#x4FDD;&#x6267;&#x884C;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x5E76;&#x5728;&#x54CD;&#x5E94;&#x88AB; resolve &#x65F6;&#x6062;&#x590D; generator&#x3002;</p>
+<p>&#x8FD9;&#x5141;&#x8BB8;&#x4F60;&#x80FD;&#x5BB9;&#x6613;&#x5730;&#x6D4B;&#x8BD5; Generator&#xFF0C;&#x5C31;&#x7B97;&#x5B83;&#x5728; Redux &#x73AF;&#x5883;&#x4E4B;&#x5916;&#x3002;&#x56E0;&#x4E3A; <code>call</code> &#x53EA;&#x662F;&#x4E00;&#x4E2A;&#x8FD4;&#x56DE;&#x7EAF;&#x6587;&#x672C;&#x5BF9;&#x8C61;&#x7684;&#x51FD;&#x6570;&#x800C;&#x5DF2;&#x3002;</p>
 <pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> call <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga/effects&apos;</span>
 <span class="token keyword">import</span> Api from <span class="token string">&apos;...&apos;</span>
 
@@ -601,33 +585,29 @@ assert<span class="token punctuation">.</span><span class="token function">deepE
   <span class="token string">&quot;fetchProducts should yield an Effect call(Api.fetch, &apos;./products&apos;)&quot;</span>
 <span class="token punctuation">)</span>
 </code></pre>
-<p>Now we don&apos;t need to mock anything, and a simple equality test will suffice.</p>
-<p>The advantage of those <em>declarative calls</em> is that we can test all the logic inside a Saga
-by simply iterating over the Generator and doing a <code>deepEqual</code> test on the values
-yielded successively. This is a real benefit, as your complex asynchronous operations are no longer
-black boxes, and you can test in detail their operational logic no matter how complex it is.</p>
-<p><code>call</code> supports also invoking object methods, you can provide a <code><span class="token keyword">this</span></code> context to the invoked
-functions using the following form:</p>
-<pre><code class="lang-javascript"><span class="token keyword">yield</span> <span class="token function">call</span><span class="token punctuation">(</span><span class="token punctuation">[</span>obj<span class="token punctuation">,</span> obj<span class="token punctuation">.</span>method<span class="token punctuation">]</span><span class="token punctuation">,</span> arg1<span class="token punctuation">,</span> arg2<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// as if we did obj.method(arg1, arg2 ...)</span>
+<p>&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x4E0D;&#x9700;&#x8981;&#x6A21;&#x62DF;&#x4EFB;&#x4F55;&#x4E1C;&#x897F;&#x4E86;&#xFF0C;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x76F8;&#x7B49;&#x6D4B;&#x8BD5;&#x5C31;&#x8DB3;&#x591F;&#x4E86;&#x3002;</p>
+<p>&#x8FD9;&#x4E9B; <em>&#x58F0;&#x660E;&#x5F0F;&#x8C03;&#x7528;&#xFF08;declarative calls&#xFF09;</em> &#x7684;&#x4F18;&#x52BF;&#x662F;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x7B80;&#x5355;&#x5730;&#x904D;&#x5386; Generator &#x5E76;&#x5728; yield &#x540E;&#x7684;&#x6210;&#x529F;&#x7684;&#x503C;&#x4E0A;&#x9762;&#x505A;&#x4E00;&#x4E2A; <code>deepEqual</code> &#x6D4B;&#x8BD5;&#xFF0C;
+&#x5C31;&#x80FD;&#x6D4B;&#x8BD5; Saga &#x4E2D;&#x6240;&#x6709;&#x7684;&#x903B;&#x8F91;&#x3002;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x771F;&#x6B63;&#x7684;&#x597D;&#x5904;&#xFF0C;&#x56E0;&#x4E3A;&#x590D;&#x6742;&#x7684;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x90FD;&#x4E0D;&#x518D;&#x662F;&#x9ED1;&#x76D2;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x8BE6;&#x7EC6;&#x5730;&#x6D4B;&#x8BD5;&#x64CD;&#x4F5C;&#x903B;&#x8F91;&#xFF0C;&#x4E0D;&#x7BA1;&#x5B83;&#x6709;&#x591A;&#x4E48;&#x590D;&#x6742;&#x3002;</p>
+<p><code>call</code> &#x540C;&#x6837;&#x652F;&#x6301;&#x8C03;&#x7528;&#x5BF9;&#x8C61;&#x65B9;&#x6CD5;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x4EE5;&#x4E0B;&#x5F62;&#x5F0F;&#xFF0C;&#x4E3A;&#x8C03;&#x7528;&#x7684;&#x51FD;&#x6570;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A; <code><span class="token keyword">this</span></code> &#x4E0A;&#x4E0B;&#x6587;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="token keyword">yield</span> <span class="token function">call</span><span class="token punctuation">(</span><span class="token punctuation">[</span>obj<span class="token punctuation">,</span> obj<span class="token punctuation">.</span>method<span class="token punctuation">]</span><span class="token punctuation">,</span> arg1<span class="token punctuation">,</span> arg2<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// &#x5982;&#x540C; obj.method(arg1, arg2 ...)</span>
 </code></pre>
-<p><code>apply</code> is an alias for the method invocation form</p>
+<p><code>apply</code> &#x63D0;&#x4F9B;&#x4E86;&#x53E6;&#x5916;&#x4E00;&#x79CD;&#x8C03;&#x7528;&#x7684;&#x65B9;&#x5F0F;&#xFF1A;</p>
 <pre><code class="lang-javascript"><span class="token keyword">yield</span> <span class="token function">apply</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> obj<span class="token punctuation">.</span>method<span class="token punctuation">,</span> <span class="token punctuation">[</span>arg1<span class="token punctuation">,</span> arg2<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 </code></pre>
-<p><code>call</code> and <code>apply</code> are well suited for functions that return Promise results. Another function
-<code>cps</code> can be used to handle Node style functions (e.g. <code><span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">,</span> callback<span class="token punctuation">)</span></code> where <code>callback</code>
-is of the form <code><span class="token punctuation">(</span>error<span class="token punctuation">,</span> result<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">)</span></code>, <code>cps</code> stands for Continuation Passing Style).</p>
-<p>For example:</p>
+<p><code>call</code> &#x548C; <code>apply</code> &#x975E;&#x5E38;&#x9002;&#x5408;&#x8FD4;&#x56DE; Promise &#x7ED3;&#x679C;&#x7684;&#x51FD;&#x6570;&#x3002;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x51FD;&#x6570; <code>cps</code> &#x53EF;&#x4EE5;&#x7528;&#x6765;&#x5904;&#x7406; Node &#x98CE;&#x683C;&#x7684;&#x51FD;&#x6570;
+&#xFF08;&#x4F8B;&#x5982;&#xFF0C;<code><span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">,</span> callback<span class="token punctuation">)</span></code> &#x4E2D;&#x7684; <code>callback</code> &#x662F; <code><span class="token punctuation">(</span>error<span class="token punctuation">,</span> result<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">)</span></code> &#x8FD9;&#x6837;&#x7684;&#x5F62;&#x5F0F;&#xFF0C;<code>cps</code> &#x8868;&#x793A;&#x7684;&#x662F;&#x5EF6;&#x7EED;&#x4F20;&#x9012;&#x98CE;&#x683C;&#xFF08;Continuation Passing Style&#xFF09;&#xFF09;&#x3002;</p>
+<p>&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;&#xFF1A;</p>
 <pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> cps <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga&apos;</span>
 
 <span class="token keyword">const</span> content <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">cps</span><span class="token punctuation">(</span>readFile<span class="token punctuation">,</span> <span class="token string">&apos;/path/to/file&apos;</span><span class="token punctuation">)</span>
 </code></pre>
-<p>And of course you can test it just like you test call:</p>
+<p>&#x5F53;&#x7136;&#x4F60;&#x4E5F;&#x53EF;&#x4EE5;&#x50CF;&#x6D4B;&#x8BD5; call &#x4E00;&#x6837;&#x6D4B;&#x8BD5;&#x5B83;&#xFF1A;</p>
 <pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> cps <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga/effects&apos;</span>
 
 <span class="token keyword">const</span> iterator <span class="token operator">=</span> <span class="token function">fetchSaga</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 assert<span class="token punctuation">.</span><span class="token function">deepEqual</span><span class="token punctuation">(</span>iterator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>value<span class="token punctuation">,</span> <span class="token function">cps</span><span class="token punctuation">(</span>readFile<span class="token punctuation">,</span> <span class="token string">&apos;/path/to/file&apos;</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
 </code></pre>
-<p><code>cps</code> also supports the same method invocation form as <code>call</code>.</p>
+<p><code>cps</code> &#x540C; <code>call</code> &#x7684;&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x5F62;&#x5F0F;&#x662F;&#x4E00;&#x6837;&#x7684;&#x3002;</p>
 
                     
                     </section>
@@ -641,7 +621,7 @@ assert<span class="token punctuation">.</span><span class="token function">deepE
         <a href="../../docs/basics/UsingSagaHelpers.html" class="navigation navigation-prev " aria-label="Previous page: 使用 Saga 辅助函数"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../../docs/basics/DispatchingActions.html" class="navigation navigation-next " aria-label="Next page: 发起 actions"><i class="fa fa-angle-right"></i></a>
+        <a href="../../docs/basics/DispatchingActions.html" class="navigation navigation-next " aria-label="Next page: 发起 action"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
