@@ -4,12 +4,12 @@ redux-saga 提供了一些辅助函数，用来在一些特定的 action 被发�
 
 这些辅助函数构建在低阶 API 之上。我们将会在高级概念一节看到这些函数是如何实现的。
 
-第一个函数，`takeEvery` 的最常见的，它提供了类似 redux-thunk 的行为。
+第一个函数，`takeEvery` 是最常见的，它提供了类似 redux-thunk 的行为。
 
 让我们演示一下常见的 AJAX 例子。每次点击 Fetch 按钮时，我们发起一个 `FETCH_REQUESTED` 的 action。
 我们想通过启动一个任务从服务器获取一些数据，来处理这个 action。
 
-首先我们创建将执行异步 action 的任务：
+首先我们创建一个将执行异步 action 的任务：
 
 ```javascript
 import { call, put } from 'redux-saga/effects'
