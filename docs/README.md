@@ -10,7 +10,7 @@
   * [发起 action](/docs/basics/DispatchingActions.md)
   * [错误处理](/docs/basics/ErrorHandling.md)
   * [一个常见的抽象概念: Effect](/docs/basics/Effect.md)
-* [高级概念](/docs/advanced/README.md)
+* [高级](/docs/advanced/README.md)
   * [监听未来的 action](/docs/advanced/FutureActions.md)
   * [无阻塞调用](/docs/advanced/NonBlockingCalls.md)
   * [同时执行多个任务](/docs/advanced/RunningTasksInParallel.md)
