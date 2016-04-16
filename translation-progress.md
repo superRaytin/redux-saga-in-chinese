@@ -4,13 +4,13 @@
 * [x] [介绍](/docs/introduction/README.md)
   * [x] [初级教程](/docs/introduction/BeginnerTutorial.md)
   * [x] [Saga 的背景](/docs/introduction/SagaBackground.md)
-* [ ] [基本概念](/docs/basics/README.md)
+* [x] [基本概念](/docs/basics/README.md)
   * [x] [使用 Saga 辅助函数](/docs/basics/UsingSagaHelpers.md)
   * [x] [声明式 Effects](/docs/basics/DeclarativeEffects.md)
   * [ ] [发起 action](/docs/basics/DispatchingActions.md) `ing`
   * [ ] [错误处理](/docs/basics/ErrorHandling.md) `ing`
   * [ ] [一个常见的抽象概念: Effect](/docs/basics/Effect.md) `ing`
-* [ ] [高级概念](/docs/advanced/README.md)
+* [x] [高级](/docs/advanced/README.md)
   * [ ] [监听未来的 action](/docs/advanced/FutureActions.md)
   * [ ] [无阻塞调用](/docs/advanced/NonBlockingCalls.md)
   * [ ] [同时执行多个任务](/docs/advanced/RunningTasksInParallel.md)

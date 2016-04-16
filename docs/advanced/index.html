@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>高级概念 | Redux-saga 中文文档</title>
+        <title>高级 | Redux-saga 中文文档</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.5.2">
@@ -52,7 +52,7 @@
     <body>
         
         
-    <div class="book" data-level="3" data-chapter-title="高级概念" data-filepath="docs/advanced/README.md" data-basepath="../.." data-revision="Sat Apr 16 2016 19:49:18 GMT+0800 (CST)">
+    <div class="book" data-level="3" data-chapter-title="高级" data-filepath="docs/advanced/README.md" data-basepath="../.." data-revision="Sat Apr 16 2016 19:58:26 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -236,7 +236,7 @@
                         
                             <b>3.</b>
                         
-                        高级概念
+                        高级
                     </a>
             
             
@@ -506,19 +506,19 @@
                 
                     <section class="normal" id="section-">
                     
-                        <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/advanced/README.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h1 id="advanced">Advanced</h1>
-<p>In this section, we&apos;ll dig into more powerful Effects provided by the library.</p>
+                        <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/advanced/README.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h1 id="&#x9AD8;&#x7EA7;">&#x9AD8;&#x7EA7;</h1>
+<p>&#x8FD9;&#x4E00;&#x90E8;&#x5206;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x6DF1;&#x5165;&#x63A2;&#x8BA8; redux-saga &#x63D0;&#x4F9B;&#x7684;&#x66F4;&#x5F3A;&#x5927;&#x7684; Effect&#x3002;</p>
 <ul>
-<li><a href="FutureActions.html">Pulling future actions</a></li>
-<li><a href="NonBlockingCalls.html">Non blocking calls</a></li>
-<li><a href="RunningTasksInParallel.html">Running tasks in parallel</a></li>
-<li><a href="RacingEffects.html">Starting a race between multiple Effects</a></li>
-<li><a href="SequencingSagas.html">Sequencing Sagas using yield*</a></li>
-<li><a href="ComposingSagas.html">Composing Sagas</a></li>
-<li><a href="TaskCancellation.html">Task cancellation</a></li>
-<li><a href="Concurrency.html">Common Concurrency Patterns</a></li>
-<li><a href="Testing.html">Examples of Testing Sagas</a></li>
-<li><a href="UsingRunSaga.html">Connecting Sagas to external Input/Output</a></li>
+<li><a href="FutureActions.html">&#x76D1;&#x542C;&#x672A;&#x6765;&#x7684; action</a></li>
+<li><a href="NonBlockingCalls.html">&#x65E0;&#x963B;&#x585E;&#x8C03;&#x7528;</a></li>
+<li><a href="RunningTasksInParallel.html">&#x540C;&#x65F6;&#x6267;&#x884C;&#x591A;&#x4E2A;&#x4EFB;&#x52A1;</a></li>
+<li><a href="RacingEffects.html">&#x5728;&#x591A;&#x4E2A; Effects &#x4E4B;&#x95F4;&#x542F;&#x52A8; race</a></li>
+<li><a href="SequencingSagas.html">&#x4F7F;&#x7528; yield* &#x5BF9; Sagas &#x8FDB;&#x884C;&#x6392;&#x5E8F;</a></li>
+<li><a href="ComposingSagas.html">&#x7EC4;&#x5408; Sagas</a></li>
+<li><a href="TaskCancellation.html">&#x4EFB;&#x52A1;&#x7684;&#x53D6;&#x6D88;</a></li>
+<li><a href="Concurrency.html">&#x5E38;&#x89C1;&#x7684;&#x5E76;&#x53D1;&#x6A21;&#x5F0F;</a></li>
+<li><a href="Testing.html">Sagas &#x6D4B;&#x8BD5;&#x793A;&#x4F8B;</a></li>
+<li><a href="UsingRunSaga.html">&#x8FDE;&#x63A5; Sagas &#x81F3;&#x5916;&#x90E8;&#x8F93;&#x5165;&#x548C;&#x8F93;&#x51FA;</a></li>
 </ul>
 
                     
@@ -565,13 +565,9 @@
     <script src="../../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
     
 
-    
-    <script src="../../gitbook/plugins/gitbook-plugin-livereload/plugin.js"></script>
-    
-
 <script>
 require(["gitbook"], function(gitbook) {
-    var config = {"edit-link":{"base":"https://github.com/superRaytin/redux-saga-in-chinese/tree/master","label":"开始纠错"},"ga":{"token":"UA-58588801-2","configuration":"auto"},"github":{"url":"https://github.com/superRaytin/redux-saga-in-chinese/"},"sharing":{"facebook":true,"twitter":true,"google":true,"weibo":true,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"prism":{},"search":{},"fontsettings":{"theme":"white","family":"sans","size":2},"livereload":{}};
+    var config = {"edit-link":{"base":"https://github.com/superRaytin/redux-saga-in-chinese/tree/master","label":"开始纠错"},"ga":{"token":"UA-58588801-2","configuration":"auto"},"github":{"url":"https://github.com/superRaytin/redux-saga-in-chinese/"},"sharing":{"facebook":true,"twitter":true,"google":true,"weibo":true,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"prism":{},"search":{},"fontsettings":{"theme":"white","family":"sans","size":2}};
     gitbook.start(config);
 });
 </script>
