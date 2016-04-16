@@ -114,11 +114,11 @@ function render() {
 }
 ```
 
-注意，与 redux-thunk 不同，上面组件发起的 action 是普通对象格式的。
+注意，与 redux-thunk 不同，上面组件发起的是一个普通对象格式的 action。
 
 现在我们将介绍另一种执行异步调用的 Saga。我们的用例如下：
 
-> 在每个 `INCREMENT_ASYNC` action 发起后，我们想要启动一个做以下事情的任务：
+> 在每个 `INCREMENT_ASYNC` action 发起后，我们需要启动一个做以下事情的任务：
 
 >- 等待 1 秒，然后增加计数
 
@@ -138,37 +138,32 @@ export function* incrementAsync() {
   yield put({ type: 'INCREMENT' })
 }
 
-// Our watcher Saga: 在每个 INCREMENT_ASYNC action 调用后，派发一个新的 incrementAsync 任务
+// Our watcher Saga: 在每个 INCREMENT_ASYNC action 调用后，派生一个新的 incrementAsync 任务
 export function* watchIncrementAsync() {
   yield* takeEvery('INCREMENT_ASYNC', incrementAsync)
 }
 ```
 
-好吧，该解释一下了。首先我们创建一个工具函数 `delay`，用于返回一个延迟 1 秒 resolve 的 Promise。
+好吧，该解释一下了。首先我们创建一个工具函数 `delay`，用于返回一个延迟 1 秒再 resolve 的 Promise。
 我们将使用这个函数去 *阻塞* Generator。
 
 Sagas 被实现为 Generator 函数，它 yield 对象到 redux-saga middleware。
 被 yield 的对象都是一类指令，指令可被 middleware 解释执行。当 middleware 取得一个 yield 后的 Promise，middleware 会暂停 Saga，直到 Promise 完成。
 在上面的例子中，`incrementAsync` 这个 Saga 会暂停直到 `delay` 返回的 Promise 被 resolve，这个 Promise 将在 1 秒后 resolve。
 
-Once the Promise is resolved, the middleware will resume the Saga to execute the next statement
-(more accurately to execute all the following statements until the next yield). In our case, the
-next statement is another yielded object: which is the result of calling `put({type: 'INCREMENT'})`.
-It means the Saga instructs the middleware to dispatch an `INCREMENT` action.
+一旦 Promise 被 resolve，middleware 会恢复 Saga 去执行下一个语句（更准确地说是执行下面所有的语句，直到下一个 yield）。
+在我们的情况里，下一个语句是另一个 yield 后的对象：调用 `put({type: 'INCREMENT'})` 的结果。
+意思是 Saga 指示 middleware 发起一个 `INCREMENT` 的 action。
 
-`put` is one example of what we call an *Effect*. Effects are simple JavaScript Objects which
-contain instructions to be fulfilled by the middleware. When a middleware retreives an Effect
-yielded by a Saga, it pauses the Saga until the Effect is fullfilled, then the Saga is resumed
-again.
+`put` 就是我们所说的一个调用 *Effect* 的例子。Effect 是一些简单 Javascript 对象，对象包含了要被 middleware 执行的指令。
+当 middleware 拿到一个被 Saga yield 后的 Effect，它会暂停 Saga，直到 Effect 执行完成，然后 Saga 会再次被恢复。
 
-So to summarize, the `incrementAsync` Saga sleeps for 1 second via the call to `delay(1000)`, then
-dispatches an `INCREMENT` action.
+总结一下，`incrementAsync` Saga 通过 `delay(1000)` 延迟了 1 秒钟，然后发起了一个 `INCREMENT` 的 action。
 
-Next, we created another Saga `watchIncrementAsync`. The Saga will watch the dispatched `INCREMENT_ASYNC`
-actions and spawn a new `incrementAsync` task on each action. For this purpose, we use a helper function
-provided by the library `takeEvery` which will perform the process above.
+接下来，我们创建了另一个 Saga `watchIncrementAsync`。这个 Saga 将监听所有发起的 `INCREMENT_ASYNC` action，并在每次 action 被匹配时派生一个新的 `incrementAsync` 任务。
+为了实现这个目的，我们使用一个辅助函数 `takeEvery` 来执行以上的处理过程。
 
-Before we start the application, we need to connect the `watchIncrementAsync` Saga to the Store
+在我们开始这个应用之前，我们需要将 `watchIncrementAsync` 这个 Saga 连接至 Store：
 
 ```javascript
 
@@ -183,15 +178,14 @@ const store = createStore(
 //...
 ```
 
-Note we don't need to connect the `incrementAsync` Saga, because it'll be started dynamically
-by `watchIncrementAsync` on each `INCREMENT_ASYNC` action.
+注意我们不需要连接 `incrementAsync` 这个 Saga，因为它会在每次 `INCREMENT_ASYNC` action 发起时被 `watchIncrementAsync` 动态启动。
 
 
-## Making our code testable
+## 让我们的代码可测试
 
-We want to test our `incrementAsync` Saga to make sure it performs the desired task.
+我们想要测试 `incrementAsync` Saga 来保证它执行期望的任务。
 
-Create another file `saga.spec.js`
+创建另一个文件 `saga.spec.js`：
 
 ```javascript
 import test from 'tape';
@@ -205,25 +199,21 @@ test('incrementAsync Saga test', (assert) => {
 });
 ```
 
-Since `incrementAsync` is a Generator function, when we run it outside the middleware,
-Each time you invoke `next` on the generator, you get an object of the following shape
+由于 `incrementAsync` 是一个 Generator 函数，当我们在 middleware 之外运行它，每次调用 generator 的 `next`，你将得到一个以下结构的对象：
 
 ```javascript
 gen.next() // => { done: boolean, value: any }
 ```
 
-The `value` field contains the yielded expression, i.e. the result of the expression after
-the `yield`. The `done` field indicates if the generator has terminated or if there are still
-more 'yield' expressions.
+`value` 字段包含 yield 后的表达式，即 `yield` 后面那个表达式的结果。`done` 字段指示 generator 是结束了，还是有更多的 `yield` 表达式。
 
-In the case of `incrementAsync`, the generator yields 2 values consecutively:
+在 `incrementAsync` 的例子中，generator 连续 yield 了两个值：
 
 1. `yield delay(1000)`
 2. `yield put({type: 'INCREMENT'})`
 
 
-So if we invoke the next method of the generator 3 times consecutively we get the following
-results:
+所以，如果我们连续 3 次调用 generator 的 next 方法，我们会得到以下结果：
 
 ```javascript
 gen.next() // => { done: false, value: <result of calling delay(1000)> }
@@ -231,13 +221,10 @@ gen.next() // => { done: false, value: <result of calling put({type: 'INCREMENT'
 gen.next() // => { done: true, value: undefined }
 ```
 
-The first 2 invocations return the results of the yield expressions. On the 3rd invocation
-since there is no more yield the `done` field is set to true. And since the `incrementAsync`
-Generator doesn't return anything (no `return` statement), the `value` field is set to
-`undefined`.
+前两次调用返回了 yield 表达式的结果。第三次调用由于没有更多的 yield 了，所以 `done` 字段被设置为 true。
+并且由于 `incrementAsync` Generator 未返回任何东西（没有 `return` 语句），所以 `value` 字段被设置为 `undefined`。
 
-So now, in order to test the logic inside `incrementAsync`, we'll simply have to iterate
-over the returned Generator and check the values yielded by the generator.
+所以现在，为了测试 `incrementAsync` 里面的逻辑，我们需要对返回的 Generator 进行简单地迭代并检查 Generator yield 后的值。
 
 ```javascript
 import test from 'tape';
@@ -255,11 +242,10 @@ test('incrementAsync Saga test', (assert) => {
 });
 ```
 
-The issue is how do we test the return value of `delay`? We can't do a simple equality test
-on Promises. If `delay` returned a *normal* value, things would've been be easier to test.
+问题是我们如何测试 `delay` 的返回值？我们不能在 Promise 之间做简单的相等测试。如果 `delay` 返回的是一个 *普通（normal）* 的值，
+事情将会变得很简单。
 
-Well, `redux-saga` provides a way which makes the above statement possible. Instead of calling
-`delay(1000)` directly inside `incrementAsync`, we'll call it *indirectly*
+好吧，`redux-saga` 提供了一种方式，让上面的语句变得可能。与在 `incrementAsync` 中直接调用 `delay(1000)` 不同，我们叫它 *间接（indirectly*
 
 
 ```javascript
@@ -275,29 +261,23 @@ export function* incrementAsync() {
 }
 ```
 
-Instead of doing `yield delay(1000)`, we're now doing `yield call(delay, 1000)` so what's the difference ?
+我们现在做的是 `yield call(delay, 1000)` 而不是 `yield delay(1000)`，所以有何不同？
 
-In the first case, the yield expression `delay(1000)` is evaluated before it gets passed to the caller of `next`
-(the caller could be the middleware when running our code. It could also be our test code which runs the Generator
-function and iterates over the returned Generator). So what the caller gets is a Promise, like in the test code
-above.
+在 `yield delay(1000)` 的情况下，yield 后的表达式 `delay(1000)` 在被传递给 `next` 的调用者之前就被执行了（当运行我们的代码时，调用者可能是 middleware。
+也有可能是运行 Generator 函数并对返回的 Generator 进行迭代的测试代码）。所以调用者得到的是一个 Promise，像在以上的测试代码里一样。
 
-In the second case, the yield expression `call(delay, 1000)` is what gets passed to the caller of `next`. `call`
-just like `put`, returns an Effect which instructs the middleware to call a given function with the given arguments.
-In fact, neither `put` nor `call` performs any dispatch or asynchronous call by themselves, they simply return
-plain JavaScript objects.
+在 `yield call(delay, 1000)` 的情况下，yield 后的表达式 `call(delay, 1000)` 被传递给 `next` 的调用者。`call` 就像 `put`，
+返回一个指示 middleware 以给定参数调用给定的函数的 Effect。
 
 ```javascript
 put({type: 'INCREMENT'}) // => { PUT: {type: 'INCREMENT'} }
 call(delay, 1000)        // => { CALL: {fn: delay, args: [1000]}}
 ```
 
-What happens is that the middleware examines the type of each yielded Effect then decides how
-to fulfill that Effect. If the Effect type is a `PUT` then it'll dispatch an action to the Store.
-If the Effect is a `CALL` then it'll call the given function.
+这里发生的情况是：middleware 检查每个 yield Effect 的类型，然后决定如何实现那个 Effect。如果 Effect 类型是 `PUT` 那 middleware 会发起一个 action 到 Store。
+如果 Effect 类型是 `CALL` 那么它会调用给定的函数。
 
-This separation between Effect creation and Effect execution makes possible to test our Generator
-in a surprisingly easy way
+这种把 Effect 创建和 Effect 执行之间分开的做法，使得我们以一种令人惊讶的简单方法去测试 Generator 成为可能。
 
 ```javascript
 import test from 'tape';
@@ -330,13 +310,13 @@ test('incrementAsync Saga test', (assert) => {
 });
 ```
 
-Since `put` and `call` return plain objects, we can reuse the same functions in our test
-code. And to test the logic of `incrementAsync`, we simply iterate over the generator
-and do `deepEqual` tests on its values.
+由于 `put` 和 `call` 返回文本对象，所以我们可以在测试代码中重复使用同样的函数。为了测试 `incrementAsync` 的逻辑，
+我们可以简单地遍历 generator 并对它的值做 `deepEqual` 测试。
 
-In order to run the above test, type
+为了运行上面的测试代码，我们需要输入：
+
 ```
 npm test
 ```
 
-which should report the results on the console
+测试结果会显示在控制面板上。
