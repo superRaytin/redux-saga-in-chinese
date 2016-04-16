@@ -1,14 +1,14 @@
-# Advanced
+# 高级
 
-In this section, we'll dig into more powerful Effects provided by the library.
+这一部分，我们将深入探讨 redux-saga 提供的更强大的 Effect。
 
-* [Pulling future actions](FutureActions.md)
-* [Non blocking calls](NonBlockingCalls.md)
-* [Running tasks in parallel](RunningTasksInParallel.md)
-* [Starting a race between multiple Effects](RacingEffects.md)
-* [Sequencing Sagas using yield*](SequencingSagas.md)
-* [Composing Sagas](ComposingSagas.md)
-* [Task cancellation](TaskCancellation.md)
-* [Common Concurrency Patterns](Concurrency.md)
-* [Examples of Testing Sagas](Testing.md)
-* [Connecting Sagas to external Input/Output](UsingRunSaga.md)
+* [监听未来的 action](FutureActions.md)
+* [无阻塞调用](NonBlockingCalls.md)
+* [同时执行多个任务](RunningTasksInParallel.md)
+* [在多个 Effects 之间启动 race](RacingEffects.md)
+* [使用 yield* 对 Sagas 进行排序](SequencingSagas.md)
+* [组合 Sagas](ComposingSagas.md)
+* [任务的取消](TaskCancellation.md)
+* [常见的并发模式](Concurrency.md)
+* [Sagas 测试示例](Testing.md)
+* [连接 Sagas 至外部输入和输出](UsingRunSaga.md)

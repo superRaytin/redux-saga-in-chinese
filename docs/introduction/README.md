@@ -1,4 +1,4 @@
-## Introduction
+## 介绍
 
-* [Beginner Tutorial](BeginnerTutorial.md)
-* [Background on the Saga concept](SagaBackground.md)
+* [初级教程](BeginnerTutorial.md)
+* [Saga 的背景](SagaBackground.md)
