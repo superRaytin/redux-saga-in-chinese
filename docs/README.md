@@ -7,7 +7,7 @@
 * [基本概念](/docs/basics/README.md)
   * [使用 Saga 辅助函数](/docs/basics/UsingSagaHelpers.md)
   * [声明式 Effects](/docs/basics/DeclarativeEffects.md)
-  * [发起 actions](/docs/basics/DispatchingActions.md)
+  * [发起 action](/docs/basics/DispatchingActions.md)
   * [错误处理](/docs/basics/ErrorHandling.md)
   * [一个常见的抽象概念: Effect](/docs/basics/Effect.md)
 * [高级概念](/docs/advanced/README.md)
