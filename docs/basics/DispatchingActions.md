@@ -1,4 +1,4 @@
-# Dispatching actions to the store
+# 发起 action 到 store
 
 Taking further the previous example, let's say after each save, we want to dispatch some action
 to notify the Store that the fetch has succeeded (we'll omit the failure case for the moment).
@@ -9,7 +9,7 @@ Generator can invoke it after receiving the fetch response
 ```javascript
 //...
 
-function* fetchProducts(dispatch) {
+function* fetchProducts(dispatch)
   const products = yield call(Api.fetch, '/products')
   dispatch({ type: 'PRODUCTS_RECEIVED', products })
 }
