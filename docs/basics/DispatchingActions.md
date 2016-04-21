@@ -1,7 +1,6 @@
 # 发起 action 到 store
 
-Taking further the previous example, let's say after each save, we want to dispatch some action
-to notify the Store that the fetch has succeeded (we'll omit the failure case for the moment).
+在前面的例子上更进一步，假设每次保存之后，我们想发起一些 action 通知 Store 数据获取成功了（目前我们先忽略失败的情况）。
 
 We could figure some way to pass the Store's `dispatch` function to the Generator. Then the
 Generator can invoke it after receiving the fetch response
