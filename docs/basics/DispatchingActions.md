@@ -50,7 +50,7 @@ assert.deepEqual(
 // 创建一个假的响应对象
 const products = {}
 
-// expects a dispatch instruction
+// 期望一个 dispatch 指令
 assert.deepEqual(
   iterator.next(products).value,
   put({ type: 'PRODUCTS_RECEIVED', products }),
