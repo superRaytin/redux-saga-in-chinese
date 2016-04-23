@@ -8,7 +8,7 @@
   * [x] [使用 Saga 辅助函数](/docs/basics/UsingSagaHelpers.md)
   * [x] [声明式 Effects](/docs/basics/DeclarativeEffects.md)
   * [x] [发起 action](/docs/basics/DispatchingActions.md)
-  * [ ] [错误处理](/docs/basics/ErrorHandling.md) `ing`
+  * [x] [错误处理](/docs/basics/ErrorHandling.md)
   * [ ] [一个常见的抽象概念: Effect](/docs/basics/Effect.md) `ing`
 * [x] [高级](/docs/advanced/README.md)
   * [ ] [监听未来的 action](/docs/advanced/FutureActions.md)
