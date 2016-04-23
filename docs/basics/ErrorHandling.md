@@ -1,13 +1,10 @@
-# Error handling
+# 错误处理
 
-In this section we'll see how to handle the failure case from the previous example. Let's suppose
-that our API function `Api.fetch` returns a Promise which get rejected when the remote fetch fails
-for some reason.
+在这一节中，我们将看到如何在前面的例子中处理故障案例。我们假设远程读取因为某些原因失败了，API 函数 `Api.fetch` 返回一个被拒绝（rejected）的 Promise。
 
-We want to handle those errors inside our Saga by dispatching a `PRODUCTS_REQUEST_FAILED` action
-to the Store.
+我们想要通过发起 `PRODUCTS_REQUEST_FAILED` action 到 Store 在我们的 Saga 里处理那些错误。
 
-We can catch errors inside the Saga using the familiar `try/catch` syntax.
+我们可以使用熟悉的 `try/catch` 语法在 Saga 中捕获错误。
 
 ```javascript
 import Api from './path/to/api'
@@ -26,7 +23,7 @@ function* fetchProducts() {
 }
 ```
 
-In order to test the failure case, we'll use the `throw` method of the Generator
+为了测试故障案例，我们将使用 Generator 的 `throw` 方法。
 
 ```javascript
 import { call, put } from 'redux-saga/effects'
@@ -34,17 +31,17 @@ import Api from '...'
 
 const iterator = fetchProducts()
 
-// expects a call instruction
+// 期望一个 call 指令
 assert.deepEqual(
   iterator.next().value,
   call(Api.fetch, '/products'),
   "fetchProducts should yield an Effect call(Api.fetch, './products')"
 )
 
-// create a fake error
+// 创建一个模拟的 error 对象
 const error = {}
 
-// expects a dispatch instruction
+// 期望一个 dispatch 指令
 assert.deepEqual(
   iterator.throw(error).value,
   put({ type: 'PRODUCTS_REQUEST_FAILED', error }),
@@ -52,12 +49,10 @@ assert.deepEqual(
 )
 ```
 
-In this case, we're passing the `throw` method a fake error. This will cause the Generator
-to break the current flow and execute the catch block.
+在这个案例中，我们传递一个模拟的 error 对象给 `throw`，这会引发 Generator 中断当前的执行流并执行捕获区块（catch block）。
 
-Of course you're not forced to handle your API errors inside `try`/`catch` blocks, you can also make
-your API service return a normal value with some error flag on it. For example, you can catch Promise
-rejections and map them to an object with an error field.
+当然了，你并不一定得在 `try`/`catch` 区块中处理错误，你也可以让你的 API 服务返回一个正常的含有错误标识的值。例如，
+你可以捕捉 Promise 的拒绝操作，并将它们映射到一个错误字段对象。
 
 ```javascript
 import Api from './path/to/api'
