@@ -1,6 +1,6 @@
 # 一个常见的抽象概念: Effect
 
-概括来说，从 Saga 内触发异步操作（Side Effect）总是由 yield 一些声明式的 Effect 来触发的
+概括来说，从 Saga 内触发异步操作（Side Effect）总是由 yield 一些声明式的 Effect 来完成的
 （你也可以直接 yield Promise，但是这会让测试变得困难，就像我们在第一节中看到的一样）。
 
 一个 Saga 所做的实际上是组合那些所有的 Effect，共同实现所需的控制流。
