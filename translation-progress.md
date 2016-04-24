@@ -9,9 +9,9 @@
   * [x] [声明式 Effects](/docs/basics/DeclarativeEffects.md)
   * [x] [发起 action](/docs/basics/DispatchingActions.md)
   * [x] [错误处理](/docs/basics/ErrorHandling.md)
-  * [ ] [一个常见的抽象概念: Effect](/docs/basics/Effect.md) `ing`
+  * [x] [一个常见的抽象概念: Effect](/docs/basics/Effect.md)
 * [x] [高级](/docs/advanced/README.md)
-  * [ ] [监听未来的 action](/docs/advanced/FutureActions.md)
+  * [ ] [监听未来的 action](/docs/advanced/FutureActions.md) `ing`
   * [ ] [无阻塞调用](/docs/advanced/NonBlockingCalls.md)
   * [ ] [同时执行多个任务](/docs/advanced/RunningTasksInParallel.md)
   * [ ] [在多个 Effects 之间启动 race](/docs/advanced/RacingEffects.md)
