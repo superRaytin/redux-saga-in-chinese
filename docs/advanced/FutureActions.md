@@ -1,4 +1,4 @@
-# Pulling future actions
+# 监听未来的 action
 
 Until now we've used the helper function `takeEvery` in order to spawn a new task on
 each incoming action. This mimics somewhat the behavior of redux-thunk: each time a
