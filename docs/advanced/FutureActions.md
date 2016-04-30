@@ -1,9 +1,7 @@
 # 监听未来的 action
 
-Until now we've used the helper function `takeEvery` in order to spawn a new task on
-each incoming action. This mimics somewhat the behavior of redux-thunk: each time a
-Component, for example, invokes a `fetchProducts` Action Creator, the Action Creator will
-dispatch a thunk to execute the control flow.
+到现在为止，我们已经使用了辅助函数 `takeEvery` 在每个 action 来到时派生一个新的任务。
+这多少有些模仿 redux-thunk 的行为：举个例子，每次一个组件调用 `fetchProducts` Action 创建器（Action Creator），Action 创建器就会发起一个 thunk 来执行控制流。
 
 In reality, `takeEvery` is just a helper function built on top of the lower level and more
 powerful API. In this section we'll see a new Effect, `take`, which makes it possible to build complex
