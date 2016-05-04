@@ -3,13 +3,12 @@
 到现在为止，我们已经使用了辅助函数 `takeEvery` 在每个 action 来到时派生一个新的任务。
 这多少有些模仿 redux-thunk 的行为：举个例子，每次一个组件调用 `fetchProducts` Action 创建器（Action Creator），Action 创建器就会发起一个 thunk 来执行控制流。
 
-在现实情况中，`takeEvery` 只是一个在低阶并且强大的 API 之上构建的辅助函数。
+在现实情况中，`takeEvery` 只是一个在强大的低阶 API 之上构建的辅助函数。
 在这一节中我们将看到一个新的 Effect，即 `take`。`take` 使得通过允许全面控制 action 观察进程来构建复杂的控制流成为可能。
 
-## A simple logger
+## 一个简单的日志记录器
 
-Let's take a simple example of a Saga that watch all dispatched actions to the store then
-log them to the console.
+让我们开始一个简单的 Saga 例子，这个 Saga 将监听所有发起到 store 的 action，然后将它们记录到控制台。
 
 Using `takeEvery('*')` (with the wildcard `*` pattern) we can catch all dispatched actions regardless
 of their types.
