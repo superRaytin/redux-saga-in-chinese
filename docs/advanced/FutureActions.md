@@ -10,8 +10,7 @@
 
 让我们开始一个简单的 Saga 例子，这个 Saga 将监听所有发起到 store 的 action，然后将它们记录到控制台。
 
-Using `takeEvery('*')` (with the wildcard `*` pattern) we can catch all dispatched actions regardless
-of their types.
+使用 `takeEvery('*')`（`*` 通配符模式），我们就能捕获发起的所有类型的 action。
 
 ```javascript
 import { takeEvery } from 'redux-saga'
@@ -24,7 +23,7 @@ function* watchAndLog(getState) {
 }
 ```
 
-Now let's see how to use the `take` Effect to implement the same flow as above
+现在我们知道如何使用 `take` Effect 来实现与上面相同的功能：
 
 ```javascript
 import { take } from 'redux-saga/effects'
