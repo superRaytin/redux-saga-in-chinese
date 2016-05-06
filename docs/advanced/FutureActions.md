@@ -37,19 +37,16 @@ function* watchAndLog(getState) {
 }
 ```
 
-The `take` is just like `call` and `put` we saw earlier. It creates another command object
-that tells the middleware to wait for a specific action. Just as the middleware suspends
-the Generator in case of `call` Effects until the returned Promise resolve. In the `take`
-case it'll suspend the Generator until a matching action is dispatched. In the above example
-`watchAndLog` is suspended until any action is dispatched.
+`take` 就像我们更早之前看到的 `call` 和 `put`。它创建另一个命令对象，告诉 middleware 等待一个特定的 action。
+正如在 `call` Effect 的情况中，middleware 暂停 Generator，直到返回的 Promise 被 resolve。
+在 `take` 的情况中，它将会暂停 Generator 直到一个匹配的 action 被发起了。
+在以上的例子中，`watchAndLog` 被暂停了，直到任意的一个 action 被发起。
 
-Note how we're running an endless loop `while(true)`. Remember this is a Generator function,
-which doesn't have a run-to-completion behavior. Our Generator will block on each iteration
-waiting for an action to happen.
+注意，我们运行了一个无限循环的 `while(true)`。记住这是一个 Generator 函数，它不具备 `从运行至完成` 的行为（run-to-completion behavior）。
+我们的 Generator 将在每次迭代上阻塞以等待 action 发起。
 
-Using `take` has a subtle impact on how we write our code. In the case of `takeEvery` the invoked
-tasks has no control on when to be called, they will be invoked again and again on each matching
-action. They also have no control on when to stop the observation.
+使用 `take` 对于我们如何写代码有一个微妙的影响。在 `takeEvery` 的情况中，被调用的任务无法控制何时被调用，
+它们将在每次 action 被匹配时一遍又一遍地被调用。并且它们也无法控制何时停止监听。
 
 In the case of `take` the control is inversed. Instead of the actions being *pushed* to the
 handler tasks, the Saga is *pulling* the action by itself. It looks as if the Saga is performing
