@@ -1,6 +1,6 @@
 #同时执行多个任务
 
-`yield` 指令可以很简单的将异步控制流以同步的写法表现出来，与此同时我们也会需要同时执行多个任务，我们不应该单纯的写出：
+`yield` 指令可以很简单的将异步控制流以同步的写法表现出来，但与此同时我们将也会需要同时执行多个任务，我们不应该写：
 
 ```javascript
 // 错的，effects将被按顺序执行
@@ -20,4 +20,4 @@ const [users, repos]  = yield [
 ]
 ```
 
-当我们需要 `yield` 一个包含 effects的数组， generator会被阻塞直到所有的effects都执行完毕，或者当一个effect被拒绝 （就像`Promise.all`的行为）
+当我们需要 `yield` 一个包含 effects的数组， generator会被阻塞直到所有的effects都执行完毕，或者当一个effect被拒绝 （就像`Promise.all`的行为）。
