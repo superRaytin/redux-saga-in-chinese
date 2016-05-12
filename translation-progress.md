@@ -14,15 +14,15 @@
   * [x] [监听未来的 action](/docs/advanced/FutureActions.md)
   * [ ] [无阻塞调用](/docs/advanced/NonBlockingCalls.md) `ing`
   * [x] [同时执行多个任务](/docs/advanced/RunningTasksInParallel.md)
-  * [ ] [在多个 Effects 之间启动 race](/docs/advanced/RacingEffects.md)
+  * [ ] [在多个 Effects 之间启动 race](/docs/advanced/RacingEffects.md) `ing`
   * [ ] [使用 yield* 对 Sagas 进行排序](/docs/advanced/SequencingSagas.md)
   * [ ] [组合 Sagas](/docs/advanced/ComposingSagas.md)
   * [ ] [任务的取消](/docs/advanced/TaskCancellation.md)
   * [ ] [常见的并发模式](/docs/advanced/Concurrency.md)
-  * [ ] [Sagas 测试示例](/docs/advanced/Testing.md)
+  * [x] [Sagas 测试示例](/docs/advanced/Testing.md)
   * [ ] [连接 Sagas 至外部输入和输出](/docs/advanced/UsingRunSaga.md)
 * [ ] [实例](/docs/recipes/README.md)
-* [ ] [外部资源](/docs/ExternalResources.md)
+* [x] [外部资源](/docs/ExternalResources.md)
 * [ ] [故障排除](/docs/Troubleshooting.md)
 * [ ] [名词解释](/docs/Glossary.md)
 * [x] [API 参考](/docs/api/README.md)
