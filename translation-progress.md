@@ -11,9 +11,9 @@
   * [x] [错误处理](/docs/basics/ErrorHandling.md)
   * [x] [一个常见的抽象概念: Effect](/docs/basics/Effect.md)
 * [x] [高级](/docs/advanced/README.md)
-  * [ ] [监听未来的 action](/docs/advanced/FutureActions.md) `ing`
-  * [ ] [无阻塞调用](/docs/advanced/NonBlockingCalls.md)
-  * [ ] [同时执行多个任务](/docs/advanced/RunningTasksInParallel.md)
+  * [x] [监听未来的 action](/docs/advanced/FutureActions.md)
+  * [ ] [无阻塞调用](/docs/advanced/NonBlockingCalls.md) `ing`
+  * [x] [同时执行多个任务](/docs/advanced/RunningTasksInParallel.md)
   * [ ] [在多个 Effects 之间启动 race](/docs/advanced/RacingEffects.md)
   * [ ] [使用 yield* 对 Sagas 进行排序](/docs/advanced/SequencingSagas.md)
   * [ ] [组合 Sagas](/docs/advanced/ComposingSagas.md)
