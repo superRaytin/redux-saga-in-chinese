@@ -1,11 +1,11 @@
-# External Resources
+# 外部资源
 
-### Articles on Generators
+### Generators 相关文章
 
 - [The Basics Of ES6 Generators](https://davidwalsh.name/es6-generators) By Kyle Simpson
 - [ES6 generators in depth](http://www.2ality.com/2015/03/es6-generators.html) By Axel Rauschmayer
 
-### Articles on redux-saga
+### redux-saga 相关文章
 
 - [Redux nowadays : From actions creators to sagas](http://riadbenguella.com/from-actions-creators-to-sagas-redux-upgraded/)
 By Riad Benguella
