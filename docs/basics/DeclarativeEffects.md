@@ -88,7 +88,7 @@ function* fetchProducts() {
 就像在 Redux 里你使用 action 创建器，创建一个将被 Store 执行的、描述 action 的纯文本对象。
 `call` 创建一个纯文本对象描述函数调用。`redux-saga` middleware 确保执行函数调用并在响应被 resolve 时恢复 generator。
 
-这允许你能容易地测试 Generator，就算它在 Redux 环境之外。因为 `call` 只是一个返回纯文本对象的函数而已。
+这让你能容易地测试 Generator，就算它在 Redux 环境之外。因为 `call` 只是一个返回纯文本对象的函数而已。
 
 ```javascript
 import { call } from 'redux-saga/effects'

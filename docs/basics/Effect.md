@@ -7,8 +7,8 @@
 最简单的是只需把 yield 一个接一个地放置，就可对 yield 过的 Effect 进行排序。你也可以使用熟悉的控制流操作符（`if`, `while`, `for`）
 来实现更复杂的控制流。
 
-我们已经看到，使用 Effect 诸如 `call` 和 `put`，与高阶 API 如 `takeEvery` 相结合，允许我们实现与 `redux-thunk` 同样的东西，
-但有额外的易于测试的好处。
+我们已经看到，使用 Effect 诸如 `call` 和 `put`，与高阶 API 如 `takeEvery` 相结合，让我们实现与 `redux-thunk` 同样的东西，
+但又有额外的易于测试的好处。
 
  但 `redux-saga` 相比 `redux-thunk` 还提供了另一种好处。
  在「高级」一节，你会遇到一些更强大的 Effect，让你可以表达更复杂的控制流的同时，仍然拥有可测试性的好处。
