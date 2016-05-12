@@ -1,9 +1,9 @@
-# Examples of Testing Sagas
+# Sagas 测试示例
 
-**WIP**
+**建设中**
 
 
-See Repository Examples
+查看仓库示例
 
 https://github.com/yelouafi/redux-saga/blob/master/examples/counter/test/sagas.js
 
