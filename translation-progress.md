@@ -26,3 +26,5 @@
 * [ ] [故障排除](/docs/Troubleshooting.md)
 * [ ] [名词解释](/docs/Glossary.md)
 * [x] [API 参考](/docs/api/README.md)
+
+:point_right: [我想参与翻译](#2)
