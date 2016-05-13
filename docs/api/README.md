@@ -447,7 +447,7 @@ export default function* rootSaga(getState) {
 Saga 与 State 结构藕合了。如果未来 state 结构改变了（比如通过某些正常处理流程），那我们也必须小心更改 `checkout` Saga 里面的代码。
 如果我们还有另外的 Sagas 也访问了 `cart`，并且如果我们忘记更新其中一个依赖的 Sagas，那就会引起一些细小的错误。
 
-为了缓解这种情况，我们可心创建一个 *选择器*（selector），即一个知道如何从 State 提取 `cart` 数据的函数。
+为了缓解这种情况，我们可以创建一个 *选择器*（selector），即一个知道如何从 State 提取 `cart` 数据的函数。
 
 `./selectors`
 ```javascript
