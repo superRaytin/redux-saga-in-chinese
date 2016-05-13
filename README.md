@@ -128,7 +128,7 @@ const store = createStore(
 
 如果你不使用 Webpack 或 Browserify，umd 版本非常有用。你可以通过 [npmcdn](npmcdn.com) 直接使用。
 
-以下是可用的构建：
+以下是可用的构建好的文件：
 
 - [https://npmcdn.com/redux-saga/dist/redux-saga.js](https://npmcdn.com/redux-saga/dist/redux-saga.js)
 - [https://npmcdn.com/redux-saga/dist/redux-saga.min.js](https://npmcdn.com/redux-saga/dist/redux-saga.min.js)
@@ -216,5 +216,5 @@ npm run real-world
 - [Leon Shi@superRaytin](https://github.com/superRaytin)
 - [Kevin He@kevinxh](https://github.com/kevinxh)
 
-**本文档翻译流程按照 [ETC 翻译规范](https://github.com/react-guide/ETC)，欢迎你来一起完善**
+**如果看到翻译不准确、句子不通顺的地方，欢迎随时指出。本文档翻译流程按照 [ETC 翻译规范](https://github.com/react-guide/ETC)，欢迎你来一起完善**
 
