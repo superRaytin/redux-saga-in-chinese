@@ -1,9 +1,9 @@
-# Non blocking calls
+# 无阻塞调用
 
-In the previous section, we saw how the `take` Effect allows us to better describe a non
-trivial flow in a central place.
+在上一节中，我们看到了 `take` Effect 让我们可以在一个集中的地方更好地去描述一个非常规的流程。
 
-Revisiting the login flow example
+重温一下登录流程示例：
+
 
 ```javascript
 function* loginFlow() {
@@ -16,22 +16,19 @@ function* loginFlow() {
 }
 ```
 
-Let's complete the example and implement the actual login/logout logic. We'll suppose that we have
-an Api which permits us to authorize the user on a remote server. If the authorization is successful
-the server will return an authorization token which will be stored by our application using the
-DOM storage (we'll suppose our Api provide another service for DOM storage).
+让我们来完成这个例子，并实现真实的登录/登出逻辑。假设有这样一个 Api，它允许我们在一个远程服务器上验证用户的权限。
+如果验证成功，服务器将会返回一个授权令牌，我们的应用程序将会通过 DOM storage 存储这个令牌（假设我们的 Api 为 DOM storage 提供了另外一个服务）。
 
-When the user logout, we'll simply delete the authorization token stored previously.
+当用户登出，我们将直接删除以前存储的授权令牌。
 
-### First try
+### 初次尝试
 
-So far we have all needed Effects in order to implement the above flow. We can wait for specific
-actions in the store using the `take` Effect. We can make asynchronous calls using the `call` Effect
-and finally we can dispatch actions to the store using the `put` Effect.
+到目前为止，我们拥有所有需要的 Effects 用来实现上述流程。我们可以使用 `take` Effect 等待 store 中指定的 action。
+我们也可以使用 `call` Effect 进行同步调用，最后使用 `put` Effect 来发起 action 到 store。
 
-So let's give it a try
+让我们试试吧：
 
->Note the below code has a subtle issue ,make sure to read the section until the end
+> 注意，以下代码有一个微妙的问题，请务必将这一节全部阅读完
 
 ```javascript
 import { take, call, put } from 'redux-saga/effects'
@@ -60,15 +57,12 @@ function* loginFlow() {
 }
 ```
 
-First we created a separate Generator `authorize` which will perform the actual Api call and
-notify the Store upon success.
+首先我们创建了一个独立的 Generator `authorize`，它将执行真实的 Api 调用并在成功后通知 Store。
 
-The `loginFlow` implements its entire flow inside a `while(true)` loop, which means once
-we reach the last step in the flow (`LOGOUT`) we start a new iteration by waiting for a
-new `LOGIN_REQUEST` action.
+`loginFlow` 在一个 `while(true)` 循环中实现它所有的流程，这样做的意思是：一旦到达流程最后一步（`LOGOUT`），通过等待一个新的 `LOGIN_REQUEST` action 来启动一个新的迭代。
 
-`loginFlow` first wait for a `LOGIN_REQUEST` action. Then retrieves the credentials in the
-action payload (`user` and `password`) and makes a `call` to the `authorize` task.
+`loginFlow` 首先等待一个 `LOGIN_REQUEST` action。
+然后在 action 的 payload 中获取有效凭据（即 `user` 和 `password`）并调用一个 `call` 到 `authorize` 任务。
 
 As you noted, `call` isn't only for invoking functions returning Promises. We can also use it to
 invoke other Generator functions. In the above example, **`loginFlow` will wait for authorize
