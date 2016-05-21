@@ -64,10 +64,8 @@ function* loginFlow() {
 `loginFlow` 首先等待一个 `LOGIN_REQUEST` action。
 然后在 action 的 payload 中获取有效凭据（即 `user` 和 `password`）并调用一个 `call` 到 `authorize` 任务。
 
-As you noted, `call` isn't only for invoking functions returning Promises. We can also use it to
-invoke other Generator functions. In the above example, **`loginFlow` will wait for authorize
-until it terminates and returns** (i.e. after performing the api call, dispatching the action and then
-returning the token to `loginFlow`).
+正如你注意到的，`call` 不仅可以用来调用返回 Promise 的函数。我们也可以用它来调用其他 Generator 函数。
+在上面的例子中，**`loginFlow` 将等待 `authorize` 直到它终止或返回**（即执行 api 调用后，发起 action 然后返回 token 至 `loginFlow`）。
 
 If the Api call succeeds, `authorize` will dispatch a `LOGIN_SUCCESS` action then returns the
 fetched token. If it results in an error,  it'll dispatch a `LOGIN_ERROR` action.
