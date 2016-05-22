@@ -28,7 +28,7 @@ function* loginFlow() {
 
 让我们试试吧：
 
-> 注意，以下代码有一个微妙的问题，请务必将这一节全部阅读完
+> 注意，以下代码有一个微妙的问题，请务必将这一节全部阅读完。
 
 ```javascript
 import { take, call, put } from 'redux-saga/effects'
@@ -67,24 +67,20 @@ function* loginFlow() {
 正如你注意到的，`call` 不仅可以用来调用返回 Promise 的函数。我们也可以用它来调用其他 Generator 函数。
 在上面的例子中，**`loginFlow` 将等待 `authorize` 直到它终止或返回**（即执行 api 调用后，发起 action 然后返回 token 至 `loginFlow`）。
 
-If the Api call succeeds, `authorize` will dispatch a `LOGIN_SUCCESS` action then returns the
-fetched token. If it results in an error,  it'll dispatch a `LOGIN_ERROR` action.
+如果 Api 调用成功了，`authorize` 将发起一个 `LOGIN_SUCCESS` action 然后返回获取到的 token。
+如果调用导致了错误，将会发起一个 `LOGIN_ERROR` action。
 
-If the call to `authorize` is successful, `loginFlow` will store the returned token
-in the DOM storage and wait for a `LOGOUT` action. When the user logouts, we remove the
-stored token and wait for a new user login.
+如果调用 `authorize` 成功，`loginFlow` 将在 DOM storage 中存储返回的 token，并等待 `LOGOUT` action。
+当用户登出，我们删除存储的 token 并等待一个新的用户登录。
 
-In the case of `authorize` failed, it'll return an undefined value, which will cause `loginFlow`
-to skip the pervious process and wait for a new `LOGIN_REQUEST` action.
+在 `authorize` 失败的情况下，它将返回一个 undefined 值，这将导致 `loginFlow` 跳过当前处理进程并等待一个新的 `LOGIN_REQUEST` action。
 
-Observe how the entire logic is stored in one place. A new developer reading our code
-doesn't have to travel between various places in order to understand the
-control flow. It's like reading a synchronous algorithm: steps are layed out in their
-natural order. And we have functions which call other functions and wait for their results.
+观察整个逻辑是如何存储在一个地方的。一个新的开发者阅读我们的代码时，不必再为了理解控制流而在各个地方来回切换。
+这就像是在阅读同步代码：它们的自然顺序确定了执行步骤。并且我们有很多 Effects 可以调用其他函数并等待它们的结果。
 
-### But there is still a subtle issue with the above approach
+### 但上面的方法还是有一个微妙的问题
 
-Suppose that when the `loginFlow` is waiting for the following call to resolve
+假如 `loginFlow` 正在等待如下的调用被 resolve：
 
 ```javascript
 function* loginFlow() {
@@ -99,9 +95,9 @@ function* loginFlow() {
 }
 ```
 
-The user clicks on the `Logout` button causing a `LOGOUT` action to be dispatched
+但用户点击了 `Logout` 按钮使得 `LOGOUT` action 被发起。
 
-The following example illustrates the hypothetical sequence of the events :
+下面的例子演示了假想的一系列事件：
 
 ```
 UI                              loginFlow
@@ -115,26 +111,19 @@ LOGOUT.................................................. missed!
 ........................................................
 ```
 
-When `loginFlow` is blocked on the `authorize` call, an eventual `LOGOUT` occurring in
-between the call and the response will be missed, because `loginFlow` hasn't yet performed
-the `yield take('LOGOUT')`.
+当 `loginFlow` 在 `authorize` 中被阻塞了，最终发生在开始调用和收到响应之间的 `LOGOUT` 将会被错过，
+因为那时 `loginFlow` 还没有执行 `yield take('LOGOUT')`。
 
-The problem with the above code is that `call` is a blocking Effect. i.e. the Generator
-can't perform/handle anything else until the call terminates. But in our case we do not only
-want `loginFlow` to execute the authorization call, but also watch for an eventual `LOGOUT`
-action that may occur in the middle of this call. That's because `LOGOUT` is *concurrent*
-to the `authorize` call.
+上面代码的问题是 `call` 是一个会阻塞的 Effect。即 Generator 在调用结束之前不能执行或处理任何其他事情。
+但在我们的情况中，我们不仅想要 `loginFlow` 执行授权调用，也想监听可能发生在调用未完成之前的 `LOGOUT` action。
+因为 `LOGOUT` 与调用 `authorize` 是 *并发的*。
 
-So what's needed is some way to start `authorize` without blocking. So `loginFlow` can continue
-and watch for an eventual/concurrent `LOGOUT` action.
+所以我们需要的是一些非阻塞调用 `authorize` 的方法。这样 `loginFlow` 就可以继续执行，并且监听并发的或响应未完成之前发出的 `LOGOUT` action。
 
+为了表示无阻塞调用，redux-saga 提供了另一个 Effect：[`fork`](http://superRaytin.github.io/redux-saga/docs/api/index.html#forkfn-args)。
+当我们 fork 一个 *任务*，任务会在后台启动，调用者也可以继续它自己的流程，而不用等待被 fork 的任务结束。
 
-To express non-blocking calls, the library provides another Effect: [`fork`](http://yelouafi.github.io/redux-saga/docs/api/index.html#forkfn-args). When we fork
-a *task*, the task is started in the background and the caller can continue its flow without
-waiting for the forked task to terminate.
-
-So in order for `loginFlow` to not miss a concurrent `LOGOUT`, we must not `call` the `authorize`
-task, instead we have to `fork` it.
+所以为了让 `loginFlow` 不错过一个并发的 `LOGOUT`，我们不要使用 `call` 调用 `authorize` 任务，而应该使用 `fork`。
 
 ```javascript
 import { fork, call, take, put } from 'redux-saga/effects'
