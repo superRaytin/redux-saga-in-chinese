@@ -1,7 +1,7 @@
-# Sequencing Sagas via `yield*`
+# 通过 `yield*` 对 Sagas 进行排序
 
-You can use the builtin `yield*` operator to compose multiple Sagas in a sequential way.
-This allows you to sequence your *macro-tasks* in a simple procedural style.
+你可以使用内置的 `yield*` 操作符来组合多个 Sagas，使得它们保持顺序。
+这让你可以一种简单的程序风格来排列你的 *宏观任务（macro-tasks）*。
 
 ```javascript
 function* playLevelOne(getState) { ... }
@@ -24,6 +24,5 @@ function* game(getState) {
 }
 ```
 
-Note that using `yield*` will cause the JavaScript runtime to *spread* the whole sequence.
-The resulting iterator (from `game()`) will yield all values from the nested
-iterators. A more powerful alternative is to use the more generic middleware composition mechanism.
+注意，使用 `yield*` 将导致该 Javascript 运行环境 *漫延* 至整个序列。
+由此产生的迭代器（来自 `game()`）将 yield 所有来自于嵌套迭代器里的值。一个更强大的替代方案是使用更通用的中间件组合机制。
