@@ -120,10 +120,10 @@ LOGOUT.................................................. missed!
 
 所以我们需要的是一些非阻塞调用 `authorize` 的方法。这样 `loginFlow` 就可以继续执行，并且监听并发的或响应未完成之前发出的 `LOGOUT` action。
 
-为了表示无阻塞调用，redux-saga 提供了另一个 Effect：[`fork`](http://superRaytin.github.io/redux-saga/docs/api/index.html#forkfn-args)。
+为了表示无阻塞调用，redux-saga 提供了另一个 Effect：[`fork`](http://leonshi.com/redux-saga-in-chinese/docs/api/index.html#forkfn-args)。
 当我们 fork 一个 *任务*，任务会在后台启动，调用者也可以继续它自己的流程，而不用等待被 fork 的任务结束。
 
-所以为了让 `loginFlow` 不错过一个并发的 `LOGOUT`，我们不要使用 `call` 调用 `authorize` 任务，而应该使用 `fork`。
+所以为了让 `loginFlow` 不错过一个并发的 `LOGOUT`，我们不应该使用 `call` 调用 `authorize` 任务，而应该使用 `fork`。
 
 ```javascript
 import { fork, call, take, put } from 'redux-saga/effects'
@@ -132,7 +132,7 @@ function* loginFlow() {
   while(true) {
     ...
     try {
-      // non blocking call, what's the returned value here ?
+      // 无阻塞调用，这里返回的值是什么？
       const ?? = yield fork(authorize, user, password)
       ...
     }
@@ -141,9 +141,8 @@ function* loginFlow() {
 }
 ```
 
-The issue now is since our `authorize` action is started in the background, we can't get
-the `token` result (because we'd have to wait for it). So we need to move the token storage
-operation into the `authorize` task.
+现在的问题是，自从 `authorize` 的 action 在后台启动之后，我们获取不到 `token` 的结果（因为我们不应该等待它）。
+所以我们需要将 token 存储操作移到 `authorize` 任务内部。
 
 ```javascript
 import { fork, call, take, put } from 'redux-saga/effects'
@@ -168,31 +167,23 @@ function* loginFlow() {
 }
 ```
 
-We're also doing `yield take(['LOGOUT', 'LOGIN_ERROR'])`. It means we are watching for
-2 concurrent actions :
+我们使用了 `yield take(['LOGOUT', 'LOGIN_ERROR'])`。意思是监听 2 个并发的 action：
 
-- If the `authorize` task succeeds before the user logouts, it'll dispatch a `LOGIN_SUCCESS`
-action then terminates. Our `loginFlow` saga will then wait only for a future `LOGOUT` action
-(because `LOGIN_ERROR` will never happen).
+- 如果 `authorize` 任务在用户登出之前成功了，它将会发起一个 `LOGIN_SUCCESS` action 然后结束。
+然后 `loginFlow` Saga 只会等待一个未来的 `LOGOUT` action 被发起（因为 `LOGIN_ERROR` 永远不会发生）。
 
-- If the `authorize` fails before the user logouts, it'll dispatch a `LOGIN_ERROR` action then
-terminates. So `loginFlow` will take the `LOGIN_ERROR` before the `LOGOUT` then it'll enter in
-a another `while` iteration and will wait for the next `LOGIN_REQUEST` action.
+- 如果 `authorize` 在用户登出之前失败了，它将会发起一个 `LOGIN_ERROR` action 然后结束。
+那么 `loginFlow` 将在 `LOGOUT` 之前收到 `LOGIN_ERROR`，然后它会进入另外一个 `while` 迭代并等待下一个 `LOGIN_REQUEST` action。
 
-- If the user logouts before the `authorize` terminate, then `loginFlow` will take a `LOGOUT`
-action and also wait for the next `LOGIN_REQUEST`.
+- 如果在 `authorize` 结束之前，用户就登出了，那么 `loginFlow` 将收到一个 `LOGOUT` action 并且也会等待下一个 `LOGIN_REQUEST`。
 
-Note the call for `Api.clearItem` is supposed to be idempotent. It'll have no effect if no token was
-stored by the `authorize` call. `loginFlow` just make sure no token will be in the storage
-before waiting for the next login.
+注意 `Api.clearItem` 应该是幂等调用。如果 `authorize` 调用时没有存储 token 也不会有任何影响。
+`loginFlow` 仅仅是保证在等待下一次登录之前，storage 中没有 token。
 
-But we've not yet done. If we take a `LOGOUT` in the middle of an Api call, we have
-to **cancel** the `authorize` process, otherwise we'll have 2 concurrent tasks evolving in
-parallel, otherwise, the `authorize` task will continue running and upon a successful (resp. failed)
-result, will dispatch a `LOGIN_SUCCESS` (resp. a `LOGIN_ERROR`) action leading to an inconsistent state.
+但是还没完。如果我们在 Api 调用期间收到一个 `LOGOUT` action，我们必须要 **取消** `authorize` 处理进程，否则将有 2 个并发的任务，
+并且 `authorize` 任务将会继续运行，并在成功的响应（或失败的响应）返回后发起一个 `LOGIN_SUCCESS` action（或一个 `LOGIN_ERROR` action），而这将导致状态不一致。
 
-
-In order to cancel a forked task, we use a dedicated Effect [`cancel`](http://yelouafi.github.io/redux-saga/docs/api/index.html#canceltask)
+为了取消 fork 任务，我们可以使用一个指定的 Effect [`cancel`](http://superRaytin.github.io/redux-saga-in-chinese/docs/api/index.html#canceltask)。
 
 ```javascript
 import { take, put, call, fork, cancel } from 'redux-saga/effects'
@@ -212,29 +203,22 @@ function* loginFlow() {
 }
 ```
 
-`yield fork` results in a [Task Object](http://yelouafi.github.io/redux-saga/docs/api/index.html#task). We assign
-the returned object into a local constant `task`. Later if we take a `LOGOUT` action, we pass that task
-to the `cancel` Effect. If the task is still running, it'll be aborted. If the task has already completed
-then nothing will happen and the cancellation will result in a no-op. And finally, if the task
-completed with an error, the we do nothing, because we know that the task has already completed.
+`yield fork` 的返回结果是一个 [Task 对象](http://superRaytin.github.io/redux-saga-in-chinese/docs/api/index.html#task)。
+我们将它们返回的对象赋给一个本地常量 `task`。如果我们收到一个 `LOGOUT` action，我们将那个 task 传入给 `cancel` Effect。
+如果任务仍在运行，它会被中止。如果任务已完成，那什么也不会发生，取消操作将会是一个空操作（no-op）。最后，如果该任务完成了但是有错误，
+那我们什么也没做，因为我们知道，任务已经完成了。
 
-Ok, we are *almost* done (yeah, concurrency it's not that easy, you have to take it seriously).
+OK，我们 *几乎* 要完成了（是的，它的并发性并不容易，你必须认真对待）。
 
-Suppose that when we receive a `LOGIN_REQUEST` action, our reducer sets some `isLoginPending` flag
-to true so it can display some message or spinner in the UI. If we get a `LOGOUT` in the middle
-of an Api call and abort the task by simply *killing it* (i.e. the task is stopped right away), then
-we may endup again with an inconsistent state. Because we'll still have `isLoginPending` set to true
-and our reducer waiting for an outcome action (`LOGIN_SUCCESS` or `LOGIN_ERROR`).
+假如在我们收到一个 `LOGIN_REQUEST` action 时，我们在 reducer 中设置了一些 `isLoginPending` 标识为 true，以便可以在界面上显示一些消息或者旋转 loading。
+如果此时我们在 Api 调用期间收到一个 `LOGOUT` action，并通过 *杀死它*（即任务被立即停止）简单粗暴地中止任务。
+那我们可能又以不一致的状态结束了。因为 `isLoginPending` 仍然是 true，而 reducer 还在等待一个结果 action（`LOGIN_SUCCESS` 或 `LOGIN_ERROR`）。
 
-Fortunately, the `cancel` Effect won't brutally kill our `authorize` task, it'll instead throw
-a special Error inside it to give it a chance to perform its cleanup logic. And the cancelled task
-should catch this Error if it has something to do before terminating.
+幸运的是，`cancel` Effect 不会粗暴地结束我们的 `authorize` 任务，它会在里面抛出一个特殊的错误，给 `authorize` 一个机会执行它自己的清理逻辑。
+而被取消的任务应该捕捉这个错误，假如它有一些在结束之前需要做的事的话。
 
-Our `authorize` already have a try/catch block, but it defines a generic handler which dispatches
-`LOGIN_ERROR` actions on each error. But login cancellations aren't really errors.
-It doesn't make sense to display an error message to the user we he logouts. So our `authorize`
-task has to dispatch `LOGIN_ERROR` actions only on case of authorization failures.
-
+我们的 `authorize` 已经有一个 try/catch 区块，但它定义了一个通用的处理程序，这个程序会在每次发生错误时发起 `LOGIN_ERROR` action。
+但登录取消并不是错误。所以 `authorize` 任务必须仅在授权失败时发起 `LOGIN_ERROR` action。
 
 ```javascript
 import { isCancelError } from 'redux-saga'
@@ -253,11 +237,11 @@ function* authorize(user, password) {
 }
 ```
 
-You may have noted that we still didn't do anyting about clearing our `isLoginPending` state.
-For that, there are 2 possible solutions (and maybe others)
+你可能已经注意到了，我们仍然没有做任何与清除 `isLoginPending` 状态相关的事情。
+对于这一点，有 2 个可能的解决方案（或其他的）。
 
-- dispatch a dedicated action `RESET_LOGIN_PENDING`
+- 发起一个指定的 action `RESET_LOGIN_PENDING`。
 
-- or more simply, make the reducer clear the `isLoginPending` on a `LOGOUT` action.
+- 或者更简单，让 reducer 收到 `LOGOUT` action 时清除 `isLoginPending`。
 
-## **More to come**
+## **更多内容，敬请期待**
