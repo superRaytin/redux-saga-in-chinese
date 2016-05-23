@@ -1,11 +1,9 @@
-## Starting a race between multiple Effects
+## 在多个 Effects 之间启动 race
 
-Sometimes we start multiple tasks in parallel but we don't want to wait for all of them, we just need
-to get the *winner*: the first one that resolves (or rejects). The `race` Effect offers a way of
-triggering a race between multiple Effects.
+有时候我们同时启动多个任务，但又不想等待所有任务完成，我们只想要拿到 *胜利者*：即第一个被 resolve（或 reject）的任务。
+`race` Effect 提供了一个方法，在多个 Effects 之间触发一个竞赛（race）。
 
-The following sample shows a task that triggers a remote fetch request, and constrains the response within a
-1 second timeout.
+下面的示例演示了触发一个远程的获取请求，并且限制了 1 秒内响应，否则作超时处理。
 
 ```javascript
 import { race, take, put } from 'redux-saga/effects'
@@ -23,13 +21,11 @@ function* fetchPostsWithTimeout() {
 }
 ```
 
-Another useful feature of `race` is that it automatically cancel the loser Effects. For example,
-suppose we have 2 UI buttons:
+`race` 的另一个有用的功能是，它会自动取消那些失败的 Effects。例如，假设我们有 2 个 UI 按钮：
 
-- the first starts a task in the background that run in an endless loop `while(true)`
-(e.g. syncing some data with the server each x seconds).
+- 第一个用于在后台启动一个任务，这个任务运行在一个无限循环的 `while(true)` 中（例如：每 x 秒钟从服务器上同步一些数据）
 
-- Once the background task is started, we enable a second button which will cancel the task
+- 一旦该后台任务启动了，我们启用第二个按钮，这个按钮用于取消该任务。
 
 
 ```javascript
@@ -50,5 +46,4 @@ function* watchStartBackgroundTask() {
 }
 ```
 
-In the case a `CANCEL_TASK` action is dispatched, the `race` Effect will automatically cancel
-`backgroundTask` by throwing a cancellation error inside it.
+在 `CANCEL_TASK` action 被发起的情况下，`race` Effect 将自动取消 `backgroundTask`，并在 `backgroundTask` 中抛出一个取消错误。
