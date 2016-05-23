@@ -12,7 +12,7 @@
   * [x] [一个常见的抽象概念: Effect](/docs/basics/Effect.md)
 * [x] [高级](/docs/advanced/README.md)
   * [x] [监听未来的 action](/docs/advanced/FutureActions.md)
-  * [ ] [无阻塞调用](/docs/advanced/NonBlockingCalls.md) `ing`
+  * [x] [无阻塞调用](/docs/advanced/NonBlockingCalls.md)
   * [x] [同时执行多个任务](/docs/advanced/RunningTasksInParallel.md)
   * [ ] [在多个 Effects 之间启动 race](/docs/advanced/RacingEffects.md) `ing`
   * [ ] [使用 yield* 对 Sagas 进行排序](/docs/advanced/SequencingSagas.md)
