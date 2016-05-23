@@ -52,7 +52,7 @@
     <body>
         
         
-    <div class="book" data-level="3.6" data-chapter-title="组合 Sagas" data-filepath="docs/advanced/ComposingSagas.md" data-basepath="../.." data-revision="Mon May 23 2016 16:40:51 GMT+0800 (CST)">
+    <div class="book" data-level="3.6" data-chapter-title="组合 Sagas" data-filepath="docs/advanced/ComposingSagas.md" data-basepath="../.." data-revision="Mon May 23 2016 20:18:07 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -506,20 +506,17 @@
                 
                     <section class="normal" id="section-">
                     
-                        <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/advanced/ComposingSagas.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h1 id="composing-sagas">Composing Sagas</h1>
-<p>While using <code><span class="token keyword">yield</span><span class="token operator">*</span></code> provides an idiomatic way of composing Sagas, this approach has some limitations :</p>
+                        <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/advanced/ComposingSagas.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h1 id="&#x7EC4;&#x5408;-sagas">&#x7EC4;&#x5408; Sagas</h1>
+<p>&#x4F7F;&#x7528; <code><span class="token keyword">yield</span><span class="token operator">*</span></code> &#x4E3A;&#x7EC4;&#x5408; Sagas &#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x79CD;&#x901A;&#x7545;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x4F46;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x4E5F;&#x6709;&#x4E00;&#x4E9B;&#x5C40;&#x9650;&#x6027;&#xFF1A;</p>
 <ul>
-<li><p>You&apos;ll likely want to test nested generators separately. This leads to some duplication in the test
-code as well as the overhead of the duplicated execution. We don&apos;t want to execute a nested generator
-but only make sure the call to it was issued with the right argument.</p>
+<li><p>&#x4F60;&#x53EF;&#x80FD;&#x4F1A;&#x60F3;&#x8981;&#x5355;&#x72EC;&#x6D4B;&#x8BD5;&#x5D4C;&#x5957;&#x7684; Generator&#x3002;&#x8FD9;&#x5BFC;&#x81F4;&#x4E86;&#x4E00;&#x4E9B;&#x91CD;&#x590D;&#x7684;&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;&#x53CA;&#x91CD;&#x590D;&#x6267;&#x884C;&#x7684;&#x5F00;&#x9500;&#x3002;
+&#x6211;&#x4EEC;&#x4E0D;&#x5E0C;&#x671B;&#x6267;&#x884C;&#x4E00;&#x4E2A;&#x5D4C;&#x5957;&#x7684; Generator&#xFF0C;&#x800C;&#x4EC5;&#x4EC5;&#x662F;&#x60F3;&#x786E;&#x8BA4;&#x5B83;&#x662F;&#x88AB;&#x4F20;&#x5165;&#x6B63;&#x786E;&#x7684;&#x53C2;&#x6570;&#x6765;&#x8C03;&#x7528;&#x3002;</p>
 </li>
-<li><p>More importantly, <code><span class="token keyword">yield</span><span class="token operator">*</span></code> allows only for sequential composition of tasks, so you can only
-yield* to one generator at a time.</p>
+<li><p>&#x66F4;&#x91CD;&#x8981;&#x7684;&#x662F;&#xFF0C;<code><span class="token keyword">yield</span><span class="token operator">*</span></code> &#x53EA;&#x5141;&#x8BB8;&#x4EFB;&#x52A1;&#x7684;&#x987A;&#x5E8F;&#x7EC4;&#x5408;&#xFF0C;&#x6240;&#x4EE5;&#x4E00;&#x6B21;&#x4F60;&#x53EA;&#x80FD; yield* &#x4E00;&#x4E2A; Generator&#x3002;</p>
 </li>
 </ul>
-<p>You can simply use <code><span class="token keyword">yield</span></code> to start one or more subtasks in parallel. When yielding a call to a
-generator, the Saga will wait for the generator to terminate before progressing, then resume
-with the returned value (or throws if an error propagates from the subtask).</p>
+<p>&#x4F60;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x4F7F;&#x7528; <code><span class="token keyword">yield</span></code> &#x6765;&#x5E76;&#x884C;&#x5730;&#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x5B50;&#x4EFB;&#x52A1;&#x3002;&#x5F53; yield &#x4E00;&#x4E2A; <code>call</code> &#x81F3; Generator&#xFF0C;Saga &#x5C06;&#x7B49;&#x5F85; Generator &#x5904;&#x7406;&#x7ED3;&#x675F;&#xFF0C;
+&#x7136;&#x540E;&#x4EE5;&#x8FD4;&#x56DE;&#x7684;&#x503C;&#x6062;&#x590D;&#x6267;&#x884C;&#xFF08;&#x6216;&#x9519;&#x8BEF;&#x4ECE;&#x5B50;&#x4EFB;&#x52A1;&#x4E2D;&#x4F20;&#x64AD;&#x8FC7;&#x6765;&#xFF0C;&#x5219;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#xFF09;&#x3002;</p>
 <pre><code class="lang-javascript"><span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">fetchPosts</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">yield</span> <span class="token function">put</span><span class="token punctuation">(</span> actions<span class="token punctuation">.</span><span class="token function">requestPosts</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
   <span class="token keyword">const</span> products <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">call</span><span class="token punctuation">(</span>fetchApi<span class="token punctuation">,</span> <span class="token string">&apos;/products&apos;</span><span class="token punctuation">)</span>
@@ -532,21 +529,21 @@ with the returned value (or throws if an error propagates from the subtask).</p>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>Yielding to an array of nested generators will start all the sub-generators in parallel and wait
-for them to finish. Then resume with all the results</p>
+<p>yield &#x4E00;&#x4E2A;&#x961F;&#x5217;&#x7684;&#x5D4C;&#x5957;&#x7684; Generators&#xFF0C;&#x5C06;&#x540C;&#x65F6;&#x542F;&#x52A8;&#x8FD9;&#x4E9B;&#x5B50; Generators&#xFF08;sub-generators&#xFF09;&#xFF0C;&#x5E76;&#x7B49;&#x5F85;&#x5B83;&#x4EEC;&#x5B8C;&#x6210;&#x3002;
+&#x7136;&#x540E;&#x4EE5;&#x6240;&#x6709;&#x8FD4;&#x56DE;&#x7684;&#x7ED3;&#x679C;&#x6062;&#x590D;&#x6267;&#x884C;&#xFF1A;</p>
 <pre><code class="lang-javascript"><span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">mainSaga</span><span class="token punctuation">(</span>getState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">const</span> results <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token punctuation">[</span> <span class="token function">call</span><span class="token punctuation">(</span>task1<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">call</span><span class="token punctuation">(</span>task2<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span>
   <span class="token keyword">yield</span> <span class="token function">put</span><span class="token punctuation">(</span> <span class="token function">showResults</span><span class="token punctuation">(</span>results<span class="token punctuation">)</span> <span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>In fact, yielding Sagas is no different than yielding other effects (future actions, timeouts, etc).
-This means you can combine those Sagas with all the other types using the effect combinators.</p>
-<p>For example you may want the user to finish some game in a limited amount of time :</p>
+<p>&#x4E8B;&#x5B9E;&#x4E0A;&#xFF0C;yield Sagas &#x5E76;&#x4E0D;&#x6BD4; yield &#x5176;&#x4ED6; effects&#xFF08;&#x672A;&#x6765;&#x7684; actions&#xFF0C;timeouts&#xFF0C;&#x7B49;&#x7B49;&#xFF09;&#x4E0D;&#x540C;&#x3002;
+&#x8FD9;&#x610F;&#x5473;&#x7740;&#x4F60;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; effect &#x5408;&#x5E76;&#x5668;&#x5C06;&#x90A3;&#x4E9B; Sagas &#x548C;&#x6240;&#x6709;&#x5176;&#x4ED6;&#x7C7B;&#x578B;&#x7684; Effect &#x5408;&#x5E76;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF0C;&#x4F60;&#x53EF;&#x80FD;&#x5E0C;&#x671B;&#x7528;&#x6237;&#x5728;&#x6709;&#x9650;&#x7684;&#x65F6;&#x95F4;&#x5185;&#x5B8C;&#x6210;&#x4E00;&#x4E9B;&#x6E38;&#x620F;&#xFF1A;</p>
 <pre><code class="lang-javascript"><span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">game</span><span class="token punctuation">(</span>getState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
   <span class="token keyword">let</span> finished
   <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token operator">!</span>finished<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">// has to finish in 60 seconds</span>
+    <span class="token comment" spellcheck="true">// &#x5FC5;&#x987B;&#x5728; 60 &#x79D2;&#x5185;&#x5B8C;&#x6210;</span>
     <span class="token keyword">const</span> <span class="token punctuation">{</span>score<span class="token punctuation">,</span> timeout<span class="token punctuation">}</span>  <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">race</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
       score  <span class="token punctuation">:</span> <span class="token function">call</span><span class="token punctuation">(</span> play<span class="token punctuation">,</span> getState<span class="token punctuation">)</span><span class="token punctuation">,</span>
       timeout <span class="token punctuation">:</span> <span class="token function">call</span><span class="token punctuation">(</span>delay<span class="token punctuation">,</span> <span class="token number">60000</span><span class="token punctuation">)</span>

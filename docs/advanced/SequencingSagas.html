@@ -52,7 +52,7 @@
     <body>
         
         
-    <div class="book" data-level="3.5" data-chapter-title="使用 yield* 对 Sagas 进行排序" data-filepath="docs/advanced/SequencingSagas.md" data-basepath="../.." data-revision="Mon May 23 2016 16:40:51 GMT+0800 (CST)">
+    <div class="book" data-level="3.5" data-chapter-title="使用 yield* 对 Sagas 进行排序" data-filepath="docs/advanced/SequencingSagas.md" data-basepath="../.." data-revision="Mon May 23 2016 20:18:07 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -506,9 +506,9 @@
                 
                     <section class="normal" id="section-">
                     
-                        <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/advanced/SequencingSagas.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h1 id="sequencing-sagas-via-yield">Sequencing Sagas via <code><span class="token keyword">yield</span><span class="token operator">*</span></code></h1>
-<p>You can use the builtin <code><span class="token keyword">yield</span><span class="token operator">*</span></code> operator to compose multiple Sagas in a sequential way.
-This allows you to sequence your <em>macro-tasks</em> in a simple procedural style.</p>
+                        <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/advanced/SequencingSagas.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h1 id="&#x901A;&#x8FC7;-yield-&#x5BF9;-sagas-&#x8FDB;&#x884C;&#x6392;&#x5E8F;">&#x901A;&#x8FC7; <code><span class="token keyword">yield</span><span class="token operator">*</span></code> &#x5BF9; Sagas &#x8FDB;&#x884C;&#x6392;&#x5E8F;</h1>
+<p>&#x4F60;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5185;&#x7F6E;&#x7684; <code><span class="token keyword">yield</span><span class="token operator">*</span></code> &#x64CD;&#x4F5C;&#x7B26;&#x6765;&#x7EC4;&#x5408;&#x591A;&#x4E2A; Sagas&#xFF0C;&#x4F7F;&#x5F97;&#x5B83;&#x4EEC;&#x4FDD;&#x6301;&#x987A;&#x5E8F;&#x3002;
+&#x8FD9;&#x8BA9;&#x4F60;&#x53EF;&#x4EE5;&#x4E00;&#x79CD;&#x7B80;&#x5355;&#x7684;&#x7A0B;&#x5E8F;&#x98CE;&#x683C;&#x6765;&#x6392;&#x5217;&#x4F60;&#x7684; <em>&#x5B8F;&#x89C2;&#x4EFB;&#x52A1;&#xFF08;macro-tasks&#xFF09;</em>&#x3002;</p>
 <pre><code class="lang-javascript"><span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">playLevelOne</span><span class="token punctuation">(</span>getState<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">}</span>
 
 <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">playLevelTwo</span><span class="token punctuation">(</span>getState<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">}</span>
@@ -528,9 +528,8 @@ This allows you to sequence your <em>macro-tasks</em> in a simple procedural sty
 
 <span class="token punctuation">}</span>
 </code></pre>
-<p>Note that using <code><span class="token keyword">yield</span><span class="token operator">*</span></code> will cause the JavaScript runtime to <em>spread</em> the whole sequence.
-The resulting iterator (from <code><span class="token function">game</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code>) will yield all values from the nested
-iterators. A more powerful alternative is to use the more generic middleware composition mechanism.</p>
+<p>&#x6CE8;&#x610F;&#xFF0C;&#x4F7F;&#x7528; <code><span class="token keyword">yield</span><span class="token operator">*</span></code> &#x5C06;&#x5BFC;&#x81F4;&#x8BE5; Javascript &#x8FD0;&#x884C;&#x73AF;&#x5883; <em>&#x6F2B;&#x5EF6;</em> &#x81F3;&#x6574;&#x4E2A;&#x5E8F;&#x5217;&#x3002;
+&#x7531;&#x6B64;&#x4EA7;&#x751F;&#x7684;&#x8FED;&#x4EE3;&#x5668;&#xFF08;&#x6765;&#x81EA; <code><span class="token function">game</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code>&#xFF09;&#x5C06; yield &#x6240;&#x6709;&#x6765;&#x81EA;&#x4E8E;&#x5D4C;&#x5957;&#x8FED;&#x4EE3;&#x5668;&#x91CC;&#x7684;&#x503C;&#x3002;&#x4E00;&#x4E2A;&#x66F4;&#x5F3A;&#x5927;&#x7684;&#x66FF;&#x4EE3;&#x65B9;&#x6848;&#x662F;&#x4F7F;&#x7528;&#x66F4;&#x901A;&#x7528;&#x7684;&#x4E2D;&#x95F4;&#x4EF6;&#x7EC4;&#x5408;&#x673A;&#x5236;&#x3002;</p>
 
                     
                     </section>
