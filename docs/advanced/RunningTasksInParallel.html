@@ -52,7 +52,7 @@
     <body>
         
         
-    <div class="book" data-level="3.3" data-chapter-title="同时执行多个任务" data-filepath="docs/advanced/RunningTasksInParallel.md" data-basepath="../.." data-revision="Fri May 13 2016 22:57:08 GMT+0800 (CST)">
+    <div class="book" data-level="3.3" data-chapter-title="同时执行多个任务" data-filepath="docs/advanced/RunningTasksInParallel.md" data-basepath="../.." data-revision="Mon May 23 2016 16:40:51 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -507,7 +507,7 @@
                     <section class="normal" id="section-">
                     
                         <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/advanced/RunningTasksInParallel.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h1 id="&#x540C;&#x65F6;&#x6267;&#x884C;&#x591A;&#x4E2A;&#x4EFB;&#x52A1;">&#x540C;&#x65F6;&#x6267;&#x884C;&#x591A;&#x4E2A;&#x4EFB;&#x52A1;</h1>
-<p><code><span class="token keyword">yield</span></code> &#x6307;&#x4EE4;&#x53EF;&#x4EE5;&#x5F88;&#x7B80;&#x5355;&#x7684;&#x5C06;&#x5F02;&#x6B65;&#x63A7;&#x5236;&#x6D41;&#x4EE5;&#x540C;&#x6B65;&#x7684;&#x5199;&#x6CD5;&#x8868;&#x73B0;&#x51FA;&#x6765;&#xFF0C;&#x4F46;&#x4E0E;&#x6B64;&#x540C;&#x65F6;&#x6211;&#x4EEC;&#x5C06;&#x4E5F;&#x4F1A;&#x9700;&#x8981;&#x540C;&#x65F6;&#x6267;&#x884C;&#x591A;&#x4E2A;&#x4EFB;&#x52A1;&#xFF0C;&#x6211;&#x4EEC;&#x4E0D;&#x5E94;&#x8BE5;&#x8FD9;&#x6837;&#x5199;&#xFF1A;</p>
+<p><code><span class="token keyword">yield</span></code> &#x6307;&#x4EE4;&#x53EF;&#x4EE5;&#x5F88;&#x7B80;&#x5355;&#x7684;&#x5C06;&#x5F02;&#x6B65;&#x63A7;&#x5236;&#x6D41;&#x4EE5;&#x540C;&#x6B65;&#x7684;&#x5199;&#x6CD5;&#x8868;&#x73B0;&#x51FA;&#x6765;&#xFF0C;&#x4F46;&#x4E0E;&#x6B64;&#x540C;&#x65F6;&#x6211;&#x4EEC;&#x5C06;&#x4E5F;&#x4F1A;&#x9700;&#x8981;&#x540C;&#x65F6;&#x6267;&#x884C;&#x591A;&#x4E2A;&#x4EFB;&#x52A1;&#xFF0C;&#x6211;&#x4EEC;&#x4E0D;&#x80FD;&#x76F4;&#x63A5;&#x8FD9;&#x6837;&#x5199;&#xFF1A;</p>
 <pre><code class="lang-javascript"><span class="token comment" spellcheck="true">// &#x9519;&#x8BEF;&#x5199;&#x6CD5;&#xFF0C;effects &#x5C06;&#x6309;&#x7167;&#x987A;&#x5E8F;&#x6267;&#x884C;</span>
 <span class="token keyword">const</span> users <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">call</span><span class="token punctuation">(</span>fetch<span class="token punctuation">,</span> <span class="token string">&apos;/users&apos;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
       repos <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">call</span><span class="token punctuation">(</span>fetch<span class="token punctuation">,</span> <span class="token string">&apos;/repos&apos;</span><span class="token punctuation">)</span>
