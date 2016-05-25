@@ -1,13 +1,16 @@
-# Task cancellation
+# 任务的取消
 
-We saw already an example of cancellation in the [Non blocking calls](#NonBlockingCalls.md) section. In this
-section we'll review in some more details the semantics of cancellation.
+我们已经在 [无阻塞调用](#NonBlockingCalls.md) 一节中看到取消任务的示例。
+在这节，我们将回顾一下，在一些更加详细的情况下取消的语义。
 
-Once a task is forked, you can abort its execution using `yield cancel(task)`. Cancelling a running task will throw a `SagaCancellationException` inside it.
+一旦任务被 fork，可以使用 `yield cancel(task)` 来中止任务执行。取消正在运行的任务，将抛出 `SagaCancellationException` 错误。
 
-To see how it works, let's consider a simple example. A background sync which can be started/stopped by some UI commands. Upon receiving a `START_BACKGROUND_SYNC` action, we fork a background task that will periodically sync some data from a remote server.
+来看看它是如何工作的，让我们先考虑一个简单的例子：一个可通过某些 UI 命令启动或停止的后台同步任务。
+在接收到 `START_BACKGROUND_SYNC` action 后，我们 fork 一个后台任务，周期性地从远程服务器同步一些数据。
 
-The task will execute continually until a `STOP_BACKGROUND_SYNC` action is triggered. Then we cancel the background task and wait again for the next `START_BACKGROUND_SYNC` action.   
+这个任务将会一直执行直到一个 `STOP_BACKGROUND_SYNC` action 被触发。
+然后我们取消后台任务，等待下一个 `STOP_BACKGROUND_SYNC` action。
+
 
 ```javascript
 import { SagaCancellationException } from 'redux-saga'
@@ -24,7 +27,7 @@ function* bgSync() {
       yield call(delay, 5000)
     }
   } catch(error) {
-    // or simply using `isCancelError(error)`
+    // 或直接使用 `isCancelError(error)`
     if(error instanceof SagaCancellationException)
       yield put(actions.requestFailure('Sync cancelled!'))
   }
@@ -32,13 +35,13 @@ function* bgSync() {
 
 function* main() {
   while( yield take(START_BACKGROUND_SYNC) ) {
-    // starts the task in the background
+    // 启动后台任务
     const bgSyncTask = yield fork(bgSync)
 
-    // wait for the user stop action
+    // 等待用户的停止操作
     yield take(STOP_BACKGROUND_SYNC)
-    // user clicked stop. cancel the background task
-    // this will throw a SagaCancellationException into the forked bgSync task
+    // 用户点击了停止，取消后台任务
+    // 将抛出一个 SagaCancellationException 错误至被 fork 的 bgSync 任务
     yield cancel(bgSyncTask)
   }
 }
