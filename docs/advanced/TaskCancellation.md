@@ -11,7 +11,6 @@
 这个任务将会一直执行直到一个 `STOP_BACKGROUND_SYNC` action 被触发。
 然后我们取消后台任务，等待下一个 `STOP_BACKGROUND_SYNC` action。
 
-
 ```javascript
 import { SagaCancellationException } from 'redux-saga'
 import {  take, put, call, fork, cancel } from 'redux-saga/effects'
@@ -47,12 +46,13 @@ function* main() {
 }
 ```
 
-`yield cancel(bgSyncTask)` will throw a `SagaCancellationException`
-inside the currently running task. In the above example, the exception is caught by `bgSync`. **Note that uncaught `SagaCancellationException` are not bubbled upward**. In the above example, if `bgSync` doesn't catch the cancellation error, the error will not propagate to `main` (because `main` has already moved on).
+`yield cancel(bgSyncTask)` 将在当前执行的任务中抛出一个 `SagaCancellationException` 类型的异常。
+在上面的示例中，异常是由 `bgSync` 引发的。**注意，未被捕获的 `SagaCancellationException` 不会向上冒泡**。
+在上面的示例中，如果 `bgSync` 没有捕获取消错误，错误将不会被传播到 `main`（因为 `main` 已经往前进了）。
 
-Cancelling a running task will also cancel the current effect where the task is blocked at the moment of cancellation.
+取消正在执行的任务，也将同时取消被阻塞在当前 Effect 中的任务。
 
-For example, suppose that at a certain point in an application's lifetime, we had this pending call chain:
+举个例子，假设在应用程序生命周期的某个时刻，还有挂起的（未完成的）调用链：
 
 ```javascript
 function* main() {
@@ -75,21 +75,25 @@ function* subtask2() {
 }
 ```
 
-`yield cancel(task)` will trigger a cancellation on `subtask`, which in turn will trigger a cancellation on `subtask2`. A `SagaCancellationException` will be thrown inside `subtask2`, then another `SagaCancellationException` will be thrown inside `subtask`. If `subtask` omits to handle the cancellation exception, a warning message is printed to the console to warn the developer (the message is only printed if there is a `process.env.NODE_ENV` variable
-set and it's set to `'development'`).
+`yield cancel(task)` 将触发 `subtask` 任务的取消，反过来它将触发 `subtask2` 的取消。
+`subtask2` 中将抛出一个 `SagaCancellationException` 错误，然后另一个 `SagaCancellationException` 错误将会在 `subtask` 中抛出。
+ 如果 `subtask` 没有处理取消异常，一条警告信息将在控制台中打印出来，以警告开发者（如果 `process.env.NODE_ENV` 变量存在，并且它被设置为 `development`，就仅仅会打印日志信息而不是警告信息）。
 
-The main purpose of the cancellation exception is to allow cancelled tasks to perform any cleanup logic, so we wont leave the application in an inconsistent state. In the above example of background sync, by catching the cancellation exception, `bgSync` is able to dispatch a `requestFailure` action to the store. Otherwise, the store could be left in a inconsistent state (e.g. waiting for the result of a pending request).
+取消异常的主要目的是让已取消的任务执行任何自定义的清理逻辑，因此，我们不会让应用程序状态不一致。
+在上面后台同步的示例中，通过捕获取消异常，`bgSync` 能够发起一个 `requestFailure` action 至 store。
+否则，store 可能会变得状态不一致（例如，等待一个被挂起的请求的结果）。
 
-### Note
+### 注意
 
-It's important to remember that `yield cancel(task)` doesn't wait for the cancelled task to finish (i.e. to perform its catch block). The cancel effect behaves like fork. It returns as soon as the cancel was initiated.
-Once cancelled, a task should normally return as soon as it finishes its cleanup logic.
-In some cases, the cleanup logic could involve some async operations, but the cancelled task lives now as a separate process, and there is no way for it to rejoin the main control flow (except dispatching actions for other tasks via the Redux store. However this will lead to complicated control flows that are hard to reason about. It's always preferable to terminate a cancelled task ASAP).
+记住重要的一点，`yield cancel(task)` 不会等待被取消的任务完成（即执行其 catch 区块）。`cancel` Effect 的行为和 `fork` 有点类似。
+一旦取消发起，它就会尽快返回。一旦取消，任务通常应尽快完成它的清理逻辑然后返回。
+在某些情况下，清理逻辑可能涉及一些异步操作，但被取消的任务变成了独立的进程，并且没有办法让它重新加入主控制流程（除了通过 Redux store 为其他任务发起 action。
+然而，这将导致控制流变的复杂并且难以理解。更好的做法是尽快结束一个已取消的任务）。
 
-## Automatic cancellation
+## 自动取消
 
-Besides manual cancellation there are cases where cancellation is triggered automatically
+除了手动取消任务，还有一些情况的取消是自动触发的。
 
-1. In a `race` effect. All race competitors, except the winner, are automatically cancelled.
+1. 在 `race` Effect 中。所有参与竞赛的任务，除了优胜者（译注：最先完成的任务），其他任务都会被取消。
 
-2. In a parallel effect (`yield [...]`). The parallel effect is rejected as soon as one of the sub-effects is rejected (as implied by `Promise.all`). In this case, all the other sub-effects are automatically cancelled.
+2. 并行的 Effect (`yield [...]`)。一旦其中任何一个任务被拒绝，并行的 Effect 将会被拒绝（受 `Promise.all` 启发）。在这种情况中，所有其他的 Effect 将被自动取消。
