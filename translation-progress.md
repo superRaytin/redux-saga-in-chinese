@@ -17,10 +17,10 @@
   * [x] [在多个 Effects 之间启动 race](/docs/advanced/RacingEffects.md)
   * [x] [通过 yield* 对 Sagas 进行排序](/docs/advanced/SequencingSagas.md)
   * [x] [组合 Sagas](/docs/advanced/ComposingSagas.md)
-  * [ ] [任务的取消](/docs/advanced/TaskCancellation.md) `ing`
-  * [ ] [常见的并发模式](/docs/advanced/Concurrency.md)
+  * [x] [任务的取消](/docs/advanced/TaskCancellation.md)
+  * [ ] [常见的并发模式](/docs/advanced/Concurrency.md) `ing`
   * [x] [Sagas 测试示例](/docs/advanced/Testing.md)
-  * [ ] [连接 Sagas 至外部输入和输出](/docs/advanced/UsingRunSaga.md)
+  * [ ] [连接 Sagas 至外部输入和输出](/docs/advanced/UsingRunSaga.md) `ing`
 * [ ] [实例](/docs/recipes/README.md)
 * [x] [外部资源](/docs/ExternalResources.md)
 * [ ] [故障排除](/docs/Troubleshooting.md)
