@@ -53,7 +53,7 @@ Generator 将在每次迭代上阻塞以等待 action 发起。
 
 这样的反向控制让我们能够实现一些使用传统的 *push* 方法做非常规事情的控制流。
 
-一个简单的例子，假设在我们的 Todo 应用中，我们想要监听用户的操作，并在用户初次创建完三条 Todo 信息时显示祝贺信息。
+一个简单的例子，假设在我们的 Todo 应用中，我们希望监听用户的操作，并在用户初次创建完三条 Todo 信息时显示祝贺信息。
 
 ```javascript
 import { take, put } from 'redux-saga/effects'
@@ -69,7 +69,7 @@ function* watchFirstThreeTodosCreation() {
 与 `while(true)` 不同，我们运行一个只迭代三次的 `for` 循环。在 `take` 初次的 3 个 `TODO_CREATED` action 之后，
 `watchFirstThreeTodosCreation` Saga 将会使应用显示一条祝贺信息然后中止。这意味着 Generator 会被回收并且相应的监听不会再发生。
 
-主动拉取 action 的另一个好处是我们可以使用熟悉的同步风格来描述我们的控制流。举个例子，假设我们想要实现一个登录控制流，有两个 action 分别是 `LOGIN` 和 `LOGOUT`。
+主动拉取 action 的另一个好处是我们可以使用熟悉的同步风格来描述我们的控制流。举个例子，假设我们希望实现一个这样的登录控制流，有两个 action 分别是 `LOGIN` 和 `LOGOUT`。
 使用 `takeEvery`（或 redux-thunk）我们必须要写两个分别的任务（或 thunks）：一个用于 `LOGIN`，另一个用于 `LOGOUT`。
 
 结果就是我们的逻辑现在分开在两个地方了。别人为了阅读我们的代码搞明白这是怎么回事，他必须阅读两个处理函数的源代码并且要在两处逻辑之间建立连接。
