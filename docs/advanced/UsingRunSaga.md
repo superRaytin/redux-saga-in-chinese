@@ -1,14 +1,12 @@
-# Connecting Sagas to external Input/Output
+# 连接 Sagas 至外部输入和输出
 
-We saw that `take` Effects are resolved by waiting for actions to be dispatched to the Store.
-And that `put` Effects are resolved by dispatching the actions provided as argument.
+我们已经看到了，`take` Effect 是通过等待 action 被发起到 Store 来解决（resolved）的。
+也看到了 `put` Effect 是通过发起一个 action 来解决的，action 被作为参数传给 `put` Effect。
 
-When a Saga is started (either at startup or later dynamically), the middleware automatically
-connects its `take`/`put` to the store. The 2 Effects can be seen as a sort of Input/Output to
-the Saga.
+当 Saga 启动了（不管是初始启动或是稍后动态启动），middleware 会自动将它的 `take` / `put` 连接至 store。
+这 2 个 Effect 可以被看作是一种 Saga 的输入/输出（Input/Output）。
 
-`redux-saga` provides a way to run a Saga outside of the redux middleware environment and Connecting
-it to a custom Input/Output.
+`redux-saga` 提供了一种方式在 redux middleware 环境外部运行 Saga，并可以连接至自定义的输入输出（Input/Output）。
 
 ```javascript
 import { runSaga } from 'redux-saga'
@@ -16,9 +14,9 @@ import { runSaga } from 'redux-saga'
 function* saga() { ... }
 
 const myIO = {
-  subscribe: ..., // this will be used to resolve take Effects
-  dispatch: ...,  // this will be used to resolvce put Effects
-  getState: ...,  // this will be used to resolve select Effects
+  subscribe: ..., // 用于解决 take Effects
+  dispatch: ...,  // 用于解决 put Effects
+  getState: ...,  // 用于解决 select Effects
 }
 
 runSaga(
@@ -27,6 +25,4 @@ runSaga(
 )
 ```
 
-
-
-For more infos see [API docs](http://yelouafi.github.io/redux-saga/docs/api/index.html#runsagaiterator-subscribe-dispatch-getstate-monitor)
+欲了解更多信息请参见 [API 文档](http://leonshi.com/redux-saga-in-chinese/docs/api/index.html)。
