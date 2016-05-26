@@ -2,7 +2,7 @@
 
 在这一节中，我们将看到如何在前面的例子中处理故障案例。我们假设远程读取因为某些原因失败了，API 函数 `Api.fetch` 返回一个被拒绝（rejected）的 Promise。
 
-我们想要通过发起 `PRODUCTS_REQUEST_FAILED` action 到 Store 在我们的 Saga 里处理那些错误。
+我们希望通过在 Saga 中发起 `PRODUCTS_REQUEST_FAILED` action 到 Store 来处理那些错误。
 
 我们可以使用熟悉的 `try/catch` 语法在 Saga 中捕获错误。
 
