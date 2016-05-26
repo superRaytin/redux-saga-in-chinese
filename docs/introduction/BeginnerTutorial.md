@@ -183,7 +183,7 @@ const store = createStore(
 
 ## 让我们的代码可测试
 
-我们想要测试 `incrementAsync` Saga 来保证它执行期望的任务。
+我们希望测试 `incrementAsync` Saga，以此保证它执行期望的任务。
 
 创建另一个文件 `saga.spec.js`：
 
