@@ -52,7 +52,7 @@
     <body>
         
         
-    <div class="book" data-level="3.10" data-chapter-title="连接 Sagas 至外部输入和输出" data-filepath="docs/advanced/UsingRunSaga.md" data-basepath="../.." data-revision="Thu May 26 2016 00:04:23 GMT+0800 (CST)">
+    <div class="book" data-level="3.10" data-chapter-title="连接 Sagas 至外部输入和输出" data-filepath="docs/advanced/UsingRunSaga.md" data-basepath="../.." data-revision="Thu May 26 2016 22:06:53 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -506,22 +506,20 @@
                 
                     <section class="normal" id="section-">
                     
-                        <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/advanced/UsingRunSaga.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h1 id="connecting-sagas-to-external-inputoutput">Connecting Sagas to external Input/Output</h1>
-<p>We saw that <code>take</code> Effects are resolved by waiting for actions to be dispatched to the Store.
-And that <code>put</code> Effects are resolved by dispatching the actions provided as argument.</p>
-<p>When a Saga is started (either at startup or later dynamically), the middleware automatically
-connects its <code>take</code>/<code>put</code> to the store. The 2 Effects can be seen as a sort of Input/Output to
-the Saga.</p>
-<p><code>redux<span class="token operator">-</span>saga</code> provides a way to run a Saga outside of the redux middleware environment and Connecting
-it to a custom Input/Output.</p>
+                        <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/advanced/UsingRunSaga.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h1 id="&#x8FDE;&#x63A5;-sagas-&#x81F3;&#x5916;&#x90E8;&#x8F93;&#x5165;&#x548C;&#x8F93;&#x51FA;">&#x8FDE;&#x63A5; Sagas &#x81F3;&#x5916;&#x90E8;&#x8F93;&#x5165;&#x548C;&#x8F93;&#x51FA;</h1>
+<p>&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x770B;&#x5230;&#x4E86;&#xFF0C;<code>take</code> Effect &#x662F;&#x901A;&#x8FC7;&#x7B49;&#x5F85; action &#x88AB;&#x53D1;&#x8D77;&#x5230; Store &#x6765;&#x89E3;&#x51B3;&#xFF08;resolved&#xFF09;&#x7684;&#x3002;
+&#x4E5F;&#x770B;&#x5230;&#x4E86; <code>put</code> Effect &#x662F;&#x901A;&#x8FC7;&#x53D1;&#x8D77;&#x4E00;&#x4E2A; action &#x6765;&#x89E3;&#x51B3;&#x7684;&#xFF0C;action &#x88AB;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#x4F20;&#x7ED9; <code>put</code> Effect&#x3002;</p>
+<p>&#x5F53; Saga &#x542F;&#x52A8;&#x4E86;&#xFF08;&#x4E0D;&#x7BA1;&#x662F;&#x521D;&#x59CB;&#x542F;&#x52A8;&#x6216;&#x662F;&#x7A0D;&#x540E;&#x52A8;&#x6001;&#x542F;&#x52A8;&#xFF09;&#xFF0C;middleware &#x4F1A;&#x81EA;&#x52A8;&#x5C06;&#x5B83;&#x7684; <code>take</code> / <code>put</code> &#x8FDE;&#x63A5;&#x81F3; store&#x3002;
+&#x8FD9; 2 &#x4E2A; Effect &#x53EF;&#x4EE5;&#x88AB;&#x770B;&#x4F5C;&#x662F;&#x4E00;&#x79CD; Saga &#x7684;&#x8F93;&#x5165;/&#x8F93;&#x51FA;&#xFF08;Input/Output&#xFF09;&#x3002;</p>
+<p><code>redux<span class="token operator">-</span>saga</code> &#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x79CD;&#x65B9;&#x5F0F;&#x5728; redux middleware &#x73AF;&#x5883;&#x5916;&#x90E8;&#x8FD0;&#x884C; Saga&#xFF0C;&#x5E76;&#x53EF;&#x4EE5;&#x8FDE;&#x63A5;&#x81F3;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x8F93;&#x5165;&#x8F93;&#x51FA;&#xFF08;Input/Output&#xFF09;&#x3002;</p>
 <pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> runSaga <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga&apos;</span>
 
 <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">saga</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">}</span>
 
 <span class="token keyword">const</span> myIO <span class="token operator">=</span> <span class="token punctuation">{</span>
-  subscribe<span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// this will be used to resolve take Effects</span>
-  dispatch<span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">,</span>  <span class="token comment" spellcheck="true">// this will be used to resolvce put Effects</span>
-  getState<span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">,</span>  <span class="token comment" spellcheck="true">// this will be used to resolve select Effects</span>
+  subscribe<span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// &#x7528;&#x4E8E;&#x89E3;&#x51B3; take Effects</span>
+  dispatch<span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">,</span>  <span class="token comment" spellcheck="true">// &#x7528;&#x4E8E;&#x89E3;&#x51B3; put Effects</span>
+  getState<span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">,</span>  <span class="token comment" spellcheck="true">// &#x7528;&#x4E8E;&#x89E3;&#x51B3; select Effects</span>
 <span class="token punctuation">}</span>
 
 <span class="token function">runSaga</span><span class="token punctuation">(</span>
@@ -529,7 +527,7 @@ it to a custom Input/Output.</p>
   myIO
 <span class="token punctuation">)</span>
 </code></pre>
-<p>For more infos see <a href="http://yelouafi.github.io/redux-saga/docs/api/index.html#runsagaiterator-subscribe-dispatch-getstate-monitor" target="_blank">API docs</a></p>
+<p>&#x6B32;&#x4E86;&#x89E3;&#x66F4;&#x591A;&#x4FE1;&#x606F;&#x8BF7;&#x53C2;&#x89C1; <a href="http://leonshi.com/redux-saga-in-chinese/docs/api/index.html" target="_blank">API &#x6587;&#x6863;</a>&#x3002;</p>
 
                     
                     </section>

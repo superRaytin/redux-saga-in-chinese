@@ -18,10 +18,10 @@
   * [x] [通过 yield* 对 Sagas 进行排序](/docs/advanced/SequencingSagas.md)
   * [x] [组合 Sagas](/docs/advanced/ComposingSagas.md)
   * [x] [任务的取消](/docs/advanced/TaskCancellation.md)
-  * [ ] [常见的并发模式](/docs/advanced/Concurrency.md) `ing`
+  * [x] [常见的并发模式](/docs/advanced/Concurrency.md)
   * [x] [Sagas 测试示例](/docs/advanced/Testing.md)
-  * [ ] [连接 Sagas 至外部输入和输出](/docs/advanced/UsingRunSaga.md) `ing`
-* [ ] [实例](/docs/recipes/README.md)
+  * [x] [连接 Sagas 至外部输入和输出](/docs/advanced/UsingRunSaga.md)
+* [ ] [实例](/docs/recipes/README.md) `ing`
 * [x] [外部资源](/docs/ExternalResources.md)
 * [ ] [故障排除](/docs/Troubleshooting.md)
 * [ ] [名词解释](/docs/Glossary.md)

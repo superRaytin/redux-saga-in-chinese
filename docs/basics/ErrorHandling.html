@@ -52,7 +52,7 @@
     <body>
         
         
-    <div class="book" data-level="2.4" data-chapter-title="错误处理" data-filepath="docs/basics/ErrorHandling.md" data-basepath="../.." data-revision="Thu May 26 2016 00:04:23 GMT+0800 (CST)">
+    <div class="book" data-level="2.4" data-chapter-title="错误处理" data-filepath="docs/basics/ErrorHandling.md" data-basepath="../.." data-revision="Thu May 26 2016 22:06:53 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -508,7 +508,7 @@
                     
                         <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/basics/ErrorHandling.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h1 id="&#x9519;&#x8BEF;&#x5904;&#x7406;">&#x9519;&#x8BEF;&#x5904;&#x7406;</h1>
 <p>&#x5728;&#x8FD9;&#x4E00;&#x8282;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x770B;&#x5230;&#x5982;&#x4F55;&#x5728;&#x524D;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x4E2D;&#x5904;&#x7406;&#x6545;&#x969C;&#x6848;&#x4F8B;&#x3002;&#x6211;&#x4EEC;&#x5047;&#x8BBE;&#x8FDC;&#x7A0B;&#x8BFB;&#x53D6;&#x56E0;&#x4E3A;&#x67D0;&#x4E9B;&#x539F;&#x56E0;&#x5931;&#x8D25;&#x4E86;&#xFF0C;API &#x51FD;&#x6570; <code>Api<span class="token punctuation">.</span>fetch</code> &#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x88AB;&#x62D2;&#x7EDD;&#xFF08;rejected&#xFF09;&#x7684; Promise&#x3002;</p>
-<p>&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x901A;&#x8FC7;&#x53D1;&#x8D77; <code>PRODUCTS_REQUEST_FAILED</code> action &#x5230; Store &#x5728;&#x6211;&#x4EEC;&#x7684; Saga &#x91CC;&#x5904;&#x7406;&#x90A3;&#x4E9B;&#x9519;&#x8BEF;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x5E0C;&#x671B;&#x901A;&#x8FC7;&#x5728; Saga &#x4E2D;&#x53D1;&#x8D77; <code>PRODUCTS_REQUEST_FAILED</code> action &#x5230; Store &#x6765;&#x5904;&#x7406;&#x90A3;&#x4E9B;&#x9519;&#x8BEF;&#x3002;</p>
 <p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x719F;&#x6089;&#x7684; <code><span class="token keyword">try</span><span class="token operator">/</span><span class="token keyword">catch</span></code> &#x8BED;&#x6CD5;&#x5728; Saga &#x4E2D;&#x6355;&#x83B7;&#x9519;&#x8BEF;&#x3002;</p>
 <pre><code class="lang-javascript"><span class="token keyword">import</span> Api from <span class="token string">&apos;./path/to/api&apos;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> call<span class="token punctuation">,</span> put <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga/effects&apos;</span>

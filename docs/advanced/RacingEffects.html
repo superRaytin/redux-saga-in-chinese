@@ -52,7 +52,7 @@
     <body>
         
         
-    <div class="book" data-level="3.4" data-chapter-title="在多个 Effects 之间启动 race" data-filepath="docs/advanced/RacingEffects.md" data-basepath="../.." data-revision="Thu May 26 2016 00:04:23 GMT+0800 (CST)">
+    <div class="book" data-level="3.4" data-chapter-title="在多个 Effects 之间启动 race" data-filepath="docs/advanced/RacingEffects.md" data-basepath="../.." data-revision="Thu May 26 2016 22:06:53 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -507,7 +507,7 @@
                     <section class="normal" id="section-">
                     
                         <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/advanced/RacingEffects.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h2 id="&#x5728;&#x591A;&#x4E2A;-effects-&#x4E4B;&#x95F4;&#x542F;&#x52A8;-race">&#x5728;&#x591A;&#x4E2A; Effects &#x4E4B;&#x95F4;&#x542F;&#x52A8; race</h2>
-<p>&#x6709;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x540C;&#x65F6;&#x542F;&#x52A8;&#x591A;&#x4E2A;&#x4EFB;&#x52A1;&#xFF0C;&#x4F46;&#x53C8;&#x4E0D;&#x60F3;&#x7B49;&#x5F85;&#x6240;&#x6709;&#x4EFB;&#x52A1;&#x5B8C;&#x6210;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x60F3;&#x8981;&#x62FF;&#x5230; <em>&#x80DC;&#x5229;&#x8005;</em>&#xFF1A;&#x5373;&#x7B2C;&#x4E00;&#x4E2A;&#x88AB; resolve&#xFF08;&#x6216; reject&#xFF09;&#x7684;&#x4EFB;&#x52A1;&#x3002;
+<p>&#x6709;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x540C;&#x65F6;&#x542F;&#x52A8;&#x591A;&#x4E2A;&#x4EFB;&#x52A1;&#xFF0C;&#x4F46;&#x53C8;&#x4E0D;&#x60F3;&#x7B49;&#x5F85;&#x6240;&#x6709;&#x4EFB;&#x52A1;&#x5B8C;&#x6210;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x5E0C;&#x671B;&#x62FF;&#x5230; <em>&#x80DC;&#x5229;&#x8005;</em>&#xFF1A;&#x5373;&#x7B2C;&#x4E00;&#x4E2A;&#x88AB; resolve&#xFF08;&#x6216; reject&#xFF09;&#x7684;&#x4EFB;&#x52A1;&#x3002;
 <code>race</code> Effect &#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#xFF0C;&#x5728;&#x591A;&#x4E2A; Effects &#x4E4B;&#x95F4;&#x89E6;&#x53D1;&#x4E00;&#x4E2A;&#x7ADE;&#x8D5B;&#xFF08;race&#xFF09;&#x3002;</p>
 <p>&#x4E0B;&#x9762;&#x7684;&#x793A;&#x4F8B;&#x6F14;&#x793A;&#x4E86;&#x89E6;&#x53D1;&#x4E00;&#x4E2A;&#x8FDC;&#x7A0B;&#x7684;&#x83B7;&#x53D6;&#x8BF7;&#x6C42;&#xFF0C;&#x5E76;&#x4E14;&#x9650;&#x5236;&#x4E86; 1 &#x79D2;&#x5185;&#x54CD;&#x5E94;&#xFF0C;&#x5426;&#x5219;&#x4F5C;&#x8D85;&#x65F6;&#x5904;&#x7406;&#x3002;</p>
 <pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> race<span class="token punctuation">,</span> take<span class="token punctuation">,</span> put <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga/effects&apos;</span>
