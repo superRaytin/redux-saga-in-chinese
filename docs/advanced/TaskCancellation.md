@@ -1,6 +1,6 @@
 # 任务的取消
 
-我们已经在 [无阻塞调用](#NonBlockingCalls.md) 一节中看到取消任务的示例。
+我们已经在 [无阻塞调用](http://superRaytin.github.io/redux-saga-in-chinese/docs/advanced/NonBlockingCalls.html) 一节中看到了取消任务的示例。
 在这节，我们将回顾一下，在一些更加详细的情况下取消的语义。
 
 一旦任务被 fork，可以使用 `yield cancel(task)` 来中止任务执行。取消正在运行的任务，将抛出 `SagaCancellationException` 错误。
