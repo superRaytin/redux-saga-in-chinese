@@ -115,7 +115,7 @@ LOGOUT.................................................. missed!
 因为那时 `loginFlow` 还没有执行 `yield take('LOGOUT')`。
 
 上面代码的问题是 `call` 是一个会阻塞的 Effect。即 Generator 在调用结束之前不能执行或处理任何其他事情。
-但在我们的情况中，我们不仅想要 `loginFlow` 执行授权调用，也想监听可能发生在调用未完成之前的 `LOGOUT` action。
+但在我们的情况中，我们不仅希望 `loginFlow` 执行授权调用，也想监听可能发生在调用未完成之前的 `LOGOUT` action。
 因为 `LOGOUT` 与调用 `authorize` 是 *并发的*。
 
 所以我们需要的是一些非阻塞调用 `authorize` 的方法。这样 `loginFlow` 就可以继续执行，并且监听并发的或响应未完成之前发出的 `LOGOUT` action。
