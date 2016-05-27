@@ -527,7 +527,7 @@ function* fetchUsersSaga {
 
 #### 例子
 
-以下的例子执行并行执行了 2 个阻塞调用：
+以下的例子并行执行了 2 个阻塞调用：
 
 ```javascript
 import { fetchCustomers, fetchProducts } from './path/to/api'
