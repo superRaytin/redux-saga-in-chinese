@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>实例 | Redux-saga 中文文档</title>
+        <title>技巧 | Redux-saga 中文文档</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.5.2">
@@ -52,7 +52,7 @@
     <body>
         
         
-    <div class="book" data-level="4" data-chapter-title="实例" data-filepath="docs/recipes/README.md" data-basepath="../.." data-revision="Thu May 26 2016 22:06:53 GMT+0800 (CST)">
+    <div class="book" data-level="4" data-chapter-title="技巧" data-filepath="docs/recipes/README.md" data-basepath="../.." data-revision="Tue May 31 2016 13:39:13 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -407,7 +407,7 @@
                         
                             <b>4.</b>
                         
-                        实例
+                        技巧
                     </a>
             
             
@@ -506,11 +506,10 @@
                 
                     <section class="normal" id="section-">
                     
-                        <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/recipes/README.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h2 id="recipes">Recipes</h2>
-<h3 id="throttling">Throttling</h3>
-<p>You can throttle a sequence of dispatched actions by putting a delay inside a watcher Saga.
-For example suppose the UI fires an <code>INPUT_CHANGED</code> action while the user is typing in a text
-field.</p>
+                        <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/recipes/README.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h2 id="&#x6280;&#x5DE7;">&#x6280;&#x5DE7;</h2>
+<h3 id="&#x8282;&#x6D41;">&#x8282;&#x6D41;</h3>
+<p>&#x4F60;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5728;&#x76D1;&#x542C;&#x7684; Saga &#x91CC;&#x8C03;&#x7528;&#x4E00;&#x4E2A; delay &#x51FD;&#x6570;&#xFF0C;&#x9488;&#x5BF9;&#x4E00;&#x7CFB;&#x5217;&#x53D1;&#x8D77;&#x7684; action &#x8FDB;&#x884C;&#x8282;&#x6D41;&#x3002;
+&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;&#xFF0C;&#x5047;&#x8BBE;&#x7528;&#x6237;&#x5728;&#x6587;&#x672C;&#x6846;&#x8F93;&#x5165;&#x6587;&#x5B57;&#x7684;&#x65F6;&#x5019;&#xFF0C;UI &#x89E6;&#x53D1;&#x4E86;&#x4E00;&#x4E2A; <code>INPUT_CHANGED</code> action&#xFF1A;</p>
 <pre><code class="lang-javascript">
 <span class="token keyword">const</span> delay <span class="token operator">=</span> <span class="token punctuation">(</span>ms<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span>resolve <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token function">setTimeout</span><span class="token punctuation">(</span>resolve<span class="token punctuation">,</span> ms<span class="token punctuation">)</span><span class="token punctuation">)</span>
 
@@ -522,25 +521,21 @@ field.</p>
   <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">const</span> <span class="token punctuation">{</span> input <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">take</span><span class="token punctuation">(</span><span class="token string">&apos;INPUT_CHANGED&apos;</span><span class="token punctuation">)</span>
     <span class="token keyword">yield</span> <span class="token function">fork</span><span class="token punctuation">(</span>handleInput<span class="token punctuation">,</span> input<span class="token punctuation">)</span>
-    <span class="token comment" spellcheck="true">// throttle by 500ms</span>
+    <span class="token comment" spellcheck="true">// &#x8282;&#x6D41; 500ms</span>
     <span class="token keyword">yield</span> <span class="token function">call</span><span class="token punctuation">(</span>delay<span class="token punctuation">,</span> <span class="token number">500</span><span class="token punctuation">)</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>By putting a delay after the <code>fork</code>, the <code>watchInput</code> will be blocked for 500ms so it&apos;ll miss
-all <code>INPUT_CHANGED</code> actions happening in-between. This ensures that the Saga will take at most
-one <code>INPUT_CHANGED</code> action during each period of 500ms.</p>
-<p>But there is a subtle issue with the above code. After taking an action, <code>watchInput</code> will
-sleep for 500ms, it means it&apos;ll miss all actions that occurred in this period. That maybe the
-purpose for throttling but note the watcher will also miss the trailer action: i.e. the last
-action that may eventually occur in the 500ms interval. If you are throttling input actions on
-a text field, this may be undesirable, because you&apos;ll likely want to react to the last input after
-the 500ms throttling delay has passed.</p>
-<p>Here is a more elaborated version which keeps track of the trailing action</p>
+<p>&#x901A;&#x8FC7;&#x5EF6;&#x8FDF; <code>fork</code>&#xFF0C;<code>watchInput</code> &#x5C06;&#x4F1A;&#x88AB;&#x963B;&#x585E; 500ms&#xFF0C;&#x53D1;&#x751F;&#x5728;&#x6B64;&#x671F;&#x95F4;&#x5185;&#x7684;&#x6240;&#x6709; <code>INPUT_CHANGED</code> action &#x90FD;&#x4F1A;&#x88AB;&#x5FFD;&#x7565;&#x3002;
+&#x8FD9;&#x4FDD;&#x8BC1;&#x4E86; Saga &#x5728;&#x6BCF; 500ms &#x5185;&#x53EA;&#x89E6;&#x53D1;&#x4E00;&#x6B21; <code>INPUT_CHANGED</code> action&#x3002;</p>
+<p>&#x4F46;&#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x8FD8;&#x6709;&#x4E00;&#x4E2A;&#x5C0F;&#x95EE;&#x9898;&#x3002;<code>take</code> &#x4E00;&#x4E2A; action &#x540E;&#xFF0C;<code>watchInput</code> &#x5C06;&#x7761;&#x7720; 500ms&#xFF0C;&#x8FD9;&#x610F;&#x5473;&#x7740;&#x5B83;&#x4F1A;&#x5FFD;&#x7565;&#x53D1;&#x751F;&#x5728;&#x8FD9;&#x671F;&#x95F4;&#x5185;&#x7684;&#x6240;&#x6709; action&#x3002;
+&#x8FD9;&#x4E5F;&#x8BB8;&#x662F;&#x8282;&#x6D41;&#x7684;&#x76EE;&#x7684;&#xFF0C;&#x4F46;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F; watcher &#x4E5F;&#x5C06;&#x9519;&#x8FC7;&#x90A3;&#x4E2A;&#x5C3E;&#x90E8; action&#xFF08;trailer action&#xFF09;&#xFF1A;&#x5373;&#x6700;&#x540E;&#x7684;&#x90A3;&#x4E2A; action &#x4E5F;&#x8BB8;&#x6B63;&#x597D;&#x53D1;&#x751F;&#x5728;&#x8FD9; 500ms &#x5185;&#x3002;
+&#x5982;&#x679C;&#x4F60;&#x662F;&#x5BF9;&#x6587;&#x672C;&#x6846;&#x7684;&#x8F93;&#x5165;&#x64CD;&#x4F5C;&#x8FDB;&#x884C;&#x8282;&#x6D41;&#xFF0C;&#x8FD9;&#x53EF;&#x80FD;&#x662F;&#x4E0D;&#x53EF;&#x53D6;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;&#xFF0C;&#x5982;&#x679C;&#x6700;&#x540E;&#x7684;&#x8F93;&#x5165;&#x64CD;&#x4F5C;&#x53D1;&#x751F;&#x5728;&#x8FD9; 500ms &#x5185;&#xFF0C;&#x4F60;&#x53EF;&#x80FD;&#x4F1A;&#x5E0C;&#x671B;&#x54CD;&#x5E94;&#x6700;&#x540E;&#x7684;&#x90A3;&#x4E2A;&#x8F93;&#x5165;&#xFF0C;&#x5373;&#x4F7F;&#x8282;&#x6D41;&#x9650;&#x5236;&#x5DF2;&#x7ECF;&#x8FC7;&#x53BB;&#x4E86;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x4E00;&#x4E2A;&#x66F4;&#x8BE6;&#x7EC6;&#x7684;&#x7248;&#x672C;&#xFF0C;&#x8FD9;&#x4E2A;&#x7248;&#x672C;&#x5C06;&#x4F1A;&#x8DDF;&#x8E2A;&#x8BB0;&#x5F55;&#x5C3E;&#x90E8;&#x64CD;&#x4F5C;&#xFF1A;</p>
 <pre><code class="lang-javascript"><span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">watchInput</span><span class="token punctuation">(</span>wait<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">let</span> lastAction
   <span class="token keyword">let</span> lastTime <span class="token operator">=</span> Date<span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token keyword">let</span> countDown <span class="token operator">=</span> <span class="token number">0</span> <span class="token comment" spellcheck="true">// handle leading action</span>
+  <span class="token keyword">let</span> countDown <span class="token operator">=</span> <span class="token number">0</span> <span class="token comment" spellcheck="true">// &#x56E0;&#x4E3A;&#x8981;&#x5904;&#x7406;&#x7B2C;&#x4E00;&#x4E2A; action</span>
 
   <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">const</span> winner <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">race</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
@@ -555,25 +550,20 @@ the 500ms throttling delay has passed.</p>
       lastAction <span class="token operator">=</span> action
     <span class="token punctuation">}</span>
     <span class="token keyword">if</span><span class="token punctuation">(</span>lastAction <span class="token operator">&amp;&amp;</span> countDown </code></pre>
-<p>In the new version we maintain a <code>countDown</code> variable which keeps tracks of the remaining timeout.
-Initially the <code>countDown</code> is <code><span class="token number">0</span></code> because we want to handle the first action. After handling the
-first action, the countDown will be set to the throttling period <code>wait</code>. Which means we&apos;ll have to
-wait at least for <code>wait</code>ms before handling a next action.</p>
-<p>Then at each iteration, we start a race between the next eventual action and the remaining timeout. Now we
-don&apos;t miss any action, instead we keep track of the last one in the <code>lastAction</code> variable, and we also update
-the countDown with remaining timeout.</p>
-<p>The <code><span class="token keyword">if</span><span class="token punctuation">(</span>lastAction <span class="token operator">&amp;&amp;</span> countDown </code> block ensures that we can handle an eventual
-trailing action (if <code>lastAction</code> is not null/undefined) after the throttling period expired
-(if <code>countDown</code> is less or equal than 0). Immediately after handling the action, we reset the
-<code>lastAction</code> and <code>countDown</code>. So we&apos;ll now have to wait for another <code>wait</code>ms period and another
-action to handle.   </p>
-<h3 id="debouncing">Debouncing</h3>
-<p>To debounce the sequence you put the <code>delay</code> in the forked task</p>
+<p>&#x5728;&#x65B0;&#x7248;&#x672C;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x7EF4;&#x62A4;&#x4E86;&#x4E00;&#x4E2A; <code>countDown</code> &#x53D8;&#x91CF;&#xFF0C;&#x7528;&#x4E8E;&#x8DDF;&#x8E2A;&#x5269;&#x4F59;&#x7684;&#x8D85;&#x65F6;&#x65F6;&#x95F4;&#x3002;
+&#x6700;&#x521D;&#x7684; <code>countDown</code> &#x662F; <code><span class="token number">0</span></code>&#xFF0C;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x8981;&#x5904;&#x7406;&#x7B2C;&#x4E00;&#x4E2A; action&#x3002;&#x5904;&#x7406;&#x5B8C;&#x7B2C;&#x4E00;&#x4E2A; action &#x4E4B;&#x540E;&#xFF0C;countDown &#x5C06;&#x88AB;&#x8BBE;&#x7F6E;&#x4E3A;&#x8282;&#x6D41;&#x5468;&#x671F; <code>wait</code>&#xFF0C;
+&#x610F;&#x601D;&#x662F;&#x5728;&#x5904;&#x7406;&#x4E0B;&#x4E00;&#x4E2A; action &#x4E4B;&#x524D;&#xFF0C;&#x81F3;&#x5C11;&#x9700;&#x8981;&#x7B49;&#x5F85; <code>wait</code>ms&#x3002;</p>
+<p>&#x7136;&#x540E;&#xFF0C;&#x5728;&#x6BCF;&#x4E00;&#x6B21;&#x8FED;&#x4EE3;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x5728;&#x4E0B;&#x4E00;&#x4E2A;&#x5C3E;&#x90E8; action &#x4E0E;&#x5269;&#x4F59;&#x8D85;&#x65F6;&#x65F6;&#x95F4;&#x4E4B;&#x95F4;&#x542F;&#x52A8;&#x4E00;&#x4E2A; <code>race</code>&#x3002;&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x4E0D;&#x4F1A;&#x9519;&#x8FC7;&#x4EFB;&#x4F55;&#x4E00;&#x4E2A; action &#x4E86;&#xFF0C;
+&#x76F8;&#x53CD;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528; <code>lastAction</code> &#x53D8;&#x91CF;&#x6765;&#x8DDF;&#x8E2A;&#x8BB0;&#x5F55;&#x6700;&#x540E;&#x7684;&#x90A3;&#x4E2A; action&#xFF0C;&#x5E76;&#x4E14;&#x5C06; countDown &#x66F4;&#x65B0;&#x4E3A;&#x5269;&#x4F59;&#x8D85;&#x65F6;&#x65F6;&#x95F4;&#x3002;</p>
+<p><code><span class="token keyword">if</span><span class="token punctuation">(</span>lastAction <span class="token operator">&amp;&amp;</span> countDown </code> &#x533A;&#x5757;&#x786E;&#x4FDD;&#x5373;&#x4F7F;&#x8282;&#x6D41;&#x5468;&#x671F;&#x8FC7;&#x671F;&#x4E86;&#xFF08;&#x5373; <code>countDown</code> &#x5C0F;&#x4E8E;&#x6216;&#x7B49;&#x4E8E; 0&#xFF09;&#xFF0C;&#x6211;&#x4EEC;&#x4ECD;&#x7136;&#x53EF;&#x4EE5;&#x5904;&#x7406;&#x6700;&#x540E;&#x7684;&#x5C3E;&#x90E8;&#x64CD;&#x4F5C;&#xFF08;&#x5373; <code>lastAction</code> &#x4E0D;&#x662F; null/undefined&#xFF09;&#x3002;
+&#x5904;&#x7406;&#x5B8C; action &#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x7ACB;&#x5373;&#x91CD;&#x7F6E; <code>lastAction</code> &#x548C; <code>countDown</code>&#x3002;&#x8FD9;&#x6837;&#x5C31;&#x53EF;&#x4EE5;&#x7B49;&#x5F85;&#x53E6;&#x4E00;&#x4E2A; <code>wait</code>ms &#x5468;&#x671F;&#x548C;&#x5904;&#x7406;&#x53E6;&#x4E00;&#x4E2A; action&#x3002;</p>
+<h3 id="&#x9632;&#x6296;&#x52A8;">&#x9632;&#x6296;&#x52A8;</h3>
+<p>&#x4E3A;&#x4E86;&#x5BF9; action &#x961F;&#x5217;&#x8FDB;&#x884C;&#x9632;&#x6296;&#x52A8;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x88AB; <code>fork</code> &#x7684;&#x4EFB;&#x52A1;&#x91CC;&#x653E;&#x7F6E;&#x4E00;&#x4E2A; <code>delay</code>&#x3002;</p>
 <pre><code class="lang-javascript">
 <span class="token keyword">const</span> delay <span class="token operator">=</span> <span class="token punctuation">(</span>ms<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span>resolve <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token function">setTimeout</span><span class="token punctuation">(</span>resolve<span class="token punctuation">,</span> ms<span class="token punctuation">)</span><span class="token punctuation">)</span>
 
 <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">handleInput</span><span class="token punctuation">(</span>input<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token comment" spellcheck="true">// debounce by 500ms</span>
+  <span class="token comment" spellcheck="true">// 500ms &#x9632;&#x6296;&#x52A8;</span>
   <span class="token keyword">yield</span> <span class="token function">call</span><span class="token punctuation">(</span>delay<span class="token punctuation">,</span> <span class="token number">500</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
 <span class="token punctuation">}</span>
@@ -588,10 +578,8 @@ action to handle.   </p>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>In the above example <code>handleInput</code> waits for 500ms before performing its logic. If the user
-types something during this period we&apos;ll get more <code>INPUT_CHANGED</code> actions. Since <code>handleInput</code>
-will still be blocked in the <code>delay</code> call, it&apos;ll be cancelled by <code>watchInput</code> before it can start
-performing its logic</p>
+<p>&#x5728;&#x4E0A;&#x9762;&#x7684;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;<code>handleInput</code> &#x5728;&#x6267;&#x884C;&#x4E4B;&#x524D;&#x7B49;&#x5F85;&#x4E86; 500ms&#x3002;&#x5982;&#x679C;&#x7528;&#x6237;&#x5728;&#x6B64;&#x671F;&#x95F4;&#x8F93;&#x5165;&#x4E86;&#x66F4;&#x591A;&#x6587;&#x5B57;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x6536;&#x5230;&#x66F4;&#x591A;&#x7684; <code>INPUT_CHANGED</code> action&#x3002;
+&#x5E76;&#x4E14;&#x7531;&#x4E8E; <code>handleInput</code> &#x4ECD;&#x7136;&#x4F1A;&#x88AB; <code>delay</code> &#x963B;&#x585E;&#xFF0C;&#x6240;&#x4EE5;&#x5728;&#x6267;&#x884C;&#x81EA;&#x5DF1;&#x7684;&#x903B;&#x8F91;&#x4E4B;&#x524D;&#x5B83;&#x4F1A;&#x88AB; <code>watchInput</code> &#x53D6;&#x6D88;&#x3002;</p>
 
                     
                     </section>
