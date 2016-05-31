@@ -1,10 +1,9 @@
-## Recipes
+## 技巧
 
-### Throttling
+### 节流
 
-You can throttle a sequence of dispatched actions by putting a delay inside a watcher Saga.
-For example suppose the UI fires an `INPUT_CHANGED` action while the user is typing in a text
-field.
+你可以通过在监听的 Saga 里调用一个 delay 函数，针对一系列发起的 action 进行节流。
+举个例子，假设用户在文本框输入文字的时候，UI 触发了一个 `INPUT_CHANGED` action：
 
 ```javascript
 
@@ -18,30 +17,26 @@ function* watchInput() {
   while(true) {
     const { input } = yield take('INPUT_CHANGED')
     yield fork(handleInput, input)
-    // throttle by 500ms
+    // 节流 500ms
     yield call(delay, 500)
   }
 }
 ```
 
-By putting a delay after the `fork`, the `watchInput` will be blocked for 500ms so it'll miss
-all `INPUT_CHANGED` actions happening in-between. This ensures that the Saga will take at most
-one `INPUT_CHANGED` action during each period of 500ms.
+通过延迟 `fork`，`watchInput` 将会被阻塞 500ms，发生在此期间内的所有 `INPUT_CHANGED` action 都会被忽略。
+这保证了 Saga 在每 500ms 内只触发一次 `INPUT_CHANGED` action。
 
-But there is a subtle issue with the above code. After taking an action, `watchInput` will
-sleep for 500ms, it means it'll miss all actions that occurred in this period. That maybe the
-purpose for throttling but note the watcher will also miss the trailer action: i.e. the last
-action that may eventually occur in the 500ms interval. If you are throttling input actions on
-a text field, this may be undesirable, because you'll likely want to react to the last input after
-the 500ms throttling delay has passed.
+但上面的代码还有一个小问题。`take` 一个 action 后，`watchInput` 将睡眠 500ms，这意味着它会忽略发生在这期间内的所有 action。
+这也许是节流的目的，但要注意的是 watcher 也将错过那个尾部 action（trailer action）：即最后的那个 action 也许正好发生在这 500ms 内。
+如果你是对文本框的输入操作进行节流，这可能是不可取的，因为，如果最后的输入操作发生在这 500ms 内，你可能会希望响应最后的那个输入，即使节流限制已经过去了。
 
-Here is a more elaborated version which keeps track of the trailing action
+下面是一个更详细的版本，这个版本将会跟踪记录尾部操作：
 
 ```javascript
 function* watchInput(wait) {
   let lastAction
   let lastTime = Date.now()
-  let countDown = 0 // handle leading action
+  let countDown = 0 // 因为要处理第一个 action
 
   while(true) {
     const winner = yield race({
@@ -64,33 +59,26 @@ function* watchInput(wait) {
 }
 ```
 
-In the new version we maintain a `countDown` variable which keeps tracks of the remaining timeout.
-Initially the `countDown` is `0` because we want to handle the first action. After handling the
-first action, the countDown will be set to the throttling period `wait`. Which means we'll have to
-wait at least for `wait`ms before handling a next action.
+在新版本中，我们维护了一个 `countDown` 变量，用于跟踪剩余的超时时间。
+最初的 `countDown` 是 `0`，因为我们要处理第一个 action。处理完第一个 action 之后，countDown 将被设置为节流周期 `wait`，
+意思是在处理下一个 action 之前，至少需要等待 `wait`ms。
 
-Then at each iteration, we start a race between the next eventual action and the remaining timeout. Now we
-don't miss any action, instead we keep track of the last one in the `lastAction` variable, and we also update
-the countDown with remaining timeout.
+然后，在每一次迭代中，我们在下一个尾部 action 与剩余超时时间之间启动一个 `race`。现在我们不会错过任何一个 action 了，
+相反，我们使用 `lastAction` 变量来跟踪记录最后的那个 action，并且将 countDown 更新为剩余超时时间。
 
-The `if(lastAction && countDown <= 0) {...}` block ensures that we can handle an eventual
-trailing action (if `lastAction` is not null/undefined) after the throttling period expired
-(if `countDown` is less or equal than 0). Immediately after handling the action, we reset the
-`lastAction` and `countDown`. So we'll now have to wait for another `wait`ms period and another
-action to handle.   
+`if(lastAction && countDown <= 0) {...}` 区块确保即使节流周期过期了（即 `countDown` 小于或等于 0），我们仍然可以处理最后的尾部操作（即 `lastAction` 不是 null/undefined）。
+处理完 action 后，我们立即重置 `lastAction` 和 `countDown`。这样就可以等待另一个 `wait`ms 周期和处理另一个 action。
 
+### 防抖动
 
-
-### Debouncing
-
-To debounce the sequence you put the `delay` in the forked task
+为了对 action 队列进行防抖动，可以在被 `fork` 的任务里放置一个 `delay`。
 
 ```javascript
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
 function* handleInput(input) {
-  // debounce by 500ms
+  // 500ms 防抖动
   yield call(delay, 500)
   ...
 }
@@ -106,7 +94,5 @@ function* watchInput() {
 }
 ```
 
-In the above example `handleInput` waits for 500ms before performing its logic. If the user
-types something during this period we'll get more `INPUT_CHANGED` actions. Since `handleInput`
-will still be blocked in the `delay` call, it'll be cancelled by `watchInput` before it can start
-performing its logic
+在上面的示例中，`handleInput` 在执行之前等待了 500ms。如果用户在此期间输入了更多文字，我们将收到更多的 `INPUT_CHANGED` action。
+并且由于 `handleInput` 仍然会被 `delay` 阻塞，所以在执行自己的逻辑之前它会被 `watchInput` 取消。
