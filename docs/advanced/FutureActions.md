@@ -45,7 +45,7 @@ function* watchAndLog(getState) {
 注意，我们运行了一个无限循环的 `while(true)`。记住这是一个 Generator 函数，它不具备 `从运行至完成` 的行为（run-to-completion behavior）。
 Generator 将在每次迭代上阻塞以等待 action 发起。
 
-使用 `take` 对于我们如何写代码有一个微妙的影响。在 `takeEvery` 的情况中，被调用的任务无法控制何时被调用，
+使用 `take` 组织代码有一个小问题。在 `takeEvery` 的情况中，被调用的任务无法控制何时被调用，
 它们将在每次 action 被匹配时一遍又一遍地被调用。并且它们也无法控制何时停止监听。
 
 而在 `take` 的情况中，控制恰恰相反。与 action 被 *推向（pushed）* 任务处理函数不同，Saga 是自己主动 *拉取（pulling）* action 的。
