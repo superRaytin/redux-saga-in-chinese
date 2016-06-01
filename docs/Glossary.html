@@ -52,7 +52,7 @@
     <body>
         
         
-    <div class="book" data-level="7" data-chapter-title="名词解释" data-filepath="docs/Glossary.md" data-basepath=".." data-revision="Tue May 31 2016 13:39:13 GMT+0800 (CST)">
+    <div class="book" data-level="7" data-chapter-title="名词解释" data-filepath="docs/Glossary.md" data-basepath=".." data-revision="Thu Jun 02 2016 00:03:38 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -437,7 +437,7 @@
                         
                             <b>6.</b>
                         
-                        故障排除
+                        问题解答
                     </a>
             
             
@@ -506,57 +506,54 @@
                 
                     <section class="normal" id="section-">
                     
-                        <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/Glossary.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h1 id="glossary">Glossary</h1>
-<p>This is a glossary of the core terms in Redux Saga.</p>
+                        <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/Glossary.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h1 id="&#x540D;&#x8BCD;&#x89E3;&#x91CA;">&#x540D;&#x8BCD;&#x89E3;&#x91CA;</h1>
+<p>&#x8FD9;&#x662F; Redux Saga &#x6838;&#x5FC3;&#x7684;&#x672F;&#x8BED;&#x8BCD;&#x6C47;&#x8868;&#x3002;</p>
 <h3 id="effect">Effect</h3>
-<p>An effect is a plain JavaScript Object containing some instructions to be executed by the saga middleware.</p>
-<p>You create effects using factory functions provided by the redux-saga library. For example you use
-<code><span class="token function">call</span><span class="token punctuation">(</span>myfunc<span class="token punctuation">,</span> <span class="token string">&apos;arg1&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;arg2&apos;</span><span class="token punctuation">)</span></code> to instruct the middleware to invoke <code><span class="token function">myfunc</span><span class="token punctuation">(</span><span class="token string">&apos;arg1&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;arg2&apos;</span><span class="token punctuation">)</span></code> and return
-the result back to the Generator that yielded the effect</p>
+<p>&#x4E00;&#x4E2A; effect &#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x7EAF;&#x6587;&#x672C; JavaScript &#x5BF9;&#x8C61;&#xFF0C;&#x5305;&#x542B;&#x4E00;&#x4E9B;&#x5C06;&#x88AB; saga middleware &#x6267;&#x884C;&#x7684;&#x6307;&#x4EE4;&#x3002;</p>
+<p>&#x4F7F;&#x7528; redux-saga &#x63D0;&#x4F9B;&#x7684;&#x5DE5;&#x5382;&#x51FD;&#x6570;&#x6765;&#x521B;&#x5EFA; effect&#x3002;
+&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code><span class="token function">call</span><span class="token punctuation">(</span>myfunc<span class="token punctuation">,</span> <span class="token string">&apos;arg1&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;arg2&apos;</span><span class="token punctuation">)</span></code> &#x6307;&#x793A; middleware &#x8C03;&#x7528; <code><span class="token function">myfunc</span><span class="token punctuation">(</span><span class="token string">&apos;arg1&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;arg2&apos;</span><span class="token punctuation">)</span></code> &#x5E76;&#x5C06;&#x7ED3;&#x679C;&#x8FD4;&#x56DE;&#x7ED9; yield &#x4E86; effect &#x7684;&#x90A3;&#x4E2A; Generator&#x3002;</p>
 <h3 id="task">Task</h3>
-<p>A task is like a process running in background. In a redux-saga based application there can be
-multiple tasks running in parallel. You create tasks by using the <code>fork</code> function</p>
+<p>&#x4E00;&#x4E2A; task &#x5C31;&#x50CF;&#x662F;&#x4E00;&#x4E2A;&#x5728;&#x540E;&#x53F0;&#x8FD0;&#x884C;&#x7684;&#x8FDB;&#x7A0B;&#x3002;&#x5728;&#x57FA;&#x4E8E; redux-saga &#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E2D;&#xFF0C;&#x53EF;&#x4EE5;&#x540C;&#x65F6;&#x8FD0;&#x884C;&#x591A;&#x4E2A; task&#x3002;&#x901A;&#x8FC7; <code>fork</code> &#x51FD;&#x6570;&#x6765;&#x521B;&#x5EFA; task&#xFF1A;</p>
 <pre><code class="lang-javascript"><span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">saga</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
   <span class="token keyword">const</span> task <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">fork</span><span class="token punctuation">(</span>otherSaga<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h3 id="blockingnonblocking-call">Blocking/Non-blocking call</h3>
-<p>A Blocking call means that the Saga yielded an Effect and will wait for the outcome of its execution before
-resuming to the next instruction inside the yielding Generator.</p>
-<p>A Non-blocking call means that the Saga will resume immediately after yielding the Effect.</p>
-<p>For example</p>
+<h3 id="&#x963B;&#x585E;&#x8C03;&#x7528;&#x975E;&#x963B;&#x585E;&#x8C03;&#x7528;">&#x963B;&#x585E;&#x8C03;&#x7528;/&#x975E;&#x963B;&#x585E;&#x8C03;&#x7528;</h3>
+<p>&#x963B;&#x585E;&#x8C03;&#x7528;&#x7684;&#x610F;&#x601D;&#x662F;&#xFF0C;Saga yield &#x4E86; Effect &#x540E;&#x4F1A;&#x7B49;&#x5F85;&#x5176;&#x6267;&#x884C;&#x7ED3;&#x679C;&#x8FD4;&#x56DE;&#xFF0C;&#x7ED3;&#x679C;&#x8FD4;&#x56DE;&#x540E;&#x624D;&#x4F1A;&#x6062;&#x590D;&#x6267;&#x884C; Generator &#x4E2D;&#x7684;&#x4E0B;&#x4E00;&#x4E2A;&#x6307;&#x4EE4;&#x3002;</p>
+<p>&#x975E;&#x963B;&#x585E;&#x8C03;&#x7528;&#x7684;&#x610F;&#x601D;&#x662F;&#xFF0C;Saga &#x4F1A;&#x5728; yield Effect &#x4E4B;&#x540E;&#x7ACB;&#x5373;&#x6062;&#x590D;&#x6267;&#x884C;&#x3002;</p>
+<p>&#x793A;&#x4F8B;&#xFF1A;</p>
 <pre><code class="lang-javascript"><span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">saga</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">yield</span> <span class="token function">take</span><span class="token punctuation">(</span>ACTION<span class="token punctuation">)</span>              <span class="token comment" spellcheck="true">// Blocking: will wait for the action</span>
-  <span class="token keyword">yield</span> <span class="token function">call</span><span class="token punctuation">(</span>ApiFn<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span>      <span class="token comment" spellcheck="true">// Blocking: will wait for ApiFn (If ApiFn returns a Promise)</span>
-  <span class="token keyword">yield</span> <span class="token function">call</span><span class="token punctuation">(</span>otherSaga<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">// Blocking: will wait for otherSaga to terminate</span>
+  <span class="token keyword">yield</span> <span class="token function">take</span><span class="token punctuation">(</span>ACTION<span class="token punctuation">)</span>              <span class="token comment" spellcheck="true">// &#x963B;&#x585E;: &#x5C06;&#x7B49;&#x5F85; action</span>
+  <span class="token keyword">yield</span> <span class="token function">call</span><span class="token punctuation">(</span>ApiFn<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span>      <span class="token comment" spellcheck="true">// &#x963B;&#x585E;: &#x5C06;&#x7B49;&#x5F85; ApiFn (&#x5982;&#x679C; ApiFn &#x8FD4;&#x56DE;&#x4E00;&#x4E2A; Promise &#x7684;&#x8BDD;)</span>
+  <span class="token keyword">yield</span> <span class="token function">call</span><span class="token punctuation">(</span>otherSaga<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">// &#x963B;&#x585E;: &#x5C06;&#x7B49;&#x5F85; otherSaga &#x7ED3;&#x675F;</span>
 
-  yied <span class="token function">put</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>                   <span class="token comment" spellcheck="true">// Blocking: will dispatch asynchronously (using Promis.then)</span>
+  yied <span class="token function">put</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>                   <span class="token comment" spellcheck="true">// &#x963B;&#x585E;: &#x5C06;&#x540C;&#x6B65;&#x53D1;&#x8D77; action (&#x4F7F;&#x7528; Promise.then)</span>
 
-  <span class="token keyword">const</span> task <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">fork</span><span class="token punctuation">(</span>otherSaga<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">// Non-blocking: will not wait for otherSaga</span>
-  <span class="token keyword">yield</span> <span class="token function">cancel</span><span class="token punctuation">(</span>task<span class="token punctuation">)</span>                           <span class="token comment" spellcheck="true">// Non-blocking: will resume immediately</span>
+  <span class="token keyword">const</span> task <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">fork</span><span class="token punctuation">(</span>otherSaga<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">// &#x975E;&#x963B;&#x585E;: &#x5C06;&#x4E0D;&#x4F1A;&#x7B49;&#x5F85; otherSaga</span>
+  <span class="token keyword">yield</span> <span class="token function">cancel</span><span class="token punctuation">(</span>task<span class="token punctuation">)</span>                           <span class="token comment" spellcheck="true">// &#x975E;&#x963B;&#x585E;: &#x5C06;&#x7ACB;&#x5373;&#x6062;&#x590D;&#x6267;&#x884C;</span>
   <span class="token comment" spellcheck="true">// or</span>
-  <span class="token keyword">yield</span> <span class="token function">join</span><span class="token punctuation">(</span>task<span class="token punctuation">)</span>                              <span class="token comment" spellcheck="true">// Blocking: will wait for the task to terminate</span>
+  <span class="token keyword">yield</span> <span class="token function">join</span><span class="token punctuation">(</span>task<span class="token punctuation">)</span>                             <span class="token comment" spellcheck="true">// &#x963B;&#x585E;: &#x5C06;&#x7B49;&#x5F85; task &#x7ED3;&#x675F;</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <h3 id="watcherworker">Watcher/Worker</h3>
-<p>refers to a way of organizing the control flow using two separate Sagas</p>
+<p>&#x6307;&#x7684;&#x662F;&#x4E00;&#x79CD;&#x4F7F;&#x7528;&#x4E24;&#x4E2A;&#x5355;&#x72EC;&#x7684; Saga &#x6765;&#x7EC4;&#x7EC7;&#x63A7;&#x5236;&#x6D41;&#x7684;&#x65B9;&#x5F0F;&#x3002;</p>
 <ul>
-<li><p>The watcher: will watch for dispatched actions and fork a worker on every action</p>
+<li><p>Watcher: &#x76D1;&#x542C;&#x53D1;&#x8D77;&#x7684; action &#x5E76;&#x5728;&#x6BCF;&#x6B21;&#x63A5;&#x6536;&#x5230; action &#x65F6; <code>fork</code> &#x4E00;&#x4E2A; worker&#x3002;</p>
 </li>
-<li><p>The worker: will handle the action and terminate</p>
+<li><p>Worker: &#x5904;&#x7406; action &#x5E76;&#x7ED3;&#x675F;&#x5B83;&#x3002;</p>
 </li>
 </ul>
-<p>example</p>
+<p>&#x793A;&#x4F8B;&#xFF1A;</p>
 <pre><code class="lang-javascript"><span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">watcher</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">const</span> action <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">take</span><span class="token punctuation">(</span>ACTION<span class="token punctuation">)</span>
-    <span class="token keyword">yield</span> <span class="token function">fork</span><span class="token punctuation">(</span>worker<span class="token punctuation">,</span> action<span class="token punctuation">.</span>paylaod<span class="token punctuation">)</span>
+    <span class="token keyword">yield</span> <span class="token function">fork</span><span class="token punctuation">(</span>worker<span class="token punctuation">,</span> action<span class="token punctuation">.</span>payload<span class="token punctuation">)</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
-<span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">worker</span><span class="token punctuation">(</span>paylaod<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">worker</span><span class="token punctuation">(</span>payload<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token comment" spellcheck="true">// ... do some stuff</span>
 <span class="token punctuation">}</span>
 </code></pre>
@@ -570,7 +567,7 @@ resuming to the next instruction inside the yielding Generator.</p>
         </div>
 
         
-        <a href="../docs/Troubleshooting.html" class="navigation navigation-prev " aria-label="Previous page: 故障排除"><i class="fa fa-angle-left"></i></a>
+        <a href="../docs/Troubleshooting.html" class="navigation navigation-prev " aria-label="Previous page: 问题解答"><i class="fa fa-angle-left"></i></a>
         
         
         <a href="../docs/api/index.html" class="navigation navigation-next " aria-label="Next page: API 参考"><i class="fa fa-angle-right"></i></a>

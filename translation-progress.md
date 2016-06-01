@@ -23,8 +23,8 @@
   * [x] [连接 Sagas 至外部输入和输出](/docs/advanced/UsingRunSaga.md)
 * [x] [技巧](/docs/recipes/README.md)
 * [x] [外部资源](/docs/ExternalResources.md)
-* [ ] [故障排除](/docs/Troubleshooting.md) `ing`
-* [ ] [名词解释](/docs/Glossary.md)
+* [ ] [问题解答](/docs/Troubleshooting.md) `ing`
+* [x] [名词解释](/docs/Glossary.md)
 * [x] [API 参考](/docs/api/README.md)
 
 :point_right: [我想参与翻译](https://github.com/superRaytin/redux-saga-in-chinese/issues/3)

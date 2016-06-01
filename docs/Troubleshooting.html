@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>故障排除 | Redux-saga 中文文档</title>
+        <title>问题解答 | Redux-saga 中文文档</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.5.2">
@@ -52,7 +52,7 @@
     <body>
         
         
-    <div class="book" data-level="6" data-chapter-title="故障排除" data-filepath="docs/Troubleshooting.md" data-basepath=".." data-revision="Tue May 31 2016 13:39:13 GMT+0800 (CST)">
+    <div class="book" data-level="6" data-chapter-title="问题解答" data-filepath="docs/Troubleshooting.md" data-basepath=".." data-revision="Thu Jun 02 2016 00:03:38 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -437,7 +437,7 @@
                         
                             <b>6.</b>
                         
-                        故障排除
+                        问题解答
                     </a>
             
             
@@ -506,40 +506,46 @@
                 
                     <section class="normal" id="section-">
                     
-                        <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/Troubleshooting.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h1 id="troubleshooting">Troubleshooting</h1>
-<h3 id="app-freezes-after-adding-a-saga">App freezes after adding a saga</h3>
-<p>Make sure that you <code><span class="token keyword">yield</span></code> the effects from the generator function.</p>
-<p>Consider this example:</p>
+                        <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/Troubleshooting.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h1 id="&#x95EE;&#x9898;&#x89E3;&#x7B54;">&#x95EE;&#x9898;&#x89E3;&#x7B54;</h1>
+<h3 id="&#x6DFB;&#x52A0;-saga-&#x540E;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x88AB;&#x5361;&#x4F4F;&#x4E86;">&#x6DFB;&#x52A0; saga &#x540E;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x88AB;&#x5361;&#x4F4F;&#x4E86;</h3>
+<p>&#x786E;&#x4FDD;&#x4F60;&#x5728; Generator &#x51FD;&#x6570;&#x91CC; <code><span class="token keyword">yield</span></code> &#x4E86; effect&#x3002;</p>
+<p>&#x53C2;&#x8003;&#x4E0B;&#x9762;&#x8FD9;&#x4E2A;&#x793A;&#x4F8B;&#xFF1A;</p>
 <pre><code class="lang-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> take <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga/effects&apos;</span>
 
 <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">logActions</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">const</span> action <span class="token operator">=</span> <span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// wrong</span>
+    <span class="token keyword">const</span> action <span class="token operator">=</span> <span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// &#x9519;&#x8BEF;</span>
     console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>action<span class="token punctuation">)</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>It will put the application into an infinite loop because <code><span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> only creates a description of the effect. Unless you <code><span class="token keyword">yield</span></code> it for the middleware to execute, the <code><span class="token keyword">while</span></code> loop will behave like a regular <code><span class="token keyword">while</span></code> loop, and freeze your application.</p>
-<p>Adding <code><span class="token keyword">yield</span></code> will pause the generator and return control to the Redux Saga middleware which will execute the effect. In case of <code><span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code>, Redux Saga will wait for the next action matching the pattern, and only then will resume the generator.</p>
+<p>It will put the application into an infinite loop because <code><span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> only creates a description of the effect.
+Unless you <code><span class="token keyword">yield</span></code> it for the middleware to execute, the <code><span class="token keyword">while</span></code> loop will behave like a regular <code><span class="token keyword">while</span></code> loop, and freeze your application.</p>
+<p>&#x8FD9;&#x5C06;&#x4F7F;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x8FDB;&#x5165;&#x4E00;&#x4E2A;&#x65E0;&#x9650;&#x5FAA;&#x73AF;&#xFF0C;&#x56E0;&#x4E3A; <code><span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> &#x53EA;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x6761; effect &#x63CF;&#x8FF0;&#x4FE1;&#x606F;&#x3002;
+&#x9664;&#x975E;&#x5C06;&#x5B83; <code><span class="token keyword">yield</span></code> &#x7ED9; middleware &#x53BB;&#x6267;&#x884C;&#xFF0C;&#x4E0A;&#x9762;&#x7684; <code><span class="token keyword">while</span></code> &#x5FAA;&#x73AF;&#x5C06;&#x548C;&#x4E00;&#x4E2A;&#x666E;&#x901A;&#x7684; <code><span class="token keyword">while</span></code> &#x5FAA;&#x73AF;&#x884C;&#x4E3A;&#x4E00;&#x6837;&#xFF0C;&#x5B83;&#x4F1A;&#x5361;&#x4F4F;&#x4F60;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x3002;</p>
+<p>Adding <code><span class="token keyword">yield</span></code> will pause the generator and return control to the Redux Saga middleware which will execute the effect.
+In case of <code><span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code>, Redux Saga will wait for the next action matching the pattern, and only then will resume the generator.</p>
+<p>&#x589E;&#x52A0; <code><span class="token keyword">yield</span></code> &#x4F1A;&#x6682;&#x505C; Generator &#x5E76;&#x63A7;&#x5236;&#x8FD4;&#x56DE;&#x7ED9; Redux Saga middleware&#xFF0C;&#x7136;&#x540E; middleware &#x4F1A;&#x6267;&#x884C;&#x8FD9;&#x4E2A; effect&#x3002;
+&#x5728; <code><span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> &#x7684;&#x60C5;&#x51B5;&#x4E2D;&#xFF0C;Redux Saga &#x5C06;&#x7B49;&#x5F85;&#x4E0B;&#x4E00;&#x4E2A;&#x4E0E;&#x8868;&#x8FBE;&#x5F0F;&#x5339;&#x914D;&#x7684; action&#xFF0C;&#x7136;&#x540E;&#x624D;&#x4F1A;&#x6062;&#x590D; Generator &#x6267;&#x884C;&#x3002;</p>
 <p>To fix the example above, simply <code><span class="token keyword">yield</span></code> the effect returned by <code><span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code>:</p>
+<p>&#x4E3A;&#x4E86;&#x4FEE;&#x590D;&#x4E0A;&#x9762;&#x7684;&#x793A;&#x4F8B;&#xFF0C;&#x76F4;&#x63A5; <code><span class="token keyword">yield</span></code> <code><span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> &#x8FD4;&#x56DE;&#x7684; effect&#xFF1A;</p>
 <pre><code class="lang-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> take <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga/effects&apos;</span>
 
 <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">logActions</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">const</span> action <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// correct</span>
+    <span class="token keyword">const</span> action <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// &#x6B63;&#x786E;</span>
     console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>action<span class="token punctuation">)</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h3 id="my-saga-is-missing-dispatched-actions-when-using-mulitple-yield-takeeveryyield-takelatest">My Saga is missing dispatched actions when using mulitple <code><span class="token keyword">yield</span><span class="token operator">*</span> takeEvery<span class="token operator">/</span><span class="token keyword">yield</span><span class="token operator">*</span> takeLatest</code></h3>
-<p>You&apos;re likely running mulitple <code><span class="token keyword">yield</span><span class="token operator">*</span></code> statements inside the same Saga</p>
+<h3 id="&#x4F7F;&#x7528;&#x591A;&#x4E2A;-yield-takeeveryyield-takelatest-&#x65F6;&#xFF0C;saga-&#x628A;&#x53D1;&#x8D77;&#x7684;-action-&#x4E22;&#x4E86;">&#x4F7F;&#x7528;&#x591A;&#x4E2A; <code><span class="token keyword">yield</span><span class="token operator">*</span> takeEvery<span class="token operator">/</span><span class="token keyword">yield</span><span class="token operator">*</span> takeLatest</code> &#x65F6;&#xFF0C;Saga &#x628A;&#x53D1;&#x8D77;&#x7684; action &#x4E22;&#x4E86;</h3>
+<p>&#x4F60;&#x53EF;&#x80FD;&#x5728;&#x540C;&#x4E00;&#x4E2A; Saga &#x91CC;&#x8FD0;&#x884C;&#x4E86;&#x591A;&#x4E2A; <code><span class="token keyword">yield</span><span class="token operator">*</span></code> &#x8BED;&#x53E5;&#x3002;</p>
 <pre><code class="lang-javascript"><span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">mySaga</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">yield</span><span class="token operator">*</span> <span class="token function">takeEvery</span><span class="token punctuation">(</span>ACTION_1<span class="token punctuation">,</span> doSomeWork<span class="token punctuation">)</span>
   <span class="token keyword">yield</span><span class="token operator">*</span> <span class="token function">takeEvery</span><span class="token punctuation">(</span>ACTION_2<span class="token punctuation">,</span> doSomeWork<span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>Instead you&apos;ll either have to run them in different Sagas. Or run them in parallel using
-<code><span class="token keyword">yield</span> <span class="token punctuation">[</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span></code> (without the <code><span class="token operator">*</span></code>)</p>
+<p>&#x8981;&#x4E48;&#x5728;&#x4E0D;&#x540C;&#x7684; Saga &#x91CC;&#x5206;&#x522B;&#x8FD0;&#x884C;&#x5B83;&#x4EEC;&#x3002;&#x8981;&#x4E48;&#x4F7F;&#x7528; <code><span class="token keyword">yield</span> <span class="token punctuation">[</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span></code> (&#x6CA1;&#x6709; <code><span class="token operator">*</span></code>) &#x6765;&#x5E76;&#x884C;&#x5730;&#x8FD0;&#x884C;&#x5B83;&#x4EEC;&#x3002;</p>
 <pre><code class="lang-javascript"><span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">mySaga</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">yield</span> <span class="token punctuation">[</span>
     <span class="token function">takeEvery</span><span class="token punctuation">(</span>ACTION_1<span class="token punctuation">,</span> doSomeWork<span class="token punctuation">)</span><span class="token punctuation">,</span>
@@ -547,7 +553,7 @@
   <span class="token punctuation">]</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h3 id="explication">Explication</h3>
+<h3 id="&#x89E3;&#x91CA;">&#x89E3;&#x91CA;</h3>
 <p><code><span class="token keyword">yield</span><span class="token operator">*</span></code> is used to <em>delegate</em> control to other iterators. In the above example, the first
 <code><span class="token function">takeEvery</span><span class="token punctuation">(</span>ACTION_1<span class="token punctuation">,</span> doSomeWork<span class="token punctuation">)</span></code> returns an iterator object. Combined with <code><span class="token keyword">yield</span><span class="token operator">*</span></code> the <code>mySaga</code>
 generator will delegate all its <code><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> calls to the returned iterator. This means any call to
@@ -555,6 +561,8 @@ generator will delegate all its <code><span class="token function">next</span><s
 the <code><span class="token function">takeEvery</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span></code> iterator is done, the call to the second <code><span class="token keyword">yield</span><span class="token operator">*</span> <span class="token function">takeEvery</span><span class="token punctuation">(</span>ACTION_2<span class="token punctuation">,</span> doSomeWork<span class="token punctuation">)</span></code>
 will proceed (since <code><span class="token function">takeEvery</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span></code> is executing a <code><span class="token keyword">while</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">}</span></code> under the hoods. The
 first iterator will never terminate so the second call will never proceed).</p>
+<p><code><span class="token keyword">yield</span><span class="token operator">*</span></code> &#x7528;&#x4E8E; <em>&#x4EE3;&#x7406;&#xFF08;delegate&#xFF09;</em> &#x63A7;&#x5236;&#x6743;&#x7ED9;&#x5176;&#x4ED6;&#x7684;&#x8FED;&#x4EE3;&#x5668;&#x3002;&#x5728;&#x4E0A;&#x9762;&#x7684;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A; <code><span class="token function">takeEvery</span><span class="token punctuation">(</span>ACTION_1<span class="token punctuation">,</span> doSomeWork<span class="token punctuation">)</span></code> &#x8FD4;&#x56DE;&#x4E86;&#x4E00;&#x4E2A;&#x8FED;&#x4EE3;&#x5668;&#x5BF9;&#x8C61;&#x3002;
+&#x7531;&#x4E8E;&#x7ED3;&#x5408;&#x4E86; <code><span class="token keyword">yield</span><span class="token operator">*</span></code>&#xFF0C;<code>mySaga</code> Generator &#x5C06;&#x4EE3;&#x7406;&#x5B83;&#x6240;&#x6709;&#x7684; <code><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> &#x8C03;&#x7528;&#x7ED9;&#x8FD4;&#x56DE;&#x7684;&#x8FED;&#x4EE3;&#x5668;&#x3002;&#x8FD9;&#x610F;&#x5473;&#x7740; <code>mySaga</code> &#x7684;&#x4EFB;&#x4F55; <code><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> &#x8C03;&#x7528;&#x5C06;&#x4F1A;&#x8F6C;&#x53D1;&#x5230; <code><span class="token function">takeEvery</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span></code> &#x8FED;&#x4EE3;&#x5668;&#x7684; <code><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code>&#x3002;</p>
 <p>With the parallel form <code><span class="token keyword">yield</span> <span class="token punctuation">[</span><span class="token function">takeEvery</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span></code> The middleware will run all the returned
 iterators in parallel.</p>
 <h3 id="my-saga-is-missing-dispatched-actions">My Saga is missing dispatched actions</h3>
