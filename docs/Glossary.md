@@ -1,19 +1,17 @@
-# Glossary
+# 名词解释
 
-This is a glossary of the core terms in Redux Saga.
+这是 Redux Saga 核心的术语词汇表。
 
 ### Effect
 
-An effect is a plain JavaScript Object containing some instructions to be executed by the saga middleware.
+一个 effect 就是一个纯文本 JavaScript 对象，包含一些将被 saga middleware 执行的指令。
 
-You create effects using factory functions provided by the redux-saga library. For example you use
-`call(myfunc, 'arg1', 'arg2')` to instruct the middleware to invoke `myfunc('arg1', 'arg2')` and return
-the result back to the Generator that yielded the effect
+使用 redux-saga 提供的工厂函数来创建 effect。
+举个例子，你可以使用 `call(myfunc, 'arg1', 'arg2')` 指示 middleware 调用 `myfunc('arg1', 'arg2')` 并将结果返回给 yield 了 effect 的那个 Generator。
 
 ### Task
 
-A task is like a process running in background. In a redux-saga based application there can be
-multiple tasks running in parallel. You create tasks by using the `fork` function
+一个 task 就像是一个在后台运行的进程。在基于 redux-saga 的应用程序中，可以同时运行多个 task。通过 `fork` 函数来创建 task：
 
 ```javascript
 function* saga() {
@@ -23,49 +21,48 @@ function* saga() {
 }
 ```
 
-### Blocking/Non-blocking call
+### 阻塞调用/非阻塞调用
 
-A Blocking call means that the Saga yielded an Effect and will wait for the outcome of its execution before
-resuming to the next instruction inside the yielding Generator.
+阻塞调用的意思是，Saga yield 了 Effect 后会等待其执行结果返回，结果返回后才会恢复执行 Generator 中的下一个指令。
 
-A Non-blocking call means that the Saga will resume immediately after yielding the Effect.
+非阻塞调用的意思是，Saga 会在 yield Effect 之后立即恢复执行。
 
-For example
+示例：
 
 ```javascript
 function* saga() {
-  yield take(ACTION)              // Blocking: will wait for the action
-  yield call(ApiFn, ...args)      // Blocking: will wait for ApiFn (If ApiFn returns a Promise)
-  yield call(otherSaga, ...args)  // Blocking: will wait for otherSaga to terminate
+  yield take(ACTION)              // 阻塞: 将等待 action
+  yield call(ApiFn, ...args)      // 阻塞: 将等待 ApiFn (如果 ApiFn 返回一个 Promise 的话)
+  yield call(otherSaga, ...args)  // 阻塞: 将等待 otherSaga 结束
 
-  yied put(...)                   // Blocking: will dispatch asynchronously (using Promis.then)
+  yied put(...)                   // 阻塞: 将同步发起 action (使用 Promise.then)
 
-  const task = yield fork(otherSaga, ...args)  // Non-blocking: will not wait for otherSaga
-  yield cancel(task)                           // Non-blocking: will resume immediately
+  const task = yield fork(otherSaga, ...args)  // 非阻塞: 将不会等待 otherSaga
+  yield cancel(task)                           // 非阻塞: 将立即恢复执行
   // or
-  yield join(task)                              // Blocking: will wait for the task to terminate
+  yield join(task)                             // 阻塞: 将等待 task 结束
 }
 ```
 
 ### Watcher/Worker
 
-refers to a way of organizing the control flow using two separate Sagas
+指的是一种使用两个单独的 Saga 来组织控制流的方式。
 
-- The watcher: will watch for dispatched actions and fork a worker on every action
+- Watcher: 监听发起的 action 并在每次接收到 action 时 `fork` 一个 worker。
 
-- The worker: will handle the action and terminate
+- Worker: 处理 action 并结束它。
 
-example
+示例：
 
 ```javascript
 function* watcher() {
   while(true) {
     const action = yield take(ACTION)
-    yield fork(worker, action.paylaod)
+    yield fork(worker, action.payload)
   }
 }
 
-function* worker(paylaod) {
+function* worker(payload) {
   // ... do some stuff
 }
 ```
