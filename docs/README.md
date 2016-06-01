@@ -23,6 +23,6 @@
   * [连接 Sagas 至外部输入和输出](/docs/advanced/UsingRunSaga.md)
 * [技巧](/docs/recipes/README.md)
 * [外部资源](/docs/ExternalResources.md)
-* [故障排除](/docs/Troubleshooting.md)
+* [问题解答](/docs/Troubleshooting.md)
 * [名词解释](/docs/Glossary.md)
 * [API 参考](/docs/api/README.md)
