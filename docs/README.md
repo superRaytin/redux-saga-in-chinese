@@ -1,6 +1,6 @@
 ## Table of Contents
 
-* [Read Me](/README.md)
+* [自述](/README.md)
 * [介绍](/docs/introduction/README.md)
   * [初级教程](/docs/introduction/BeginnerTutorial.md)
   * [Saga 的背景](/docs/introduction/SagaBackground.md)
