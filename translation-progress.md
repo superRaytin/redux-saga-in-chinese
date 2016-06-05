@@ -1,6 +1,6 @@
 ## 翻译进度
 
-* [x] [Read Me](/README.md)
+* [x] [自述](/README.md)
 * [x] [介绍](/docs/introduction/README.md)
   * [x] [初级教程](/docs/introduction/BeginnerTutorial.md)
   * [x] [Saga 的背景](/docs/introduction/SagaBackground.md)

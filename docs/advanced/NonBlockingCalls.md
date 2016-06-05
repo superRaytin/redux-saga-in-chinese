@@ -80,7 +80,7 @@ function* loginFlow() {
 
 ### 但上面的方法还是有一个小问题
 
-假如 `loginFlow` 正在等待如下的调用被 resolve：
+假设 `loginFlow` 正在等待如下的调用被 resolve：
 
 ```javascript
 function* loginFlow() {
@@ -210,12 +210,12 @@ function* loginFlow() {
 
 OK，我们 *几乎* 要完成了（是的，它的并发性并不容易，你必须认真对待）。
 
-假如在我们收到一个 `LOGIN_REQUEST` action 时，我们在 reducer 中设置了一些 `isLoginPending` 标识为 true，以便可以在界面上显示一些消息或者旋转 loading。
+假设在我们收到一个 `LOGIN_REQUEST` action 时，我们在 reducer 中设置了一些 `isLoginPending` 标识为 true，以便可以在界面上显示一些消息或者旋转 loading。
 如果此时我们在 Api 调用期间收到一个 `LOGOUT` action，并通过 *杀死它*（即任务被立即停止）简单粗暴地中止任务。
 那我们可能又以不一致的状态结束了。因为 `isLoginPending` 仍然是 true，而 reducer 还在等待一个结果 action（`LOGIN_SUCCESS` 或 `LOGIN_ERROR`）。
 
 幸运的是，`cancel` Effect 不会粗暴地结束我们的 `authorize` 任务，它会在里面抛出一个特殊的错误，给 `authorize` 一个机会执行它自己的清理逻辑。
-而被取消的任务应该捕捉这个错误，假如它有一些在结束之前需要做的事的话。
+而被取消的任务应该捕捉这个错误，假设它需要在结束之前做一些事情的话。
 
 我们的 `authorize` 已经有一个 try/catch 区块，但它定义了一个通用的处理程序，这个程序会在每次发生错误时发起 `LOGIN_ERROR` action。
 但登录取消并不是错误。所以 `authorize` 任务必须仅在授权失败时发起 `LOGIN_ERROR` action。
