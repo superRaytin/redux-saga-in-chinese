@@ -116,9 +116,9 @@ const store = createStore(
 - [介绍](http://superRaytin.github.io/redux-saga-in-chinese/docs/introduction/index.html)
 - [基本概念](http://superRaytin.github.io/redux-saga-in-chinese/docs/basics/index.html)
 - [高级概念](http://superRaytin.github.io/redux-saga-in-chinese/docs/advanced/index.html)
-- [实例](http://superRaytin.github.io/redux-saga-in-chinese/docs/recipes/index.html)
+- [技巧](http://superRaytin.github.io/redux-saga-in-chinese/docs/recipes/index.html)
 - [外部资源](http://superRaytin.github.io/redux-saga-in-chinese/docs/ExternalResources.html)
-- [故障排除](http://superRaytin.github.io/redux-saga-in-chinese/docs/Troubleshooting.html)
+- [问题解答](http://superRaytin.github.io/redux-saga-in-chinese/docs/Troubleshooting.html)
 - [名词解释](http://superRaytin.github.io/redux-saga-in-chinese/docs/Glossary.html)
 - [API 参考](http://superRaytin.github.io/redux-saga-in-chinese/docs/api/index.html)
 
