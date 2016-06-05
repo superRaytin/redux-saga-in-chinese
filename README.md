@@ -1,6 +1,6 @@
 # [Redux-saga 中文文档](https://github.com/superRaytin/redux-saga-in-chinese)
 
-**文档版本号：0.9.5** [翻译进度](https://github.com/superRaytin/redux-saga-in-chinese/blob/master/translation-progress.md)
+**文档版本号：0.9.5**
 
 > 在线 Gitbook 地址：http://superRaytin.github.io/redux-saga-in-chinese
 >
