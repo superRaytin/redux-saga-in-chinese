@@ -9,22 +9,20 @@
 
 ### 初始步骤
 
-在我们开始前，需要先 clone 这个仓库：
+在我们开始前，需要先 clone 这个 [仓库](https://github.com/yelouafi/redux-saga-beginner-tutorial)：
 
-https://github.com/yelouafi/redux-saga-beginner-tutorial
-
-> 此教程最终的代码位于 sagas 分支
+> 此教程最终的代码位于 `sagas` 分支
 
 然后在命令行输入：
 
-```
+```sh
 cd redux-saga-beginner-tutorial
 npm install
 ```
 
 接着启动应用：
 
-```
+```sh
 npm start
 ```
 
@@ -32,10 +30,7 @@ npm start
 
 不出意外的话，你应该能看到 2 个按钮 `Increment` 和 `Decrement`，以及按钮下方 `Counter : 0` 的文字。
 
-> 如果你在运行这个应用的时候遇到问题，可随时在这个教程的仓库上创建 issue
-
->https://github.com/yelouafi/redux-saga-beginner-tutorial/issues
-
+> 如果你在运行这个应用的时候遇到问题，可随时在这个教程的 [仓库](https://github.com/yelouafi/redux-saga-beginner-tutorial/issues) 上创建 issue
 
 ## 你好，Sagas！
 
@@ -49,7 +44,7 @@ export function* helloSaga() {
 }
 ```
 
-所以并没有什么吓人的东西，只是一个很普通的功能（好吧，除了 `*`）。这段代码的作用是打印一句问候消息到控制台。
+所以并没有什么吓人的东西，只是一个很普通的功能（除了 `*`）。这段代码的作用是打印一句问候消息到控制台。
 
 为了运行我们的 Saga，我们需要：
 
@@ -63,13 +58,15 @@ export function* helloSaga() {
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 
-//...
+// ...
 import { helloSaga } from './sagas'
 
+const sagaMiddleware = createSagaMiddleware()
 const store = createStore(
   reducer,
-  applyMiddleware(createSagaMiddleware(helloSaga))
+  applyMiddleware(sagaMiddleware)
 )
+sagaMiddleware.run(helloSaga)
 
 // rest unchanged
 ```
@@ -77,9 +74,7 @@ const store = createStore(
 首先我们引入 `./sagas` 模块中的 Saga。然后使用 `redux-saga` 模块的 `createSagaMiddleware` 工厂函数来创建一个 Saga middleware。
 `createSagaMiddleware` 接受 Sagas 列表，这些 Sagas 将会通过创建的 middleware 被立即执行。
 
-
 到目前为止，我们的 Saga 并没做什么特别的事情。它只是打印了一条消息，然后退出。
-
 
 ## 发起异步调用
 
@@ -90,7 +85,6 @@ const store = createStore(
 ```javascript
 const Counter = ({ value, onIncrement, onDecrement, onIncrementAsync }) =>
   <div>
-    ...
     {' '}
     <button onClick={onIncrementAsync}>Increment after 1 second</button>
     <hr />
@@ -106,7 +100,6 @@ const Counter = ({ value, onIncrement, onDecrement, onIncrementAsync }) =>
 function render() {
   ReactDOM.render(
     <Counter
-      ...
       onIncrementAsync={() => action('INCREMENT_ASYNC')}
     />,
     document.getElementById('root')
@@ -120,17 +113,14 @@ function render() {
 
 > 在每个 `INCREMENT_ASYNC` action 发起后，我们需要启动一个做以下事情的任务：
 
->- 等待 1 秒，然后增加计数
+> - 等待 1 秒，然后增加计数
 
 
 添加以下代码到 `sagas.js` 模块：
 
 ```javascript
-import { takeEvery } from 'redux-saga'
+import { takeEvery, delay } from 'redux-saga'
 import { put } from 'redux-saga/effects'
-
-// 一个工具函数：返回一个 Promise，这个 Promise 将在 1 秒后 resolve
-export const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 // Our worker Saga: 将异步执行 increment 任务
 export function* incrementAsync() {
@@ -144,7 +134,9 @@ export function* watchIncrementAsync() {
 }
 ```
 
-好吧，该解释一下了。首先我们创建一个工具函数 `delay`，用于返回一个延迟 1 秒再 resolve 的 Promise。
+该解释一下了。
+
+首先我们引入一个工具函数 `delay`，用于返回一个延迟 1 秒再 resolve 的 Promise。
 我们将使用这个函数去 *阻塞* Generator。
 
 Sagas 被实现为 Generator 函数，它 yield 对象到 redux-saga middleware。
@@ -167,7 +159,7 @@ Sagas 被实现为 Generator 函数，它 yield 对象到 redux-saga middleware�
 
 ```javascript
 
-//...
+// ...
 import { helloSaga, watchIncrementAsync } from './sagas'
 
 const store = createStore(
@@ -175,7 +167,7 @@ const store = createStore(
   applyMiddleware(createSagaMiddleware(helloSaga, watchIncrementAsync))
 )
 
-//...
+// ...
 ```
 
 注意我们不需要连接 `incrementAsync` 这个 Saga，因为它会在每次 `INCREMENT_ASYNC` action 发起时被 `watchIncrementAsync` 动态启动。
@@ -249,10 +241,9 @@ test('incrementAsync Saga test', (assert) => {
 
 
 ```javascript
-//...
+// ...
 import { put, call } from 'redux-saga/effects'
-
-export const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+import { delay } from 'redux-saga'
 
 export function* incrementAsync() {
   // use the call Effect
@@ -283,7 +274,8 @@ call(delay, 1000)        // => { CALL: {fn: delay, args: [1000]}}
 import test from 'tape';
 
 import { put, call } from 'redux-saga/effects'
-import { incrementAsync, delay } from './sagas'
+import { delay } from 'redux-saga'
+import { incrementAsync } from './sagas'
 
 test('incrementAsync Saga test', (assert) => {
   const gen = incrementAsync()
@@ -315,7 +307,7 @@ test('incrementAsync Saga test', (assert) => {
 
 为了运行上面的测试代码，我们需要输入：
 
-```
+```sh
 npm test
 ```
 
