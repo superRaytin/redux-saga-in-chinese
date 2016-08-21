@@ -66,11 +66,12 @@ import createSagaMiddleware from 'redux-saga'
 //...
 import { helloSaga } from './sagas'
 
+const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   reducer,
-  applyMiddleware(createSagaMiddleware(helloSaga))
+  applyMiddleware(sagaMiddleware)
 )
-
+sagaMiddleware.run(helloSaga);
 // rest unchanged
 ```
 
@@ -142,6 +143,14 @@ export function* incrementAsync() {
 export function* watchIncrementAsync() {
   yield* takeEvery('INCREMENT_ASYNC', incrementAsync)
 }
+
+// single entry point to start all Sagas at once
+export default function* rootSaga() {
+  yield [
+    helloSaga(),
+    watchIncrementAsync()
+  ]
+}
 ```
 
 好吧，该解释一下了。首先我们创建一个工具函数 `delay`，用于返回一个延迟 1 秒再 resolve 的 Promise。
@@ -170,10 +179,9 @@ Sagas 被实现为 Generator 函数，它 yield 对象到 redux-saga middleware�
 //...
 import { helloSaga, watchIncrementAsync } from './sagas'
 
-const store = createStore(
-  reducer,
-  applyMiddleware(createSagaMiddleware(helloSaga, watchIncrementAsync))
-)
+const sagaMiddleware = createSagaMiddleware()
+const store = ...
+sagaMiddleware.run(rootSaga)
 
 //...
 ```
