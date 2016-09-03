@@ -126,12 +126,12 @@ const store = createStore(
 
 在 `dist/` 文件夹有一个可用的 **umd** `redux-saga` 构建文件。`redux-saga` 以 `ReduxSaga` 挂载在全局 window 对象中。
 
-如果你不使用 Webpack 或 Browserify，umd 版本非常有用。你可以通过 [npmcdn](npmcdn.com) 直接使用。
+如果你不使用 Webpack 或 Browserify，umd 版本非常有用。你可以通过 [unpkg](unpkg.com) 直接使用。
 
 以下是可用的构建好的文件：
 
-- [https://npmcdn.com/redux-saga/dist/redux-saga.js](https://npmcdn.com/redux-saga/dist/redux-saga.js)
-- [https://npmcdn.com/redux-saga/dist/redux-saga.min.js](https://npmcdn.com/redux-saga/dist/redux-saga.min.js)
+- [https://unpkg.com/redux-saga/dist/redux-saga.js](https://unpkg.com/redux-saga/dist/redux-saga.js)
+- [https://unpkg.com/redux-saga/dist/redux-saga.min.js](https://unpkg.com/redux-saga/dist/redux-saga.min.js)
 
 **重要提示！** 如果你的目标浏览器不支持 _es2015 generators_，那么你必须再使用一个可用的 polyfill，比如 **babel** 提供的：[browser-polyfill.min.js](https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.25/browser-polyfill.min.js)。
 这个 polyfill 必须在 **redux-saga** 之前被加载。
