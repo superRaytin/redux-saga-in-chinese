@@ -9,7 +9,7 @@
 在接收到 `START_BACKGROUND_SYNC` action 后，我们 fork 一个后台任务，周期性地从远程服务器同步一些数据。
 
 这个任务将会一直执行直到一个 `STOP_BACKGROUND_SYNC` action 被触发。
-然后我们取消后台任务，等待下一个 `STOP_BACKGROUND_SYNC` action。
+然后我们取消后台任务，等待下一个 `START_BACKGROUND_SYNC` action。
 
 ```javascript
 import { SagaCancellationException } from 'redux-saga'
