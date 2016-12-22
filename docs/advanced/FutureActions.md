@@ -33,7 +33,7 @@ function* watchAndLog(getState) {
     const action = yield take('*')
     console.log('action', action)
     console.log('state after', getState())
-  })
+  }
 }
 ```
 
