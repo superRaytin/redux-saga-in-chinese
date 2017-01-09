@@ -13,12 +13,14 @@
 使用 `takeEvery('*')`（`*` 代表通配符模式），我们就能捕获发起的所有类型的 action。
 
 ```javascript
-import { takeEvery } from 'redux-saga'
+import { select, takeEvery } from 'redux-saga'
 
-function* watchAndLog(getState) {
+function* watchAndLog() {
   yield* takeEvery('*', function* logger(action) {
+    const state = yield select()
+
     console.log('action', action)
-    console.log('state after', getState())
+    console.log('state after', state)
   })
 }
 ```
@@ -26,13 +28,15 @@ function* watchAndLog(getState) {
 现在我们知道如何使用 `take` Effect 来实现和上面相同的功能：
 
 ```javascript
-import { take } from 'redux-saga/effects'
+import { select, take } from 'redux-saga/effects'
 
 function* watchAndLog(getState) {
   while(true) {
     const action = yield take('*')
+    const state = yield select()
+ 
     console.log('action', action)
-    console.log('state after', getState())
+    console.log('state after', state)
   }
 }
 ```
