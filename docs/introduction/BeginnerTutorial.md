@@ -107,6 +107,7 @@ function render() {
   ReactDOM.render(
     <Counter
       ...
+      value={store.getState()}
       onIncrementAsync={() => action('INCREMENT_ASYNC')}
     />,
     document.getElementById('root')
