@@ -140,7 +140,7 @@ export function* incrementAsync() {
 
 // Our watcher Saga: 在每个 INCREMENT_ASYNC action 调用后，派生一个新的 incrementAsync 任务
 export function* watchIncrementAsync() {
-  yield* takeEvery('INCREMENT_ASYNC', incrementAsync)
+  yield takeEvery('INCREMENT_ASYNC', incrementAsync)
 }
 ```
 
