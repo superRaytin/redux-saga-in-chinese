@@ -16,7 +16,7 @@ Sagas 可以多种形式 yield Effect。最简单的方式是 yield 一个 Promi
 import { takeEvery } from 'redux-saga'
 import Api from './path/to/api'
 
-function* watchFetchProduts() {
+function* watchFetchProducts() {
   yield* takeEvery('PRODUCTS_REQUESTED', fetchProducts)
 }
 
