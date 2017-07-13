@@ -66,10 +66,12 @@ import createSagaMiddleware from 'redux-saga'
 //...
 import { helloSaga } from './sagas'
 
+const sagaMiddleware = createSagaMiddleware()
 const store = createStore(
   reducer,
-  applyMiddleware(createSagaMiddleware(helloSaga))
+  applyMiddleware(sagaMiddleware)
 )
+sagaMiddleware.run(helloSaga)
 
 // rest unchanged
 ```
@@ -170,10 +172,13 @@ Sagas 被实现为 Generator 函数，它 yield 对象到 redux-saga middleware�
 //...
 import { helloSaga, watchIncrementAsync } from './sagas'
 
+const sagaMiddleware = createSagaMiddleware()
 const store = createStore(
   reducer,
-  applyMiddleware(createSagaMiddleware(helloSaga, watchIncrementAsync))
+  applyMiddleware(sagaMiddleware)
 )
+sagaMiddleware.run(helloSaga)
+sagaMiddleware.run(watchIncrementAsync)
 
 //...
 ```
