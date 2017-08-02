@@ -16,7 +16,7 @@
 import { takeEvery } from 'redux-saga'
 
 function* watchAndLog(getState) {
-  yield* takeEvery('*', function* logger(action) {
+  yield takeEvery('*', function* logger(action) {
     console.log('action', action)
     console.log('state after', getState())
   })
