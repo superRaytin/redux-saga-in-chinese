@@ -108,6 +108,8 @@ const store = createStore(
   applyMiddleware(sagaMiddleware)
 )
 
+sagaMiddleware.run(mySaga)
+
 // render the application
 ```
 
