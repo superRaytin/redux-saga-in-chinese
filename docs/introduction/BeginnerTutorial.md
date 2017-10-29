@@ -66,10 +66,12 @@ import createSagaMiddleware from 'redux-saga'
 //...
 import { helloSaga } from './sagas'
 
+const sagaMiddleware = createSagaMiddleware()
 const store = createStore(
   reducer,
-  applyMiddleware(createSagaMiddleware(helloSaga))
+  applyMiddleware(sagaMiddleware)
 )
+sagaMiddleware.run(helloSaga)
 
 // rest unchanged
 ```
@@ -106,9 +108,10 @@ const Counter = ({ value, onIncrement, onDecrement, onIncrementAsync }) =>
 function render() {
   ReactDOM.render(
     <Counter
-      ...
-      onIncrementAsync={() => action('INCREMENT_ASYNC')}
-    />,
+      value={store.getState()}
+      onIncrement={() => action('INCREMENT')}
+      onDecrement={() => action('DECREMENT')}
+      onIncrementAsync={() => action('INCREMENT_ASYNC')} />,
     document.getElementById('root')
   )
 }
@@ -170,10 +173,13 @@ Sagas 被实现为 Generator 函数，它 yield 对象到 redux-saga middleware�
 //...
 import { helloSaga, watchIncrementAsync } from './sagas'
 
+const sagaMiddleware = createSagaMiddleware()
 const store = createStore(
   reducer,
-  applyMiddleware(createSagaMiddleware(helloSaga, watchIncrementAsync))
+  applyMiddleware(sagaMiddleware)
 )
+sagaMiddleware.run(helloSaga)
+sagaMiddleware.run(watchIncrementAsync)
 
 //...
 ```
