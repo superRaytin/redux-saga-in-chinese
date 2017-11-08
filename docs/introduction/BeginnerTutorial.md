@@ -185,7 +185,7 @@ const store = createStore(
 
 我们希望测试 `incrementAsync` Saga，以此保证它执行期望的任务。
 
-创建另一个文件 `saga.spec.js`：
+创建另一个文件 `sagas.spec.js`：
 
 ```javascript
 import test from 'tape';
