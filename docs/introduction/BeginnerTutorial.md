@@ -66,16 +66,18 @@ import createSagaMiddleware from 'redux-saga'
 //...
 import { helloSaga } from './sagas'
 
+const sagaMiddleware = createSagaMiddleware()
 const store = createStore(
   reducer,
-  applyMiddleware(createSagaMiddleware(helloSaga))
+  applyMiddleware(sagaMiddleware)
 )
+sagaMiddleware.run(helloSaga)
 
 // rest unchanged
 ```
 
-首先我们引入 `./sagas` 模块中的 Saga。然后使用 `redux-saga` 模块的 `createSagaMiddleware` 工厂函数来创建一个 Saga middleware。
-`createSagaMiddleware` 接受 Sagas 列表，这些 Sagas 将会通过创建的 middleware 被立即执行。
+首先我们引入 `./sagas` 模块中的 Saga。然后使用 `redux-saga` 模块的 `createSagaMiddleware` 工厂函数来创建一个 Saga middleware 实例sagaMiddleware。
+通过调用创建的sagaMiddleware实例方法run(helloSaga) 来执行saga。
 
 
 到目前为止，我们的 Saga 并没做什么特别的事情。它只是打印了一条消息，然后退出。
