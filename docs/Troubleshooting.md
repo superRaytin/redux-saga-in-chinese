@@ -85,14 +85,3 @@ function* watchRequestActions() {
   }
 }
 ```
-
-要么在不同的 Saga 里分别运行它们。要么使用 `yield [...]` (没有 `*`) 来并行地运行它们。
-
-```javascript
-function* mySaga() {
-  yield [
-    takeEvery(ACTION_1, doSomeWork),
-    takeEvery(ACTION_2, doSomeWork)
-  ]
-}
-```
