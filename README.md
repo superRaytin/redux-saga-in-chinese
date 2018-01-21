@@ -23,7 +23,7 @@ redux-saga 使用了 ES6 的 Generator 功能，让异步的流程更易于读�
 $ npm install --save redux-saga
 ```
 
-或者
+或
 
 ```sh
 $ yarn add redux-saga
