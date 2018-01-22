@@ -66,10 +66,14 @@ import createSagaMiddleware from 'redux-saga'
 //...
 import { helloSaga } from './sagas'
 
+const sagaMiddleware = createSagaMiddleware()
 const store = createStore(
   reducer,
-  applyMiddleware(createSagaMiddleware(helloSaga))
+  applyMiddleware(sagaMiddleware)
 )
+sagaMiddleware.run(helloSaga)
+
+const action = type => store.dispatch({type})
 
 // rest unchanged
 ```
@@ -77,6 +81,7 @@ const store = createStore(
 首先我们引入 `./sagas` 模块中的 Saga。然后使用 `redux-saga` 模块的 `createSagaMiddleware` 工厂函数来创建一个 Saga middleware。
 `createSagaMiddleware` 接受 Sagas 列表，这些 Sagas 将会通过创建的 middleware 被立即执行。
 
+在运行我们的 `helloSaga` 之前，我们必须先通过 `applyMiddleware` 来把我们的中间件和Store连接起来，然后我们使用 `sagaMiddleware.run(helloSaga)` 来启动我们的Saga
 
 到目前为止，我们的 Saga 并没做什么特别的事情。它只是打印了一条消息，然后退出。
 
@@ -85,20 +90,21 @@ const store = createStore(
 
 现在我们来添加一些更接近原始计数器例子的东西。为了演示异步调用，我们将添加另外一个按钮，用于点击后 1 秒增加计数。
 
-首先，我们需要提供一个额外的回调 `onIncrementAsync`。
+首先，我们将要给UI组件提供一个额外的按钮和一个回调 `onIncrementAsync`。
 
 ```javascript
 const Counter = ({ value, onIncrement, onDecrement, onIncrementAsync }) =>
   <div>
     ...
     {' '}
-    <button onClick={onIncrementAsync}>Increment after 1 second</button>
-    <hr />
+    <button onClick={onIncrementAsync}>
+      Increment after 1 second
+    </button>
     <div>Clicked: {value} times</div>
   </div>
 ```
 
-接下来我们需要使 `onIncrementAsync` 与 Store action 联系起来。
+接下来我们需要把组件的使 `onIncrementAsync` 与 Store action 联系起来。
 
 修改 `main.js` 模块：
 
@@ -126,11 +132,10 @@ function render() {
 添加以下代码到 `sagas.js` 模块：
 
 ```javascript
-import { takeEvery } from 'redux-saga'
-import { put } from 'redux-saga/effects'
+import { delay } from 'redux-saga'
+import { put, taskEvery } from 'redux-saga/effects'
 
-// 一个工具函数：返回一个 Promise，这个 Promise 将在 1 秒后 resolve
-export const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+// ...
 
 // Our worker Saga: 将异步执行 increment 任务
 export function* incrementAsync() {
@@ -144,10 +149,12 @@ export function* watchIncrementAsync() {
 }
 ```
 
-好吧，该解释一下了。首先我们创建一个工具函数 `delay`，用于返回一个延迟 1 秒再 resolve 的 Promise。
+好吧，该解释一下了。
+
+首先我们创建一个工具函数 `delay`，用于返回一个延迟 1 秒再 resolve 的 Promise。
 我们将使用这个函数去 *阻塞* Generator。
 
-Sagas 被实现为 Generator 函数，它 yield 对象到 redux-saga middleware。
+Sagas 是通过yield 对象到 redux-saga middleware的一些 Generator 函数来实现的。
 被 yield 的对象都是一类指令，指令可被 middleware 解释执行。当 middleware 取得一个 yield 后的 Promise，middleware 会暂停 Saga，直到 Promise 完成。
 在上面的例子中，`incrementAsync` 这个 Saga 会暂停直到 `delay` 返回的 Promise 被 resolve，这个 Promise 将在 1 秒后 resolve。
 
@@ -160,26 +167,27 @@ Sagas 被实现为 Generator 函数，它 yield 对象到 redux-saga middleware�
 
 总结一下，`incrementAsync` Saga 通过 `delay(1000)` 延迟了 1 秒钟，然后发起了一个 `INCREMENT` 的 action。
 
-接下来，我们创建了另一个 Saga `watchIncrementAsync`。这个 Saga 将监听所有发起的 `INCREMENT_ASYNC` action，并在每次 action 被匹配时派生一个新的 `incrementAsync` 任务。
-为了实现这个目的，我们使用一个辅助函数 `takeEvery` 来执行以上的处理过程。
+接下来，我们创建了另一个 Saga `watchIncrementAsync`。我们使用一个 `redux-saga` 提供的辅助函数 `takeEvery` 来监听每次发起的 `INCREMENT_ASYNC` 并调用一个新的 `incrementAsync` 任务。
 
-在我们开始这个应用之前，我们需要将 `watchIncrementAsync` 这个 Saga 连接至 Store：
+现在我们已经有2个Sagas，我们需要一次启动它们两个。为了达到这个目的，我们将会添加一个 `rootSaga` 来启动我们其他的Sagas。同时在 `saga.js` 文件中添加一下代码：
 
 ```javascript
+import {delay} from 'redux-saga'
+import {put, takeEvery, all} from 'redux-saga/effects'
 
-//...
-import { helloSaga, watchIncrementAsync } from './sagas'
+// ...
 
-const store = createStore(
-  reducer,
-  applyMiddleware(createSagaMiddleware(helloSaga, watchIncrementAsync))
-)
-
-//...
+// 所有Sagas的入口
+export default functon* rootSaga() {
+    yield all([
+        helloSaga(),
+        watchIncrementAsync()
+    ])
+}
 ```
 
-注意我们不需要连接 `incrementAsync` 这个 Saga，因为它会在每次 `INCREMENT_ASYNC` action 发起时被 `watchIncrementAsync` 动态启动。
-
+这个Saga 把放在数组里面的`helloSaga` 和 `watchIncrmentAsync` 这两个的运行结果 yield出去。这代表着这两个 Generator会被同时启动。
+现在我们只需要调用 `main.js` 中的root Saga `sagaMiddleware.run` 
 
 ## 让我们的代码可测试
 
@@ -199,7 +207,7 @@ test('incrementAsync Saga test', (assert) => {
 });
 ```
 
-由于 `incrementAsync` 是一个 Generator 函数，当我们在 middleware 之外运行它，每次调用 generator 的 `next`，你将得到一个以下结构的对象：
+`incrementAsync` 是一个 Generator 函数，当运行的时候，他会返回一个迭代对象，这个迭代对象的 `next` 方法会返回一个以下结构的对象：
 
 ```javascript
 gen.next() // => { done: boolean, value: any }
@@ -245,14 +253,13 @@ test('incrementAsync Saga test', (assert) => {
 问题是我们如何测试 `delay` 的返回值？我们不能在 Promise 之间做简单的相等测试。如果 `delay` 返回的是一个 *普通（normal）* 的值，
 事情将会变得很简单。
 
-好吧，`redux-saga` 提供了一种方式，让上面的语句变得可能。与在 `incrementAsync` 中直接调用 `delay(1000)` 不同，我们叫它 *间接（indirectly*
+好吧，`redux-saga` 提供了一种方式，让上面的语句变得可能。和在 `incrementAsync` 中直接调用 `delay(1000)` 不同，我们将会间接的调用：
 
 
 ```javascript
 //...
-import { put, call } from 'redux-saga/effects'
-
-export const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+import { delay } from 'redux-saga'
+import { put, takeEvery, all, call } from 'redux-saga/effects'
 
 export function* incrementAsync() {
   // use the call Effect
@@ -283,7 +290,8 @@ call(delay, 1000)        // => { CALL: {fn: delay, args: [1000]}}
 import test from 'tape';
 
 import { put, call } from 'redux-saga/effects'
-import { incrementAsync, delay } from './sagas'
+import { delay } from 'redux-saga'
+import { incrementAsync } from './sagas'
 
 test('incrementAsync Saga test', (assert) => {
   const gen = incrementAsync()

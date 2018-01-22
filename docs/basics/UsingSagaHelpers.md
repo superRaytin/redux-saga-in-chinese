@@ -50,3 +50,21 @@ function* watchFetchData() {
 
 和 `takeEvery` 不同，在任何时刻 `takeLatest` 只允许执行一个 `fetchData` 任务。并且这个任务是最后被启动的那个。
 如果之前已经有一个任务在执行，那之前的这个任务会自动被取消。
+
+如果你有多重的 Sagas 监听不同的actions，你可以通过这些内建的辅助函数来创建多重的监视器（watcher），这里其实是通过 `fork` 来处理的（我们将会在之后 `fork` 部分讨论，到目前为止，就把它当做是一个 Effect, 它能够让我们在后台启动多重的sagas）
+
+```javascript
+import { takeEvery } from 'redux-saga/effects'
+
+// FETCH_USERS
+function* fetchUsers(action) { ... }
+
+// CREATE_USER
+function* createUser(action) { ... }
+
+// use them in parallel
+export default function* rootSaga() {
+  yield takeEvery('FETCH_USERS', fetchUsers)
+  yield takeEvery('CREATE_USER', createUser)
+}
+```

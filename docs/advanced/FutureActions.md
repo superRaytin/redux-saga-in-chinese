@@ -13,12 +13,14 @@
 使用 `takeEvery('*')`（`*` 代表通配符模式），我们就能捕获发起的所有类型的 action。
 
 ```javascript
-import { takeEvery } from 'redux-saga'
+import { select, takeEvery } from 'redux-saga'
 
 function* watchAndLog(getState) {
   yield* takeEvery('*', function* logger(action) {
-    console.log('action', action)
-    console.log('state after', getState())
+    const state =  yield select()
+    
+    console.log('action', action)
+    console.log('state after', state)
   })
 }
 ```
@@ -26,13 +28,15 @@ function* watchAndLog(getState) {
 现在我们知道如何使用 `take` Effect 来实现和上面相同的功能：
 
 ```javascript
-import { take } from 'redux-saga/effects'
+import { select, take } from 'redux-saga/effects'
 
 function* watchAndLog(getState) {
   while(true) {
     const action = yield take('*')
+    const state = yield select()
+    
     console.log('action', action)
-    console.log('state after', getState())
+    console.log('state after', state)
   }
 }
 ```
@@ -75,7 +79,7 @@ function* watchFirstThreeTodosCreation() {
 结果就是我们的逻辑现在分开在两个地方了。别人为了阅读我们的代码搞明白这是怎么回事，他必须阅读两个处理函数的源代码并且要在两处逻辑之间建立连接。
 这意味着他必须通过在心中重新排列放在几个不同地方的代码逻辑获得正确的排序，从而在脑中重建控制流模型。
 
-使用拉取（pull）模式，我们可以在同一个地方写控制流。
+使用拉取（pull）模式，我们可以在同一个地方写控制流。而不是重复处理同样的acton
 
 ```javascript
 function* loginFlow() {
