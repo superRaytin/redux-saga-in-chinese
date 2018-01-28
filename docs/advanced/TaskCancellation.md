@@ -1,4 +1,4 @@
-# 任务的取消
+# 取消任务
 
 我们已经在 [无阻塞调用](http://superRaytin.github.io/redux-saga-in-chinese/docs/advanced/NonBlockingCalls.html) 一节中看到了取消任务的示例。
 在这节，我们将回顾一下，在一些更加详细的情况下取消的语义。
