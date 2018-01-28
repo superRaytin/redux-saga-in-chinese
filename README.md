@@ -1,12 +1,12 @@
 # [Redux-saga 中文文档](https://github.com/superRaytin/redux-saga-in-chinese)
 
-**文档版本号：0.9.5**
+**文档版本号：0.11.0**
 
 > 在线 Gitbook 地址：http://superRaytin.github.io/redux-saga-in-chinese
 >
 > 英文原版：http://yelouafi.github.io/redux-saga
 
-redux-saga 是一个用于管理 Redux 应用异步操作（Side Effects。译注：直译成 “副作用” 不太通顺，所以这里译为 “异步操作” 更好理解）的中间件（又称异步 action）。
+redux-saga 是一个用于管理 Redux 应用异步操作的中间件（又称异步 action）。
 redux-saga 通过创建 *Sagas* 将所有的异步操作逻辑收集在一个地方集中处理，可以用来代替 `redux-thunk` 中间件。
 
 这意味着应用的逻辑会存在两个地方：
@@ -33,7 +33,7 @@ Sagas 可以被看作是在后台运行的进程。Sagas 监听发起的 action�
 
 ## 安装
 
-```
+```sh
 npm install --save redux-saga
 ```
 
@@ -90,9 +90,11 @@ function* mySaga() {
 function* mySaga() {
   yield* takeLatest("USER_FETCH_REQUESTED", fetchUser);
 }
+
+export default mySaga;
 ```
 
-为了能跑起 Saga，我们需要使用 `redux-saga` 中间件将 Saga 与 Redux Store 建立连接。
+为了运行我们的 Saga，需要使用 `redux-saga` 中间件将 Saga 与 Redux Store 建立连接。
 
 #### `main.js`
 ```javascript
@@ -144,7 +146,7 @@ import sagaMiddleware from 'redux-saga'
 
 # 从资源构建示例
 
-```
+```sh
 git clone https://github.com/yelouafi/redux-saga.git
 cd redux-saga
 npm install
@@ -169,7 +171,7 @@ npm test
 
 这个例子使用了 webpack 和高阶 API `takeEvery`。
 
-```
+```sh
 npm run counter
 
 // test sample for the generator
@@ -180,13 +182,13 @@ npm run test-counter
 
 这个例子使用低阶 API，演示任务取消。
 
-```
+```sh
 npm run cancellable-counter
 ```
 
 ### 购物车示例
 
-```
+```sh
 npm run shop
 
 // test sample for the generator
@@ -195,15 +197,16 @@ npm run test-shop
 
 ### 异步示例
 
-```
+```sh
 npm run async
 
-//sorry, no tests yet
+# test sample for the generators
+$ npm run test-async
 ```
 
 ### 真实项目示例（使用 webpack 的热重载）
 
-```
+```sh
 npm run real-world
 
 //sorry, no tests yet

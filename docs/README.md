@@ -3,7 +3,7 @@
 * [自述](/README.md)
 * [介绍](/docs/introduction/README.md)
   * [初级教程](/docs/introduction/BeginnerTutorial.md)
-  * [Saga 的背景](/docs/introduction/SagaBackground.md)
+  * [Saga 概念的背景](/docs/introduction/SagaBackground.md)
 * [基本概念](/docs/basics/README.md)
   * [使用 Saga 辅助函数](/docs/basics/UsingSagaHelpers.md)
   * [声明式 Effects](/docs/basics/DeclarativeEffects.md)
