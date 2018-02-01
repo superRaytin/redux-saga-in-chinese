@@ -1,5 +1,3 @@
-## Table of Contents
-
 * [自述](/README.md)
 * [介绍](/docs/introduction/README.md)
   * [初级教程](/docs/introduction/BeginnerTutorial.md)

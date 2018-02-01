@@ -1,14 +1,14 @@
 {
   "name": "redux-saga-in-chinese",
-  "version": "0.9.5",
+  "version": "1.0.0-beta",
   "description": "Redux-saga 中文文档",
   "scripts": {
+    "gh-pages": "./node_modules/gh-pages/bin/gh-pages -d _book -r git@github.com:superRaytin/redux-saga-in-chinese.git -m 'update book' -t",
     "clean": "rimraf _book",
-    "build": "gitbook build -g superRaytin/redux-saga-in-chinese",
-    "watch": "gitbook serve",
-    "publish": "npm run prepublish && npm run gh-pages",
-    "gh-pages": "./node_modules/gh-pages/bin/gh-pages -d _book -r git@github.com:superRaytin/redux-saga-in-chinese.git",
-    "prepublish": "npm run clean && npm run build && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book'"
+    "prepare": "gitbook install",
+    "build": "npm run prepare && gitbook build -g redux-saga/redux-saga",
+    "watch": "npm run prepare && gitbook serve",
+    "publish-book": "npm run clean && npm run build && cp CNAME _book && touch _book/.nojekyll && npm run gh-pages"
   },
   "repository": {
     "type": "git",
@@ -29,11 +29,13 @@
   },
   "homepage": "https://github.com/superRaytin/redux-saga-in-chinese",
   "devDependencies": {
-    "gitbook-cli": "^0.3.4",
-    "gitbook-plugin-prism": "^0.1.1",
-    "gitbook-plugin-ga": "^0.2.1",
-    "gitbook-plugin-edit-link": "^1.4.1",
-    "gh-pages": "~0.11.0",
-    "rimraf": "^2.3.4"
+    "gitbook-cli": "^2.3.2",
+    "gh-pages": "~1.1.0",
+    "rimraf": "^2.6.2"
+  },
+  "dependencies": {
+    "gitbook-plugin-edit-link": "^2.0.2",
+    "gitbook-plugin-github": "^2.0.0",
+    "gitbook-plugin-prism": "^1.0.0"
   }
 }

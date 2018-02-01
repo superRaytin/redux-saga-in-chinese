@@ -4,10 +4,10 @@
 
 ### Effect
 
-一个 effect 就是一个纯文本 JavaScript 对象，包含一些将被 saga middleware 执行的指令。
+一个 effect 就是一个 Plain Object JavaScript 对象，包含一些将被 saga middleware 执行的指令。
 
 使用 redux-saga 提供的工厂函数来创建 effect。
-举个例子，你可以使用 `call(myfunc, 'arg1', 'arg2')` 指示 middleware 调用 `myfunc('arg1', 'arg2')` 并将结果返回给 yield 了 effect 的那个 Generator。
+举个例子，你可以使用 `call(myfunc, 'arg1', 'arg2')` 指示 middleware 调用 `myfunc('arg1', 'arg2')` 并将结果返回给 yield effect 的那个 Generator。
 
 ### Task
 
@@ -23,7 +23,7 @@ function* saga() {
 
 ### 阻塞调用/非阻塞调用
 
-阻塞调用的意思是，Saga yield 了 Effect 后会等待其执行结果返回，结果返回后才会恢复执行 Generator 中的下一个指令。
+阻塞调用的意思是，Saga 在 yield Effect 之后会等待其执行结果返回，结果返回后才会恢复执行 Generator 中的下一个指令。
 
 非阻塞调用的意思是，Saga 会在 yield Effect 之后立即恢复执行。
 
