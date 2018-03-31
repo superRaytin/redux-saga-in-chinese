@@ -6,15 +6,16 @@
 下面的示例演示了触发一个远程的获取请求，并且限制了 1 秒内响应，否则作超时处理。
 
 ```javascript
-import { race, take, put } from 'redux-saga/effects'
+import { race, call, put } from 'redux-saga/effects'
+import { delay } from 'redux-saga'
 
 function* fetchPostsWithTimeout() {
   const {posts, timeout} = yield race({
-    posts   : call(fetchApi, '/posts'),
-    timeout : call(delay, 1000)
+    posts: call(fetchApi, '/posts'),
+    timeout: call(delay, 1000)
   })
 
-  if(posts)
+  if (posts)
     put({type: 'POSTS_RECEIVED', posts})
   else
     put({type: 'TIMEOUT_ERROR'})
@@ -29,14 +30,14 @@ function* fetchPostsWithTimeout() {
 
 
 ```javascript
-import { race, take, put } from 'redux-saga/effects'
+import { race, take, call } from 'redux-saga/effects'
 
 function* backgroundTask() {
-  while(true) { ... }
+  while (true) { ... }
 }
 
 function* watchStartBackgroundTask() {
-  while(true) {
+  while (true) {
     yield take('START_BACKGROUND_TASK')
     yield race({
       task: call(backgroundTask),
