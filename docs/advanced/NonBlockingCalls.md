@@ -1,6 +1,6 @@
 # 无阻塞调用
 
-在上一节中，我们看到了 `take` Effect 让我们可以在一个集中的地方更好地去描述一个非常规的流程。
+在之前的章节中，我们看到了 `take` Effect 让我们可以在一个集中的地方更好地去描述一个非常规的流程。
 
 重温一下登录流程示例：
 
@@ -16,8 +16,8 @@ function* loginFlow() {
 }
 ```
 
-让我们来完成这个例子，并实现真实的登录/登出逻辑。假设有这样一个 Api，它允许我们在一个远程服务器上验证用户的权限。
-如果验证成功，服务器将会返回一个授权令牌，我们的应用程序将会通过 DOM storage 存储这个令牌（假设我们的 Api 为 DOM storage 提供了另外一个服务）。
+让我们来完成这个例子，并实现真实的登录/登出逻辑。假设有这样一个 API，它允许我们在一个远程服务器上验证用户的权限。
+如果验证成功，服务器将会返回一个授权令牌，我们的应用程序将会通过 DOM storage 存储这个令牌（假设我们的 API 为 DOM storage 提供了另外一个服务）。
 
 当用户登出，我们将直接删除以前存储的授权令牌。
 
@@ -57,7 +57,7 @@ function* loginFlow() {
 }
 ```
 
-首先我们创建了一个独立的 Generator `authorize`，它将执行真实的 Api 调用并在成功后通知 Store。
+首先我们创建了一个独立的 Generator `authorize`，它将执行真实的 API 调用并在成功后通知 Store。
 
 `loginFlow` 在一个 `while(true)` 循环中实现它所有的流程，这样做的意思是：一旦到达流程最后一步（`LOGOUT`），通过等待一个新的 `LOGIN_REQUEST` action 来启动一个新的迭代。
 
@@ -75,7 +75,7 @@ function* loginFlow() {
 
 在 `authorize` 失败的情况下，它将返回一个 undefined 值，这将导致 `loginFlow` 跳过当前处理进程并等待一个新的 `LOGIN_REQUEST` action。
 
-观察整个逻辑是如何存储在一个地方的。一个新的开发者阅读我们的代码时，不必再为了理解控制流而在各个地方来回切换。
+请观察整个逻辑是如何存储在一个地方的。一个新的开发者阅读我们的代码时，不必再为了理解控制流而在各个地方来回切换。
 这就像是在阅读同步代码：它们的自然顺序确定了执行步骤。并且我们有很多 Effects 可以调用其他函数并等待它们的结果。
 
 ### 但上面的方法还是有一个小问题
@@ -180,7 +180,7 @@ function* loginFlow() {
 注意 `Api.clearItem` 应该是幂等调用。如果 `authorize` 调用时没有存储 token 也不会有任何影响。
 `loginFlow` 仅仅是保证在等待下一次登录之前，storage 中没有 token。
 
-但是还没完。如果我们在 Api 调用期间收到一个 `LOGOUT` action，我们必须要 **取消** `authorize` 处理进程，否则将有 2 个并发的任务，
+但是还没完。如果我们在 API 调用期间收到一个 `LOGOUT` action，我们必须要 **取消** `authorize` 处理进程，否则将有 2 个并发的任务，
 并且 `authorize` 任务将会继续运行，并在成功的响应（或失败的响应）返回后发起一个 `LOGIN_SUCCESS` action（或一个 `LOGIN_ERROR` action），而这将导致状态不一致。
 
 为了取消 fork 任务，我们可以使用一个指定的 Effect [`cancel`](http://superRaytin.github.io/redux-saga-in-chinese/docs/api/index.html#canceltask)。
@@ -203,7 +203,7 @@ function* loginFlow() {
 }
 ```
 
-`yield fork` 的返回结果是一个 [Task 对象](http://superRaytin.github.io/redux-saga-in-chinese/docs/api/index.html#task)。
+`yield fork` 的返回结果是一个 [Task Object](http://superRaytin.github.io/redux-saga-in-chinese/docs/api/index.html#task)。
 我们将它们返回的对象赋给一个本地常量 `task`。如果我们收到一个 `LOGOUT` action，我们将那个 task 传入给 `cancel` Effect。
 如果任务仍在运行，它会被中止。如果任务已完成，那什么也不会发生，取消操作将会是一个空操作（no-op）。最后，如果该任务完成了但是有错误，
 那我们什么也没做，因为我们知道，任务已经完成了。
@@ -214,25 +214,25 @@ OK，我们 *几乎* 要完成了（是的，它的并发性并不容易，你�
 如果此时我们在 Api 调用期间收到一个 `LOGOUT` action，并通过 *杀死它*（即任务被立即停止）简单粗暴地中止任务。
 那我们可能又以不一致的状态结束了。因为 `isLoginPending` 仍然是 true，而 reducer 还在等待一个结果 action（`LOGIN_SUCCESS` 或 `LOGIN_ERROR`）。
 
-幸运的是，`cancel` Effect 不会粗暴地结束我们的 `authorize` 任务，它会在里面抛出一个特殊的错误，给 `authorize` 一个机会执行它自己的清理逻辑。
-而被取消的任务应该捕捉这个错误，假设它需要在结束之前做一些事情的话。
-
-我们的 `authorize` 已经有一个 try/catch 区块，但它定义了一个通用的处理程序，这个程序会在每次发生错误时发起 `LOGIN_ERROR` action。
-但登录取消并不是错误。所以 `authorize` 任务必须仅在授权失败时发起 `LOGIN_ERROR` action。
+幸运的是，`cancel` Effect 不会粗暴地结束我们的 `authorize` 任务，相反它会给予一个机会执行清理的逻辑。
+在 `finally` 区块可以处理任何的取消逻辑（以及其他类型的完成逻辑）。由于 finally 区块执行在任何类型的完成上（正常的 return, 错误, 或强制取消），如果你想要为取消作特殊处理，有一个 `cancelled` Effect：
 
 ```javascript
-import { isCancelError } from 'redux-saga'
-import { take, call, put } from 'redux-saga/effects'
+import { take, call, put, cancelled } from 'redux-saga/effects'
 import Api from '...'
 
 function* authorize(user, password) {
   try {
     const token = yield call(Api.authorize, user, password)
     yield put({type: 'LOGIN_SUCCESS', token})
+    yield call(Api.storeItem, {token})
     return token
   } catch(error) {
-    if(!isCancelError(error))
-      yield put({type: 'LOGIN_ERROR', error})
+    yield put({type: 'LOGIN_ERROR', error})
+  } finally {
+    if (yield cancelled()) {
+      // ... put special cancellation handling code here
+    }
   }
 }
 ```
@@ -243,5 +243,3 @@ function* authorize(user, password) {
 - 发起一个指定的 action `RESET_LOGIN_PENDING`。
 
 - 或者更简单，让 reducer 收到 `LOGOUT` action 时清除 `isLoginPending`。
-
-## **更多内容，敬请期待**
