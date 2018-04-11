@@ -236,7 +236,7 @@ function* takeLatest(pattern, saga, ...args) {
 -------------------------
 
 >#### 注意
-以下每个函数都会返回一个 plain Javascript object (纯文本 Javascript 对象) 并且不会执行任何其它的操作。
+以下每个函数都会返回一个 plain Javascript object (纯 js 对象) 并且不会执行任何其它的操作。
 执行是由 middleware 在上述迭代过程中进行的。
 middleware 检查每个 Effect 的信息，并进行相应的操作。
 
