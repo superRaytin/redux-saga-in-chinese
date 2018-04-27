@@ -14,7 +14,7 @@ const users = yield call(fetch, '/users'),
 import { call } from 'redux-saga/effects'
 
 // 正确写法, effects 将会同步执行
-const [users, repos] = yield [
+const [users, repos] = yield all[
   call(fetch, '/users'),
   call(fetch, '/repos')
 ]
