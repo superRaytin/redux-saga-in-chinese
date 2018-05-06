@@ -1,9 +1,9 @@
 # 取消任务
 
-我们已经在 [无阻塞调用](http://superRaytin.github.io/redux-saga-in-chinese/docs/advanced/NonBlockingCalls.html) 一节中看到了取消任务的示例。
+我们已经在 [无阻塞调用](http://redux-saga-in-chinese.js.org/docs/advanced/NonBlockingCalls.html) 一节中看到了取消任务的示例。
 在这节，我们将回顾一下，在一些更加详细的情况下取消的语义。
 
-一旦任务被 fork，可以使用 `yield cancel(task)` 来中止任务执行。取消正在运行的任务，将抛出 `SagaCancellationException` 错误。
+一旦任务被 fork，可以使用 `yield cancel(task)` 来中止任务执行。取消正在运行的任务。
 
 来看看它是如何工作的，让我们先考虑一个简单的例子：一个可通过某些 UI 命令启动或停止的后台同步任务。
 在接收到 `START_BACKGROUND_SYNC` action 后，我们 fork 一个后台任务，周期性地从远程服务器同步一些数据。
@@ -12,43 +12,38 @@
 然后我们取消后台任务，等待下一个 `START_BACKGROUND_SYNC` action。
 
 ```javascript
-import { SagaCancellationException } from 'redux-saga'
-import {  take, put, call, fork, cancel } from 'redux-saga/effects'
-import actions from 'somewhere'
-import { someApi, delay } from 'somewhere'
+import { take, put, call, fork, cancel, cancelled, delay } from 'redux-saga/effects'
+import { someApi, actions } from 'somewhere'
 
 function* bgSync() {
   try {
-    while(true) {
+    while (true) {
       yield put(actions.requestStart())
       const result = yield call(someApi)
       yield put(actions.requestSuccess(result))
-      yield call(delay, 5000)
+      yield delay(5000)
     }
-  } catch(error) {
-    // 或直接使用 `isCancelError(error)`
-    if(error instanceof SagaCancellationException)
+  } finally {
+    if (yield cancelled())
       yield put(actions.requestFailure('Sync cancelled!'))
   }
 }
 
 function* main() {
-  while( yield take(START_BACKGROUND_SYNC) ) {
+  while ( yield take(START_BACKGROUND_SYNC) ) {
     // 启动后台任务
     const bgSyncTask = yield fork(bgSync)
 
     // 等待用户的停止操作
     yield take(STOP_BACKGROUND_SYNC)
     // 用户点击了停止，取消后台任务
-    // 将抛出一个 SagaCancellationException 错误至被 fork 的 bgSync 任务
+    // 这会导致被 fork 的 bgSync 任务跳进它的 finally 区块
     yield cancel(bgSyncTask)
   }
 }
 ```
 
-`yield cancel(bgSyncTask)` 将在当前执行的任务中抛出一个 `SagaCancellationException` 类型的异常。
-在上面的示例中，异常是由 `bgSync` 引发的。**注意，未被捕获的 `SagaCancellationException` 不会向上冒泡**。
-在上面的示例中，如果 `bgSync` 没有捕获取消错误，错误将不会被传播到 `main`（因为 `main` 已经往前进了）。
+在上面的示例中，取消 `bgSyncTask` 将会导致 Generator 跳进 finally 区块。可使用 `yield cancelled()` 来检查 Generator 是否已经被取消。
 
 取消正在执行的任务，也将同时取消被阻塞在当前 Effect 中的任务。
 
@@ -70,30 +65,65 @@ function* subtask() {
 
 function* subtask2() {
   ...
-  yield call(someApi) // currently blocked on this all
+  yield call(someApi) // currently blocked on this call
   ...
 }
 ```
 
-`yield cancel(task)` 将触发 `subtask` 任务的取消，反过来它将触发 `subtask2` 的取消。
-`subtask2` 中将抛出一个 `SagaCancellationException` 错误，然后另一个 `SagaCancellationException` 错误将会在 `subtask` 中抛出。
- 如果 `subtask` 没有处理取消异常，一条警告信息将在控制台中打印出来，以警告开发者（如果 `process.env.NODE_ENV` 变量存在，并且它被设置为 `development`，就仅仅会打印日志信息而不是警告信息）。
+`yield cancel(task)` 触发了 `subtask` 任务的取消，反过来它将触发 `subtask2` 的取消。
 
-取消异常的主要目的是让已取消的任务执行任何自定义的清理逻辑，因此，我们不会让应用程序状态不一致。
-在上面后台同步的示例中，通过捕获取消异常，`bgSync` 能够发起一个 `requestFailure` action 至 store。
-否则，store 可能会变得状态不一致（例如，等待一个被挂起的请求的结果）。
+现在我们看到取消不断的往下传播（相反的，被回传的值和没有捕捉的错误不断往上）。
+你可以把它看作是 caller（调用异步的操作）和 callee（被调用的操作）之间的对照。callee 是负责执行操作。如果它完成了（不管是成功或失败）结果将会往上到它的 caller，最终到 caller 的调用方。就是这样，callee 是负责完成流程。
+
+现在如果 callee 一直处于等待，而且 caller 决定取消操作，它将触发一种信号往下传播到 callee（以及通过 callee 本身被调用的任何深层操作）。所有深层等待的操作都将被取消。
+
+取消传播还将引发：如果加入的 task 被取消的话，task 的 joiner（那些被阻塞的 yield join(task)）也将会被取消。同样的，任何那些 joiner 潜在的 caller 都将会被取消（因为他们阻塞的操作已经从外面被取消）。
+
+## 用 fork effect 测试 generators
+
+当 `fork` 被调用时，它会在后台启动 task 并返回 task 对象 —— 就像我们之前所学习的。测试的时候，我们需要 `createMockTask` 这个 utility function。
+在 fork test 之后，这个 function 返回的 Object 将会被传送到下一个 next 调用。例如 Mock task 可以被传送到 `cancel`。这是一个页面 `main` generator 的测试用例。
+
+```javascript
+import { createMockTask } from 'redux-saga/utils';
+
+describe('main', () => {
+  const generator = main();
+
+  it('waits for start action', () => {
+    const expectedYield = take(START_BACKGROUND_SYNC);
+    expect(generator.next().value).to.deep.equal(expectedYield);
+  });
+
+  it('forks the service', () => {
+    const expectedYield = fork(bgSync);
+    const mockedAction = { type: 'START_BACKGROUND_SYNC' };
+    expect(generator.next(mockedAction).value).to.deep.equal(expectedYield);
+  });
+
+  it('waits for stop action and then cancels the service', () => {
+    const mockTask = createMockTask();
+
+    const expectedTakeYield = take(STOP_BACKGROUND_SYNC);
+    expect(generator.next(mockTask).value).to.deep.equal(expectedTakeYield);
+
+    const expectedCancelYield = cancel(mockTask);
+    expect(generator.next().value).to.deep.equal(expectedCancelYield);
+  });
+});
+```
+
+你也可使用 mock task 的 `setRunning`、`setResult` 和 `setError` function 来设定 mock task 的状态。例如 `mockTask.setRunning(false)`。
 
 ### 注意
 
 记住重要的一点，`yield cancel(task)` 不会等待被取消的任务完成（即执行其 catch 区块）。`cancel` Effect 的行为和 `fork` 有点类似。
 一旦取消发起，它就会尽快返回。一旦取消，任务通常应尽快完成它的清理逻辑然后返回。
-在某些情况下，清理逻辑可能涉及一些异步操作，但被取消的任务变成了独立的进程，并且没有办法让它重新加入主控制流程（除了通过 Redux store 为其他任务发起 action。
-然而，这将导致控制流变的复杂并且难以理解。更好的做法是尽快结束一个已取消的任务）。
 
 ## 自动取消
 
 除了手动取消任务，还有一些情况的取消是自动触发的。
 
-1. 在 `race` Effect 中。所有参与竞赛的任务，除了优胜者（译注：最先完成的任务），其他任务都会被取消。
+1. 在 `race` Effect 中。所有参与 race 的任务，除了优胜者（译注：最先完成的任务），其他任务都会被取消。
 
 2. 并行的 Effect (`yield [...]`)。一旦其中任何一个任务被拒绝，并行的 Effect 将会被拒绝（受 `Promise.all` 启发）。在这种情况中，所有其他的 Effect 将被自动取消。
