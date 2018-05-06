@@ -18,7 +18,7 @@
   * [取消任务](/docs/advanced/TaskCancellation.md)
   * [redux-saga 的 fork 模型](/docs/advanced/ForkModel.md)
   * [并发](/docs/advanced/Concurrency.md)
-  * [Sagas 测试示例](/docs/advanced/Testing.md)
+  * [测试 Sagas](/docs/advanced/Testing.md)
   * [连接 Sagas 至外部的输入/输出](/docs/advanced/UsingRunSaga.md)
   * [使用 Channels](/docs/advanced/Channels.md)
 * [技巧](/docs/recipes/README.md)
