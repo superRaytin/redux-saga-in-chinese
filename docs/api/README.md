@@ -81,19 +81,19 @@
 
       在下面的示例中，我们创建了一个 emitter，它将拆开 actions 列表，并发送从中提取的每个 action。
 
-     ```javascript
-     createSagaMiddleware({
-       emitter: emit => action => {
-        if (Array.isArray(action)) {
-          action.forEach(emit);
-          return
+      ```javascript
+      createSagaMiddleware({
+        emitter: emit => action => {
+         if (Array.isArray(action)) {
+           action.forEach(emit);
+           return
+         }
+         emit(action);
         }
-        emit(action);
-       }
-     });
-     ```
+      });
+      ```
 
-  - `logger` : Function -  为 middleware 定义一个自定义的日志方法。默认情况下，middleware 会把所有的错误和警告记录到控制台中。此选项告诉 middleware 把错误/警告发送到我们所提供的替代日志方法中。调用该日志方法的参数为 `(level, ...args)`。第一个参数表示日志的级别（``info``、``warning`` 或 ``error``）。其余的对应后面的参数（你可以使用  `args.join(' ')` 将所有的参数拼接成单个字符串）。
+  - `logger` : Function - 为 middleware 定义一个自定义的日志方法。默认情况下，middleware 会把所有的错误和警告记录到控制台中。此选项告诉 middleware 把错误/警告发送到我们所提供的替代日志方法中。调用该日志方法的参数为 `(level, ...args)`。第一个参数表示日志的级别（``info``、``warning`` 或 ``error``）。其余的对应后面的参数（你可以使用  `args.join(' ')` 将所有的参数拼接成单个字符串）。
 
   - `onError` : Function - 当提供该方法时，middleware 将带着 Sagas 中未被捕获的错误调用它。这个参数在向错误跟踪服务发送未被捕获的异常时非常有用。
 
