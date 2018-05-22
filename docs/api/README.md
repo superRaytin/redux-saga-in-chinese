@@ -306,7 +306,7 @@ const takeLeading = (patternOrChannel, saga, ...args) => fork(function*() {
 ### `throttle(ms, pattern, saga, ...args)`
 
 在发起到 Store 并且匹配 `pattern` 的一个 action 上派生一个 `saga`。
-它在派生一次任务之后，仍然将新传入的 action 接收到底层的 `buffer` 中，至多保留（最近的）一个。但与此同时，它在 `ms` 毫秒内将暂停派生新的任务 —— 这也就是它被命名为节流阀（`throttle`）的原因。其用途，是在处理任务时，无视给定的时间内新传入的 action。
+它在派生一次任务之后，仍然将新传入的 action 接收到底层的 `buffer` 中，至多保留（最近的）一个。但与此同时，它在 `ms` 毫秒内将暂停派生新的任务 —— 这也就是它被命名为节流阀（`throttle`）的原因。其用途，是在处理任务时，无视给定的时长内新传入的 action。
 
 - `ms: Number` - 在 action 开始处理后，无视新 action 的时长；以毫秒为单位。
 
@@ -1091,7 +1091,7 @@ const countdown = (secs) => {
 
 ### `delay(ms, [val])`
 
-返回一个 effect 描述符，用于阻塞执行 `ms` 毫秒，并返回 `val` 值。
+返回一个 effect 描述信息，用于阻塞执行 `ms` 毫秒，并返回 `val` 值。
 
 ### `cloneableGenerator(generatorFunc)`
 
