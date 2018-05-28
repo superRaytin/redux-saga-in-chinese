@@ -1,586 +1,622 @@
+
 <!DOCTYPE HTML>
-<html lang="en" >
-    
+<html lang="" >
     <head>
-        
+        <title>连接 Sagas 至外部的输入/输出 · Redux-Saga</title>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>连接 Sagas 至外部输入和输出 | Redux-saga 中文文档</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 2.5.2">
+        <meta name="generator" content="GitBook 3.2.0">
         
         
-        <meta name="HandheldFriendly" content="true"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black">
-        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
-        <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
         
+    
     <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
     
         
-        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-edit-link/plugin.css">
+    
         
     
         
-        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-prism/prism.css">
+    
         
     
         
-        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-search/search.css">
-        
     
         
-        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
-        
-    
     
 
         
     
     
-    <link rel="next" href="../../docs/recipes/index.html" />
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="Channels.html" />
     
     
-    <link rel="prev" href="../../docs/advanced/Testing.html" />
+    <link rel="prev" href="Testing.html" />
     
 
-        
     </head>
     <body>
         
+<div class="book">
+    <div class="book-summary">
         
-    <div class="book" data-level="3.10" data-chapter-title="连接 Sagas 至外部输入和输出" data-filepath="docs/advanced/UsingRunSaga.md" data-basepath="../.." data-revision="Sun Jun 05 2016 08:49:27 GMT+0800 (CST)">
-    
-
-<div class="book-summary">
-    <nav role="navigation">
-        <ul class="summary">
             
-            
-            
-            
-
-            
-
-            
-    
-        <li class="chapter " data-level="0" data-path="index.html">
-            
-                
-                    <a href="../../index.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                        自述
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="1" data-path="docs/introduction/index.html">
-            
-                
-                    <a href="../../docs/introduction/index.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>1.</b>
-                        
-                        介绍
-                    </a>
-            
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="1.1" data-path="docs/introduction/BeginnerTutorial.html">
-            
-                
-                    <a href="../../docs/introduction/BeginnerTutorial.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>1.1.</b>
-                        
-                        初级教程
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="1.2" data-path="docs/introduction/SagaBackground.html">
-            
-                
-                    <a href="../../docs/introduction/SagaBackground.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>1.2.</b>
-                        
-                        Saga 的背景
-                    </a>
-            
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-        <li class="chapter " data-level="2" data-path="docs/basics/index.html">
-            
-                
-                    <a href="../../docs/basics/index.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>2.</b>
-                        
-                        基本概念
-                    </a>
-            
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="2.1" data-path="docs/basics/UsingSagaHelpers.html">
-            
-                
-                    <a href="../../docs/basics/UsingSagaHelpers.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>2.1.</b>
-                        
-                        使用 Saga 辅助函数
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="2.2" data-path="docs/basics/DeclarativeEffects.html">
-            
-                
-                    <a href="../../docs/basics/DeclarativeEffects.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>2.2.</b>
-                        
-                        声明式 Effects
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="2.3" data-path="docs/basics/DispatchingActions.html">
-            
-                
-                    <a href="../../docs/basics/DispatchingActions.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>2.3.</b>
-                        
-                        发起 action
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="2.4" data-path="docs/basics/ErrorHandling.html">
-            
-                
-                    <a href="../../docs/basics/ErrorHandling.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>2.4.</b>
-                        
-                        错误处理
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="2.5" data-path="docs/basics/Effect.html">
-            
-                
-                    <a href="../../docs/basics/Effect.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>2.5.</b>
-                        
-                        一个常见的抽象概念: Effect
-                    </a>
-            
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-        <li class="chapter " data-level="3" data-path="docs/advanced/index.html">
-            
-                
-                    <a href="../../docs/advanced/index.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.</b>
-                        
-                        高级
-                    </a>
-            
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="3.1" data-path="docs/advanced/FutureActions.html">
-            
-                
-                    <a href="../../docs/advanced/FutureActions.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.1.</b>
-                        
-                        监听未来的 action
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.2" data-path="docs/advanced/NonBlockingCalls.html">
-            
-                
-                    <a href="../../docs/advanced/NonBlockingCalls.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.2.</b>
-                        
-                        无阻塞调用
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.3" data-path="docs/advanced/RunningTasksInParallel.html">
-            
-                
-                    <a href="../../docs/advanced/RunningTasksInParallel.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.3.</b>
-                        
-                        同时执行多个任务
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4" data-path="docs/advanced/RacingEffects.html">
-            
-                
-                    <a href="../../docs/advanced/RacingEffects.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.4.</b>
-                        
-                        在多个 Effects 之间启动 race
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5" data-path="docs/advanced/SequencingSagas.html">
-            
-                
-                    <a href="../../docs/advanced/SequencingSagas.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.5.</b>
-                        
-                        通过 yield* 对 Sagas 进行排序
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6" data-path="docs/advanced/ComposingSagas.html">
-            
-                
-                    <a href="../../docs/advanced/ComposingSagas.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.6.</b>
-                        
-                        组合 Sagas
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.7" data-path="docs/advanced/TaskCancellation.html">
-            
-                
-                    <a href="../../docs/advanced/TaskCancellation.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.7.</b>
-                        
-                        任务的取消
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.8" data-path="docs/advanced/Concurrency.html">
-            
-                
-                    <a href="../../docs/advanced/Concurrency.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.8.</b>
-                        
-                        常见的并发模式
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.9" data-path="docs/advanced/Testing.html">
-            
-                
-                    <a href="../../docs/advanced/Testing.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.9.</b>
-                        
-                        Sagas 测试示例
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter active" data-level="3.10" data-path="docs/advanced/UsingRunSaga.html">
-            
-                
-                    <a href="../../docs/advanced/UsingRunSaga.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.10.</b>
-                        
-                        连接 Sagas 至外部输入和输出
-                    </a>
-            
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-        <li class="chapter " data-level="4" data-path="docs/recipes/index.html">
-            
-                
-                    <a href="../../docs/recipes/index.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>4.</b>
-                        
-                        技巧
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="5" data-path="docs/ExternalResources.html">
-            
-                
-                    <a href="../../docs/ExternalResources.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>5.</b>
-                        
-                        外部资源
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="6" data-path="docs/Troubleshooting.html">
-            
-                
-                    <a href="../../docs/Troubleshooting.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>6.</b>
-                        
-                        问题解答
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="7" data-path="docs/Glossary.html">
-            
-                
-                    <a href="../../docs/Glossary.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>7.</b>
-                        
-                        名词解释
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="8" data-path="docs/api/index.html">
-            
-                
-                    <a href="../../docs/api/index.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>8.</b>
-                        
-                        API 参考
-                    </a>
-            
-            
-        </li>
-    
-
-
-            
-            <li class="divider"></li>
-            <li>
-                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-                    Published with GitBook
-                </a>
-            </li>
-            
-        </ul>
-    </nav>
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
 </div>
 
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    自述
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../introduction/">
+            
+                <a href="../introduction/">
+            
+                    
+                    介绍
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../introduction/BeginnerTutorial.html">
+            
+                <a href="../introduction/BeginnerTutorial.html">
+            
+                    
+                    初级教程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../introduction/SagaBackground.html">
+            
+                <a href="../introduction/SagaBackground.html">
+            
+                    
+                    Saga 概念的背景
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../basics/">
+            
+                <a href="../basics/">
+            
+                    
+                    基础概念
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../basics/UsingSagaHelpers.html">
+            
+                <a href="../basics/UsingSagaHelpers.html">
+            
+                    
+                    使用 Saga Helpers
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../basics/DeclarativeEffects.html">
+            
+                <a href="../basics/DeclarativeEffects.html">
+            
+                    
+                    声明式 Effects
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../basics/DispatchingActions.html">
+            
+                <a href="../basics/DispatchingActions.html">
+            
+                    
+                    dispatch action
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../basics/ErrorHandling.html">
+            
+                <a href="../basics/ErrorHandling.html">
+            
+                    
+                    错误处理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../basics/Effect.html">
+            
+                <a href="../basics/Effect.html">
+            
+                    
+                    一个常见的抽象概念: Effect
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    高级
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="FutureActions.html">
+            
+                <a href="FutureActions.html">
+            
+                    
+                    监听未来的 action
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="NonBlockingCalls.html">
+            
+                <a href="NonBlockingCalls.html">
+            
+                    
+                    无阻塞调用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="RunningTasksInParallel.html">
+            
+                <a href="RunningTasksInParallel.html">
+            
+                    
+                    同时执行多个任务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="RacingEffects.html">
+            
+                <a href="RacingEffects.html">
+            
+                    
+                    在多个 Effects 之间启动 race
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="SequencingSagas.html">
+            
+                <a href="SequencingSagas.html">
+            
+                    
+                    使用 yield* 对 Sagas 进行排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="ComposingSagas.html">
+            
+                <a href="ComposingSagas.html">
+            
+                    
+                    组合 Sagas
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="TaskCancellation.html">
+            
+                <a href="TaskCancellation.html">
+            
+                    
+                    取消任务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="ForkModel.html">
+            
+                <a href="ForkModel.html">
+            
+                    
+                    redux-saga 的 fork model
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" data-path="Concurrency.html">
+            
+                <a href="Concurrency.html">
+            
+                    
+                    并发
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10" data-path="Testing.html">
+            
+                <a href="Testing.html">
+            
+                    
+                    测试 Sagas
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4.11" data-path="UsingRunSaga.html">
+            
+                <a href="UsingRunSaga.html">
+            
+                    
+                    连接 Sagas 至外部的输入/输出
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.12" data-path="Channels.html">
+            
+                <a href="Channels.html">
+            
+                    
+                    使用 Channels
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../recipes/">
+            
+                <a href="../recipes/">
+            
+                    
+                    技巧
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../ExternalResources.html">
+            
+                <a href="../ExternalResources.html">
+            
+                    
+                    外部资源
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../Troubleshooting.html">
+            
+                <a href="../Troubleshooting.html">
+            
+                    
+                    问题解答
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../Glossary.html">
+            
+                <a href="../Glossary.html">
+            
+                    
+                    名词解释
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../api/">
+            
+                <a href="../api/">
+            
+                    
+                    API 参考
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
     <div class="book-body">
-        <div class="body-inner">
-            <div class="book-header" role="navigation">
-    <!-- Actions Left -->
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
     
 
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../../" >Redux-saga 中文文档</a>
+        <a href="../.." >连接 Sagas 至外部的输入/输出</a>
     </h1>
 </div>
 
-            <div class="page-wrapper" tabindex="-1" role="main">
-                <div class="page-inner">
-                
-                
-                    <section class="normal" id="section-">
-                    
-                        <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/advanced/UsingRunSaga.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h1 id="&#x8FDE;&#x63A5;-sagas-&#x81F3;&#x5916;&#x90E8;&#x8F93;&#x5165;&#x548C;&#x8F93;&#x51FA;">&#x8FDE;&#x63A5; Sagas &#x81F3;&#x5916;&#x90E8;&#x8F93;&#x5165;&#x548C;&#x8F93;&#x51FA;</h1>
-<p>&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x770B;&#x5230;&#x4E86;&#xFF0C;<code>take</code> Effect &#x662F;&#x901A;&#x8FC7;&#x7B49;&#x5F85; action &#x88AB;&#x53D1;&#x8D77;&#x5230; Store &#x6765;&#x89E3;&#x51B3;&#xFF08;resolved&#xFF09;&#x7684;&#x3002;
-&#x4E5F;&#x770B;&#x5230;&#x4E86; <code>put</code> Effect &#x662F;&#x901A;&#x8FC7;&#x53D1;&#x8D77;&#x4E00;&#x4E2A; action &#x6765;&#x89E3;&#x51B3;&#x7684;&#xFF0C;action &#x88AB;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#x4F20;&#x7ED9; <code>put</code> Effect&#x3002;</p>
-<p>&#x5F53; Saga &#x542F;&#x52A8;&#x4E86;&#xFF08;&#x4E0D;&#x7BA1;&#x662F;&#x521D;&#x59CB;&#x542F;&#x52A8;&#x6216;&#x662F;&#x7A0D;&#x540E;&#x52A8;&#x6001;&#x542F;&#x52A8;&#xFF09;&#xFF0C;middleware &#x4F1A;&#x81EA;&#x52A8;&#x5C06;&#x5B83;&#x7684; <code>take</code> / <code>put</code> &#x8FDE;&#x63A5;&#x81F3; store&#x3002;
-&#x8FD9; 2 &#x4E2A; Effect &#x53EF;&#x4EE5;&#x88AB;&#x770B;&#x4F5C;&#x662F;&#x4E00;&#x79CD; Saga &#x7684;&#x8F93;&#x5165;/&#x8F93;&#x51FA;&#xFF08;Input/Output&#xFF09;&#x3002;</p>
-<p><code>redux<span class="token operator">-</span>saga</code> &#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x79CD;&#x65B9;&#x5F0F;&#x5728; redux middleware &#x73AF;&#x5883;&#x5916;&#x90E8;&#x8FD0;&#x884C; Saga&#xFF0C;&#x5E76;&#x53EF;&#x4EE5;&#x8FDE;&#x63A5;&#x81F3;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x8F93;&#x5165;&#x8F93;&#x51FA;&#xFF08;Input/Output&#xFF09;&#x3002;</p>
-<pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> runSaga <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga&apos;</span>
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x8FDE;&#x63A5;-sagas-&#x81F3;&#x5916;&#x90E8;&#x8F93;&#x5165;&#x548C;&#x8F93;&#x51FA;">&#x8FDE;&#x63A5; Sagas &#x81F3;&#x5916;&#x90E8;&#x8F93;&#x5165;&#x548C;&#x8F93;&#x51FA;</h1><p>&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x770B;&#x5230;&#x4E86;&#xFF0C;<code>take</code> Effect &#x662F;&#x901A;&#x8FC7;&#x7B49;&#x5F85; action &#x88AB;&#x53D1;&#x8D77;&#x5230; Store &#x6765;&#x89E3;&#x51B3;&#xFF08;resolved&#xFF09;&#x7684;&#x3002;
+&#x4E5F;&#x770B;&#x5230;&#x4E86; <code>put</code> Effect &#x662F;&#x901A;&#x8FC7;&#x53D1;&#x8D77;&#x4E00;&#x4E2A; action &#x6765;&#x89E3;&#x51B3;&#x7684;&#xFF0C;action &#x88AB;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#x4F20;&#x7ED9; <code>put</code> Effect&#x3002;</p><p>&#x5F53; Saga &#x542F;&#x52A8;&#x4E86;&#xFF08;&#x4E0D;&#x7BA1;&#x662F;&#x521D;&#x59CB;&#x542F;&#x52A8;&#x6216;&#x662F;&#x7A0D;&#x540E;&#x52A8;&#x6001;&#x542F;&#x52A8;&#xFF09;&#xFF0C;middleware &#x4F1A;&#x81EA;&#x52A8;&#x5C06;&#x5B83;&#x7684; <code>take</code> / <code>put</code> &#x8FDE;&#x63A5;&#x81F3; store&#x3002;
+&#x8FD9; 2 &#x4E2A; Effect &#x53EF;&#x4EE5;&#x88AB;&#x770B;&#x4F5C;&#x662F;&#x4E00;&#x79CD; Saga &#x7684;&#x8F93;&#x5165;/&#x8F93;&#x51FA;&#xFF08;Input/Output&#xFF09;&#x3002;</p><p><code>redux-saga</code> &#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x79CD;&#x65B9;&#x5F0F;&#x5728; redux middleware &#x73AF;&#x5883;&#x5916;&#x90E8;&#x8FD0;&#x884C; Saga&#xFF0C;&#x5E76;&#x53EF;&#x4EE5;&#x8FDE;&#x63A5;&#x81F3;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x8F93;&#x5165;&#x8F93;&#x51FA;&#xFF08;Input/Output&#xFF09;&#x3002;</p><pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> runSaga <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-saga&apos;</span>
 
 <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">saga</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">}</span>
 
 <span class="token keyword">const</span> myIO <span class="token operator">=</span> <span class="token punctuation">{</span>
-  subscribe<span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// &#x7528;&#x4E8E;&#x89E3;&#x51B3; take Effects</span>
-  dispatch<span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">,</span>  <span class="token comment" spellcheck="true">// &#x7528;&#x4E8E;&#x89E3;&#x51B3; put Effects</span>
-  getState<span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">,</span>  <span class="token comment" spellcheck="true">// &#x7528;&#x4E8E;&#x89E3;&#x51B3; select Effects</span>
+  subscribe<span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// this will be used to resolve take Effects</span>
+  dispatch<span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">,</span>  <span class="token comment" spellcheck="true">// this will be used to resolve put Effects</span>
+  getState<span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">,</span>  <span class="token comment" spellcheck="true">// this will be used to resolve select Effects</span>
 <span class="token punctuation">}</span>
 
 <span class="token function">runSaga</span><span class="token punctuation">(</span>
-  <span class="token function">saga</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-  myIO
-<span class="token punctuation">)</span>
-</code></pre>
+  myIO<span class="token punctuation">,</span>
+  saga<span class="token punctuation">,</span>
+<span class="token punctuation">)</span></code></pre>
 <p>&#x6B32;&#x4E86;&#x89E3;&#x66F4;&#x591A;&#x4FE1;&#x606F;&#x8BF7;&#x53C2;&#x89C1; <a href="http://leonshi.com/redux-saga-in-chinese/docs/api/index.html" target="_blank">API &#x6587;&#x6863;</a>&#x3002;</p>
-
-                    
-                    </section>
-                
-                
-                </div>
-            </div>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
         </div>
-
-        
-        <a href="../../docs/advanced/Testing.html" class="navigation navigation-prev " aria-label="Previous page: Sagas 测试示例"><i class="fa fa-angle-left"></i></a>
-        
-        
-        <a href="../../docs/recipes/index.html" class="navigation navigation-next " aria-label="Next page: 技巧"><i class="fa fa-angle-right"></i></a>
-        
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
     </div>
 </div>
 
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="Testing.html" class="navigation navigation-prev " aria-label="Previous page: 测试 Sagas">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="Channels.html" class="navigation navigation-next " aria-label="Next page: 使用 Channels">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
         
-<script src="../../gitbook/app.js"></script>
+    </div>
 
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"连接 Sagas 至外部的输入/输出","level":"1.4.11","depth":2,"next":{"title":"使用 Channels","level":"1.4.12","depth":2,"path":"docs/advanced/Channels.md","ref":"docs/advanced/Channels.md","articles":[]},"previous":{"title":"测试 Sagas","level":"1.4.10","depth":2,"path":"docs/advanced/Testing.md","ref":"docs/advanced/Testing.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism@1.0.0","-highlight","github"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"开始纠错","base":"https://github.com/superRaytin/redux-saga-in-chinese/tree/master"},"github":{"url":"https://github.com/superRaytin/redux-saga-in-chinese"},"sharing":{"facebook":true,"twitter":true,"google":true,"weibo":true,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"prism":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Redux-Saga","gitbook":"3.2.0"},"file":{"path":"docs/advanced/UsingRunSaga.md","mtime":"2018-05-28T10:04:29.000Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-05-28T10:13:42.471Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
     
-    <script src="../../gitbook/plugins/gitbook-plugin-edit-link/plugin.js"></script>
+        
+        <script src="../../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
     
 
-    
-    <script src="../../gitbook/plugins/gitbook-plugin-ga/plugin.js"></script>
-    
-
-    
-    <script src="../../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
-    
-
-    
-    <script src="../../gitbook/plugins/gitbook-plugin-search/search.js"></script>
-    
-
-    
-    <script src="../../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
-    
-
-    
-    <script src="../../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
-    
-
-<script>
-require(["gitbook"], function(gitbook) {
-    var config = {"edit-link":{"base":"https://github.com/superRaytin/redux-saga-in-chinese/tree/master","label":"开始纠错"},"ga":{"token":"UA-58588801-2","configuration":"auto"},"github":{"url":"https://github.com/superRaytin/redux-saga-in-chinese/"},"sharing":{"facebook":true,"twitter":true,"google":true,"weibo":true,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"prism":{},"search":{},"fontsettings":{"theme":"white","family":"sans","size":2}};
-    gitbook.start(config);
-});
-</script>
-
-        <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-58588801-2', 'auto');ga('send', 'pageview');</script>
     </body>
-    
 </html>
+

@@ -1,580 +1,563 @@
+
 <!DOCTYPE HTML>
-<html lang="en" >
-    
+<html lang="" >
     <head>
-        
+        <title>声明式 Effects · Redux-Saga</title>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>声明式 Effects | Redux-saga 中文文档</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 2.5.2">
+        <meta name="generator" content="GitBook 3.2.0">
         
         
-        <meta name="HandheldFriendly" content="true"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black">
-        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
-        <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
         
+    
     <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
     
         
-        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-edit-link/plugin.css">
+    
         
     
         
-        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-prism/prism.css">
+    
         
     
         
-        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-search/search.css">
-        
     
         
-        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
-        
-    
     
 
         
     
     
-    <link rel="next" href="../../docs/basics/DispatchingActions.html" />
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="DispatchingActions.html" />
     
     
-    <link rel="prev" href="../../docs/basics/UsingSagaHelpers.html" />
+    <link rel="prev" href="UsingSagaHelpers.html" />
     
 
-        
     </head>
     <body>
         
+<div class="book">
+    <div class="book-summary">
         
-    <div class="book" data-level="2.2" data-chapter-title="声明式 Effects" data-filepath="docs/basics/DeclarativeEffects.md" data-basepath="../.." data-revision="Sun Jun 05 2016 08:49:27 GMT+0800 (CST)">
-    
-
-<div class="book-summary">
-    <nav role="navigation">
-        <ul class="summary">
             
-            
-            
-            
-
-            
-
-            
-    
-        <li class="chapter " data-level="0" data-path="index.html">
-            
-                
-                    <a href="../../index.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                        自述
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="1" data-path="docs/introduction/index.html">
-            
-                
-                    <a href="../../docs/introduction/index.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>1.</b>
-                        
-                        介绍
-                    </a>
-            
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="1.1" data-path="docs/introduction/BeginnerTutorial.html">
-            
-                
-                    <a href="../../docs/introduction/BeginnerTutorial.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>1.1.</b>
-                        
-                        初级教程
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="1.2" data-path="docs/introduction/SagaBackground.html">
-            
-                
-                    <a href="../../docs/introduction/SagaBackground.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>1.2.</b>
-                        
-                        Saga 的背景
-                    </a>
-            
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-        <li class="chapter " data-level="2" data-path="docs/basics/index.html">
-            
-                
-                    <a href="../../docs/basics/index.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>2.</b>
-                        
-                        基本概念
-                    </a>
-            
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="2.1" data-path="docs/basics/UsingSagaHelpers.html">
-            
-                
-                    <a href="../../docs/basics/UsingSagaHelpers.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>2.1.</b>
-                        
-                        使用 Saga 辅助函数
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter active" data-level="2.2" data-path="docs/basics/DeclarativeEffects.html">
-            
-                
-                    <a href="../../docs/basics/DeclarativeEffects.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>2.2.</b>
-                        
-                        声明式 Effects
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="2.3" data-path="docs/basics/DispatchingActions.html">
-            
-                
-                    <a href="../../docs/basics/DispatchingActions.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>2.3.</b>
-                        
-                        发起 action
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="2.4" data-path="docs/basics/ErrorHandling.html">
-            
-                
-                    <a href="../../docs/basics/ErrorHandling.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>2.4.</b>
-                        
-                        错误处理
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="2.5" data-path="docs/basics/Effect.html">
-            
-                
-                    <a href="../../docs/basics/Effect.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>2.5.</b>
-                        
-                        一个常见的抽象概念: Effect
-                    </a>
-            
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-        <li class="chapter " data-level="3" data-path="docs/advanced/index.html">
-            
-                
-                    <a href="../../docs/advanced/index.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.</b>
-                        
-                        高级
-                    </a>
-            
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="3.1" data-path="docs/advanced/FutureActions.html">
-            
-                
-                    <a href="../../docs/advanced/FutureActions.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.1.</b>
-                        
-                        监听未来的 action
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.2" data-path="docs/advanced/NonBlockingCalls.html">
-            
-                
-                    <a href="../../docs/advanced/NonBlockingCalls.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.2.</b>
-                        
-                        无阻塞调用
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.3" data-path="docs/advanced/RunningTasksInParallel.html">
-            
-                
-                    <a href="../../docs/advanced/RunningTasksInParallel.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.3.</b>
-                        
-                        同时执行多个任务
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4" data-path="docs/advanced/RacingEffects.html">
-            
-                
-                    <a href="../../docs/advanced/RacingEffects.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.4.</b>
-                        
-                        在多个 Effects 之间启动 race
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5" data-path="docs/advanced/SequencingSagas.html">
-            
-                
-                    <a href="../../docs/advanced/SequencingSagas.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.5.</b>
-                        
-                        通过 yield* 对 Sagas 进行排序
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6" data-path="docs/advanced/ComposingSagas.html">
-            
-                
-                    <a href="../../docs/advanced/ComposingSagas.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.6.</b>
-                        
-                        组合 Sagas
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.7" data-path="docs/advanced/TaskCancellation.html">
-            
-                
-                    <a href="../../docs/advanced/TaskCancellation.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.7.</b>
-                        
-                        任务的取消
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.8" data-path="docs/advanced/Concurrency.html">
-            
-                
-                    <a href="../../docs/advanced/Concurrency.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.8.</b>
-                        
-                        常见的并发模式
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.9" data-path="docs/advanced/Testing.html">
-            
-                
-                    <a href="../../docs/advanced/Testing.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.9.</b>
-                        
-                        Sagas 测试示例
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.10" data-path="docs/advanced/UsingRunSaga.html">
-            
-                
-                    <a href="../../docs/advanced/UsingRunSaga.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.10.</b>
-                        
-                        连接 Sagas 至外部输入和输出
-                    </a>
-            
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-        <li class="chapter " data-level="4" data-path="docs/recipes/index.html">
-            
-                
-                    <a href="../../docs/recipes/index.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>4.</b>
-                        
-                        技巧
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="5" data-path="docs/ExternalResources.html">
-            
-                
-                    <a href="../../docs/ExternalResources.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>5.</b>
-                        
-                        外部资源
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="6" data-path="docs/Troubleshooting.html">
-            
-                
-                    <a href="../../docs/Troubleshooting.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>6.</b>
-                        
-                        问题解答
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="7" data-path="docs/Glossary.html">
-            
-                
-                    <a href="../../docs/Glossary.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>7.</b>
-                        
-                        名词解释
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="8" data-path="docs/api/index.html">
-            
-                
-                    <a href="../../docs/api/index.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>8.</b>
-                        
-                        API 参考
-                    </a>
-            
-            
-        </li>
-    
-
-
-            
-            <li class="divider"></li>
-            <li>
-                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-                    Published with GitBook
-                </a>
-            </li>
-            
-        </ul>
-    </nav>
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
 </div>
 
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    自述
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../introduction/">
+            
+                <a href="../introduction/">
+            
+                    
+                    介绍
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../introduction/BeginnerTutorial.html">
+            
+                <a href="../introduction/BeginnerTutorial.html">
+            
+                    
+                    初级教程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../introduction/SagaBackground.html">
+            
+                <a href="../introduction/SagaBackground.html">
+            
+                    
+                    Saga 概念的背景
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    基础概念
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="UsingSagaHelpers.html">
+            
+                <a href="UsingSagaHelpers.html">
+            
+                    
+                    使用 Saga Helpers
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.2" data-path="DeclarativeEffects.html">
+            
+                <a href="DeclarativeEffects.html">
+            
+                    
+                    声明式 Effects
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="DispatchingActions.html">
+            
+                <a href="DispatchingActions.html">
+            
+                    
+                    dispatch action
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="ErrorHandling.html">
+            
+                <a href="ErrorHandling.html">
+            
+                    
+                    错误处理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="Effect.html">
+            
+                <a href="Effect.html">
+            
+                    
+                    一个常见的抽象概念: Effect
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../advanced/">
+            
+                <a href="../advanced/">
+            
+                    
+                    高级
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../advanced/FutureActions.html">
+            
+                <a href="../advanced/FutureActions.html">
+            
+                    
+                    监听未来的 action
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../advanced/NonBlockingCalls.html">
+            
+                <a href="../advanced/NonBlockingCalls.html">
+            
+                    
+                    无阻塞调用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../advanced/RunningTasksInParallel.html">
+            
+                <a href="../advanced/RunningTasksInParallel.html">
+            
+                    
+                    同时执行多个任务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../advanced/RacingEffects.html">
+            
+                <a href="../advanced/RacingEffects.html">
+            
+                    
+                    在多个 Effects 之间启动 race
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../advanced/SequencingSagas.html">
+            
+                <a href="../advanced/SequencingSagas.html">
+            
+                    
+                    使用 yield* 对 Sagas 进行排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../advanced/ComposingSagas.html">
+            
+                <a href="../advanced/ComposingSagas.html">
+            
+                    
+                    组合 Sagas
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../advanced/TaskCancellation.html">
+            
+                <a href="../advanced/TaskCancellation.html">
+            
+                    
+                    取消任务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="../advanced/ForkModel.html">
+            
+                <a href="../advanced/ForkModel.html">
+            
+                    
+                    redux-saga 的 fork model
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" data-path="../advanced/Concurrency.html">
+            
+                <a href="../advanced/Concurrency.html">
+            
+                    
+                    并发
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10" data-path="../advanced/Testing.html">
+            
+                <a href="../advanced/Testing.html">
+            
+                    
+                    测试 Sagas
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.11" data-path="../advanced/UsingRunSaga.html">
+            
+                <a href="../advanced/UsingRunSaga.html">
+            
+                    
+                    连接 Sagas 至外部的输入/输出
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.12" data-path="../advanced/Channels.html">
+            
+                <a href="../advanced/Channels.html">
+            
+                    
+                    使用 Channels
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../recipes/">
+            
+                <a href="../recipes/">
+            
+                    
+                    技巧
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../ExternalResources.html">
+            
+                <a href="../ExternalResources.html">
+            
+                    
+                    外部资源
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../Troubleshooting.html">
+            
+                <a href="../Troubleshooting.html">
+            
+                    
+                    问题解答
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../Glossary.html">
+            
+                <a href="../Glossary.html">
+            
+                    
+                    名词解释
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../api/">
+            
+                <a href="../api/">
+            
+                    
+                    API 参考
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
     <div class="book-body">
-        <div class="body-inner">
-            <div class="book-header" role="navigation">
-    <!-- Actions Left -->
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
     
 
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../../" >Redux-saga 中文文档</a>
+        <a href="../.." >声明式 Effects</a>
     </h1>
 </div>
 
-            <div class="page-wrapper" tabindex="-1" role="main">
-                <div class="page-inner">
-                
-                
-                    <section class="normal" id="section-">
-                    
-                        <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/basics/DeclarativeEffects.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h1 id="&#x58F0;&#x660E;&#x5F0F;-effects">&#x58F0;&#x660E;&#x5F0F; Effects</h1>
-<p>&#x5728; <code>redux<span class="token operator">-</span>saga</code> &#x7684;&#x4E16;&#x754C;&#x91CC;&#xFF0C;Sagas &#x90FD;&#x7528; Generator &#x51FD;&#x6570;&#x5B9E;&#x73B0;&#x3002;&#x6211;&#x4EEC;&#x4ECE; Generator &#x91CC; yield &#x7EAF; JavaScript &#x5BF9;&#x8C61;&#x4EE5;&#x8868;&#x8FBE; Saga &#x903B;&#x8F91;&#x3002;
-&#x6211;&#x4EEC;&#x79F0;&#x547C;&#x90A3;&#x4E9B;&#x5BF9;&#x8C61;&#x4E3A; <em>Effect</em>&#x3002;Effect &#x662F;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x5305;&#x542B;&#x4E86;&#x4E00;&#x4E9B;&#x7ED9; middleware &#x89E3;&#x91CA;&#x6267;&#x884C;&#x7684;&#x4FE1;&#x606F;&#x3002;
-&#x4F60;&#x53EF;&#x4EE5;&#x628A; Effect &#x770B;&#x4F5C;&#x662F;&#x53D1;&#x9001;&#x7ED9; middleware &#x7684;&#x6307;&#x4EE4;&#x4EE5;&#x6267;&#x884C;&#x67D0;&#x4E9B;&#x64CD;&#x4F5C;&#xFF08;&#x8C03;&#x7528;&#x67D0;&#x4E9B;&#x5F02;&#x6B65;&#x51FD;&#x6570;&#xFF0C;&#x53D1;&#x8D77;&#x4E00;&#x4E2A; action &#x5230; store&#xFF09;&#x3002;</p>
-<p>&#x4F60;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>redux<span class="token operator">-</span>saga<span class="token operator">/</span>effects</code> &#x5305;&#x91CC;&#x63D0;&#x4F9B;&#x7684;&#x51FD;&#x6570;&#x6765;&#x521B;&#x5EFA; Effect&#x3002;</p>
-<p>&#x8FD9;&#x4E00;&#x90E8;&#x5206;&#x548C;&#x63A5;&#x4E0B;&#x6765;&#x7684;&#x90E8;&#x5206;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x4ECB;&#x7ECD;&#x4E00;&#x4E9B;&#x57FA;&#x7840;&#x7684; Effect&#x3002;&#x5E76;&#x89C1;&#x8BC6;&#x5230;&#x8FD9;&#x4E9B; Effect &#x6982;&#x5FF5;&#x662F;&#x5982;&#x4F55;&#x8BA9; Sagas &#x5F88;&#x5BB9;&#x6613;&#x5730;&#x88AB;&#x6D4B;&#x8BD5;&#x7684;&#x3002;</p>
-<p>Sagas &#x53EF;&#x4EE5;&#x591A;&#x79CD;&#x5F62;&#x5F0F; yield Effect&#x3002;&#x6700;&#x7B80;&#x5355;&#x7684;&#x65B9;&#x5F0F;&#x662F; yield &#x4E00;&#x4E2A; Promise&#x3002;</p>
-<p>&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;&#xFF0C;&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x6709;&#x4E00;&#x4E2A;&#x76D1;&#x542C; <code>PRODUCTS_REQUESTED</code> action &#x7684; Saga&#x3002;&#x6BCF;&#x6B21;&#x5339;&#x914D;&#x5230; action&#xFF0C;&#x5B83;&#x4F1A;&#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x83B7;&#x53D6;&#x4EA7;&#x54C1;&#x5217;&#x8868;&#x7684;&#x4EFB;&#x52A1;&#x3002;</p>
-<pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> takeEvery <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga&apos;</span>
-<span class="token keyword">import</span> Api from <span class="token string">&apos;./path/to/api&apos;</span>
 
-<span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">watchFetchProduts</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">yield</span><span class="token operator">*</span> <span class="token function">takeEvery</span><span class="token punctuation">(</span><span class="token string">&apos;PRODUCTS_REQUESTED&apos;</span><span class="token punctuation">,</span> fetchProducts<span class="token punctuation">)</span>
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x58F0;&#x660E;&#x5F0F;-effects">&#x58F0;&#x660E;&#x5F0F; Effects</h1><p>&#x5728; <code>redux-saga</code> &#x7684;&#x4E16;&#x754C;&#x91CC;&#xFF0C;Sagas &#x90FD;&#x7528; Generator &#x51FD;&#x6570;&#x5B9E;&#x73B0;&#x3002;&#x6211;&#x4EEC;&#x4ECE; Generator &#x91CC; yield &#x7EAF; JavaScript &#x5BF9;&#x8C61;&#x4EE5;&#x8868;&#x8FBE; Saga &#x903B;&#x8F91;&#x3002;
+&#x6211;&#x4EEC;&#x79F0;&#x547C;&#x90A3;&#x4E9B;&#x5BF9;&#x8C61;&#x4E3A; <em>Effect</em>&#x3002;Effect &#x662F;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x5305;&#x542B;&#x4E86;&#x4E00;&#x4E9B;&#x7ED9; middleware &#x89E3;&#x91CA;&#x6267;&#x884C;&#x7684;&#x4FE1;&#x606F;&#x3002;
+&#x4F60;&#x53EF;&#x4EE5;&#x628A; Effect &#x770B;&#x4F5C;&#x662F;&#x53D1;&#x9001;&#x7ED9; middleware &#x7684;&#x6307;&#x4EE4;&#x4EE5;&#x6267;&#x884C;&#x67D0;&#x4E9B;&#x64CD;&#x4F5C;&#xFF08;&#x8C03;&#x7528;&#x67D0;&#x4E9B;&#x5F02;&#x6B65;&#x51FD;&#x6570;&#xFF0C;&#x53D1;&#x8D77;&#x4E00;&#x4E2A; action &#x5230; store&#xFF0C;&#x7B49;&#x7B49;&#xFF09;&#x3002;</p><p>&#x4F60;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>redux-saga/effects</code> &#x5305;&#x91CC;&#x63D0;&#x4F9B;&#x7684;&#x51FD;&#x6570;&#x6765;&#x521B;&#x5EFA; Effect&#x3002;</p><p>&#x8FD9;&#x4E00;&#x90E8;&#x5206;&#x548C;&#x63A5;&#x4E0B;&#x6765;&#x7684;&#x90E8;&#x5206;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x4ECB;&#x7ECD;&#x4E00;&#x4E9B;&#x57FA;&#x7840;&#x7684; Effect&#x3002;&#x5E76;&#x89C1;&#x8BC6;&#x5230;&#x8FD9;&#x4E9B; Effect &#x6982;&#x5FF5;&#x662F;&#x5982;&#x4F55;&#x8BA9; Sagas &#x5F88;&#x5BB9;&#x6613;&#x5730;&#x88AB;&#x6D4B;&#x8BD5;&#x7684;&#x3002;</p><p>Sagas &#x53EF;&#x4EE5;&#x591A;&#x79CD;&#x5F62;&#x5F0F; yield Effect&#x3002;&#x6700;&#x7B80;&#x5355;&#x7684;&#x65B9;&#x5F0F;&#x662F; yield &#x4E00;&#x4E2A; Promise&#x3002;</p><p>&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;&#xFF0C;&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x6709;&#x4E00;&#x4E2A;&#x76D1;&#x542C; <code>PRODUCTS_REQUESTED</code> action &#x7684; Saga&#x3002;&#x6BCF;&#x6B21;&#x5339;&#x914D;&#x5230; action&#xFF0C;&#x5B83;&#x4F1A;&#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x83B7;&#x53D6;&#x4EA7;&#x54C1;&#x5217;&#x8868;&#x7684;&#x4EFB;&#x52A1;&#x3002;</p><pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> takeEvery <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-saga/effects&apos;</span>
+<span class="token keyword">import</span> Api <span class="token keyword">from</span> <span class="token string">&apos;./path/to/api&apos;</span>
+
+<span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">watchFetchProducts</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">yield</span> <span class="token function">takeEvery</span><span class="token punctuation">(</span><span class="token string">&apos;PRODUCTS_REQUESTED&apos;</span><span class="token punctuation">,</span> fetchProducts<span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">fetchProducts</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">const</span> products <span class="token operator">=</span> <span class="token keyword">yield</span> Api<span class="token punctuation">.</span><span class="token function">fetch</span><span class="token punctuation">(</span><span class="token string">&apos;/products&apos;</span><span class="token punctuation">)</span>
   console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>products<span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>&#x5728;&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x5728; Generator &#x4E2D;&#x76F4;&#x63A5;&#x8C03;&#x7528;&#x4E86; <code>Api<span class="token punctuation">.</span>fetch</code>&#xFF08;&#x5728; Generator &#x51FD;&#x6570;&#x4E2D;&#xFF0C;<code><span class="token keyword">yield</span></code> &#x53F3;&#x8FB9;&#x7684;&#x4EFB;&#x4F55;&#x8868;&#x8FBE;&#x5F0F;&#x90FD;&#x4F1A;&#x88AB;&#x6C42;&#x503C;&#xFF0C;&#x7ED3;&#x679C;&#x4F1A;&#x88AB; yield &#x7ED9;&#x8C03;&#x7528;&#x8005;&#xFF09;&#x3002;</p>
-<p><code>Api<span class="token punctuation">.</span><span class="token function">fetch</span><span class="token punctuation">(</span><span class="token string">&apos;/products&apos;</span><span class="token punctuation">)</span></code> &#x89E6;&#x53D1;&#x4E86;&#x4E00;&#x4E2A; AJAX &#x8BF7;&#x6C42;&#x5E76;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A; Promise&#xFF0C;Promise &#x4F1A; resolve &#x8BF7;&#x6C42;&#x7684;&#x54CD;&#x5E94;&#xFF0C;
-&#x8FD9;&#x4E2A; AJAX &#x8BF7;&#x6C42;&#x5C06;&#x7ACB;&#x5373;&#x6267;&#x884C;&#x3002;&#x770B;&#x8D77;&#x6765;&#x7B80;&#x5355;&#x53C8;&#x5730;&#x9053;&#xFF0C;&#x4F46;...</p>
-<p>&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x60F3;&#x6D4B;&#x8BD5;&#x4E0A;&#x9762;&#x7684; generator&#xFF1A;</p>
-<pre><code class="lang-javascript"><span class="token keyword">const</span> iterator <span class="token operator">=</span> <span class="token function">fetchProducts</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-assert<span class="token punctuation">.</span><span class="token function">deepEqual</span><span class="token punctuation">(</span> iterator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>value<span class="token punctuation">,</span> <span class="token operator">?</span><span class="token operator">?</span> <span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// &#x6211;&#x4EEC;&#x671F;&#x671B;&#x5F97;&#x5230;&#x4EC0;&#x4E48;&#xFF1F;</span>
-</code></pre>
-<p>&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x68C0;&#x67E5; generator yield &#x7684;&#x7ED3;&#x679C;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x503C;&#x3002;&#x5728;&#x6211;&#x4EEC;&#x7684;&#x60C5;&#x51B5;&#x91CC;&#xFF0C;&#x8FD9;&#x4E2A;&#x503C;&#x662F;&#x6267;&#x884C; <code>Api<span class="token punctuation">.</span><span class="token function">fetch</span><span class="token punctuation">(</span><span class="token string">&apos;/products&apos;</span><span class="token punctuation">)</span></code> &#x8FD9;&#x4E2A; Promise &#x7684;&#x7ED3;&#x679C;&#x3002;
-&#x5728;&#x6D4B;&#x8BD5;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6267;&#x884C;&#x771F;&#x6B63;&#x7684;&#x670D;&#x52A1;&#xFF08;real service&#xFF09;&#x662F;&#x4E00;&#x4E2A;&#x65E2;&#x4E0D;&#x53EF;&#x884C;&#x4E5F;&#x4E0D;&#x5B9E;&#x7528;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x5FC5;&#x987B; <em>&#x6A21;&#x62DF;&#xFF08;mock&#xFF09;</em> <code>Api<span class="token punctuation">.</span>fetch</code> &#x51FD;&#x6570;&#x3002;
-&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5C06;&#x771F;&#x5B9E;&#x7684;&#x51FD;&#x6570;&#x66FF;&#x6362;&#x4E3A;&#x4E00;&#x4E2A;&#x5047;&#x7684;&#xFF0C;&#x8FD9;&#x4E2A;&#x5047;&#x7684;&#x51FD;&#x6570;&#x5E76;&#x4E0D;&#x4F1A;&#x771F;&#x7684;&#x53D1;&#x9001; AJAX &#x8BF7;&#x6C42;&#x800C;&#x53EA;&#x4F1A;&#x68C0;&#x67E5;&#x662F;&#x5426;&#x7528;&#x6B63;&#x786E;&#x7684;&#x53C2;&#x6570;&#x8C03;&#x7528;&#x4E86; <code>Api<span class="token punctuation">.</span>fetch</code>&#xFF08;&#x5728;&#x6211;&#x4EEC;&#x7684;&#x60C5;&#x51B5;&#x91CC;&#xFF0C;&#x6B63;&#x786E;&#x7684;&#x53C2;&#x6570;&#x662F; <code><span class="token string">&apos;/products&apos;</span></code>&#xFF09;&#x3002;</p>
-<p>&#x6A21;&#x62DF;&#x4F7F;&#x6D4B;&#x8BD5;&#x66F4;&#x52A0;&#x56F0;&#x96BE;&#x548C;&#x4E0D;&#x53EF;&#x9760;&#x3002;&#x53E6;&#x4E00;&#x65B9;&#x9762;&#xFF0C;&#x90A3;&#x4E9B;&#x53EA;&#x7B80;&#x5355;&#x5730;&#x8FD4;&#x56DE;&#x503C;&#x7684;&#x51FD;&#x6570;&#x66F4;&#x52A0;&#x5BB9;&#x6613;&#x6D4B;&#x8BD5;&#xFF0C;&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x7B80;&#x5355;&#x7684; <code><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> &#x6765;&#x68C0;&#x67E5;&#x7ED3;&#x679C;&#x3002;
-&#x8FD9;&#x662F;&#x7F16;&#x5199;&#x6700;&#x53EF;&#x9760;&#x6D4B;&#x8BD5;&#x7528;&#x4F8B;&#x7684;&#x65B9;&#x6CD5;&#x3002;</p>
-<p>&#x4E0D;&#x76F8;&#x4FE1;&#xFF1F;&#x6211;&#x5EFA;&#x8BAE;&#x4F60;&#x9605;&#x8BFB; <a href="https://medium.com/javascript-scene/what-every-unit-test-needs-f6cd34d9836d#.4ttnnzpgc" target="_blank">Eric Elliott&apos;s article</a>:</p>
-<blockquote>
-<p>(...)<code><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code>, by nature answers the two most important questions every unit test must answer,
-but most don&#x2019;t:</p>
-<ul>
-<li>What is the actual output?</li>
-<li>What is the expected output?</li>
-</ul>
-<p>If you finish a test without answering those two questions, you don&#x2019;t have a real unit test.
-You have a sloppy, half-baked test.</p>
-</blockquote>
-<p>&#x5B9E;&#x9645;&#x4E0A;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7684;&#x53EA;&#x662F;&#x4FDD;&#x8BC1; <code>fetchProducts</code> &#x4EFB;&#x52A1; yield &#x4E00;&#x4E2A;&#x8C03;&#x7528;&#x6B63;&#x786E;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x5E76;&#x4E14;&#x51FD;&#x6570;&#x6709;&#x7740;&#x6B63;&#x786E;&#x7684;&#x53C2;&#x6570;&#x3002;</p>
-<p>&#x76F8;&#x6BD4;&#x4E8E;&#x5728; Generator &#x4E2D;&#x76F4;&#x63A5;&#x8C03;&#x7528;&#x5F02;&#x6B65;&#x51FD;&#x6570;&#xFF0C;<strong>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4EC5;&#x4EC5; yield &#x4E00;&#x6761;&#x63CF;&#x8FF0;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x7684;&#x4FE1;&#x606F;</strong>&#x3002;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x7B80;&#x5355;&#x5730; yield &#x4E00;&#x4E2A;&#x770B;&#x8D77;&#x6765;&#x50CF;&#x4E0B;&#x9762;&#x8FD9;&#x6837;&#x7684;&#x5BF9;&#x8C61;&#xFF1A;</p>
-<pre><code class="lang-javascript"><span class="token comment" spellcheck="true">// Effect -&gt; &#x8C03;&#x7528; Api.fetch &#x51FD;&#x6570;&#x5E76;&#x4F20;&#x9012; `./products` &#x4F5C;&#x4E3A;&#x53C2;&#x6570;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>&#x5728;&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x5728; Generator &#x4E2D;&#x76F4;&#x63A5;&#x8C03;&#x7528;&#x4E86; <code>Api.fetch</code>&#xFF08;&#x5728; Generator &#x51FD;&#x6570;&#x4E2D;&#xFF0C;<code>yield</code> &#x53F3;&#x8FB9;&#x7684;&#x4EFB;&#x4F55;&#x8868;&#x8FBE;&#x5F0F;&#x90FD;&#x4F1A;&#x88AB;&#x6C42;&#x503C;&#xFF0C;&#x7ED3;&#x679C;&#x4F1A;&#x88AB; yield &#x7ED9;&#x8C03;&#x7528;&#x8005;&#xFF09;&#x3002;</p><p><code>Api.fetch(&apos;/products&apos;)</code> &#x89E6;&#x53D1;&#x4E86;&#x4E00;&#x4E2A; AJAX &#x8BF7;&#x6C42;&#x5E76;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A; Promise&#xFF0C;Promise &#x4F1A; resolve &#x8BF7;&#x6C42;&#x7684;&#x54CD;&#x5E94;&#xFF0C;
+&#x8FD9;&#x4E2A; AJAX &#x8BF7;&#x6C42;&#x5C06;&#x7ACB;&#x5373;&#x6267;&#x884C;&#x3002;&#x770B;&#x8D77;&#x6765;&#x7B80;&#x5355;&#x53C8;&#x5730;&#x9053;&#xFF0C;&#x4F46;...</p><p>&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x60F3;&#x6D4B;&#x8BD5;&#x4E0A;&#x9762;&#x7684; generator&#xFF1A;</p><pre><code class="lang-javascript"><span class="token keyword">const</span> iterator <span class="token operator">=</span> <span class="token function">fetchProducts</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+assert<span class="token punctuation">.</span><span class="token function">deepEqual</span><span class="token punctuation">(</span>iterator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>value<span class="token punctuation">,</span> <span class="token operator">?</span><span class="token operator">?</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// &#x6211;&#x4EEC;&#x671F;&#x671B;&#x5F97;&#x5230;&#x4EC0;&#x4E48;&#xFF1F;</span></code></pre>
+<p>&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x68C0;&#x67E5; generator yield &#x7684;&#x7ED3;&#x679C;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x503C;&#x3002;&#x5728;&#x6211;&#x4EEC;&#x7684;&#x60C5;&#x51B5;&#x91CC;&#xFF0C;&#x8FD9;&#x4E2A;&#x503C;&#x662F;&#x6267;&#x884C; <code>Api.fetch(&apos;/products&apos;)</code> &#x8FD9;&#x4E2A; Promise &#x7684;&#x7ED3;&#x679C;&#x3002;
+&#x5728;&#x6D4B;&#x8BD5;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6267;&#x884C;&#x771F;&#x6B63;&#x7684;&#x670D;&#x52A1;&#xFF08;real service&#xFF09;&#x662F;&#x4E00;&#x4E2A;&#x65E2;&#x4E0D;&#x53EF;&#x884C;&#x4E5F;&#x4E0D;&#x5B9E;&#x7528;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x5FC5;&#x987B; <em>&#x6A21;&#x62DF;&#xFF08;mock&#xFF09;</em> <code>Api.fetch</code> &#x51FD;&#x6570;&#x3002;
+&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5C06;&#x771F;&#x5B9E;&#x7684;&#x51FD;&#x6570;&#x66FF;&#x6362;&#x4E3A;&#x4E00;&#x4E2A;&#x5047;&#x7684;&#xFF0C;&#x8FD9;&#x4E2A;&#x5047;&#x7684;&#x51FD;&#x6570;&#x5E76;&#x4E0D;&#x4F1A;&#x771F;&#x7684;&#x53D1;&#x9001; AJAX &#x8BF7;&#x6C42;&#x800C;&#x53EA;&#x4F1A;&#x68C0;&#x67E5;&#x662F;&#x5426;&#x7528;&#x6B63;&#x786E;&#x7684;&#x53C2;&#x6570;&#x8C03;&#x7528;&#x4E86; <code>Api.fetch</code>&#xFF08;&#x5728;&#x6211;&#x4EEC;&#x7684;&#x60C5;&#x51B5;&#x91CC;&#xFF0C;&#x6B63;&#x786E;&#x7684;&#x53C2;&#x6570;&#x662F; <code>&apos;/products&apos;</code>&#xFF09;&#x3002;</p><p>&#x6A21;&#x62DF;&#x4F7F;&#x6D4B;&#x8BD5;&#x66F4;&#x52A0;&#x56F0;&#x96BE;&#x548C;&#x4E0D;&#x53EF;&#x9760;&#x3002;&#x53E6;&#x4E00;&#x65B9;&#x9762;&#xFF0C;&#x90A3;&#x4E9B;&#x53EA;&#x7B80;&#x5355;&#x5730;&#x8FD4;&#x56DE;&#x503C;&#x7684;&#x51FD;&#x6570;&#x66F4;&#x52A0;&#x5BB9;&#x6613;&#x6D4B;&#x8BD5;&#xFF0C;&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x7B80;&#x5355;&#x7684; <code>equal()</code> &#x6765;&#x68C0;&#x67E5;&#x7ED3;&#x679C;&#x3002;
+&#x8FD9;&#x662F;&#x7F16;&#x5199;&#x6700;&#x53EF;&#x9760;&#x6D4B;&#x8BD5;&#x7528;&#x4F8B;&#x7684;&#x65B9;&#x6CD5;&#x3002;</p><p>&#x4E0D;&#x76F8;&#x4FE1;&#xFF1F;&#x6211;&#x5EFA;&#x8BAE;&#x4F60;&#x9605;&#x8BFB; <a href="https://medium.com/javascript-scene/what-every-unit-test-needs-f6cd34d9836d#.4ttnnzpgc" target="_blank">Eric Elliott&apos;s article</a>:</p><blockquote><p>(...)<code>equal()</code>, by nature answers the two most important questions every unit test must answer,
+but most don&#x2019;t:</p><ul><li>What is the actual output?
+</li>
+<li>What is the expected output?
+</li></ul>
+<p>If you finish a test without answering those two questions, you don&#x2019;t have a real unit test. You have a sloppy, half-baked test.</p></blockquote><p>&#x5B9E;&#x9645;&#x4E0A;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7684;&#x53EA;&#x662F;&#x4FDD;&#x8BC1; <code>fetchProducts</code> &#x4EFB;&#x52A1; yield &#x4E00;&#x4E2A;&#x8C03;&#x7528;&#x6B63;&#x786E;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x5E76;&#x4E14;&#x51FD;&#x6570;&#x6709;&#x7740;&#x6B63;&#x786E;&#x7684;&#x53C2;&#x6570;&#x3002;</p><p>&#x76F8;&#x6BD4;&#x4E8E;&#x5728; Generator &#x4E2D;&#x76F4;&#x63A5;&#x8C03;&#x7528;&#x5F02;&#x6B65;&#x51FD;&#x6570;&#xFF0C;<strong>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4EC5;&#x4EC5; yield &#x4E00;&#x6761;&#x63CF;&#x8FF0;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x7684;&#x4FE1;&#x606F;</strong>&#x3002;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x7B80;&#x5355;&#x5730; yield &#x4E00;&#x4E2A;&#x770B;&#x8D77;&#x6765;&#x50CF;&#x4E0B;&#x9762;&#x8FD9;&#x6837;&#x7684;&#x5BF9;&#x8C61;&#xFF1A;</p><pre><code class="lang-javascript"><span class="token comment" spellcheck="true">// Effect -&gt; &#x8C03;&#x7528; Api.fetch &#x51FD;&#x6570;&#x5E76;&#x4F20;&#x9012; `./products` &#x4F5C;&#x4E3A;&#x53C2;&#x6570;</span>
 <span class="token punctuation">{</span>
   CALL<span class="token punctuation">:</span> <span class="token punctuation">{</span>
     fn<span class="token punctuation">:</span> Api<span class="token punctuation">.</span>fetch<span class="token punctuation">,</span>
     args<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;./products&apos;</span><span class="token punctuation">]</span>  
   <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>&#x6362;&#x53E5;&#x8BDD;&#x8BF4;&#xFF0C;Generator &#x5C06;&#x4F1A; yield &#x5305;&#x542B; <em>&#x6307;&#x4EE4;</em> &#x7684;&#x6587;&#x672C;&#x5BF9;&#x8C61;&#xFF08;plain Objects&#xFF09;&#xFF0C;<code>redux<span class="token operator">-</span>saga</code> middleware &#x5C06;&#x786E;&#x4FDD;&#x6267;&#x884C;&#x8FD9;&#x4E9B;&#x6307;&#x4EE4;&#x5E76;&#x5C06;&#x6307;&#x4EE4;&#x7684;&#x7ED3;&#x679C;&#x56DE;&#x9988;&#x7ED9; Generator&#x3002;
-&#x8FD9;&#x6837;&#x7684;&#x8BDD;&#xFF0C;&#x5728;&#x6D4B;&#x8BD5; Generator &#x65F6;&#xFF0C;&#x6240;&#x6709;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x505A;&#x7684;&#x5C31;&#x662F;&#xFF0C;&#x5C06; yield &#x540E;&#x7684;&#x5BF9;&#x8C61;&#x4F5C;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684; <code>deepEqual</code> &#x6765;&#x68C0;&#x67E5;&#x5B83;&#x662F;&#x5426; yield &#x4E86;&#x6211;&#x4EEC;&#x671F;&#x671B;&#x7684;&#x6307;&#x4EE4;&#x3002;</p>
-<p>&#x51FA;&#x4E8E;&#x8FD9;&#x6837;&#x7684;&#x539F;&#x56E0;&#xFF0C;<code>redux<span class="token operator">-</span>saga</code> &#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x4E0D;&#x4E00;&#x6837;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x6267;&#x884C;&#x5F02;&#x6B65;&#x8C03;&#x7528;&#x3002;</p>
-<pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> call <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga/effects&apos;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>&#x6362;&#x53E5;&#x8BDD;&#x8BF4;&#xFF0C;Generator &#x5C06;&#x4F1A; yield &#x5305;&#x542B; <em>&#x6307;&#x4EE4;</em> &#x7684;&#x6587;&#x672C;&#x5BF9;&#x8C61;&#xFF08;plain Objects&#xFF09;&#xFF0C;<code>redux-saga</code> middleware &#x5C06;&#x786E;&#x4FDD;&#x6267;&#x884C;&#x8FD9;&#x4E9B;&#x6307;&#x4EE4;&#x5E76;&#x5C06;&#x6307;&#x4EE4;&#x7684;&#x7ED3;&#x679C;&#x56DE;&#x9988;&#x7ED9; Generator&#x3002;
+&#x8FD9;&#x6837;&#x7684;&#x8BDD;&#xFF0C;&#x5728;&#x6D4B;&#x8BD5; Generator &#x65F6;&#xFF0C;&#x6240;&#x6709;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x505A;&#x7684;&#x5C31;&#x662F;&#xFF0C;&#x5C06; yield &#x540E;&#x7684;&#x5BF9;&#x8C61;&#x4F5C;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684; <code>deepEqual</code> &#x6765;&#x68C0;&#x67E5;&#x5B83;&#x662F;&#x5426; yield &#x4E86;&#x6211;&#x4EEC;&#x671F;&#x671B;&#x7684;&#x6307;&#x4EE4;&#x3002;</p><p>&#x51FA;&#x4E8E;&#x8FD9;&#x6837;&#x7684;&#x539F;&#x56E0;&#xFF0C;<code>redux-saga</code> &#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x4E0D;&#x4E00;&#x6837;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x6267;&#x884C;&#x5F02;&#x6B65;&#x8C03;&#x7528;&#x3002;</p><pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> call <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-saga/effects&apos;</span>
 
 <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">fetchProducts</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">const</span> products <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">call</span><span class="token punctuation">(</span>Api<span class="token punctuation">.</span>fetch<span class="token punctuation">,</span> <span class="token string">&apos;/products&apos;</span><span class="token punctuation">)</span>
   <span class="token comment" spellcheck="true">// ...</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x4E86; <code><span class="token function">call</span><span class="token punctuation">(</span>fn<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span></code> &#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x3002;<strong>&#x4E0E;&#x524D;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x4E0D;&#x540C;&#x7684;&#x662F;&#xFF0C;&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x4E0D;&#x7ACB;&#x5373;&#x6267;&#x884C;&#x5F02;&#x6B65;&#x8C03;&#x7528;&#xFF0C;&#x76F8;&#x53CD;&#xFF0C;<code>call</code> &#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x6761;&#x63CF;&#x8FF0;&#x7ED3;&#x679C;&#x7684;&#x4FE1;&#x606F;</strong>&#x3002;
+<span class="token punctuation">}</span></code></pre>
+<p>&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x4E86; <code>call(fn, ...args)</code> &#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x3002;<strong>&#x4E0E;&#x524D;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x4E0D;&#x540C;&#x7684;&#x662F;&#xFF0C;&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x4E0D;&#x7ACB;&#x5373;&#x6267;&#x884C;&#x5F02;&#x6B65;&#x8C03;&#x7528;&#xFF0C;&#x76F8;&#x53CD;&#xFF0C;<code>call</code> &#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x6761;&#x63CF;&#x8FF0;&#x7ED3;&#x679C;&#x7684;&#x4FE1;&#x606F;</strong>&#x3002;
 &#x5C31;&#x50CF;&#x5728; Redux &#x91CC;&#x4F60;&#x4F7F;&#x7528; action &#x521B;&#x5EFA;&#x5668;&#xFF0C;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5C06;&#x88AB; Store &#x6267;&#x884C;&#x7684;&#x3001;&#x63CF;&#x8FF0; action &#x7684;&#x7EAF;&#x6587;&#x672C;&#x5BF9;&#x8C61;&#x3002;
-<code>call</code> &#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x7EAF;&#x6587;&#x672C;&#x5BF9;&#x8C61;&#x63CF;&#x8FF0;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x3002;<code>redux<span class="token operator">-</span>saga</code> middleware &#x786E;&#x4FDD;&#x6267;&#x884C;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x5E76;&#x5728;&#x54CD;&#x5E94;&#x88AB; resolve &#x65F6;&#x6062;&#x590D; generator&#x3002;</p>
-<p>&#x8FD9;&#x8BA9;&#x4F60;&#x80FD;&#x5BB9;&#x6613;&#x5730;&#x6D4B;&#x8BD5; Generator&#xFF0C;&#x5C31;&#x7B97;&#x5B83;&#x5728; Redux &#x73AF;&#x5883;&#x4E4B;&#x5916;&#x3002;&#x56E0;&#x4E3A; <code>call</code> &#x53EA;&#x662F;&#x4E00;&#x4E2A;&#x8FD4;&#x56DE;&#x7EAF;&#x6587;&#x672C;&#x5BF9;&#x8C61;&#x7684;&#x51FD;&#x6570;&#x800C;&#x5DF2;&#x3002;</p>
-<pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> call <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga/effects&apos;</span>
-<span class="token keyword">import</span> Api from <span class="token string">&apos;...&apos;</span>
+<code>call</code> &#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x7EAF;&#x6587;&#x672C;&#x5BF9;&#x8C61;&#x63CF;&#x8FF0;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x3002;<code>redux-saga</code> middleware &#x786E;&#x4FDD;&#x6267;&#x884C;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x5E76;&#x5728;&#x54CD;&#x5E94;&#x88AB; resolve &#x65F6;&#x6062;&#x590D; generator&#x3002;</p><p>&#x8FD9;&#x8BA9;&#x4F60;&#x80FD;&#x5BB9;&#x6613;&#x5730;&#x6D4B;&#x8BD5; Generator&#xFF0C;&#x5C31;&#x7B97;&#x5B83;&#x5728; Redux &#x73AF;&#x5883;&#x4E4B;&#x5916;&#x3002;&#x56E0;&#x4E3A; <code>call</code> &#x53EA;&#x662F;&#x4E00;&#x4E2A;&#x8FD4;&#x56DE;&#x7EAF;&#x6587;&#x672C;&#x5BF9;&#x8C61;&#x7684;&#x51FD;&#x6570;&#x800C;&#x5DF2;&#x3002;</p><pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> call <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-saga/effects&apos;</span>
+<span class="token keyword">import</span> Api <span class="token keyword">from</span> <span class="token string">&apos;...&apos;</span>
 
 <span class="token keyword">const</span> iterator <span class="token operator">=</span> <span class="token function">fetchProducts</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 
@@ -583,84 +566,103 @@ assert<span class="token punctuation">.</span><span class="token function">deepE
   iterator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>value<span class="token punctuation">,</span>
   <span class="token function">call</span><span class="token punctuation">(</span>Api<span class="token punctuation">.</span>fetch<span class="token punctuation">,</span> <span class="token string">&apos;/products&apos;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
   <span class="token string">&quot;fetchProducts should yield an Effect call(Api.fetch, &apos;./products&apos;)&quot;</span>
-<span class="token punctuation">)</span>
-</code></pre>
-<p>&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x4E0D;&#x9700;&#x8981;&#x6A21;&#x62DF;&#x4EFB;&#x4F55;&#x4E1C;&#x897F;&#x4E86;&#xFF0C;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x76F8;&#x7B49;&#x6D4B;&#x8BD5;&#x5C31;&#x8DB3;&#x591F;&#x4E86;&#x3002;</p>
-<p>&#x8FD9;&#x4E9B; <em>&#x58F0;&#x660E;&#x5F0F;&#x8C03;&#x7528;&#xFF08;declarative calls&#xFF09;</em> &#x7684;&#x4F18;&#x52BF;&#x662F;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x7B80;&#x5355;&#x5730;&#x904D;&#x5386; Generator &#x5E76;&#x5728; yield &#x540E;&#x7684;&#x6210;&#x529F;&#x7684;&#x503C;&#x4E0A;&#x9762;&#x505A;&#x4E00;&#x4E2A; <code>deepEqual</code> &#x6D4B;&#x8BD5;&#xFF0C;
-&#x5C31;&#x80FD;&#x6D4B;&#x8BD5; Saga &#x4E2D;&#x6240;&#x6709;&#x7684;&#x903B;&#x8F91;&#x3002;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x771F;&#x6B63;&#x7684;&#x597D;&#x5904;&#xFF0C;&#x56E0;&#x4E3A;&#x590D;&#x6742;&#x7684;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x90FD;&#x4E0D;&#x518D;&#x662F;&#x9ED1;&#x76D2;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x8BE6;&#x7EC6;&#x5730;&#x6D4B;&#x8BD5;&#x64CD;&#x4F5C;&#x903B;&#x8F91;&#xFF0C;&#x4E0D;&#x7BA1;&#x5B83;&#x6709;&#x591A;&#x4E48;&#x590D;&#x6742;&#x3002;</p>
-<p><code>call</code> &#x540C;&#x6837;&#x652F;&#x6301;&#x8C03;&#x7528;&#x5BF9;&#x8C61;&#x65B9;&#x6CD5;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x4EE5;&#x4E0B;&#x5F62;&#x5F0F;&#xFF0C;&#x4E3A;&#x8C03;&#x7528;&#x7684;&#x51FD;&#x6570;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A; <code><span class="token keyword">this</span></code> &#x4E0A;&#x4E0B;&#x6587;&#xFF1A;</p>
-<pre><code class="lang-javascript"><span class="token keyword">yield</span> <span class="token function">call</span><span class="token punctuation">(</span><span class="token punctuation">[</span>obj<span class="token punctuation">,</span> obj<span class="token punctuation">.</span>method<span class="token punctuation">]</span><span class="token punctuation">,</span> arg1<span class="token punctuation">,</span> arg2<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// &#x5982;&#x540C; obj.method(arg1, arg2 ...)</span>
-</code></pre>
-<p><code>apply</code> &#x63D0;&#x4F9B;&#x4E86;&#x53E6;&#x5916;&#x4E00;&#x79CD;&#x8C03;&#x7528;&#x7684;&#x65B9;&#x5F0F;&#xFF1A;</p>
-<pre><code class="lang-javascript"><span class="token keyword">yield</span> <span class="token function">apply</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> obj<span class="token punctuation">.</span>method<span class="token punctuation">,</span> <span class="token punctuation">[</span>arg1<span class="token punctuation">,</span> arg2<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-</code></pre>
+<span class="token punctuation">)</span></code></pre>
+<p>&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x4E0D;&#x9700;&#x8981;&#x6A21;&#x62DF;&#x4EFB;&#x4F55;&#x4E1C;&#x897F;&#x4E86;&#xFF0C;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x76F8;&#x7B49;&#x6D4B;&#x8BD5;&#x5C31;&#x8DB3;&#x591F;&#x4E86;&#x3002;</p><p>&#x8FD9;&#x4E9B; <em>&#x58F0;&#x660E;&#x5F0F;&#x8C03;&#x7528;&#xFF08;declarative calls&#xFF09;</em> &#x7684;&#x4F18;&#x52BF;&#x662F;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x7B80;&#x5355;&#x5730;&#x904D;&#x5386; Generator &#x5E76;&#x5728; yield &#x540E;&#x7684;&#x6210;&#x529F;&#x7684;&#x503C;&#x4E0A;&#x9762;&#x505A;&#x4E00;&#x4E2A; <code>deepEqual</code> &#x6D4B;&#x8BD5;&#xFF0C;
+&#x5C31;&#x80FD;&#x6D4B;&#x8BD5; Saga &#x4E2D;&#x6240;&#x6709;&#x7684;&#x903B;&#x8F91;&#x3002;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x771F;&#x6B63;&#x7684;&#x597D;&#x5904;&#xFF0C;&#x56E0;&#x4E3A;&#x590D;&#x6742;&#x7684;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x90FD;&#x4E0D;&#x518D;&#x662F;&#x9ED1;&#x76D2;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x8BE6;&#x7EC6;&#x5730;&#x6D4B;&#x8BD5;&#x64CD;&#x4F5C;&#x903B;&#x8F91;&#xFF0C;&#x4E0D;&#x7BA1;&#x5B83;&#x6709;&#x591A;&#x4E48;&#x590D;&#x6742;&#x3002;</p><p><code>call</code> &#x540C;&#x6837;&#x652F;&#x6301;&#x8C03;&#x7528;&#x5BF9;&#x8C61;&#x65B9;&#x6CD5;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x4EE5;&#x4E0B;&#x5F62;&#x5F0F;&#xFF0C;&#x4E3A;&#x8C03;&#x7528;&#x7684;&#x51FD;&#x6570;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A; <code>this</code> &#x4E0A;&#x4E0B;&#x6587;&#xFF1A;</p><pre><code class="lang-javascript"><span class="token keyword">yield</span> <span class="token function">call</span><span class="token punctuation">(</span><span class="token punctuation">[</span>obj<span class="token punctuation">,</span> obj<span class="token punctuation">.</span>method<span class="token punctuation">]</span><span class="token punctuation">,</span> arg1<span class="token punctuation">,</span> arg2<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// &#x5982;&#x540C; obj.method(arg1, arg2 ...)</span></code></pre>
+<p><code>apply</code> &#x63D0;&#x4F9B;&#x4E86;&#x53E6;&#x5916;&#x4E00;&#x79CD;&#x8C03;&#x7528;&#x7684;&#x65B9;&#x5F0F;&#xFF1A;</p><pre><code class="lang-javascript"><span class="token keyword">yield</span> <span class="token function">apply</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> obj<span class="token punctuation">.</span>method<span class="token punctuation">,</span> <span class="token punctuation">[</span>arg1<span class="token punctuation">,</span> arg2<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">)</span></code></pre>
 <p><code>call</code> &#x548C; <code>apply</code> &#x975E;&#x5E38;&#x9002;&#x5408;&#x8FD4;&#x56DE; Promise &#x7ED3;&#x679C;&#x7684;&#x51FD;&#x6570;&#x3002;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x51FD;&#x6570; <code>cps</code> &#x53EF;&#x4EE5;&#x7528;&#x6765;&#x5904;&#x7406; Node &#x98CE;&#x683C;&#x7684;&#x51FD;&#x6570;
-&#xFF08;&#x4F8B;&#x5982;&#xFF0C;<code><span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">,</span> callback<span class="token punctuation">)</span></code> &#x4E2D;&#x7684; <code>callback</code> &#x662F; <code><span class="token punctuation">(</span>error<span class="token punctuation">,</span> result<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">)</span></code> &#x8FD9;&#x6837;&#x7684;&#x5F62;&#x5F0F;&#xFF0C;<code>cps</code> &#x8868;&#x793A;&#x7684;&#x662F;&#x5EF6;&#x7EED;&#x4F20;&#x9012;&#x98CE;&#x683C;&#xFF08;Continuation Passing Style&#xFF09;&#xFF09;&#x3002;</p>
-<p>&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;&#xFF1A;</p>
-<pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> cps <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga&apos;</span>
+&#xFF08;&#x4F8B;&#x5982;&#xFF0C;<code>fn(...args, callback)</code> &#x4E2D;&#x7684; <code>callback</code> &#x662F; <code>(error, result) =&gt; ()</code> &#x8FD9;&#x6837;&#x7684;&#x5F62;&#x5F0F;&#xFF0C;<code>cps</code> &#x8868;&#x793A;&#x7684;&#x662F;&#x5EF6;&#x7EED;&#x4F20;&#x9012;&#x98CE;&#x683C;&#xFF08;Continuation Passing Style&#xFF09;&#xFF09;&#x3002;</p><p>&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;&#xFF1A;</p><pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> cps <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-saga&apos;</span>
 
-<span class="token keyword">const</span> content <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">cps</span><span class="token punctuation">(</span>readFile<span class="token punctuation">,</span> <span class="token string">&apos;/path/to/file&apos;</span><span class="token punctuation">)</span>
-</code></pre>
-<p>&#x5F53;&#x7136;&#x4F60;&#x4E5F;&#x53EF;&#x4EE5;&#x50CF;&#x6D4B;&#x8BD5; call &#x4E00;&#x6837;&#x6D4B;&#x8BD5;&#x5B83;&#xFF1A;</p>
-<pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> cps <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga/effects&apos;</span>
+<span class="token keyword">const</span> content <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">cps</span><span class="token punctuation">(</span>readFile<span class="token punctuation">,</span> <span class="token string">&apos;/path/to/file&apos;</span><span class="token punctuation">)</span></code></pre>
+<p>&#x5F53;&#x7136;&#x4F60;&#x4E5F;&#x53EF;&#x4EE5;&#x50CF;&#x6D4B;&#x8BD5; call &#x4E00;&#x6837;&#x6D4B;&#x8BD5;&#x5B83;&#xFF1A;</p><pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> cps <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-saga/effects&apos;</span>
 
 <span class="token keyword">const</span> iterator <span class="token operator">=</span> <span class="token function">fetchSaga</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-assert<span class="token punctuation">.</span><span class="token function">deepEqual</span><span class="token punctuation">(</span>iterator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>value<span class="token punctuation">,</span> <span class="token function">cps</span><span class="token punctuation">(</span>readFile<span class="token punctuation">,</span> <span class="token string">&apos;/path/to/file&apos;</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
-</code></pre>
-<p><code>cps</code> &#x540C; <code>call</code> &#x7684;&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x5F62;&#x5F0F;&#x662F;&#x4E00;&#x6837;&#x7684;&#x3002;</p>
-
-                    
-                    </section>
-                
-                
-                </div>
-            </div>
+assert<span class="token punctuation">.</span><span class="token function">deepEqual</span><span class="token punctuation">(</span>iterator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>value<span class="token punctuation">,</span> <span class="token function">cps</span><span class="token punctuation">(</span>readFile<span class="token punctuation">,</span> <span class="token string">&apos;/path/to/file&apos;</span><span class="token punctuation">)</span> <span class="token punctuation">)</span></code></pre>
+<p><code>cps</code> &#x540C; <code>call</code> &#x7684;&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x5F62;&#x5F0F;&#x662F;&#x4E00;&#x6837;&#x7684;&#x3002;</p><p>&#x5B8C;&#x6574;&#x5217;&#x8868;&#x7684; declarative effects &#x53EF;&#x5728;&#x8FD9;&#x91CC;&#x627E;&#x5230;&#xFF1A; <a href="https://redux-saga.js.org/docs/api/#effect-creators" target="_blank">API reference</a></p>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
         </div>
-
-        
-        <a href="../../docs/basics/UsingSagaHelpers.html" class="navigation navigation-prev " aria-label="Previous page: 使用 Saga 辅助函数"><i class="fa fa-angle-left"></i></a>
-        
-        
-        <a href="../../docs/basics/DispatchingActions.html" class="navigation navigation-next " aria-label="Next page: 发起 action"><i class="fa fa-angle-right"></i></a>
-        
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
     </div>
 </div>
 
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="UsingSagaHelpers.html" class="navigation navigation-prev " aria-label="Previous page: 使用 Saga Helpers">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="DispatchingActions.html" class="navigation navigation-next " aria-label="Next page: dispatch action">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
         
-<script src="../../gitbook/app.js"></script>
+    </div>
 
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"声明式 Effects","level":"1.3.2","depth":2,"next":{"title":"dispatch action","level":"1.3.3","depth":2,"path":"docs/basics/DispatchingActions.md","ref":"docs/basics/DispatchingActions.md","articles":[]},"previous":{"title":"使用 Saga Helpers","level":"1.3.1","depth":2,"path":"docs/basics/UsingSagaHelpers.md","ref":"docs/basics/UsingSagaHelpers.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism@1.0.0","-highlight","github"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"开始纠错","base":"https://github.com/superRaytin/redux-saga-in-chinese/tree/master"},"github":{"url":"https://github.com/superRaytin/redux-saga-in-chinese"},"sharing":{"facebook":true,"twitter":true,"google":true,"weibo":true,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"prism":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Redux-Saga","gitbook":"3.2.0"},"file":{"path":"docs/basics/DeclarativeEffects.md","mtime":"2018-05-28T10:04:29.000Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-05-28T10:13:42.471Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
     
-    <script src="../../gitbook/plugins/gitbook-plugin-edit-link/plugin.js"></script>
+        
+        <script src="../../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
     
 
-    
-    <script src="../../gitbook/plugins/gitbook-plugin-ga/plugin.js"></script>
-    
-
-    
-    <script src="../../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
-    
-
-    
-    <script src="../../gitbook/plugins/gitbook-plugin-search/search.js"></script>
-    
-
-    
-    <script src="../../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
-    
-
-    
-    <script src="../../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
-    
-
-<script>
-require(["gitbook"], function(gitbook) {
-    var config = {"edit-link":{"base":"https://github.com/superRaytin/redux-saga-in-chinese/tree/master","label":"开始纠错"},"ga":{"token":"UA-58588801-2","configuration":"auto"},"github":{"url":"https://github.com/superRaytin/redux-saga-in-chinese/"},"sharing":{"facebook":true,"twitter":true,"google":true,"weibo":true,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"prism":{},"search":{},"fontsettings":{"theme":"white","family":"sans","size":2}};
-    gitbook.start(config);
-});
-</script>
-
-        <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-58588801-2', 'auto');ga('send', 'pageview');</script>
     </body>
-    
 </html>
+

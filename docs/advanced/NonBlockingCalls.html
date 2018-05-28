@@ -1,535 +1,533 @@
+
 <!DOCTYPE HTML>
-<html lang="en" >
-    
+<html lang="" >
     <head>
-        
+        <title>无阻塞调用 · Redux-Saga</title>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>无阻塞调用 | Redux-saga 中文文档</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 2.5.2">
+        <meta name="generator" content="GitBook 3.2.0">
         
         
-        <meta name="HandheldFriendly" content="true"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black">
-        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
-        <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
         
+    
     <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
     
         
-        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-edit-link/plugin.css">
+    
         
     
         
-        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-prism/prism.css">
+    
         
     
         
-        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-search/search.css">
-        
     
         
-        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
-        
-    
     
 
         
     
     
-    <link rel="next" href="../../docs/advanced/RunningTasksInParallel.html" />
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="RunningTasksInParallel.html" />
     
     
-    <link rel="prev" href="../../docs/advanced/FutureActions.html" />
+    <link rel="prev" href="FutureActions.html" />
     
 
-        
     </head>
     <body>
         
+<div class="book">
+    <div class="book-summary">
         
-    <div class="book" data-level="3.2" data-chapter-title="无阻塞调用" data-filepath="docs/advanced/NonBlockingCalls.md" data-basepath="../.." data-revision="Sun Jun 05 2016 08:49:27 GMT+0800 (CST)">
-    
-
-<div class="book-summary">
-    <nav role="navigation">
-        <ul class="summary">
             
-            
-            
-            
-
-            
-
-            
-    
-        <li class="chapter " data-level="0" data-path="index.html">
-            
-                
-                    <a href="../../index.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                        自述
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="1" data-path="docs/introduction/index.html">
-            
-                
-                    <a href="../../docs/introduction/index.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>1.</b>
-                        
-                        介绍
-                    </a>
-            
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="1.1" data-path="docs/introduction/BeginnerTutorial.html">
-            
-                
-                    <a href="../../docs/introduction/BeginnerTutorial.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>1.1.</b>
-                        
-                        初级教程
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="1.2" data-path="docs/introduction/SagaBackground.html">
-            
-                
-                    <a href="../../docs/introduction/SagaBackground.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>1.2.</b>
-                        
-                        Saga 的背景
-                    </a>
-            
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-        <li class="chapter " data-level="2" data-path="docs/basics/index.html">
-            
-                
-                    <a href="../../docs/basics/index.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>2.</b>
-                        
-                        基本概念
-                    </a>
-            
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="2.1" data-path="docs/basics/UsingSagaHelpers.html">
-            
-                
-                    <a href="../../docs/basics/UsingSagaHelpers.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>2.1.</b>
-                        
-                        使用 Saga 辅助函数
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="2.2" data-path="docs/basics/DeclarativeEffects.html">
-            
-                
-                    <a href="../../docs/basics/DeclarativeEffects.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>2.2.</b>
-                        
-                        声明式 Effects
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="2.3" data-path="docs/basics/DispatchingActions.html">
-            
-                
-                    <a href="../../docs/basics/DispatchingActions.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>2.3.</b>
-                        
-                        发起 action
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="2.4" data-path="docs/basics/ErrorHandling.html">
-            
-                
-                    <a href="../../docs/basics/ErrorHandling.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>2.4.</b>
-                        
-                        错误处理
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="2.5" data-path="docs/basics/Effect.html">
-            
-                
-                    <a href="../../docs/basics/Effect.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>2.5.</b>
-                        
-                        一个常见的抽象概念: Effect
-                    </a>
-            
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-        <li class="chapter " data-level="3" data-path="docs/advanced/index.html">
-            
-                
-                    <a href="../../docs/advanced/index.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.</b>
-                        
-                        高级
-                    </a>
-            
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="3.1" data-path="docs/advanced/FutureActions.html">
-            
-                
-                    <a href="../../docs/advanced/FutureActions.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.1.</b>
-                        
-                        监听未来的 action
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter active" data-level="3.2" data-path="docs/advanced/NonBlockingCalls.html">
-            
-                
-                    <a href="../../docs/advanced/NonBlockingCalls.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.2.</b>
-                        
-                        无阻塞调用
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.3" data-path="docs/advanced/RunningTasksInParallel.html">
-            
-                
-                    <a href="../../docs/advanced/RunningTasksInParallel.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.3.</b>
-                        
-                        同时执行多个任务
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4" data-path="docs/advanced/RacingEffects.html">
-            
-                
-                    <a href="../../docs/advanced/RacingEffects.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.4.</b>
-                        
-                        在多个 Effects 之间启动 race
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5" data-path="docs/advanced/SequencingSagas.html">
-            
-                
-                    <a href="../../docs/advanced/SequencingSagas.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.5.</b>
-                        
-                        通过 yield* 对 Sagas 进行排序
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6" data-path="docs/advanced/ComposingSagas.html">
-            
-                
-                    <a href="../../docs/advanced/ComposingSagas.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.6.</b>
-                        
-                        组合 Sagas
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.7" data-path="docs/advanced/TaskCancellation.html">
-            
-                
-                    <a href="../../docs/advanced/TaskCancellation.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.7.</b>
-                        
-                        任务的取消
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.8" data-path="docs/advanced/Concurrency.html">
-            
-                
-                    <a href="../../docs/advanced/Concurrency.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.8.</b>
-                        
-                        常见的并发模式
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.9" data-path="docs/advanced/Testing.html">
-            
-                
-                    <a href="../../docs/advanced/Testing.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.9.</b>
-                        
-                        Sagas 测试示例
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.10" data-path="docs/advanced/UsingRunSaga.html">
-            
-                
-                    <a href="../../docs/advanced/UsingRunSaga.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.10.</b>
-                        
-                        连接 Sagas 至外部输入和输出
-                    </a>
-            
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-        <li class="chapter " data-level="4" data-path="docs/recipes/index.html">
-            
-                
-                    <a href="../../docs/recipes/index.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>4.</b>
-                        
-                        技巧
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="5" data-path="docs/ExternalResources.html">
-            
-                
-                    <a href="../../docs/ExternalResources.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>5.</b>
-                        
-                        外部资源
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="6" data-path="docs/Troubleshooting.html">
-            
-                
-                    <a href="../../docs/Troubleshooting.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>6.</b>
-                        
-                        问题解答
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="7" data-path="docs/Glossary.html">
-            
-                
-                    <a href="../../docs/Glossary.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>7.</b>
-                        
-                        名词解释
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="8" data-path="docs/api/index.html">
-            
-                
-                    <a href="../../docs/api/index.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>8.</b>
-                        
-                        API 参考
-                    </a>
-            
-            
-        </li>
-    
-
-
-            
-            <li class="divider"></li>
-            <li>
-                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-                    Published with GitBook
-                </a>
-            </li>
-            
-        </ul>
-    </nav>
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
 </div>
 
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    自述
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../introduction/">
+            
+                <a href="../introduction/">
+            
+                    
+                    介绍
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../introduction/BeginnerTutorial.html">
+            
+                <a href="../introduction/BeginnerTutorial.html">
+            
+                    
+                    初级教程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../introduction/SagaBackground.html">
+            
+                <a href="../introduction/SagaBackground.html">
+            
+                    
+                    Saga 概念的背景
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../basics/">
+            
+                <a href="../basics/">
+            
+                    
+                    基础概念
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../basics/UsingSagaHelpers.html">
+            
+                <a href="../basics/UsingSagaHelpers.html">
+            
+                    
+                    使用 Saga Helpers
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../basics/DeclarativeEffects.html">
+            
+                <a href="../basics/DeclarativeEffects.html">
+            
+                    
+                    声明式 Effects
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../basics/DispatchingActions.html">
+            
+                <a href="../basics/DispatchingActions.html">
+            
+                    
+                    dispatch action
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../basics/ErrorHandling.html">
+            
+                <a href="../basics/ErrorHandling.html">
+            
+                    
+                    错误处理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../basics/Effect.html">
+            
+                <a href="../basics/Effect.html">
+            
+                    
+                    一个常见的抽象概念: Effect
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    高级
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="FutureActions.html">
+            
+                <a href="FutureActions.html">
+            
+                    
+                    监听未来的 action
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4.2" data-path="NonBlockingCalls.html">
+            
+                <a href="NonBlockingCalls.html">
+            
+                    
+                    无阻塞调用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="RunningTasksInParallel.html">
+            
+                <a href="RunningTasksInParallel.html">
+            
+                    
+                    同时执行多个任务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="RacingEffects.html">
+            
+                <a href="RacingEffects.html">
+            
+                    
+                    在多个 Effects 之间启动 race
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="SequencingSagas.html">
+            
+                <a href="SequencingSagas.html">
+            
+                    
+                    使用 yield* 对 Sagas 进行排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="ComposingSagas.html">
+            
+                <a href="ComposingSagas.html">
+            
+                    
+                    组合 Sagas
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="TaskCancellation.html">
+            
+                <a href="TaskCancellation.html">
+            
+                    
+                    取消任务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="ForkModel.html">
+            
+                <a href="ForkModel.html">
+            
+                    
+                    redux-saga 的 fork model
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" data-path="Concurrency.html">
+            
+                <a href="Concurrency.html">
+            
+                    
+                    并发
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10" data-path="Testing.html">
+            
+                <a href="Testing.html">
+            
+                    
+                    测试 Sagas
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.11" data-path="UsingRunSaga.html">
+            
+                <a href="UsingRunSaga.html">
+            
+                    
+                    连接 Sagas 至外部的输入/输出
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.12" data-path="Channels.html">
+            
+                <a href="Channels.html">
+            
+                    
+                    使用 Channels
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../recipes/">
+            
+                <a href="../recipes/">
+            
+                    
+                    技巧
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../ExternalResources.html">
+            
+                <a href="../ExternalResources.html">
+            
+                    
+                    外部资源
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../Troubleshooting.html">
+            
+                <a href="../Troubleshooting.html">
+            
+                    
+                    问题解答
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../Glossary.html">
+            
+                <a href="../Glossary.html">
+            
+                    
+                    名词解释
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../api/">
+            
+                <a href="../api/">
+            
+                    
+                    API 参考
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
     <div class="book-body">
-        <div class="body-inner">
-            <div class="book-header" role="navigation">
-    <!-- Actions Left -->
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
     
 
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../../" >Redux-saga 中文文档</a>
+        <a href="../.." >无阻塞调用</a>
     </h1>
 </div>
 
-            <div class="page-wrapper" tabindex="-1" role="main">
-                <div class="page-inner">
-                
-                
-                    <section class="normal" id="section-">
-                    
-                        <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/advanced/NonBlockingCalls.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h1 id="&#x65E0;&#x963B;&#x585E;&#x8C03;&#x7528;">&#x65E0;&#x963B;&#x585E;&#x8C03;&#x7528;</h1>
-<p>&#x5728;&#x4E0A;&#x4E00;&#x8282;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x770B;&#x5230;&#x4E86; <code>take</code> Effect &#x8BA9;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;&#x4E00;&#x4E2A;&#x96C6;&#x4E2D;&#x7684;&#x5730;&#x65B9;&#x66F4;&#x597D;&#x5730;&#x53BB;&#x63CF;&#x8FF0;&#x4E00;&#x4E2A;&#x975E;&#x5E38;&#x89C4;&#x7684;&#x6D41;&#x7A0B;&#x3002;</p>
-<p>&#x91CD;&#x6E29;&#x4E00;&#x4E0B;&#x767B;&#x5F55;&#x6D41;&#x7A0B;&#x793A;&#x4F8B;&#xFF1A;</p>
-<pre><code class="lang-javascript"><span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">loginFlow</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x65E0;&#x963B;&#x585E;&#x8C03;&#x7528;">&#x65E0;&#x963B;&#x585E;&#x8C03;&#x7528;</h1><p>&#x5728;&#x4E4B;&#x524D;&#x7684;&#x7AE0;&#x8282;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x770B;&#x5230;&#x4E86; <code>take</code> Effect &#x8BA9;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;&#x4E00;&#x4E2A;&#x96C6;&#x4E2D;&#x7684;&#x5730;&#x65B9;&#x66F4;&#x597D;&#x5730;&#x53BB;&#x63CF;&#x8FF0;&#x4E00;&#x4E2A;&#x975E;&#x5E38;&#x89C4;&#x7684;&#x6D41;&#x7A0B;&#x3002;</p><p>&#x91CD;&#x6E29;&#x4E00;&#x4E0B;&#x767B;&#x5F55;&#x6D41;&#x7A0B;&#x793A;&#x4F8B;&#xFF1A;</p><pre><code class="lang-javascript"><span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">loginFlow</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">yield</span> <span class="token function">take</span><span class="token punctuation">(</span><span class="token string">&apos;LOGIN&apos;</span><span class="token punctuation">)</span>
     <span class="token comment" spellcheck="true">// ... perform the login logic</span>
     <span class="token keyword">yield</span> <span class="token function">take</span><span class="token punctuation">(</span><span class="token string">&apos;LOGOUT&apos;</span><span class="token punctuation">)</span>
     <span class="token comment" spellcheck="true">// ... perform the logout logic</span>
   <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>&#x8BA9;&#x6211;&#x4EEC;&#x6765;&#x5B8C;&#x6210;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#xFF0C;&#x5E76;&#x5B9E;&#x73B0;&#x771F;&#x5B9E;&#x7684;&#x767B;&#x5F55;/&#x767B;&#x51FA;&#x903B;&#x8F91;&#x3002;&#x5047;&#x8BBE;&#x6709;&#x8FD9;&#x6837;&#x4E00;&#x4E2A; Api&#xFF0C;&#x5B83;&#x5141;&#x8BB8;&#x6211;&#x4EEC;&#x5728;&#x4E00;&#x4E2A;&#x8FDC;&#x7A0B;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x9A8C;&#x8BC1;&#x7528;&#x6237;&#x7684;&#x6743;&#x9650;&#x3002;
-&#x5982;&#x679C;&#x9A8C;&#x8BC1;&#x6210;&#x529F;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x5C06;&#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x6388;&#x6743;&#x4EE4;&#x724C;&#xFF0C;&#x6211;&#x4EEC;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5C06;&#x4F1A;&#x901A;&#x8FC7; DOM storage &#x5B58;&#x50A8;&#x8FD9;&#x4E2A;&#x4EE4;&#x724C;&#xFF08;&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x7684; Api &#x4E3A; DOM storage &#x63D0;&#x4F9B;&#x4E86;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x670D;&#x52A1;&#xFF09;&#x3002;</p>
-<p>&#x5F53;&#x7528;&#x6237;&#x767B;&#x51FA;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x76F4;&#x63A5;&#x5220;&#x9664;&#x4EE5;&#x524D;&#x5B58;&#x50A8;&#x7684;&#x6388;&#x6743;&#x4EE4;&#x724C;&#x3002;</p>
-<h3 id="&#x521D;&#x6B21;&#x5C1D;&#x8BD5;">&#x521D;&#x6B21;&#x5C1D;&#x8BD5;</h3>
-<p>&#x5230;&#x76EE;&#x524D;&#x4E3A;&#x6B62;&#xFF0C;&#x6211;&#x4EEC;&#x62E5;&#x6709;&#x6240;&#x6709;&#x9700;&#x8981;&#x7684; Effects &#x7528;&#x6765;&#x5B9E;&#x73B0;&#x4E0A;&#x8FF0;&#x6D41;&#x7A0B;&#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>take</code> Effect &#x7B49;&#x5F85; store &#x4E2D;&#x6307;&#x5B9A;&#x7684; action&#x3002;
-&#x6211;&#x4EEC;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>call</code> Effect &#x8FDB;&#x884C;&#x540C;&#x6B65;&#x8C03;&#x7528;&#xFF0C;&#x6700;&#x540E;&#x4F7F;&#x7528; <code>put</code> Effect &#x6765;&#x53D1;&#x8D77; action &#x5230; store&#x3002;</p>
-<p>&#x8BA9;&#x6211;&#x4EEC;&#x8BD5;&#x8BD5;&#x5427;&#xFF1A;</p>
-<blockquote>
-<p>&#x6CE8;&#x610F;&#xFF0C;&#x4EE5;&#x4E0B;&#x4EE3;&#x7801;&#x6709;&#x4E00;&#x4E2A;&#x5C0F;&#x95EE;&#x9898;&#xFF0C;&#x8BF7;&#x52A1;&#x5FC5;&#x5C06;&#x8FD9;&#x4E00;&#x8282;&#x5168;&#x90E8;&#x9605;&#x8BFB;&#x5B8C;&#x3002;</p>
-</blockquote>
-<pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> take<span class="token punctuation">,</span> call<span class="token punctuation">,</span> put <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga/effects&apos;</span>
-<span class="token keyword">import</span> Api from <span class="token string">&apos;...&apos;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>&#x8BA9;&#x6211;&#x4EEC;&#x6765;&#x5B8C;&#x6210;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#xFF0C;&#x5E76;&#x5B9E;&#x73B0;&#x771F;&#x5B9E;&#x7684;&#x767B;&#x5F55;/&#x767B;&#x51FA;&#x903B;&#x8F91;&#x3002;&#x5047;&#x8BBE;&#x6709;&#x8FD9;&#x6837;&#x4E00;&#x4E2A; API&#xFF0C;&#x5B83;&#x5141;&#x8BB8;&#x6211;&#x4EEC;&#x5728;&#x4E00;&#x4E2A;&#x8FDC;&#x7A0B;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x9A8C;&#x8BC1;&#x7528;&#x6237;&#x7684;&#x6743;&#x9650;&#x3002;
+&#x5982;&#x679C;&#x9A8C;&#x8BC1;&#x6210;&#x529F;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x5C06;&#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x6388;&#x6743;&#x4EE4;&#x724C;&#xFF0C;&#x6211;&#x4EEC;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5C06;&#x4F1A;&#x901A;&#x8FC7; DOM storage &#x5B58;&#x50A8;&#x8FD9;&#x4E2A;&#x4EE4;&#x724C;&#xFF08;&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x7684; API &#x4E3A; DOM storage &#x63D0;&#x4F9B;&#x4E86;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x670D;&#x52A1;&#xFF09;&#x3002;</p><p>&#x5F53;&#x7528;&#x6237;&#x767B;&#x51FA;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x76F4;&#x63A5;&#x5220;&#x9664;&#x4EE5;&#x524D;&#x5B58;&#x50A8;&#x7684;&#x6388;&#x6743;&#x4EE4;&#x724C;&#x3002;</p><h3 id="&#x521D;&#x6B21;&#x5C1D;&#x8BD5;">&#x521D;&#x6B21;&#x5C1D;&#x8BD5;</h3><p>&#x5230;&#x76EE;&#x524D;&#x4E3A;&#x6B62;&#xFF0C;&#x6211;&#x4EEC;&#x62E5;&#x6709;&#x6240;&#x6709;&#x9700;&#x8981;&#x7684; Effects &#x7528;&#x6765;&#x5B9E;&#x73B0;&#x4E0A;&#x8FF0;&#x6D41;&#x7A0B;&#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>take</code> Effect &#x7B49;&#x5F85; store &#x4E2D;&#x6307;&#x5B9A;&#x7684; action&#x3002;
+&#x6211;&#x4EEC;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>call</code> Effect &#x8FDB;&#x884C;&#x540C;&#x6B65;&#x8C03;&#x7528;&#xFF0C;&#x6700;&#x540E;&#x4F7F;&#x7528; <code>put</code> Effect &#x6765;&#x53D1;&#x8D77; action &#x5230; store&#x3002;</p><p>&#x8BA9;&#x6211;&#x4EEC;&#x8BD5;&#x8BD5;&#x5427;&#xFF1A;</p><blockquote><p>&#x6CE8;&#x610F;&#xFF0C;&#x4EE5;&#x4E0B;&#x4EE3;&#x7801;&#x6709;&#x4E00;&#x4E2A;&#x5C0F;&#x95EE;&#x9898;&#xFF0C;&#x8BF7;&#x52A1;&#x5FC5;&#x5C06;&#x8FD9;&#x4E00;&#x8282;&#x5168;&#x90E8;&#x9605;&#x8BFB;&#x5B8C;&#x3002;</p></blockquote><pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> take<span class="token punctuation">,</span> call<span class="token punctuation">,</span> put <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-saga/effects&apos;</span>
+<span class="token keyword">import</span> Api <span class="token keyword">from</span> <span class="token string">&apos;...&apos;</span>
 
 <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">authorize</span><span class="token punctuation">(</span>user<span class="token punctuation">,</span> password<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">try</span> <span class="token punctuation">{</span>
@@ -542,7 +540,7 @@
 <span class="token punctuation">}</span>
 
 <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">loginFlow</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">const</span> <span class="token punctuation">{</span>user<span class="token punctuation">,</span> password<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">take</span><span class="token punctuation">(</span><span class="token string">&apos;LOGIN_REQUEST&apos;</span><span class="token punctuation">)</span>
     <span class="token keyword">const</span> token <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">call</span><span class="token punctuation">(</span>authorize<span class="token punctuation">,</span> user<span class="token punctuation">,</span> password<span class="token punctuation">)</span>
     <span class="token keyword">if</span><span class="token punctuation">(</span>token<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -551,25 +549,14 @@
       <span class="token keyword">yield</span> <span class="token function">call</span><span class="token punctuation">(</span>Api<span class="token punctuation">.</span><span class="token function">clearItem</span><span class="token punctuation">(</span><span class="token string">&apos;token&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>&#x9996;&#x5148;&#x6211;&#x4EEC;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;&#x72EC;&#x7ACB;&#x7684; Generator <code>authorize</code>&#xFF0C;&#x5B83;&#x5C06;&#x6267;&#x884C;&#x771F;&#x5B9E;&#x7684; Api &#x8C03;&#x7528;&#x5E76;&#x5728;&#x6210;&#x529F;&#x540E;&#x901A;&#x77E5; Store&#x3002;</p>
-<p><code>loginFlow</code> &#x5728;&#x4E00;&#x4E2A; <code><span class="token keyword">while</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span></code> &#x5FAA;&#x73AF;&#x4E2D;&#x5B9E;&#x73B0;&#x5B83;&#x6240;&#x6709;&#x7684;&#x6D41;&#x7A0B;&#xFF0C;&#x8FD9;&#x6837;&#x505A;&#x7684;&#x610F;&#x601D;&#x662F;&#xFF1A;&#x4E00;&#x65E6;&#x5230;&#x8FBE;&#x6D41;&#x7A0B;&#x6700;&#x540E;&#x4E00;&#x6B65;&#xFF08;<code>LOGOUT</code>&#xFF09;&#xFF0C;&#x901A;&#x8FC7;&#x7B49;&#x5F85;&#x4E00;&#x4E2A;&#x65B0;&#x7684; <code>LOGIN_REQUEST</code> action &#x6765;&#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x8FED;&#x4EE3;&#x3002;</p>
-<p><code>loginFlow</code> &#x9996;&#x5148;&#x7B49;&#x5F85;&#x4E00;&#x4E2A; <code>LOGIN_REQUEST</code> action&#x3002;
-&#x7136;&#x540E;&#x5728; action &#x7684; payload &#x4E2D;&#x83B7;&#x53D6;&#x6709;&#x6548;&#x51ED;&#x636E;&#xFF08;&#x5373; <code>user</code> &#x548C; <code>password</code>&#xFF09;&#x5E76;&#x8C03;&#x7528;&#x4E00;&#x4E2A; <code>call</code> &#x5230; <code>authorize</code> &#x4EFB;&#x52A1;&#x3002;</p>
-<p>&#x6B63;&#x5982;&#x4F60;&#x6CE8;&#x610F;&#x5230;&#x7684;&#xFF0C;<code>call</code> &#x4E0D;&#x4EC5;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x8C03;&#x7528;&#x8FD4;&#x56DE; Promise &#x7684;&#x51FD;&#x6570;&#x3002;&#x6211;&#x4EEC;&#x4E5F;&#x53EF;&#x4EE5;&#x7528;&#x5B83;&#x6765;&#x8C03;&#x7528;&#x5176;&#x4ED6; Generator &#x51FD;&#x6570;&#x3002;
-&#x5728;&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;<strong><code>loginFlow</code> &#x5C06;&#x7B49;&#x5F85; <code>authorize</code> &#x76F4;&#x5230;&#x5B83;&#x7EC8;&#x6B62;&#x6216;&#x8FD4;&#x56DE;</strong>&#xFF08;&#x5373;&#x6267;&#x884C; api &#x8C03;&#x7528;&#x540E;&#xFF0C;&#x53D1;&#x8D77; action &#x7136;&#x540E;&#x8FD4;&#x56DE; token &#x81F3; <code>loginFlow</code>&#xFF09;&#x3002;</p>
-<p>&#x5982;&#x679C; Api &#x8C03;&#x7528;&#x6210;&#x529F;&#x4E86;&#xFF0C;<code>authorize</code> &#x5C06;&#x53D1;&#x8D77;&#x4E00;&#x4E2A; <code>LOGIN_SUCCESS</code> action &#x7136;&#x540E;&#x8FD4;&#x56DE;&#x83B7;&#x53D6;&#x5230;&#x7684; token&#x3002;
-&#x5982;&#x679C;&#x8C03;&#x7528;&#x5BFC;&#x81F4;&#x4E86;&#x9519;&#x8BEF;&#xFF0C;&#x5C06;&#x4F1A;&#x53D1;&#x8D77;&#x4E00;&#x4E2A; <code>LOGIN_ERROR</code> action&#x3002;</p>
-<p>&#x5982;&#x679C;&#x8C03;&#x7528; <code>authorize</code> &#x6210;&#x529F;&#xFF0C;<code>loginFlow</code> &#x5C06;&#x5728; DOM storage &#x4E2D;&#x5B58;&#x50A8;&#x8FD4;&#x56DE;&#x7684; token&#xFF0C;&#x5E76;&#x7B49;&#x5F85; <code>LOGOUT</code> action&#x3002;
-&#x5F53;&#x7528;&#x6237;&#x767B;&#x51FA;&#xFF0C;&#x6211;&#x4EEC;&#x5220;&#x9664;&#x5B58;&#x50A8;&#x7684; token &#x5E76;&#x7B49;&#x5F85;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x7528;&#x6237;&#x767B;&#x5F55;&#x3002;</p>
-<p>&#x5728; <code>authorize</code> &#x5931;&#x8D25;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5B83;&#x5C06;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A; undefined &#x503C;&#xFF0C;&#x8FD9;&#x5C06;&#x5BFC;&#x81F4; <code>loginFlow</code> &#x8DF3;&#x8FC7;&#x5F53;&#x524D;&#x5904;&#x7406;&#x8FDB;&#x7A0B;&#x5E76;&#x7B49;&#x5F85;&#x4E00;&#x4E2A;&#x65B0;&#x7684; <code>LOGIN_REQUEST</code> action&#x3002;</p>
-<p>&#x89C2;&#x5BDF;&#x6574;&#x4E2A;&#x903B;&#x8F91;&#x662F;&#x5982;&#x4F55;&#x5B58;&#x50A8;&#x5728;&#x4E00;&#x4E2A;&#x5730;&#x65B9;&#x7684;&#x3002;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x5F00;&#x53D1;&#x8005;&#x9605;&#x8BFB;&#x6211;&#x4EEC;&#x7684;&#x4EE3;&#x7801;&#x65F6;&#xFF0C;&#x4E0D;&#x5FC5;&#x518D;&#x4E3A;&#x4E86;&#x7406;&#x89E3;&#x63A7;&#x5236;&#x6D41;&#x800C;&#x5728;&#x5404;&#x4E2A;&#x5730;&#x65B9;&#x6765;&#x56DE;&#x5207;&#x6362;&#x3002;
-&#x8FD9;&#x5C31;&#x50CF;&#x662F;&#x5728;&#x9605;&#x8BFB;&#x540C;&#x6B65;&#x4EE3;&#x7801;&#xFF1A;&#x5B83;&#x4EEC;&#x7684;&#x81EA;&#x7136;&#x987A;&#x5E8F;&#x786E;&#x5B9A;&#x4E86;&#x6267;&#x884C;&#x6B65;&#x9AA4;&#x3002;&#x5E76;&#x4E14;&#x6211;&#x4EEC;&#x6709;&#x5F88;&#x591A; Effects &#x53EF;&#x4EE5;&#x8C03;&#x7528;&#x5176;&#x4ED6;&#x51FD;&#x6570;&#x5E76;&#x7B49;&#x5F85;&#x5B83;&#x4EEC;&#x7684;&#x7ED3;&#x679C;&#x3002;</p>
-<h3 id="&#x4F46;&#x4E0A;&#x9762;&#x7684;&#x65B9;&#x6CD5;&#x8FD8;&#x662F;&#x6709;&#x4E00;&#x4E2A;&#x5C0F;&#x95EE;&#x9898;">&#x4F46;&#x4E0A;&#x9762;&#x7684;&#x65B9;&#x6CD5;&#x8FD8;&#x662F;&#x6709;&#x4E00;&#x4E2A;&#x5C0F;&#x95EE;&#x9898;</h3>
-<p>&#x5047;&#x8BBE; <code>loginFlow</code> &#x6B63;&#x5728;&#x7B49;&#x5F85;&#x5982;&#x4E0B;&#x7684;&#x8C03;&#x7528;&#x88AB; resolve&#xFF1A;</p>
-<pre><code class="lang-javascript"><span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">loginFlow</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span></code></pre>
+<p>&#x9996;&#x5148;&#x6211;&#x4EEC;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;&#x72EC;&#x7ACB;&#x7684; Generator <code>authorize</code>&#xFF0C;&#x5B83;&#x5C06;&#x6267;&#x884C;&#x771F;&#x5B9E;&#x7684; API &#x8C03;&#x7528;&#x5E76;&#x5728;&#x6210;&#x529F;&#x540E;&#x901A;&#x77E5; Store&#x3002;</p><p><code>loginFlow</code> &#x5728;&#x4E00;&#x4E2A; <code>while(true)</code> &#x5FAA;&#x73AF;&#x4E2D;&#x5B9E;&#x73B0;&#x5B83;&#x6240;&#x6709;&#x7684;&#x6D41;&#x7A0B;&#xFF0C;&#x8FD9;&#x6837;&#x505A;&#x7684;&#x610F;&#x601D;&#x662F;&#xFF1A;&#x4E00;&#x65E6;&#x5230;&#x8FBE;&#x6D41;&#x7A0B;&#x6700;&#x540E;&#x4E00;&#x6B65;&#xFF08;<code>LOGOUT</code>&#xFF09;&#xFF0C;&#x901A;&#x8FC7;&#x7B49;&#x5F85;&#x4E00;&#x4E2A;&#x65B0;&#x7684; <code>LOGIN_REQUEST</code> action &#x6765;&#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x8FED;&#x4EE3;&#x3002;</p><p><code>loginFlow</code> &#x9996;&#x5148;&#x7B49;&#x5F85;&#x4E00;&#x4E2A; <code>LOGIN_REQUEST</code> action&#x3002;
+&#x7136;&#x540E;&#x5728; action &#x7684; payload &#x4E2D;&#x83B7;&#x53D6;&#x6709;&#x6548;&#x51ED;&#x636E;&#xFF08;&#x5373; <code>user</code> &#x548C; <code>password</code>&#xFF09;&#x5E76;&#x8C03;&#x7528;&#x4E00;&#x4E2A; <code>call</code> &#x5230; <code>authorize</code> &#x4EFB;&#x52A1;&#x3002;</p><p>&#x6B63;&#x5982;&#x4F60;&#x6CE8;&#x610F;&#x5230;&#x7684;&#xFF0C;<code>call</code> &#x4E0D;&#x4EC5;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x8C03;&#x7528;&#x8FD4;&#x56DE; Promise &#x7684;&#x51FD;&#x6570;&#x3002;&#x6211;&#x4EEC;&#x4E5F;&#x53EF;&#x4EE5;&#x7528;&#x5B83;&#x6765;&#x8C03;&#x7528;&#x5176;&#x4ED6; Generator &#x51FD;&#x6570;&#x3002;
+&#x5728;&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;<strong><code>loginFlow</code> &#x5C06;&#x7B49;&#x5F85; <code>authorize</code> &#x76F4;&#x5230;&#x5B83;&#x7EC8;&#x6B62;&#x6216;&#x8FD4;&#x56DE;</strong>&#xFF08;&#x5373;&#x6267;&#x884C; api &#x8C03;&#x7528;&#x540E;&#xFF0C;&#x53D1;&#x8D77; action &#x7136;&#x540E;&#x8FD4;&#x56DE; token &#x81F3; <code>loginFlow</code>&#xFF09;&#x3002;</p><p>&#x5982;&#x679C; Api &#x8C03;&#x7528;&#x6210;&#x529F;&#x4E86;&#xFF0C;<code>authorize</code> &#x5C06;&#x53D1;&#x8D77;&#x4E00;&#x4E2A; <code>LOGIN_SUCCESS</code> action &#x7136;&#x540E;&#x8FD4;&#x56DE;&#x83B7;&#x53D6;&#x5230;&#x7684; token&#x3002;
+&#x5982;&#x679C;&#x8C03;&#x7528;&#x5BFC;&#x81F4;&#x4E86;&#x9519;&#x8BEF;&#xFF0C;&#x5C06;&#x4F1A;&#x53D1;&#x8D77;&#x4E00;&#x4E2A; <code>LOGIN_ERROR</code> action&#x3002;</p><p>&#x5982;&#x679C;&#x8C03;&#x7528; <code>authorize</code> &#x6210;&#x529F;&#xFF0C;<code>loginFlow</code> &#x5C06;&#x5728; DOM storage &#x4E2D;&#x5B58;&#x50A8;&#x8FD4;&#x56DE;&#x7684; token&#xFF0C;&#x5E76;&#x7B49;&#x5F85; <code>LOGOUT</code> action&#x3002;
+&#x5F53;&#x7528;&#x6237;&#x767B;&#x51FA;&#xFF0C;&#x6211;&#x4EEC;&#x5220;&#x9664;&#x5B58;&#x50A8;&#x7684; token &#x5E76;&#x7B49;&#x5F85;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x7528;&#x6237;&#x767B;&#x5F55;&#x3002;</p><p>&#x5728; <code>authorize</code> &#x5931;&#x8D25;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5B83;&#x5C06;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A; undefined &#x503C;&#xFF0C;&#x8FD9;&#x5C06;&#x5BFC;&#x81F4; <code>loginFlow</code> &#x8DF3;&#x8FC7;&#x5F53;&#x524D;&#x5904;&#x7406;&#x8FDB;&#x7A0B;&#x5E76;&#x7B49;&#x5F85;&#x4E00;&#x4E2A;&#x65B0;&#x7684; <code>LOGIN_REQUEST</code> action&#x3002;</p><p>&#x8BF7;&#x89C2;&#x5BDF;&#x6574;&#x4E2A;&#x903B;&#x8F91;&#x662F;&#x5982;&#x4F55;&#x5B58;&#x50A8;&#x5728;&#x4E00;&#x4E2A;&#x5730;&#x65B9;&#x7684;&#x3002;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x5F00;&#x53D1;&#x8005;&#x9605;&#x8BFB;&#x6211;&#x4EEC;&#x7684;&#x4EE3;&#x7801;&#x65F6;&#xFF0C;&#x4E0D;&#x5FC5;&#x518D;&#x4E3A;&#x4E86;&#x7406;&#x89E3;&#x63A7;&#x5236;&#x6D41;&#x800C;&#x5728;&#x5404;&#x4E2A;&#x5730;&#x65B9;&#x6765;&#x56DE;&#x5207;&#x6362;&#x3002;
+&#x8FD9;&#x5C31;&#x50CF;&#x662F;&#x5728;&#x9605;&#x8BFB;&#x540C;&#x6B65;&#x4EE3;&#x7801;&#xFF1A;&#x5B83;&#x4EEC;&#x7684;&#x81EA;&#x7136;&#x987A;&#x5E8F;&#x786E;&#x5B9A;&#x4E86;&#x6267;&#x884C;&#x6B65;&#x9AA4;&#x3002;&#x5E76;&#x4E14;&#x6211;&#x4EEC;&#x6709;&#x5F88;&#x591A; Effects &#x53EF;&#x4EE5;&#x8C03;&#x7528;&#x5176;&#x4ED6;&#x51FD;&#x6570;&#x5E76;&#x7B49;&#x5F85;&#x5B83;&#x4EEC;&#x7684;&#x7ED3;&#x679C;&#x3002;</p><h3 id="&#x4F46;&#x4E0A;&#x9762;&#x7684;&#x65B9;&#x6CD5;&#x8FD8;&#x662F;&#x6709;&#x4E00;&#x4E2A;&#x5C0F;&#x95EE;&#x9898;">&#x4F46;&#x4E0A;&#x9762;&#x7684;&#x65B9;&#x6CD5;&#x8FD8;&#x662F;&#x6709;&#x4E00;&#x4E2A;&#x5C0F;&#x95EE;&#x9898;</h3><p>&#x5047;&#x8BBE; <code>loginFlow</code> &#x6B63;&#x5728;&#x7B49;&#x5F85;&#x5982;&#x4E0B;&#x7684;&#x8C03;&#x7528;&#x88AB; resolve&#xFF1A;</p><pre><code class="lang-javascript"><span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">loginFlow</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
     <span class="token keyword">try</span> <span class="token punctuation">{</span>
       <span class="token keyword">const</span> token <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">call</span><span class="token punctuation">(</span>authorize<span class="token punctuation">,</span> user<span class="token punctuation">,</span> password<span class="token punctuation">)</span>
@@ -577,32 +564,24 @@
     <span class="token punctuation">}</span>
     <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
   <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>&#x4F46;&#x7528;&#x6237;&#x70B9;&#x51FB;&#x4E86; <code>Logout</code> &#x6309;&#x94AE;&#x4F7F;&#x5F97; <code>LOGOUT</code> action &#x88AB;&#x53D1;&#x8D77;&#x3002;</p>
-<p>&#x4E0B;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x6F14;&#x793A;&#x4E86;&#x5047;&#x60F3;&#x7684;&#x4E00;&#x7CFB;&#x5217;&#x4E8B;&#x4EF6;&#xFF1A;</p>
-<pre><code>UI                              loginFlow
-<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>
-LOGIN_REQUEST<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>call authorize<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> waiting to resolve
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>                     
-LOGOUT<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> missed<span class="token operator">!</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>authorize returned<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> dispatch a `LOGIN_SUCCESS`<span class="token operator">!</span><span class="token operator">!</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-</code></pre><p>&#x5F53; <code>loginFlow</code> &#x5728; <code>authorize</code> &#x4E2D;&#x88AB;&#x963B;&#x585E;&#x4E86;&#xFF0C;&#x6700;&#x7EC8;&#x53D1;&#x751F;&#x5728;&#x5F00;&#x59CB;&#x8C03;&#x7528;&#x548C;&#x6536;&#x5230;&#x54CD;&#x5E94;&#x4E4B;&#x95F4;&#x7684; <code>LOGOUT</code> &#x5C06;&#x4F1A;&#x88AB;&#x9519;&#x8FC7;&#xFF0C;
-&#x56E0;&#x4E3A;&#x90A3;&#x65F6; <code>loginFlow</code> &#x8FD8;&#x6CA1;&#x6709;&#x6267;&#x884C; <code><span class="token keyword">yield</span> <span class="token function">take</span><span class="token punctuation">(</span><span class="token string">&apos;LOGOUT&apos;</span><span class="token punctuation">)</span></code>&#x3002;</p>
-<p>&#x4E0A;&#x9762;&#x4EE3;&#x7801;&#x7684;&#x95EE;&#x9898;&#x662F; <code>call</code> &#x662F;&#x4E00;&#x4E2A;&#x4F1A;&#x963B;&#x585E;&#x7684; Effect&#x3002;&#x5373; Generator &#x5728;&#x8C03;&#x7528;&#x7ED3;&#x675F;&#x4E4B;&#x524D;&#x4E0D;&#x80FD;&#x6267;&#x884C;&#x6216;&#x5904;&#x7406;&#x4EFB;&#x4F55;&#x5176;&#x4ED6;&#x4E8B;&#x60C5;&#x3002;
+<span class="token punctuation">}</span></code></pre>
+<p>&#x4F46;&#x7528;&#x6237;&#x70B9;&#x51FB;&#x4E86; <code>Logout</code> &#x6309;&#x94AE;&#x4F7F;&#x5F97; <code>LOGOUT</code> action &#x88AB;&#x53D1;&#x8D77;&#x3002;</p><p>&#x4E0B;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x6F14;&#x793A;&#x4E86;&#x5047;&#x60F3;&#x7684;&#x4E00;&#x7CFB;&#x5217;&#x4E8B;&#x4EF6;&#xFF1A;</p><pre><code>UI                              loginFlow
+--------------------------------------------------------
+LOGIN_REQUEST...................call authorize.......... waiting to resolve
+........................................................
+........................................................                     
+LOGOUT.................................................. missed!
+........................................................
+................................authorize returned...... dispatch a `LOGIN_SUCCESS`!!
+........................................................</code></pre>
+<p>&#x5F53; <code>loginFlow</code> &#x5728; <code>authorize</code> &#x4E2D;&#x88AB;&#x963B;&#x585E;&#x4E86;&#xFF0C;&#x6700;&#x7EC8;&#x53D1;&#x751F;&#x5728;&#x5F00;&#x59CB;&#x8C03;&#x7528;&#x548C;&#x6536;&#x5230;&#x54CD;&#x5E94;&#x4E4B;&#x95F4;&#x7684; <code>LOGOUT</code> &#x5C06;&#x4F1A;&#x88AB;&#x9519;&#x8FC7;&#xFF0C;
+&#x56E0;&#x4E3A;&#x90A3;&#x65F6; <code>loginFlow</code> &#x8FD8;&#x6CA1;&#x6709;&#x6267;&#x884C; <code>yield take(&apos;LOGOUT&apos;)</code>&#x3002;</p><p>&#x4E0A;&#x9762;&#x4EE3;&#x7801;&#x7684;&#x95EE;&#x9898;&#x662F; <code>call</code> &#x662F;&#x4E00;&#x4E2A;&#x4F1A;&#x963B;&#x585E;&#x7684; Effect&#x3002;&#x5373; Generator &#x5728;&#x8C03;&#x7528;&#x7ED3;&#x675F;&#x4E4B;&#x524D;&#x4E0D;&#x80FD;&#x6267;&#x884C;&#x6216;&#x5904;&#x7406;&#x4EFB;&#x4F55;&#x5176;&#x4ED6;&#x4E8B;&#x60C5;&#x3002;
 &#x4F46;&#x5728;&#x6211;&#x4EEC;&#x7684;&#x60C5;&#x51B5;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x4E0D;&#x4EC5;&#x5E0C;&#x671B; <code>loginFlow</code> &#x6267;&#x884C;&#x6388;&#x6743;&#x8C03;&#x7528;&#xFF0C;&#x4E5F;&#x60F3;&#x76D1;&#x542C;&#x53EF;&#x80FD;&#x53D1;&#x751F;&#x5728;&#x8C03;&#x7528;&#x672A;&#x5B8C;&#x6210;&#x4E4B;&#x524D;&#x7684; <code>LOGOUT</code> action&#x3002;
-&#x56E0;&#x4E3A; <code>LOGOUT</code> &#x4E0E;&#x8C03;&#x7528; <code>authorize</code> &#x662F; <em>&#x5E76;&#x53D1;&#x7684;</em>&#x3002;</p>
-<p>&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7684;&#x662F;&#x4E00;&#x4E9B;&#x975E;&#x963B;&#x585E;&#x8C03;&#x7528; <code>authorize</code> &#x7684;&#x65B9;&#x6CD5;&#x3002;&#x8FD9;&#x6837; <code>loginFlow</code> &#x5C31;&#x53EF;&#x4EE5;&#x7EE7;&#x7EED;&#x6267;&#x884C;&#xFF0C;&#x5E76;&#x4E14;&#x76D1;&#x542C;&#x5E76;&#x53D1;&#x7684;&#x6216;&#x54CD;&#x5E94;&#x672A;&#x5B8C;&#x6210;&#x4E4B;&#x524D;&#x53D1;&#x51FA;&#x7684; <code>LOGOUT</code> action&#x3002;</p>
-<p>&#x4E3A;&#x4E86;&#x8868;&#x793A;&#x65E0;&#x963B;&#x585E;&#x8C03;&#x7528;&#xFF0C;redux-saga &#x63D0;&#x4F9B;&#x4E86;&#x53E6;&#x4E00;&#x4E2A; Effect&#xFF1A;<a href="http://leonshi.com/redux-saga-in-chinese/docs/api/index.html#forkfn-args" target="_blank"><code>fork</code></a>&#x3002;
-&#x5F53;&#x6211;&#x4EEC; fork &#x4E00;&#x4E2A; <em>&#x4EFB;&#x52A1;</em>&#xFF0C;&#x4EFB;&#x52A1;&#x4F1A;&#x5728;&#x540E;&#x53F0;&#x542F;&#x52A8;&#xFF0C;&#x8C03;&#x7528;&#x8005;&#x4E5F;&#x53EF;&#x4EE5;&#x7EE7;&#x7EED;&#x5B83;&#x81EA;&#x5DF1;&#x7684;&#x6D41;&#x7A0B;&#xFF0C;&#x800C;&#x4E0D;&#x7528;&#x7B49;&#x5F85;&#x88AB; fork &#x7684;&#x4EFB;&#x52A1;&#x7ED3;&#x675F;&#x3002;</p>
-<p>&#x6240;&#x4EE5;&#x4E3A;&#x4E86;&#x8BA9; <code>loginFlow</code> &#x4E0D;&#x9519;&#x8FC7;&#x4E00;&#x4E2A;&#x5E76;&#x53D1;&#x7684; <code>LOGOUT</code>&#xFF0C;&#x6211;&#x4EEC;&#x4E0D;&#x5E94;&#x8BE5;&#x4F7F;&#x7528; <code>call</code> &#x8C03;&#x7528; <code>authorize</code> &#x4EFB;&#x52A1;&#xFF0C;&#x800C;&#x5E94;&#x8BE5;&#x4F7F;&#x7528; <code>fork</code>&#x3002;</p>
-<pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> fork<span class="token punctuation">,</span> call<span class="token punctuation">,</span> take<span class="token punctuation">,</span> put <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga/effects&apos;</span>
+&#x56E0;&#x4E3A; <code>LOGOUT</code> &#x4E0E;&#x8C03;&#x7528; <code>authorize</code> &#x662F; <em>&#x5E76;&#x53D1;&#x7684;</em>&#x3002;</p><p>&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7684;&#x662F;&#x4E00;&#x4E9B;&#x975E;&#x963B;&#x585E;&#x8C03;&#x7528; <code>authorize</code> &#x7684;&#x65B9;&#x6CD5;&#x3002;&#x8FD9;&#x6837; <code>loginFlow</code> &#x5C31;&#x53EF;&#x4EE5;&#x7EE7;&#x7EED;&#x6267;&#x884C;&#xFF0C;&#x5E76;&#x4E14;&#x76D1;&#x542C;&#x5E76;&#x53D1;&#x7684;&#x6216;&#x54CD;&#x5E94;&#x672A;&#x5B8C;&#x6210;&#x4E4B;&#x524D;&#x53D1;&#x51FA;&#x7684; <code>LOGOUT</code> action&#x3002;</p><p>&#x4E3A;&#x4E86;&#x8868;&#x793A;&#x65E0;&#x963B;&#x585E;&#x8C03;&#x7528;&#xFF0C;redux-saga &#x63D0;&#x4F9B;&#x4E86;&#x53E6;&#x4E00;&#x4E2A; Effect&#xFF1A;<a href="http://leonshi.com/redux-saga-in-chinese/docs/api/index.html#forkfn-args" target="_blank"><code>fork</code></a>&#x3002;
+&#x5F53;&#x6211;&#x4EEC; fork &#x4E00;&#x4E2A; <em>&#x4EFB;&#x52A1;</em>&#xFF0C;&#x4EFB;&#x52A1;&#x4F1A;&#x5728;&#x540E;&#x53F0;&#x542F;&#x52A8;&#xFF0C;&#x8C03;&#x7528;&#x8005;&#x4E5F;&#x53EF;&#x4EE5;&#x7EE7;&#x7EED;&#x5B83;&#x81EA;&#x5DF1;&#x7684;&#x6D41;&#x7A0B;&#xFF0C;&#x800C;&#x4E0D;&#x7528;&#x7B49;&#x5F85;&#x88AB; fork &#x7684;&#x4EFB;&#x52A1;&#x7ED3;&#x675F;&#x3002;</p><p>&#x6240;&#x4EE5;&#x4E3A;&#x4E86;&#x8BA9; <code>loginFlow</code> &#x4E0D;&#x9519;&#x8FC7;&#x4E00;&#x4E2A;&#x5E76;&#x53D1;&#x7684; <code>LOGOUT</code>&#xFF0C;&#x6211;&#x4EEC;&#x4E0D;&#x5E94;&#x8BE5;&#x4F7F;&#x7528; <code>call</code> &#x8C03;&#x7528; <code>authorize</code> &#x4EFB;&#x52A1;&#xFF0C;&#x800C;&#x5E94;&#x8BE5;&#x4F7F;&#x7528; <code>fork</code>&#x3002;</p><pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> fork<span class="token punctuation">,</span> call<span class="token punctuation">,</span> take<span class="token punctuation">,</span> put <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-saga/effects&apos;</span>
 
 <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">loginFlow</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
     <span class="token keyword">try</span> <span class="token punctuation">{</span>
       <span class="token comment" spellcheck="true">// &#x65E0;&#x963B;&#x585E;&#x8C03;&#x7528;&#xFF0C;&#x8FD9;&#x91CC;&#x8FD4;&#x56DE;&#x7684;&#x503C;&#x662F;&#x4EC0;&#x4E48;&#xFF1F;</span>
@@ -611,12 +590,10 @@ LOGOUT<span class="token punctuation">.</span><span class="token punctuation">.<
     <span class="token punctuation">}</span>
     <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
   <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
+<span class="token punctuation">}</span></code></pre>
 <p>&#x73B0;&#x5728;&#x7684;&#x95EE;&#x9898;&#x662F;&#xFF0C;&#x81EA;&#x4ECE; <code>authorize</code> &#x7684; action &#x5728;&#x540E;&#x53F0;&#x542F;&#x52A8;&#x4E4B;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x83B7;&#x53D6;&#x4E0D;&#x5230; <code>token</code> &#x7684;&#x7ED3;&#x679C;&#xFF08;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x4E0D;&#x5E94;&#x8BE5;&#x7B49;&#x5F85;&#x5B83;&#xFF09;&#x3002;
-&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5C06; token &#x5B58;&#x50A8;&#x64CD;&#x4F5C;&#x79FB;&#x5230; <code>authorize</code> &#x4EFB;&#x52A1;&#x5185;&#x90E8;&#x3002;</p>
-<pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> fork<span class="token punctuation">,</span> call<span class="token punctuation">,</span> take<span class="token punctuation">,</span> put <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga/effects&apos;</span>
-<span class="token keyword">import</span> Api from <span class="token string">&apos;...&apos;</span>
+&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5C06; token &#x5B58;&#x50A8;&#x64CD;&#x4F5C;&#x79FB;&#x5230; <code>authorize</code> &#x4EFB;&#x52A1;&#x5185;&#x90E8;&#x3002;</p><pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> fork<span class="token punctuation">,</span> call<span class="token punctuation">,</span> take<span class="token punctuation">,</span> put <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-saga/effects&apos;</span>
+<span class="token keyword">import</span> Api <span class="token keyword">from</span> <span class="token string">&apos;...&apos;</span>
 
 <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">authorize</span><span class="token punctuation">(</span>user<span class="token punctuation">,</span> password<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">try</span> <span class="token punctuation">{</span>
@@ -628,36 +605,26 @@ LOGOUT<span class="token punctuation">.</span><span class="token punctuation">.<
 <span class="token punctuation">}</span>
 
 <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">loginFlow</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">const</span> <span class="token punctuation">{</span>user<span class="token punctuation">,</span> password<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">take</span><span class="token punctuation">(</span><span class="token string">&apos;LOGIN_REQUEST&apos;</span><span class="token punctuation">)</span>
     <span class="token keyword">yield</span> <span class="token function">fork</span><span class="token punctuation">(</span>authorize<span class="token punctuation">,</span> user<span class="token punctuation">,</span> password<span class="token punctuation">)</span>
     <span class="token keyword">yield</span> <span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">&apos;LOGOUT&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;LOGIN_ERROR&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
     <span class="token keyword">yield</span> <span class="token function">call</span><span class="token punctuation">(</span>Api<span class="token punctuation">.</span><span class="token function">clearItem</span><span class="token punctuation">(</span><span class="token string">&apos;token&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
   <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x4E86; <code><span class="token keyword">yield</span> <span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">&apos;LOGOUT&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;LOGIN_ERROR&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span></code>&#x3002;&#x610F;&#x601D;&#x662F;&#x76D1;&#x542C; 2 &#x4E2A;&#x5E76;&#x53D1;&#x7684; action&#xFF1A;</p>
-<ul>
-<li><p>&#x5982;&#x679C; <code>authorize</code> &#x4EFB;&#x52A1;&#x5728;&#x7528;&#x6237;&#x767B;&#x51FA;&#x4E4B;&#x524D;&#x6210;&#x529F;&#x4E86;&#xFF0C;&#x5B83;&#x5C06;&#x4F1A;&#x53D1;&#x8D77;&#x4E00;&#x4E2A; <code>LOGIN_SUCCESS</code> action &#x7136;&#x540E;&#x7ED3;&#x675F;&#x3002;
-&#x7136;&#x540E; <code>loginFlow</code> Saga &#x53EA;&#x4F1A;&#x7B49;&#x5F85;&#x4E00;&#x4E2A;&#x672A;&#x6765;&#x7684; <code>LOGOUT</code> action &#x88AB;&#x53D1;&#x8D77;&#xFF08;&#x56E0;&#x4E3A; <code>LOGIN_ERROR</code> &#x6C38;&#x8FDC;&#x4E0D;&#x4F1A;&#x53D1;&#x751F;&#xFF09;&#x3002;</p>
-</li>
+<span class="token punctuation">}</span></code></pre>
+<p>&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x4E86; <code>yield take([&apos;LOGOUT&apos;, &apos;LOGIN_ERROR&apos;])</code>&#x3002;&#x610F;&#x601D;&#x662F;&#x76D1;&#x542C; 2 &#x4E2A;&#x5E76;&#x53D1;&#x7684; action&#xFF1A;</p><ul><li><p>&#x5982;&#x679C; <code>authorize</code> &#x4EFB;&#x52A1;&#x5728;&#x7528;&#x6237;&#x767B;&#x51FA;&#x4E4B;&#x524D;&#x6210;&#x529F;&#x4E86;&#xFF0C;&#x5B83;&#x5C06;&#x4F1A;&#x53D1;&#x8D77;&#x4E00;&#x4E2A; <code>LOGIN_SUCCESS</code> action &#x7136;&#x540E;&#x7ED3;&#x675F;&#x3002;
+&#x7136;&#x540E; <code>loginFlow</code> Saga &#x53EA;&#x4F1A;&#x7B49;&#x5F85;&#x4E00;&#x4E2A;&#x672A;&#x6765;&#x7684; <code>LOGOUT</code> action &#x88AB;&#x53D1;&#x8D77;&#xFF08;&#x56E0;&#x4E3A; <code>LOGIN_ERROR</code> &#x6C38;&#x8FDC;&#x4E0D;&#x4F1A;&#x53D1;&#x751F;&#xFF09;&#x3002;</p></li>
 <li><p>&#x5982;&#x679C; <code>authorize</code> &#x5728;&#x7528;&#x6237;&#x767B;&#x51FA;&#x4E4B;&#x524D;&#x5931;&#x8D25;&#x4E86;&#xFF0C;&#x5B83;&#x5C06;&#x4F1A;&#x53D1;&#x8D77;&#x4E00;&#x4E2A; <code>LOGIN_ERROR</code> action &#x7136;&#x540E;&#x7ED3;&#x675F;&#x3002;
-&#x90A3;&#x4E48; <code>loginFlow</code> &#x5C06;&#x5728; <code>LOGOUT</code> &#x4E4B;&#x524D;&#x6536;&#x5230; <code>LOGIN_ERROR</code>&#xFF0C;&#x7136;&#x540E;&#x5B83;&#x4F1A;&#x8FDB;&#x5165;&#x53E6;&#x5916;&#x4E00;&#x4E2A; <code><span class="token keyword">while</span></code> &#x8FED;&#x4EE3;&#x5E76;&#x7B49;&#x5F85;&#x4E0B;&#x4E00;&#x4E2A; <code>LOGIN_REQUEST</code> action&#x3002;</p>
-</li>
-<li><p>&#x5982;&#x679C;&#x5728; <code>authorize</code> &#x7ED3;&#x675F;&#x4E4B;&#x524D;&#xFF0C;&#x7528;&#x6237;&#x5C31;&#x767B;&#x51FA;&#x4E86;&#xFF0C;&#x90A3;&#x4E48; <code>loginFlow</code> &#x5C06;&#x6536;&#x5230;&#x4E00;&#x4E2A; <code>LOGOUT</code> action &#x5E76;&#x4E14;&#x4E5F;&#x4F1A;&#x7B49;&#x5F85;&#x4E0B;&#x4E00;&#x4E2A; <code>LOGIN_REQUEST</code>&#x3002;</p>
-</li>
-</ul>
-<p>&#x6CE8;&#x610F; <code>Api<span class="token punctuation">.</span>clearItem</code> &#x5E94;&#x8BE5;&#x662F;&#x5E42;&#x7B49;&#x8C03;&#x7528;&#x3002;&#x5982;&#x679C; <code>authorize</code> &#x8C03;&#x7528;&#x65F6;&#x6CA1;&#x6709;&#x5B58;&#x50A8; token &#x4E5F;&#x4E0D;&#x4F1A;&#x6709;&#x4EFB;&#x4F55;&#x5F71;&#x54CD;&#x3002;
-<code>loginFlow</code> &#x4EC5;&#x4EC5;&#x662F;&#x4FDD;&#x8BC1;&#x5728;&#x7B49;&#x5F85;&#x4E0B;&#x4E00;&#x6B21;&#x767B;&#x5F55;&#x4E4B;&#x524D;&#xFF0C;storage &#x4E2D;&#x6CA1;&#x6709; token&#x3002;</p>
-<p>&#x4F46;&#x662F;&#x8FD8;&#x6CA1;&#x5B8C;&#x3002;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x5728; Api &#x8C03;&#x7528;&#x671F;&#x95F4;&#x6536;&#x5230;&#x4E00;&#x4E2A; <code>LOGOUT</code> action&#xFF0C;&#x6211;&#x4EEC;&#x5FC5;&#x987B;&#x8981; <strong>&#x53D6;&#x6D88;</strong> <code>authorize</code> &#x5904;&#x7406;&#x8FDB;&#x7A0B;&#xFF0C;&#x5426;&#x5219;&#x5C06;&#x6709; 2 &#x4E2A;&#x5E76;&#x53D1;&#x7684;&#x4EFB;&#x52A1;&#xFF0C;
-&#x5E76;&#x4E14; <code>authorize</code> &#x4EFB;&#x52A1;&#x5C06;&#x4F1A;&#x7EE7;&#x7EED;&#x8FD0;&#x884C;&#xFF0C;&#x5E76;&#x5728;&#x6210;&#x529F;&#x7684;&#x54CD;&#x5E94;&#xFF08;&#x6216;&#x5931;&#x8D25;&#x7684;&#x54CD;&#x5E94;&#xFF09;&#x8FD4;&#x56DE;&#x540E;&#x53D1;&#x8D77;&#x4E00;&#x4E2A; <code>LOGIN_SUCCESS</code> action&#xFF08;&#x6216;&#x4E00;&#x4E2A; <code>LOGIN_ERROR</code> action&#xFF09;&#xFF0C;&#x800C;&#x8FD9;&#x5C06;&#x5BFC;&#x81F4;&#x72B6;&#x6001;&#x4E0D;&#x4E00;&#x81F4;&#x3002;</p>
-<p>&#x4E3A;&#x4E86;&#x53D6;&#x6D88; fork &#x4EFB;&#x52A1;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x6307;&#x5B9A;&#x7684; Effect <a href="http://superRaytin.github.io/redux-saga-in-chinese/docs/api/index.html#canceltask" target="_blank"><code>cancel</code></a>&#x3002;</p>
-<pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> take<span class="token punctuation">,</span> put<span class="token punctuation">,</span> call<span class="token punctuation">,</span> fork<span class="token punctuation">,</span> cancel <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga/effects&apos;</span>
+&#x90A3;&#x4E48; <code>loginFlow</code> &#x5C06;&#x5728; <code>LOGOUT</code> &#x4E4B;&#x524D;&#x6536;&#x5230; <code>LOGIN_ERROR</code>&#xFF0C;&#x7136;&#x540E;&#x5B83;&#x4F1A;&#x8FDB;&#x5165;&#x53E6;&#x5916;&#x4E00;&#x4E2A; <code>while</code> &#x8FED;&#x4EE3;&#x5E76;&#x7B49;&#x5F85;&#x4E0B;&#x4E00;&#x4E2A; <code>LOGIN_REQUEST</code> action&#x3002;</p></li>
+<li><p>&#x5982;&#x679C;&#x5728; <code>authorize</code> &#x7ED3;&#x675F;&#x4E4B;&#x524D;&#xFF0C;&#x7528;&#x6237;&#x5C31;&#x767B;&#x51FA;&#x4E86;&#xFF0C;&#x90A3;&#x4E48; <code>loginFlow</code> &#x5C06;&#x6536;&#x5230;&#x4E00;&#x4E2A; <code>LOGOUT</code> action &#x5E76;&#x4E14;&#x4E5F;&#x4F1A;&#x7B49;&#x5F85;&#x4E0B;&#x4E00;&#x4E2A; <code>LOGIN_REQUEST</code>&#x3002;</p></li></ul>
+<p>&#x6CE8;&#x610F; <code>Api.clearItem</code> &#x5E94;&#x8BE5;&#x662F;&#x5E42;&#x7B49;&#x8C03;&#x7528;&#x3002;&#x5982;&#x679C; <code>authorize</code> &#x8C03;&#x7528;&#x65F6;&#x6CA1;&#x6709;&#x5B58;&#x50A8; token &#x4E5F;&#x4E0D;&#x4F1A;&#x6709;&#x4EFB;&#x4F55;&#x5F71;&#x54CD;&#x3002;
+<code>loginFlow</code> &#x4EC5;&#x4EC5;&#x662F;&#x4FDD;&#x8BC1;&#x5728;&#x7B49;&#x5F85;&#x4E0B;&#x4E00;&#x6B21;&#x767B;&#x5F55;&#x4E4B;&#x524D;&#xFF0C;storage &#x4E2D;&#x6CA1;&#x6709; token&#x3002;</p><p>&#x4F46;&#x662F;&#x8FD8;&#x6CA1;&#x5B8C;&#x3002;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x5728; API &#x8C03;&#x7528;&#x671F;&#x95F4;&#x6536;&#x5230;&#x4E00;&#x4E2A; <code>LOGOUT</code> action&#xFF0C;&#x6211;&#x4EEC;&#x5FC5;&#x987B;&#x8981; <strong>&#x53D6;&#x6D88;</strong> <code>authorize</code> &#x5904;&#x7406;&#x8FDB;&#x7A0B;&#xFF0C;&#x5426;&#x5219;&#x5C06;&#x6709; 2 &#x4E2A;&#x5E76;&#x53D1;&#x7684;&#x4EFB;&#x52A1;&#xFF0C;
+&#x5E76;&#x4E14; <code>authorize</code> &#x4EFB;&#x52A1;&#x5C06;&#x4F1A;&#x7EE7;&#x7EED;&#x8FD0;&#x884C;&#xFF0C;&#x5E76;&#x5728;&#x6210;&#x529F;&#x7684;&#x54CD;&#x5E94;&#xFF08;&#x6216;&#x5931;&#x8D25;&#x7684;&#x54CD;&#x5E94;&#xFF09;&#x8FD4;&#x56DE;&#x540E;&#x53D1;&#x8D77;&#x4E00;&#x4E2A; <code>LOGIN_SUCCESS</code> action&#xFF08;&#x6216;&#x4E00;&#x4E2A; <code>LOGIN_ERROR</code> action&#xFF09;&#xFF0C;&#x800C;&#x8FD9;&#x5C06;&#x5BFC;&#x81F4;&#x72B6;&#x6001;&#x4E0D;&#x4E00;&#x81F4;&#x3002;</p><p>&#x4E3A;&#x4E86;&#x53D6;&#x6D88; fork &#x4EFB;&#x52A1;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x6307;&#x5B9A;&#x7684; Effect <a href="http://superRaytin.github.io/redux-saga-in-chinese/docs/api/index.html#canceltask" target="_blank"><code>cancel</code></a>&#x3002;</p><pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> take<span class="token punctuation">,</span> put<span class="token punctuation">,</span> call<span class="token punctuation">,</span> fork<span class="token punctuation">,</span> cancel <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-saga/effects&apos;</span>
 
 <span class="token comment" spellcheck="true">// ...</span>
 
 <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">loginFlow</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">const</span> <span class="token punctuation">{</span>user<span class="token punctuation">,</span> password<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">take</span><span class="token punctuation">(</span><span class="token string">&apos;LOGIN_REQUEST&apos;</span><span class="token punctuation">)</span>
     <span class="token comment" spellcheck="true">// fork return a Task object</span>
     <span class="token keyword">const</span> task <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">fork</span><span class="token punctuation">(</span>authorize<span class="token punctuation">,</span> user<span class="token punctuation">,</span> password<span class="token punctuation">)</span>
@@ -666,97 +633,118 @@ LOGOUT<span class="token punctuation">.</span><span class="token punctuation">.<
       <span class="token keyword">yield</span> <span class="token function">cancel</span><span class="token punctuation">(</span>task<span class="token punctuation">)</span>
     <span class="token keyword">yield</span> <span class="token function">call</span><span class="token punctuation">(</span>Api<span class="token punctuation">.</span><span class="token function">clearItem</span><span class="token punctuation">(</span><span class="token string">&apos;token&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
   <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p><code><span class="token keyword">yield</span> fork</code> &#x7684;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x662F;&#x4E00;&#x4E2A; <a href="http://superRaytin.github.io/redux-saga-in-chinese/docs/api/index.html#task" target="_blank">Task &#x5BF9;&#x8C61;</a>&#x3002;
+<span class="token punctuation">}</span></code></pre>
+<p><code>yield fork</code> &#x7684;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x662F;&#x4E00;&#x4E2A; <a href="http://superRaytin.github.io/redux-saga-in-chinese/docs/api/index.html#task" target="_blank">Task Object</a>&#x3002;
 &#x6211;&#x4EEC;&#x5C06;&#x5B83;&#x4EEC;&#x8FD4;&#x56DE;&#x7684;&#x5BF9;&#x8C61;&#x8D4B;&#x7ED9;&#x4E00;&#x4E2A;&#x672C;&#x5730;&#x5E38;&#x91CF; <code>task</code>&#x3002;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x6536;&#x5230;&#x4E00;&#x4E2A; <code>LOGOUT</code> action&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x90A3;&#x4E2A; task &#x4F20;&#x5165;&#x7ED9; <code>cancel</code> Effect&#x3002;
 &#x5982;&#x679C;&#x4EFB;&#x52A1;&#x4ECD;&#x5728;&#x8FD0;&#x884C;&#xFF0C;&#x5B83;&#x4F1A;&#x88AB;&#x4E2D;&#x6B62;&#x3002;&#x5982;&#x679C;&#x4EFB;&#x52A1;&#x5DF2;&#x5B8C;&#x6210;&#xFF0C;&#x90A3;&#x4EC0;&#x4E48;&#x4E5F;&#x4E0D;&#x4F1A;&#x53D1;&#x751F;&#xFF0C;&#x53D6;&#x6D88;&#x64CD;&#x4F5C;&#x5C06;&#x4F1A;&#x662F;&#x4E00;&#x4E2A;&#x7A7A;&#x64CD;&#x4F5C;&#xFF08;no-op&#xFF09;&#x3002;&#x6700;&#x540E;&#xFF0C;&#x5982;&#x679C;&#x8BE5;&#x4EFB;&#x52A1;&#x5B8C;&#x6210;&#x4E86;&#x4F46;&#x662F;&#x6709;&#x9519;&#x8BEF;&#xFF0C;
-&#x90A3;&#x6211;&#x4EEC;&#x4EC0;&#x4E48;&#x4E5F;&#x6CA1;&#x505A;&#xFF0C;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x77E5;&#x9053;&#xFF0C;&#x4EFB;&#x52A1;&#x5DF2;&#x7ECF;&#x5B8C;&#x6210;&#x4E86;&#x3002;</p>
-<p>OK&#xFF0C;&#x6211;&#x4EEC; <em>&#x51E0;&#x4E4E;</em> &#x8981;&#x5B8C;&#x6210;&#x4E86;&#xFF08;&#x662F;&#x7684;&#xFF0C;&#x5B83;&#x7684;&#x5E76;&#x53D1;&#x6027;&#x5E76;&#x4E0D;&#x5BB9;&#x6613;&#xFF0C;&#x4F60;&#x5FC5;&#x987B;&#x8BA4;&#x771F;&#x5BF9;&#x5F85;&#xFF09;&#x3002;</p>
-<p>&#x5047;&#x8BBE;&#x5728;&#x6211;&#x4EEC;&#x6536;&#x5230;&#x4E00;&#x4E2A; <code>LOGIN_REQUEST</code> action &#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x5728; reducer &#x4E2D;&#x8BBE;&#x7F6E;&#x4E86;&#x4E00;&#x4E9B; <code>isLoginPending</code> &#x6807;&#x8BC6;&#x4E3A; true&#xFF0C;&#x4EE5;&#x4FBF;&#x53EF;&#x4EE5;&#x5728;&#x754C;&#x9762;&#x4E0A;&#x663E;&#x793A;&#x4E00;&#x4E9B;&#x6D88;&#x606F;&#x6216;&#x8005;&#x65CB;&#x8F6C; loading&#x3002;
+&#x90A3;&#x6211;&#x4EEC;&#x4EC0;&#x4E48;&#x4E5F;&#x6CA1;&#x505A;&#xFF0C;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x77E5;&#x9053;&#xFF0C;&#x4EFB;&#x52A1;&#x5DF2;&#x7ECF;&#x5B8C;&#x6210;&#x4E86;&#x3002;</p><p>OK&#xFF0C;&#x6211;&#x4EEC; <em>&#x51E0;&#x4E4E;</em> &#x8981;&#x5B8C;&#x6210;&#x4E86;&#xFF08;&#x662F;&#x7684;&#xFF0C;&#x5B83;&#x7684;&#x5E76;&#x53D1;&#x6027;&#x5E76;&#x4E0D;&#x5BB9;&#x6613;&#xFF0C;&#x4F60;&#x5FC5;&#x987B;&#x8BA4;&#x771F;&#x5BF9;&#x5F85;&#xFF09;&#x3002;</p><p>&#x5047;&#x8BBE;&#x5728;&#x6211;&#x4EEC;&#x6536;&#x5230;&#x4E00;&#x4E2A; <code>LOGIN_REQUEST</code> action &#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x5728; reducer &#x4E2D;&#x8BBE;&#x7F6E;&#x4E86;&#x4E00;&#x4E9B; <code>isLoginPending</code> &#x6807;&#x8BC6;&#x4E3A; true&#xFF0C;&#x4EE5;&#x4FBF;&#x53EF;&#x4EE5;&#x5728;&#x754C;&#x9762;&#x4E0A;&#x663E;&#x793A;&#x4E00;&#x4E9B;&#x6D88;&#x606F;&#x6216;&#x8005;&#x65CB;&#x8F6C; loading&#x3002;
 &#x5982;&#x679C;&#x6B64;&#x65F6;&#x6211;&#x4EEC;&#x5728; Api &#x8C03;&#x7528;&#x671F;&#x95F4;&#x6536;&#x5230;&#x4E00;&#x4E2A; <code>LOGOUT</code> action&#xFF0C;&#x5E76;&#x901A;&#x8FC7; <em>&#x6740;&#x6B7B;&#x5B83;</em>&#xFF08;&#x5373;&#x4EFB;&#x52A1;&#x88AB;&#x7ACB;&#x5373;&#x505C;&#x6B62;&#xFF09;&#x7B80;&#x5355;&#x7C97;&#x66B4;&#x5730;&#x4E2D;&#x6B62;&#x4EFB;&#x52A1;&#x3002;
-&#x90A3;&#x6211;&#x4EEC;&#x53EF;&#x80FD;&#x53C8;&#x4EE5;&#x4E0D;&#x4E00;&#x81F4;&#x7684;&#x72B6;&#x6001;&#x7ED3;&#x675F;&#x4E86;&#x3002;&#x56E0;&#x4E3A; <code>isLoginPending</code> &#x4ECD;&#x7136;&#x662F; true&#xFF0C;&#x800C; reducer &#x8FD8;&#x5728;&#x7B49;&#x5F85;&#x4E00;&#x4E2A;&#x7ED3;&#x679C; action&#xFF08;<code>LOGIN_SUCCESS</code> &#x6216; <code>LOGIN_ERROR</code>&#xFF09;&#x3002;</p>
-<p>&#x5E78;&#x8FD0;&#x7684;&#x662F;&#xFF0C;<code>cancel</code> Effect &#x4E0D;&#x4F1A;&#x7C97;&#x66B4;&#x5730;&#x7ED3;&#x675F;&#x6211;&#x4EEC;&#x7684; <code>authorize</code> &#x4EFB;&#x52A1;&#xFF0C;&#x5B83;&#x4F1A;&#x5728;&#x91CC;&#x9762;&#x629B;&#x51FA;&#x4E00;&#x4E2A;&#x7279;&#x6B8A;&#x7684;&#x9519;&#x8BEF;&#xFF0C;&#x7ED9; <code>authorize</code> &#x4E00;&#x4E2A;&#x673A;&#x4F1A;&#x6267;&#x884C;&#x5B83;&#x81EA;&#x5DF1;&#x7684;&#x6E05;&#x7406;&#x903B;&#x8F91;&#x3002;
-&#x800C;&#x88AB;&#x53D6;&#x6D88;&#x7684;&#x4EFB;&#x52A1;&#x5E94;&#x8BE5;&#x6355;&#x6349;&#x8FD9;&#x4E2A;&#x9519;&#x8BEF;&#xFF0C;&#x5047;&#x8BBE;&#x5B83;&#x9700;&#x8981;&#x5728;&#x7ED3;&#x675F;&#x4E4B;&#x524D;&#x505A;&#x4E00;&#x4E9B;&#x4E8B;&#x60C5;&#x7684;&#x8BDD;&#x3002;</p>
-<p>&#x6211;&#x4EEC;&#x7684; <code>authorize</code> &#x5DF2;&#x7ECF;&#x6709;&#x4E00;&#x4E2A; try/catch &#x533A;&#x5757;&#xFF0C;&#x4F46;&#x5B83;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x4E2A;&#x901A;&#x7528;&#x7684;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#xFF0C;&#x8FD9;&#x4E2A;&#x7A0B;&#x5E8F;&#x4F1A;&#x5728;&#x6BCF;&#x6B21;&#x53D1;&#x751F;&#x9519;&#x8BEF;&#x65F6;&#x53D1;&#x8D77; <code>LOGIN_ERROR</code> action&#x3002;
-&#x4F46;&#x767B;&#x5F55;&#x53D6;&#x6D88;&#x5E76;&#x4E0D;&#x662F;&#x9519;&#x8BEF;&#x3002;&#x6240;&#x4EE5; <code>authorize</code> &#x4EFB;&#x52A1;&#x5FC5;&#x987B;&#x4EC5;&#x5728;&#x6388;&#x6743;&#x5931;&#x8D25;&#x65F6;&#x53D1;&#x8D77; <code>LOGIN_ERROR</code> action&#x3002;</p>
-<pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> isCancelError <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga&apos;</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> take<span class="token punctuation">,</span> call<span class="token punctuation">,</span> put <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga/effects&apos;</span>
-<span class="token keyword">import</span> Api from <span class="token string">&apos;...&apos;</span>
+&#x90A3;&#x6211;&#x4EEC;&#x53EF;&#x80FD;&#x53C8;&#x4EE5;&#x4E0D;&#x4E00;&#x81F4;&#x7684;&#x72B6;&#x6001;&#x7ED3;&#x675F;&#x4E86;&#x3002;&#x56E0;&#x4E3A; <code>isLoginPending</code> &#x4ECD;&#x7136;&#x662F; true&#xFF0C;&#x800C; reducer &#x8FD8;&#x5728;&#x7B49;&#x5F85;&#x4E00;&#x4E2A;&#x7ED3;&#x679C; action&#xFF08;<code>LOGIN_SUCCESS</code> &#x6216; <code>LOGIN_ERROR</code>&#xFF09;&#x3002;</p><p>&#x5E78;&#x8FD0;&#x7684;&#x662F;&#xFF0C;<code>cancel</code> Effect &#x4E0D;&#x4F1A;&#x7C97;&#x66B4;&#x5730;&#x7ED3;&#x675F;&#x6211;&#x4EEC;&#x7684; <code>authorize</code> &#x4EFB;&#x52A1;&#xFF0C;&#x76F8;&#x53CD;&#x5B83;&#x4F1A;&#x7ED9;&#x4E88;&#x4E00;&#x4E2A;&#x673A;&#x4F1A;&#x6267;&#x884C;&#x6E05;&#x7406;&#x7684;&#x903B;&#x8F91;&#x3002;
+&#x5728; <code>finally</code> &#x533A;&#x5757;&#x53EF;&#x4EE5;&#x5904;&#x7406;&#x4EFB;&#x4F55;&#x7684;&#x53D6;&#x6D88;&#x903B;&#x8F91;&#xFF08;&#x4EE5;&#x53CA;&#x5176;&#x4ED6;&#x7C7B;&#x578B;&#x7684;&#x5B8C;&#x6210;&#x903B;&#x8F91;&#xFF09;&#x3002;&#x7531;&#x4E8E; finally &#x533A;&#x5757;&#x6267;&#x884C;&#x5728;&#x4EFB;&#x4F55;&#x7C7B;&#x578B;&#x7684;&#x5B8C;&#x6210;&#x4E0A;&#xFF08;&#x6B63;&#x5E38;&#x7684; return, &#x9519;&#x8BEF;, &#x6216;&#x5F3A;&#x5236;&#x53D6;&#x6D88;&#xFF09;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x60F3;&#x8981;&#x4E3A;&#x53D6;&#x6D88;&#x4F5C;&#x7279;&#x6B8A;&#x5904;&#x7406;&#xFF0C;&#x6709;&#x4E00;&#x4E2A; <code>cancelled</code> Effect&#xFF1A;</p><pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> take<span class="token punctuation">,</span> call<span class="token punctuation">,</span> put<span class="token punctuation">,</span> cancelled <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-saga/effects&apos;</span>
+<span class="token keyword">import</span> Api <span class="token keyword">from</span> <span class="token string">&apos;...&apos;</span>
 
 <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">authorize</span><span class="token punctuation">(</span>user<span class="token punctuation">,</span> password<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">try</span> <span class="token punctuation">{</span>
     <span class="token keyword">const</span> token <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">call</span><span class="token punctuation">(</span>Api<span class="token punctuation">.</span>authorize<span class="token punctuation">,</span> user<span class="token punctuation">,</span> password<span class="token punctuation">)</span>
     <span class="token keyword">yield</span> <span class="token function">put</span><span class="token punctuation">(</span><span class="token punctuation">{</span>type<span class="token punctuation">:</span> <span class="token string">&apos;LOGIN_SUCCESS&apos;</span><span class="token punctuation">,</span> token<span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">yield</span> <span class="token function">call</span><span class="token punctuation">(</span>Api<span class="token punctuation">.</span>storeItem<span class="token punctuation">,</span> <span class="token punctuation">{</span>token<span class="token punctuation">}</span><span class="token punctuation">)</span>
     <span class="token keyword">return</span> token
   <span class="token punctuation">}</span> <span class="token keyword">catch</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">isCancelError</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">)</span>
-      <span class="token keyword">yield</span> <span class="token function">put</span><span class="token punctuation">(</span><span class="token punctuation">{</span>type<span class="token punctuation">:</span> <span class="token string">&apos;LOGIN_ERROR&apos;</span><span class="token punctuation">,</span> error<span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">yield</span> <span class="token function">put</span><span class="token punctuation">(</span><span class="token punctuation">{</span>type<span class="token punctuation">:</span> <span class="token string">&apos;LOGIN_ERROR&apos;</span><span class="token punctuation">,</span> error<span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">yield</span> <span class="token function">cancelled</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// ... put special cancellation handling code here</span>
+    <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
+<span class="token punctuation">}</span></code></pre>
 <p>&#x4F60;&#x53EF;&#x80FD;&#x5DF2;&#x7ECF;&#x6CE8;&#x610F;&#x5230;&#x4E86;&#xFF0C;&#x6211;&#x4EEC;&#x4ECD;&#x7136;&#x6CA1;&#x6709;&#x505A;&#x4EFB;&#x4F55;&#x4E0E;&#x6E05;&#x9664; <code>isLoginPending</code> &#x72B6;&#x6001;&#x76F8;&#x5173;&#x7684;&#x4E8B;&#x60C5;&#x3002;
-&#x5BF9;&#x4E8E;&#x8FD9;&#x4E00;&#x70B9;&#xFF0C;&#x6709; 2 &#x4E2A;&#x53EF;&#x80FD;&#x7684;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF08;&#x6216;&#x5176;&#x4ED6;&#x7684;&#xFF09;&#x3002;</p>
-<ul>
-<li><p>&#x53D1;&#x8D77;&#x4E00;&#x4E2A;&#x6307;&#x5B9A;&#x7684; action <code>RESET_LOGIN_PENDING</code>&#x3002;</p>
-</li>
-<li><p>&#x6216;&#x8005;&#x66F4;&#x7B80;&#x5355;&#xFF0C;&#x8BA9; reducer &#x6536;&#x5230; <code>LOGOUT</code> action &#x65F6;&#x6E05;&#x9664; <code>isLoginPending</code>&#x3002;</p>
-</li>
-</ul>
-<h2 id="&#x66F4;&#x591A;&#x5185;&#x5BB9;&#xFF0C;&#x656C;&#x8BF7;&#x671F;&#x5F85;"><strong>&#x66F4;&#x591A;&#x5185;&#x5BB9;&#xFF0C;&#x656C;&#x8BF7;&#x671F;&#x5F85;</strong></h2>
+&#x5BF9;&#x4E8E;&#x8FD9;&#x4E00;&#x70B9;&#xFF0C;&#x6709; 2 &#x4E2A;&#x53EF;&#x80FD;&#x7684;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF08;&#x6216;&#x5176;&#x4ED6;&#x7684;&#xFF09;&#x3002;</p><ul><li><p>&#x53D1;&#x8D77;&#x4E00;&#x4E2A;&#x6307;&#x5B9A;&#x7684; action <code>RESET_LOGIN_PENDING</code>&#x3002;</p></li>
+<li><p>&#x6216;&#x8005;&#x66F4;&#x7B80;&#x5355;&#xFF0C;&#x8BA9; reducer &#x6536;&#x5230; <code>LOGOUT</code> action &#x65F6;&#x6E05;&#x9664; <code>isLoginPending</code>&#x3002;</p></li></ul>
 
-                    
-                    </section>
-                
-                
-                </div>
-            </div>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
         </div>
-
-        
-        <a href="../../docs/advanced/FutureActions.html" class="navigation navigation-prev " aria-label="Previous page: 监听未来的 action"><i class="fa fa-angle-left"></i></a>
-        
-        
-        <a href="../../docs/advanced/RunningTasksInParallel.html" class="navigation navigation-next " aria-label="Next page: 同时执行多个任务"><i class="fa fa-angle-right"></i></a>
-        
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
     </div>
 </div>
 
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="FutureActions.html" class="navigation navigation-prev " aria-label="Previous page: 监听未来的 action">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="RunningTasksInParallel.html" class="navigation navigation-next " aria-label="Next page: 同时执行多个任务">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
         
-<script src="../../gitbook/app.js"></script>
+    </div>
 
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"无阻塞调用","level":"1.4.2","depth":2,"next":{"title":"同时执行多个任务","level":"1.4.3","depth":2,"path":"docs/advanced/RunningTasksInParallel.md","ref":"docs/advanced/RunningTasksInParallel.md","articles":[]},"previous":{"title":"监听未来的 action","level":"1.4.1","depth":2,"path":"docs/advanced/FutureActions.md","ref":"docs/advanced/FutureActions.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism@1.0.0","-highlight","github"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"开始纠错","base":"https://github.com/superRaytin/redux-saga-in-chinese/tree/master"},"github":{"url":"https://github.com/superRaytin/redux-saga-in-chinese"},"sharing":{"facebook":true,"twitter":true,"google":true,"weibo":true,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"prism":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Redux-Saga","gitbook":"3.2.0"},"file":{"path":"docs/advanced/NonBlockingCalls.md","mtime":"2018-05-28T10:04:29.000Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-05-28T10:13:42.471Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
     
-    <script src="../../gitbook/plugins/gitbook-plugin-edit-link/plugin.js"></script>
+        
+        <script src="../../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
     
 
-    
-    <script src="../../gitbook/plugins/gitbook-plugin-ga/plugin.js"></script>
-    
-
-    
-    <script src="../../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
-    
-
-    
-    <script src="../../gitbook/plugins/gitbook-plugin-search/search.js"></script>
-    
-
-    
-    <script src="../../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
-    
-
-    
-    <script src="../../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
-    
-
-<script>
-require(["gitbook"], function(gitbook) {
-    var config = {"edit-link":{"base":"https://github.com/superRaytin/redux-saga-in-chinese/tree/master","label":"开始纠错"},"ga":{"token":"UA-58588801-2","configuration":"auto"},"github":{"url":"https://github.com/superRaytin/redux-saga-in-chinese/"},"sharing":{"facebook":true,"twitter":true,"google":true,"weibo":true,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"prism":{},"search":{},"fontsettings":{"theme":"white","family":"sans","size":2}};
-    gitbook.start(config);
-});
-</script>
-
-        <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-58588801-2', 'auto');ga('send', 'pageview');</script>
     </body>
-    
 </html>
+

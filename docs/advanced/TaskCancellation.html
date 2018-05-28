@@ -1,558 +1,554 @@
+
 <!DOCTYPE HTML>
-<html lang="en" >
-    
+<html lang="" >
     <head>
-        
+        <title>取消任务 · Redux-Saga</title>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>任务的取消 | Redux-saga 中文文档</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 2.5.2">
+        <meta name="generator" content="GitBook 3.2.0">
         
         
-        <meta name="HandheldFriendly" content="true"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black">
-        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
-        <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
         
+    
     <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
     
         
-        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-edit-link/plugin.css">
+    
         
     
         
-        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-prism/prism.css">
+    
         
     
         
-        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-search/search.css">
-        
     
         
-        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
-        
-    
     
 
         
     
     
-    <link rel="next" href="../../docs/advanced/Concurrency.html" />
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="ForkModel.html" />
     
     
-    <link rel="prev" href="../../docs/advanced/ComposingSagas.html" />
+    <link rel="prev" href="ComposingSagas.html" />
     
 
-        
     </head>
     <body>
         
+<div class="book">
+    <div class="book-summary">
         
-    <div class="book" data-level="3.7" data-chapter-title="任务的取消" data-filepath="docs/advanced/TaskCancellation.md" data-basepath="../.." data-revision="Sun Jun 05 2016 08:49:27 GMT+0800 (CST)">
-    
-
-<div class="book-summary">
-    <nav role="navigation">
-        <ul class="summary">
             
-            
-            
-            
-
-            
-
-            
-    
-        <li class="chapter " data-level="0" data-path="index.html">
-            
-                
-                    <a href="../../index.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                        自述
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="1" data-path="docs/introduction/index.html">
-            
-                
-                    <a href="../../docs/introduction/index.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>1.</b>
-                        
-                        介绍
-                    </a>
-            
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="1.1" data-path="docs/introduction/BeginnerTutorial.html">
-            
-                
-                    <a href="../../docs/introduction/BeginnerTutorial.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>1.1.</b>
-                        
-                        初级教程
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="1.2" data-path="docs/introduction/SagaBackground.html">
-            
-                
-                    <a href="../../docs/introduction/SagaBackground.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>1.2.</b>
-                        
-                        Saga 的背景
-                    </a>
-            
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-        <li class="chapter " data-level="2" data-path="docs/basics/index.html">
-            
-                
-                    <a href="../../docs/basics/index.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>2.</b>
-                        
-                        基本概念
-                    </a>
-            
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="2.1" data-path="docs/basics/UsingSagaHelpers.html">
-            
-                
-                    <a href="../../docs/basics/UsingSagaHelpers.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>2.1.</b>
-                        
-                        使用 Saga 辅助函数
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="2.2" data-path="docs/basics/DeclarativeEffects.html">
-            
-                
-                    <a href="../../docs/basics/DeclarativeEffects.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>2.2.</b>
-                        
-                        声明式 Effects
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="2.3" data-path="docs/basics/DispatchingActions.html">
-            
-                
-                    <a href="../../docs/basics/DispatchingActions.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>2.3.</b>
-                        
-                        发起 action
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="2.4" data-path="docs/basics/ErrorHandling.html">
-            
-                
-                    <a href="../../docs/basics/ErrorHandling.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>2.4.</b>
-                        
-                        错误处理
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="2.5" data-path="docs/basics/Effect.html">
-            
-                
-                    <a href="../../docs/basics/Effect.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>2.5.</b>
-                        
-                        一个常见的抽象概念: Effect
-                    </a>
-            
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-        <li class="chapter " data-level="3" data-path="docs/advanced/index.html">
-            
-                
-                    <a href="../../docs/advanced/index.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.</b>
-                        
-                        高级
-                    </a>
-            
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="3.1" data-path="docs/advanced/FutureActions.html">
-            
-                
-                    <a href="../../docs/advanced/FutureActions.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.1.</b>
-                        
-                        监听未来的 action
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.2" data-path="docs/advanced/NonBlockingCalls.html">
-            
-                
-                    <a href="../../docs/advanced/NonBlockingCalls.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.2.</b>
-                        
-                        无阻塞调用
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.3" data-path="docs/advanced/RunningTasksInParallel.html">
-            
-                
-                    <a href="../../docs/advanced/RunningTasksInParallel.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.3.</b>
-                        
-                        同时执行多个任务
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4" data-path="docs/advanced/RacingEffects.html">
-            
-                
-                    <a href="../../docs/advanced/RacingEffects.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.4.</b>
-                        
-                        在多个 Effects 之间启动 race
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5" data-path="docs/advanced/SequencingSagas.html">
-            
-                
-                    <a href="../../docs/advanced/SequencingSagas.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.5.</b>
-                        
-                        通过 yield* 对 Sagas 进行排序
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6" data-path="docs/advanced/ComposingSagas.html">
-            
-                
-                    <a href="../../docs/advanced/ComposingSagas.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.6.</b>
-                        
-                        组合 Sagas
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter active" data-level="3.7" data-path="docs/advanced/TaskCancellation.html">
-            
-                
-                    <a href="../../docs/advanced/TaskCancellation.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.7.</b>
-                        
-                        任务的取消
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.8" data-path="docs/advanced/Concurrency.html">
-            
-                
-                    <a href="../../docs/advanced/Concurrency.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.8.</b>
-                        
-                        常见的并发模式
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.9" data-path="docs/advanced/Testing.html">
-            
-                
-                    <a href="../../docs/advanced/Testing.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.9.</b>
-                        
-                        Sagas 测试示例
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3.10" data-path="docs/advanced/UsingRunSaga.html">
-            
-                
-                    <a href="../../docs/advanced/UsingRunSaga.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>3.10.</b>
-                        
-                        连接 Sagas 至外部输入和输出
-                    </a>
-            
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-        <li class="chapter " data-level="4" data-path="docs/recipes/index.html">
-            
-                
-                    <a href="../../docs/recipes/index.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>4.</b>
-                        
-                        技巧
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="5" data-path="docs/ExternalResources.html">
-            
-                
-                    <a href="../../docs/ExternalResources.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>5.</b>
-                        
-                        外部资源
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="6" data-path="docs/Troubleshooting.html">
-            
-                
-                    <a href="../../docs/Troubleshooting.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>6.</b>
-                        
-                        问题解答
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="7" data-path="docs/Glossary.html">
-            
-                
-                    <a href="../../docs/Glossary.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>7.</b>
-                        
-                        名词解释
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="8" data-path="docs/api/index.html">
-            
-                
-                    <a href="../../docs/api/index.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>8.</b>
-                        
-                        API 参考
-                    </a>
-            
-            
-        </li>
-    
-
-
-            
-            <li class="divider"></li>
-            <li>
-                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-                    Published with GitBook
-                </a>
-            </li>
-            
-        </ul>
-    </nav>
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
 </div>
 
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    自述
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../introduction/">
+            
+                <a href="../introduction/">
+            
+                    
+                    介绍
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../introduction/BeginnerTutorial.html">
+            
+                <a href="../introduction/BeginnerTutorial.html">
+            
+                    
+                    初级教程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../introduction/SagaBackground.html">
+            
+                <a href="../introduction/SagaBackground.html">
+            
+                    
+                    Saga 概念的背景
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../basics/">
+            
+                <a href="../basics/">
+            
+                    
+                    基础概念
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../basics/UsingSagaHelpers.html">
+            
+                <a href="../basics/UsingSagaHelpers.html">
+            
+                    
+                    使用 Saga Helpers
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../basics/DeclarativeEffects.html">
+            
+                <a href="../basics/DeclarativeEffects.html">
+            
+                    
+                    声明式 Effects
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../basics/DispatchingActions.html">
+            
+                <a href="../basics/DispatchingActions.html">
+            
+                    
+                    dispatch action
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../basics/ErrorHandling.html">
+            
+                <a href="../basics/ErrorHandling.html">
+            
+                    
+                    错误处理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../basics/Effect.html">
+            
+                <a href="../basics/Effect.html">
+            
+                    
+                    一个常见的抽象概念: Effect
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    高级
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="FutureActions.html">
+            
+                <a href="FutureActions.html">
+            
+                    
+                    监听未来的 action
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="NonBlockingCalls.html">
+            
+                <a href="NonBlockingCalls.html">
+            
+                    
+                    无阻塞调用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="RunningTasksInParallel.html">
+            
+                <a href="RunningTasksInParallel.html">
+            
+                    
+                    同时执行多个任务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="RacingEffects.html">
+            
+                <a href="RacingEffects.html">
+            
+                    
+                    在多个 Effects 之间启动 race
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="SequencingSagas.html">
+            
+                <a href="SequencingSagas.html">
+            
+                    
+                    使用 yield* 对 Sagas 进行排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="ComposingSagas.html">
+            
+                <a href="ComposingSagas.html">
+            
+                    
+                    组合 Sagas
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4.7" data-path="TaskCancellation.html">
+            
+                <a href="TaskCancellation.html">
+            
+                    
+                    取消任务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="ForkModel.html">
+            
+                <a href="ForkModel.html">
+            
+                    
+                    redux-saga 的 fork model
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" data-path="Concurrency.html">
+            
+                <a href="Concurrency.html">
+            
+                    
+                    并发
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10" data-path="Testing.html">
+            
+                <a href="Testing.html">
+            
+                    
+                    测试 Sagas
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.11" data-path="UsingRunSaga.html">
+            
+                <a href="UsingRunSaga.html">
+            
+                    
+                    连接 Sagas 至外部的输入/输出
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.12" data-path="Channels.html">
+            
+                <a href="Channels.html">
+            
+                    
+                    使用 Channels
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../recipes/">
+            
+                <a href="../recipes/">
+            
+                    
+                    技巧
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../ExternalResources.html">
+            
+                <a href="../ExternalResources.html">
+            
+                    
+                    外部资源
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../Troubleshooting.html">
+            
+                <a href="../Troubleshooting.html">
+            
+                    
+                    问题解答
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../Glossary.html">
+            
+                <a href="../Glossary.html">
+            
+                    
+                    名词解释
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../api/">
+            
+                <a href="../api/">
+            
+                    
+                    API 参考
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
     <div class="book-body">
-        <div class="body-inner">
-            <div class="book-header" role="navigation">
-    <!-- Actions Left -->
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
     
 
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../../" >Redux-saga 中文文档</a>
+        <a href="../.." >取消任务</a>
     </h1>
 </div>
 
-            <div class="page-wrapper" tabindex="-1" role="main">
-                <div class="page-inner">
-                
-                
-                    <section class="normal" id="section-">
-                    
-                        <a id="edit-link" href="https://github.com/superRaytin/redux-saga-in-chinese/tree/master/docs/advanced/TaskCancellation.md" class="btn fa fa-edit pull-left">&#xA0;&#xA0;&#x5F00;&#x59CB;&#x7EA0;&#x9519;</a><h1 id="&#x4EFB;&#x52A1;&#x7684;&#x53D6;&#x6D88;">&#x4EFB;&#x52A1;&#x7684;&#x53D6;&#x6D88;</h1>
-<p>&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x5728; <a href="http://superRaytin.github.io/redux-saga-in-chinese/docs/advanced/NonBlockingCalls.html" target="_blank">&#x65E0;&#x963B;&#x585E;&#x8C03;&#x7528;</a> &#x4E00;&#x8282;&#x4E2D;&#x770B;&#x5230;&#x4E86;&#x53D6;&#x6D88;&#x4EFB;&#x52A1;&#x7684;&#x793A;&#x4F8B;&#x3002;
-&#x5728;&#x8FD9;&#x8282;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x56DE;&#x987E;&#x4E00;&#x4E0B;&#xFF0C;&#x5728;&#x4E00;&#x4E9B;&#x66F4;&#x52A0;&#x8BE6;&#x7EC6;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x53D6;&#x6D88;&#x7684;&#x8BED;&#x4E49;&#x3002;</p>
-<p>&#x4E00;&#x65E6;&#x4EFB;&#x52A1;&#x88AB; fork&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code><span class="token keyword">yield</span> <span class="token function">cancel</span><span class="token punctuation">(</span>task<span class="token punctuation">)</span></code> &#x6765;&#x4E2D;&#x6B62;&#x4EFB;&#x52A1;&#x6267;&#x884C;&#x3002;&#x53D6;&#x6D88;&#x6B63;&#x5728;&#x8FD0;&#x884C;&#x7684;&#x4EFB;&#x52A1;&#xFF0C;&#x5C06;&#x629B;&#x51FA; <code>SagaCancellationException</code> &#x9519;&#x8BEF;&#x3002;</p>
-<p>&#x6765;&#x770B;&#x770B;&#x5B83;&#x662F;&#x5982;&#x4F55;&#x5DE5;&#x4F5C;&#x7684;&#xFF0C;&#x8BA9;&#x6211;&#x4EEC;&#x5148;&#x8003;&#x8651;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x4F8B;&#x5B50;&#xFF1A;&#x4E00;&#x4E2A;&#x53EF;&#x901A;&#x8FC7;&#x67D0;&#x4E9B; UI &#x547D;&#x4EE4;&#x542F;&#x52A8;&#x6216;&#x505C;&#x6B62;&#x7684;&#x540E;&#x53F0;&#x540C;&#x6B65;&#x4EFB;&#x52A1;&#x3002;
-&#x5728;&#x63A5;&#x6536;&#x5230; <code>START_BACKGROUND_SYNC</code> action &#x540E;&#xFF0C;&#x6211;&#x4EEC; fork &#x4E00;&#x4E2A;&#x540E;&#x53F0;&#x4EFB;&#x52A1;&#xFF0C;&#x5468;&#x671F;&#x6027;&#x5730;&#x4ECE;&#x8FDC;&#x7A0B;&#x670D;&#x52A1;&#x5668;&#x540C;&#x6B65;&#x4E00;&#x4E9B;&#x6570;&#x636E;&#x3002;</p>
-<p>&#x8FD9;&#x4E2A;&#x4EFB;&#x52A1;&#x5C06;&#x4F1A;&#x4E00;&#x76F4;&#x6267;&#x884C;&#x76F4;&#x5230;&#x4E00;&#x4E2A; <code>STOP_BACKGROUND_SYNC</code> action &#x88AB;&#x89E6;&#x53D1;&#x3002;
-&#x7136;&#x540E;&#x6211;&#x4EEC;&#x53D6;&#x6D88;&#x540E;&#x53F0;&#x4EFB;&#x52A1;&#xFF0C;&#x7B49;&#x5F85;&#x4E0B;&#x4E00;&#x4E2A; <code>STOP_BACKGROUND_SYNC</code> action&#x3002;</p>
-<pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> SagaCancellationException <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga&apos;</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span>  take<span class="token punctuation">,</span> put<span class="token punctuation">,</span> call<span class="token punctuation">,</span> fork<span class="token punctuation">,</span> cancel <span class="token punctuation">}</span> from <span class="token string">&apos;redux-saga/effects&apos;</span>
-<span class="token keyword">import</span> actions from <span class="token string">&apos;somewhere&apos;</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> someApi<span class="token punctuation">,</span> delay <span class="token punctuation">}</span> from <span class="token string">&apos;somewhere&apos;</span>
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x53D6;&#x6D88;&#x4EFB;&#x52A1;">&#x53D6;&#x6D88;&#x4EFB;&#x52A1;</h1><p>&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x5728; <a href="http://redux-saga-in-chinese.js.org/docs/advanced/NonBlockingCalls.html" target="_blank">&#x65E0;&#x963B;&#x585E;&#x8C03;&#x7528;</a> &#x4E00;&#x8282;&#x4E2D;&#x770B;&#x5230;&#x4E86;&#x53D6;&#x6D88;&#x4EFB;&#x52A1;&#x7684;&#x793A;&#x4F8B;&#x3002;
+&#x5728;&#x8FD9;&#x8282;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x56DE;&#x987E;&#x4E00;&#x4E0B;&#xFF0C;&#x5728;&#x4E00;&#x4E9B;&#x66F4;&#x52A0;&#x8BE6;&#x7EC6;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x53D6;&#x6D88;&#x7684;&#x8BED;&#x4E49;&#x3002;</p><p>&#x4E00;&#x65E6;&#x4EFB;&#x52A1;&#x88AB; fork&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>yield cancel(task)</code> &#x6765;&#x4E2D;&#x6B62;&#x4EFB;&#x52A1;&#x6267;&#x884C;&#x3002;&#x53D6;&#x6D88;&#x6B63;&#x5728;&#x8FD0;&#x884C;&#x7684;&#x4EFB;&#x52A1;&#x3002;</p><p>&#x6765;&#x770B;&#x770B;&#x5B83;&#x662F;&#x5982;&#x4F55;&#x5DE5;&#x4F5C;&#x7684;&#xFF0C;&#x8BA9;&#x6211;&#x4EEC;&#x5148;&#x8003;&#x8651;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x4F8B;&#x5B50;&#xFF1A;&#x4E00;&#x4E2A;&#x53EF;&#x901A;&#x8FC7;&#x67D0;&#x4E9B; UI &#x547D;&#x4EE4;&#x542F;&#x52A8;&#x6216;&#x505C;&#x6B62;&#x7684;&#x540E;&#x53F0;&#x540C;&#x6B65;&#x4EFB;&#x52A1;&#x3002;
+&#x5728;&#x63A5;&#x6536;&#x5230; <code>START_BACKGROUND_SYNC</code> action &#x540E;&#xFF0C;&#x6211;&#x4EEC; fork &#x4E00;&#x4E2A;&#x540E;&#x53F0;&#x4EFB;&#x52A1;&#xFF0C;&#x5468;&#x671F;&#x6027;&#x5730;&#x4ECE;&#x8FDC;&#x7A0B;&#x670D;&#x52A1;&#x5668;&#x540C;&#x6B65;&#x4E00;&#x4E9B;&#x6570;&#x636E;&#x3002;</p><p>&#x8FD9;&#x4E2A;&#x4EFB;&#x52A1;&#x5C06;&#x4F1A;&#x4E00;&#x76F4;&#x6267;&#x884C;&#x76F4;&#x5230;&#x4E00;&#x4E2A; <code>STOP_BACKGROUND_SYNC</code> action &#x88AB;&#x89E6;&#x53D1;&#x3002;
+&#x7136;&#x540E;&#x6211;&#x4EEC;&#x53D6;&#x6D88;&#x540E;&#x53F0;&#x4EFB;&#x52A1;&#xFF0C;&#x7B49;&#x5F85;&#x4E0B;&#x4E00;&#x4E2A; <code>START_BACKGROUND_SYNC</code> action&#x3002;</p><pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> take<span class="token punctuation">,</span> put<span class="token punctuation">,</span> call<span class="token punctuation">,</span> fork<span class="token punctuation">,</span> cancel<span class="token punctuation">,</span> cancelled<span class="token punctuation">,</span> delay <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-saga/effects&apos;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> someApi<span class="token punctuation">,</span> actions <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;somewhere&apos;</span>
 
 <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">bgSync</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">try</span> <span class="token punctuation">{</span>
-    <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">yield</span> <span class="token function">put</span><span class="token punctuation">(</span>actions<span class="token punctuation">.</span><span class="token function">requestStart</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
       <span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">call</span><span class="token punctuation">(</span>someApi<span class="token punctuation">)</span>
       <span class="token keyword">yield</span> <span class="token function">put</span><span class="token punctuation">(</span>actions<span class="token punctuation">.</span><span class="token function">requestSuccess</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">)</span>
-      <span class="token keyword">yield</span> <span class="token function">call</span><span class="token punctuation">(</span>delay<span class="token punctuation">,</span> <span class="token number">5000</span><span class="token punctuation">)</span>
+      <span class="token keyword">yield</span> <span class="token function">delay</span><span class="token punctuation">(</span><span class="token number">5000</span><span class="token punctuation">)</span>
     <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span> <span class="token keyword">catch</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">// &#x6216;&#x76F4;&#x63A5;&#x4F7F;&#x7528; `isCancelError(error)`</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>error <span class="token keyword">instanceof</span> <span class="token class-name">SagaCancellationException</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">yield</span> <span class="token function">cancelled</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
       <span class="token keyword">yield</span> <span class="token function">put</span><span class="token punctuation">(</span>actions<span class="token punctuation">.</span><span class="token function">requestFailure</span><span class="token punctuation">(</span><span class="token string">&apos;Sync cancelled!&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">while</span><span class="token punctuation">(</span> <span class="token keyword">yield</span> <span class="token function">take</span><span class="token punctuation">(</span>START_BACKGROUND_SYNC<span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">while</span> <span class="token punctuation">(</span> <span class="token keyword">yield</span> <span class="token function">take</span><span class="token punctuation">(</span>START_BACKGROUND_SYNC<span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">// &#x542F;&#x52A8;&#x540E;&#x53F0;&#x4EFB;&#x52A1;</span>
     <span class="token keyword">const</span> bgSyncTask <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">fork</span><span class="token punctuation">(</span>bgSync<span class="token punctuation">)</span>
 
     <span class="token comment" spellcheck="true">// &#x7B49;&#x5F85;&#x7528;&#x6237;&#x7684;&#x505C;&#x6B62;&#x64CD;&#x4F5C;</span>
     <span class="token keyword">yield</span> <span class="token function">take</span><span class="token punctuation">(</span>STOP_BACKGROUND_SYNC<span class="token punctuation">)</span>
     <span class="token comment" spellcheck="true">// &#x7528;&#x6237;&#x70B9;&#x51FB;&#x4E86;&#x505C;&#x6B62;&#xFF0C;&#x53D6;&#x6D88;&#x540E;&#x53F0;&#x4EFB;&#x52A1;</span>
-    <span class="token comment" spellcheck="true">// &#x5C06;&#x629B;&#x51FA;&#x4E00;&#x4E2A; SagaCancellationException &#x9519;&#x8BEF;&#x81F3;&#x88AB; fork &#x7684; bgSync &#x4EFB;&#x52A1;</span>
+    <span class="token comment" spellcheck="true">// &#x8FD9;&#x4F1A;&#x5BFC;&#x81F4;&#x88AB; fork &#x7684; bgSync &#x4EFB;&#x52A1;&#x8DF3;&#x8FDB;&#x5B83;&#x7684; finally &#x533A;&#x5757;</span>
     <span class="token keyword">yield</span> <span class="token function">cancel</span><span class="token punctuation">(</span>bgSyncTask<span class="token punctuation">)</span>
   <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p><code><span class="token keyword">yield</span> <span class="token function">cancel</span><span class="token punctuation">(</span>bgSyncTask<span class="token punctuation">)</span></code> &#x5C06;&#x5728;&#x5F53;&#x524D;&#x6267;&#x884C;&#x7684;&#x4EFB;&#x52A1;&#x4E2D;&#x629B;&#x51FA;&#x4E00;&#x4E2A; <code>SagaCancellationException</code> &#x7C7B;&#x578B;&#x7684;&#x5F02;&#x5E38;&#x3002;
-&#x5728;&#x4E0A;&#x9762;&#x7684;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x5F02;&#x5E38;&#x662F;&#x7531; <code>bgSync</code> &#x5F15;&#x53D1;&#x7684;&#x3002;<strong>&#x6CE8;&#x610F;&#xFF0C;&#x672A;&#x88AB;&#x6355;&#x83B7;&#x7684; <code>SagaCancellationException</code> &#x4E0D;&#x4F1A;&#x5411;&#x4E0A;&#x5192;&#x6CE1;</strong>&#x3002;
-&#x5728;&#x4E0A;&#x9762;&#x7684;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x5982;&#x679C; <code>bgSync</code> &#x6CA1;&#x6709;&#x6355;&#x83B7;&#x53D6;&#x6D88;&#x9519;&#x8BEF;&#xFF0C;&#x9519;&#x8BEF;&#x5C06;&#x4E0D;&#x4F1A;&#x88AB;&#x4F20;&#x64AD;&#x5230; <code>main</code>&#xFF08;&#x56E0;&#x4E3A; <code>main</code> &#x5DF2;&#x7ECF;&#x5F80;&#x524D;&#x8FDB;&#x4E86;&#xFF09;&#x3002;</p>
-<p>&#x53D6;&#x6D88;&#x6B63;&#x5728;&#x6267;&#x884C;&#x7684;&#x4EFB;&#x52A1;&#xFF0C;&#x4E5F;&#x5C06;&#x540C;&#x65F6;&#x53D6;&#x6D88;&#x88AB;&#x963B;&#x585E;&#x5728;&#x5F53;&#x524D; Effect &#x4E2D;&#x7684;&#x4EFB;&#x52A1;&#x3002;</p>
-<p>&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;&#xFF0C;&#x5047;&#x8BBE;&#x5728;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;&#x67D0;&#x4E2A;&#x65F6;&#x523B;&#xFF0C;&#x8FD8;&#x6709;&#x6302;&#x8D77;&#x7684;&#xFF08;&#x672A;&#x5B8C;&#x6210;&#x7684;&#xFF09;&#x8C03;&#x7528;&#x94FE;&#xFF1A;</p>
-<pre><code class="lang-javascript"><span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span></code></pre>
+<p>&#x5728;&#x4E0A;&#x9762;&#x7684;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x53D6;&#x6D88; <code>bgSyncTask</code> &#x5C06;&#x4F1A;&#x5BFC;&#x81F4; Generator &#x8DF3;&#x8FDB; finally &#x533A;&#x5757;&#x3002;&#x53EF;&#x4F7F;&#x7528; <code>yield cancelled()</code> &#x6765;&#x68C0;&#x67E5; Generator &#x662F;&#x5426;&#x5DF2;&#x7ECF;&#x88AB;&#x53D6;&#x6D88;&#x3002;</p><p>&#x53D6;&#x6D88;&#x6B63;&#x5728;&#x6267;&#x884C;&#x7684;&#x4EFB;&#x52A1;&#xFF0C;&#x4E5F;&#x5C06;&#x540C;&#x65F6;&#x53D6;&#x6D88;&#x88AB;&#x963B;&#x585E;&#x5728;&#x5F53;&#x524D; Effect &#x4E2D;&#x7684;&#x4EFB;&#x52A1;&#x3002;</p><p>&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;&#xFF0C;&#x5047;&#x8BBE;&#x5728;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;&#x67D0;&#x4E2A;&#x65F6;&#x523B;&#xFF0C;&#x8FD8;&#x6709;&#x6302;&#x8D77;&#x7684;&#xFF08;&#x672A;&#x5B8C;&#x6210;&#x7684;&#xFF09;&#x8C03;&#x7528;&#x94FE;&#xFF1A;</p><pre><code class="lang-javascript"><span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">const</span> task <span class="token operator">=</span> <span class="token keyword">yield</span> <span class="token function">fork</span><span class="token punctuation">(</span>subtask<span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
   <span class="token comment" spellcheck="true">// later</span>
@@ -567,82 +563,125 @@
 
 <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">subtask2</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-  <span class="token keyword">yield</span> <span class="token function">call</span><span class="token punctuation">(</span>someApi<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// currently blocked on this all</span>
+  <span class="token keyword">yield</span> <span class="token function">call</span><span class="token punctuation">(</span>someApi<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// currently blocked on this call</span>
   <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p><code><span class="token keyword">yield</span> <span class="token function">cancel</span><span class="token punctuation">(</span>task<span class="token punctuation">)</span></code> &#x5C06;&#x89E6;&#x53D1; <code>subtask</code> &#x4EFB;&#x52A1;&#x7684;&#x53D6;&#x6D88;&#xFF0C;&#x53CD;&#x8FC7;&#x6765;&#x5B83;&#x5C06;&#x89E6;&#x53D1; <code>subtask2</code> &#x7684;&#x53D6;&#x6D88;&#x3002;
-<code>subtask2</code> &#x4E2D;&#x5C06;&#x629B;&#x51FA;&#x4E00;&#x4E2A; <code>SagaCancellationException</code> &#x9519;&#x8BEF;&#xFF0C;&#x7136;&#x540E;&#x53E6;&#x4E00;&#x4E2A; <code>SagaCancellationException</code> &#x9519;&#x8BEF;&#x5C06;&#x4F1A;&#x5728; <code>subtask</code> &#x4E2D;&#x629B;&#x51FA;&#x3002;
- &#x5982;&#x679C; <code>subtask</code> &#x6CA1;&#x6709;&#x5904;&#x7406;&#x53D6;&#x6D88;&#x5F02;&#x5E38;&#xFF0C;&#x4E00;&#x6761;&#x8B66;&#x544A;&#x4FE1;&#x606F;&#x5C06;&#x5728;&#x63A7;&#x5236;&#x53F0;&#x4E2D;&#x6253;&#x5370;&#x51FA;&#x6765;&#xFF0C;&#x4EE5;&#x8B66;&#x544A;&#x5F00;&#x53D1;&#x8005;&#xFF08;&#x5982;&#x679C; <code>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span>NODE_ENV</code> &#x53D8;&#x91CF;&#x5B58;&#x5728;&#xFF0C;&#x5E76;&#x4E14;&#x5B83;&#x88AB;&#x8BBE;&#x7F6E;&#x4E3A; <code>development</code>&#xFF0C;&#x5C31;&#x4EC5;&#x4EC5;&#x4F1A;&#x6253;&#x5370;&#x65E5;&#x5FD7;&#x4FE1;&#x606F;&#x800C;&#x4E0D;&#x662F;&#x8B66;&#x544A;&#x4FE1;&#x606F;&#xFF09;&#x3002;</p>
-<p>&#x53D6;&#x6D88;&#x5F02;&#x5E38;&#x7684;&#x4E3B;&#x8981;&#x76EE;&#x7684;&#x662F;&#x8BA9;&#x5DF2;&#x53D6;&#x6D88;&#x7684;&#x4EFB;&#x52A1;&#x6267;&#x884C;&#x4EFB;&#x4F55;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x6E05;&#x7406;&#x903B;&#x8F91;&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;&#x6211;&#x4EEC;&#x4E0D;&#x4F1A;&#x8BA9;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x72B6;&#x6001;&#x4E0D;&#x4E00;&#x81F4;&#x3002;
-&#x5728;&#x4E0A;&#x9762;&#x540E;&#x53F0;&#x540C;&#x6B65;&#x7684;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x901A;&#x8FC7;&#x6355;&#x83B7;&#x53D6;&#x6D88;&#x5F02;&#x5E38;&#xFF0C;<code>bgSync</code> &#x80FD;&#x591F;&#x53D1;&#x8D77;&#x4E00;&#x4E2A; <code>requestFailure</code> action &#x81F3; store&#x3002;
-&#x5426;&#x5219;&#xFF0C;store &#x53EF;&#x80FD;&#x4F1A;&#x53D8;&#x5F97;&#x72B6;&#x6001;&#x4E0D;&#x4E00;&#x81F4;&#xFF08;&#x4F8B;&#x5982;&#xFF0C;&#x7B49;&#x5F85;&#x4E00;&#x4E2A;&#x88AB;&#x6302;&#x8D77;&#x7684;&#x8BF7;&#x6C42;&#x7684;&#x7ED3;&#x679C;&#xFF09;&#x3002;</p>
-<h3 id="&#x6CE8;&#x610F;">&#x6CE8;&#x610F;</h3>
-<p>&#x8BB0;&#x4F4F;&#x91CD;&#x8981;&#x7684;&#x4E00;&#x70B9;&#xFF0C;<code><span class="token keyword">yield</span> <span class="token function">cancel</span><span class="token punctuation">(</span>task<span class="token punctuation">)</span></code> &#x4E0D;&#x4F1A;&#x7B49;&#x5F85;&#x88AB;&#x53D6;&#x6D88;&#x7684;&#x4EFB;&#x52A1;&#x5B8C;&#x6210;&#xFF08;&#x5373;&#x6267;&#x884C;&#x5176; catch &#x533A;&#x5757;&#xFF09;&#x3002;<code>cancel</code> Effect &#x7684;&#x884C;&#x4E3A;&#x548C; <code>fork</code> &#x6709;&#x70B9;&#x7C7B;&#x4F3C;&#x3002;
-&#x4E00;&#x65E6;&#x53D6;&#x6D88;&#x53D1;&#x8D77;&#xFF0C;&#x5B83;&#x5C31;&#x4F1A;&#x5C3D;&#x5FEB;&#x8FD4;&#x56DE;&#x3002;&#x4E00;&#x65E6;&#x53D6;&#x6D88;&#xFF0C;&#x4EFB;&#x52A1;&#x901A;&#x5E38;&#x5E94;&#x5C3D;&#x5FEB;&#x5B8C;&#x6210;&#x5B83;&#x7684;&#x6E05;&#x7406;&#x903B;&#x8F91;&#x7136;&#x540E;&#x8FD4;&#x56DE;&#x3002;
-&#x5728;&#x67D0;&#x4E9B;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x6E05;&#x7406;&#x903B;&#x8F91;&#x53EF;&#x80FD;&#x6D89;&#x53CA;&#x4E00;&#x4E9B;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#xFF0C;&#x4F46;&#x88AB;&#x53D6;&#x6D88;&#x7684;&#x4EFB;&#x52A1;&#x53D8;&#x6210;&#x4E86;&#x72EC;&#x7ACB;&#x7684;&#x8FDB;&#x7A0B;&#xFF0C;&#x5E76;&#x4E14;&#x6CA1;&#x6709;&#x529E;&#x6CD5;&#x8BA9;&#x5B83;&#x91CD;&#x65B0;&#x52A0;&#x5165;&#x4E3B;&#x63A7;&#x5236;&#x6D41;&#x7A0B;&#xFF08;&#x9664;&#x4E86;&#x901A;&#x8FC7; Redux store &#x4E3A;&#x5176;&#x4ED6;&#x4EFB;&#x52A1;&#x53D1;&#x8D77; action&#x3002;
-&#x7136;&#x800C;&#xFF0C;&#x8FD9;&#x5C06;&#x5BFC;&#x81F4;&#x63A7;&#x5236;&#x6D41;&#x53D8;&#x7684;&#x590D;&#x6742;&#x5E76;&#x4E14;&#x96BE;&#x4EE5;&#x7406;&#x89E3;&#x3002;&#x66F4;&#x597D;&#x7684;&#x505A;&#x6CD5;&#x662F;&#x5C3D;&#x5FEB;&#x7ED3;&#x675F;&#x4E00;&#x4E2A;&#x5DF2;&#x53D6;&#x6D88;&#x7684;&#x4EFB;&#x52A1;&#xFF09;&#x3002;</p>
-<h2 id="&#x81EA;&#x52A8;&#x53D6;&#x6D88;">&#x81EA;&#x52A8;&#x53D6;&#x6D88;</h2>
-<p>&#x9664;&#x4E86;&#x624B;&#x52A8;&#x53D6;&#x6D88;&#x4EFB;&#x52A1;&#xFF0C;&#x8FD8;&#x6709;&#x4E00;&#x4E9B;&#x60C5;&#x51B5;&#x7684;&#x53D6;&#x6D88;&#x662F;&#x81EA;&#x52A8;&#x89E6;&#x53D1;&#x7684;&#x3002;</p>
-<ol>
-<li><p>&#x5728; <code>race</code> Effect &#x4E2D;&#x3002;&#x6240;&#x6709;&#x53C2;&#x4E0E;&#x7ADE;&#x8D5B;&#x7684;&#x4EFB;&#x52A1;&#xFF0C;&#x9664;&#x4E86;&#x4F18;&#x80DC;&#x8005;&#xFF08;&#x8BD1;&#x6CE8;&#xFF1A;&#x6700;&#x5148;&#x5B8C;&#x6210;&#x7684;&#x4EFB;&#x52A1;&#xFF09;&#xFF0C;&#x5176;&#x4ED6;&#x4EFB;&#x52A1;&#x90FD;&#x4F1A;&#x88AB;&#x53D6;&#x6D88;&#x3002;</p>
-</li>
-<li><p>&#x5E76;&#x884C;&#x7684; Effect (<code><span class="token keyword">yield</span> <span class="token punctuation">[</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span></code>)&#x3002;&#x4E00;&#x65E6;&#x5176;&#x4E2D;&#x4EFB;&#x4F55;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x88AB;&#x62D2;&#x7EDD;&#xFF0C;&#x5E76;&#x884C;&#x7684; Effect &#x5C06;&#x4F1A;&#x88AB;&#x62D2;&#x7EDD;&#xFF08;&#x53D7; <code>Promise<span class="token punctuation">.</span>all</code> &#x542F;&#x53D1;&#xFF09;&#x3002;&#x5728;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E2D;&#xFF0C;&#x6240;&#x6709;&#x5176;&#x4ED6;&#x7684; Effect &#x5C06;&#x88AB;&#x81EA;&#x52A8;&#x53D6;&#x6D88;&#x3002;</p>
-</li>
-</ol>
+<span class="token punctuation">}</span></code></pre>
+<p><code>yield cancel(task)</code> &#x89E6;&#x53D1;&#x4E86; <code>subtask</code> &#x4EFB;&#x52A1;&#x7684;&#x53D6;&#x6D88;&#xFF0C;&#x53CD;&#x8FC7;&#x6765;&#x5B83;&#x5C06;&#x89E6;&#x53D1; <code>subtask2</code> &#x7684;&#x53D6;&#x6D88;&#x3002;</p><p>&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x770B;&#x5230;&#x53D6;&#x6D88;&#x4E0D;&#x65AD;&#x7684;&#x5F80;&#x4E0B;&#x4F20;&#x64AD;&#xFF08;&#x76F8;&#x53CD;&#x7684;&#xFF0C;&#x88AB;&#x56DE;&#x4F20;&#x7684;&#x503C;&#x548C;&#x6CA1;&#x6709;&#x6355;&#x6349;&#x7684;&#x9519;&#x8BEF;&#x4E0D;&#x65AD;&#x5F80;&#x4E0A;&#xFF09;&#x3002;
+&#x4F60;&#x53EF;&#x4EE5;&#x628A;&#x5B83;&#x770B;&#x4F5C;&#x662F; caller&#xFF08;&#x8C03;&#x7528;&#x5F02;&#x6B65;&#x7684;&#x64CD;&#x4F5C;&#xFF09;&#x548C; callee&#xFF08;&#x88AB;&#x8C03;&#x7528;&#x7684;&#x64CD;&#x4F5C;&#xFF09;&#x4E4B;&#x95F4;&#x7684;&#x5BF9;&#x7167;&#x3002;callee &#x662F;&#x8D1F;&#x8D23;&#x6267;&#x884C;&#x64CD;&#x4F5C;&#x3002;&#x5982;&#x679C;&#x5B83;&#x5B8C;&#x6210;&#x4E86;&#xFF08;&#x4E0D;&#x7BA1;&#x662F;&#x6210;&#x529F;&#x6216;&#x5931;&#x8D25;&#xFF09;&#x7ED3;&#x679C;&#x5C06;&#x4F1A;&#x5F80;&#x4E0A;&#x5230;&#x5B83;&#x7684; caller&#xFF0C;&#x6700;&#x7EC8;&#x5230; caller &#x7684;&#x8C03;&#x7528;&#x65B9;&#x3002;&#x5C31;&#x662F;&#x8FD9;&#x6837;&#xFF0C;callee &#x662F;&#x8D1F;&#x8D23;&#x5B8C;&#x6210;&#x6D41;&#x7A0B;&#x3002;</p><p>&#x73B0;&#x5728;&#x5982;&#x679C; callee &#x4E00;&#x76F4;&#x5904;&#x4E8E;&#x7B49;&#x5F85;&#xFF0C;&#x800C;&#x4E14; caller &#x51B3;&#x5B9A;&#x53D6;&#x6D88;&#x64CD;&#x4F5C;&#xFF0C;&#x5B83;&#x5C06;&#x89E6;&#x53D1;&#x4E00;&#x79CD;&#x4FE1;&#x53F7;&#x5F80;&#x4E0B;&#x4F20;&#x64AD;&#x5230; callee&#xFF08;&#x4EE5;&#x53CA;&#x901A;&#x8FC7; callee &#x672C;&#x8EAB;&#x88AB;&#x8C03;&#x7528;&#x7684;&#x4EFB;&#x4F55;&#x6DF1;&#x5C42;&#x64CD;&#x4F5C;&#xFF09;&#x3002;&#x6240;&#x6709;&#x6DF1;&#x5C42;&#x7B49;&#x5F85;&#x7684;&#x64CD;&#x4F5C;&#x90FD;&#x5C06;&#x88AB;&#x53D6;&#x6D88;&#x3002;</p><p>&#x53D6;&#x6D88;&#x4F20;&#x64AD;&#x8FD8;&#x5C06;&#x5F15;&#x53D1;&#xFF1A;&#x5982;&#x679C;&#x52A0;&#x5165;&#x7684; task &#x88AB;&#x53D6;&#x6D88;&#x7684;&#x8BDD;&#xFF0C;task &#x7684; joiner&#xFF08;&#x90A3;&#x4E9B;&#x88AB;&#x963B;&#x585E;&#x7684; yield join(task)&#xFF09;&#x4E5F;&#x5C06;&#x4F1A;&#x88AB;&#x53D6;&#x6D88;&#x3002;&#x540C;&#x6837;&#x7684;&#xFF0C;&#x4EFB;&#x4F55;&#x90A3;&#x4E9B; joiner &#x6F5C;&#x5728;&#x7684; caller &#x90FD;&#x5C06;&#x4F1A;&#x88AB;&#x53D6;&#x6D88;&#xFF08;&#x56E0;&#x4E3A;&#x4ED6;&#x4EEC;&#x963B;&#x585E;&#x7684;&#x64CD;&#x4F5C;&#x5DF2;&#x7ECF;&#x4ECE;&#x5916;&#x9762;&#x88AB;&#x53D6;&#x6D88;&#xFF09;&#x3002;</p><h2 id="&#x7528;-fork-effect-&#x6D4B;&#x8BD5;-generators">&#x7528; fork effect &#x6D4B;&#x8BD5; generators</h2><p>&#x5F53; <code>fork</code> &#x88AB;&#x8C03;&#x7528;&#x65F6;&#xFF0C;&#x5B83;&#x4F1A;&#x5728;&#x540E;&#x53F0;&#x542F;&#x52A8; task &#x5E76;&#x8FD4;&#x56DE; task &#x5BF9;&#x8C61; &#x2014;&#x2014; &#x5C31;&#x50CF;&#x6211;&#x4EEC;&#x4E4B;&#x524D;&#x6240;&#x5B66;&#x4E60;&#x7684;&#x3002;&#x6D4B;&#x8BD5;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981; <code>createMockTask</code> &#x8FD9;&#x4E2A; utility function&#x3002;
+&#x5728; fork test &#x4E4B;&#x540E;&#xFF0C;&#x8FD9;&#x4E2A; function &#x8FD4;&#x56DE;&#x7684; Object &#x5C06;&#x4F1A;&#x88AB;&#x4F20;&#x9001;&#x5230;&#x4E0B;&#x4E00;&#x4E2A; next &#x8C03;&#x7528;&#x3002;&#x4F8B;&#x5982; Mock task &#x53EF;&#x4EE5;&#x88AB;&#x4F20;&#x9001;&#x5230; <code>cancel</code>&#x3002;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x9875;&#x9762; <code>main</code> generator &#x7684;&#x6D4B;&#x8BD5;&#x7528;&#x4F8B;&#x3002;</p><pre><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> createMockTask <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-saga/utils&apos;</span><span class="token punctuation">;</span>
 
-                    
-                    </section>
-                
-                
-                </div>
-            </div>
+<span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">&apos;main&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> generator <span class="token operator">=</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">&apos;waits for start action&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> expectedYield <span class="token operator">=</span> <span class="token function">take</span><span class="token punctuation">(</span>START_BACKGROUND_SYNC<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>generator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>expectedYield<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">&apos;forks the service&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> expectedYield <span class="token operator">=</span> <span class="token function">fork</span><span class="token punctuation">(</span>bgSync<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> mockedAction <span class="token operator">=</span> <span class="token punctuation">{</span> type<span class="token punctuation">:</span> <span class="token string">&apos;START_BACKGROUND_SYNC&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>generator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span>mockedAction<span class="token punctuation">)</span><span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>expectedYield<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">&apos;waits for stop action and then cancels the service&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> mockTask <span class="token operator">=</span> <span class="token function">createMockTask</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">const</span> expectedTakeYield <span class="token operator">=</span> <span class="token function">take</span><span class="token punctuation">(</span>STOP_BACKGROUND_SYNC<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>generator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span>mockTask<span class="token punctuation">)</span><span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>expectedTakeYield<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">const</span> expectedCancelYield <span class="token operator">=</span> <span class="token function">cancel</span><span class="token punctuation">(</span>mockTask<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>generator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>expectedCancelYield<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>&#x4F60;&#x4E5F;&#x53EF;&#x4F7F;&#x7528; mock task &#x7684; <code>setRunning</code>&#x3001;<code>setResult</code> &#x548C; <code>setError</code> function &#x6765;&#x8BBE;&#x5B9A; mock task &#x7684;&#x72B6;&#x6001;&#x3002;&#x4F8B;&#x5982; <code>mockTask.setRunning(false)</code>&#x3002;</p><h3 id="&#x6CE8;&#x610F;">&#x6CE8;&#x610F;</h3><p>&#x8BB0;&#x4F4F;&#x91CD;&#x8981;&#x7684;&#x4E00;&#x70B9;&#xFF0C;<code>yield cancel(task)</code> &#x4E0D;&#x4F1A;&#x7B49;&#x5F85;&#x88AB;&#x53D6;&#x6D88;&#x7684;&#x4EFB;&#x52A1;&#x5B8C;&#x6210;&#xFF08;&#x5373;&#x6267;&#x884C;&#x5176; catch &#x533A;&#x5757;&#xFF09;&#x3002;<code>cancel</code> Effect &#x7684;&#x884C;&#x4E3A;&#x548C; <code>fork</code> &#x6709;&#x70B9;&#x7C7B;&#x4F3C;&#x3002;
+&#x4E00;&#x65E6;&#x53D6;&#x6D88;&#x53D1;&#x8D77;&#xFF0C;&#x5B83;&#x5C31;&#x4F1A;&#x5C3D;&#x5FEB;&#x8FD4;&#x56DE;&#x3002;&#x4E00;&#x65E6;&#x53D6;&#x6D88;&#xFF0C;&#x4EFB;&#x52A1;&#x901A;&#x5E38;&#x5E94;&#x5C3D;&#x5FEB;&#x5B8C;&#x6210;&#x5B83;&#x7684;&#x6E05;&#x7406;&#x903B;&#x8F91;&#x7136;&#x540E;&#x8FD4;&#x56DE;&#x3002;</p><h2 id="&#x81EA;&#x52A8;&#x53D6;&#x6D88;">&#x81EA;&#x52A8;&#x53D6;&#x6D88;</h2><p>&#x9664;&#x4E86;&#x624B;&#x52A8;&#x53D6;&#x6D88;&#x4EFB;&#x52A1;&#xFF0C;&#x8FD8;&#x6709;&#x4E00;&#x4E9B;&#x60C5;&#x51B5;&#x7684;&#x53D6;&#x6D88;&#x662F;&#x81EA;&#x52A8;&#x89E6;&#x53D1;&#x7684;&#x3002;</p><ol><li><p>&#x5728; <code>race</code> Effect &#x4E2D;&#x3002;&#x6240;&#x6709;&#x53C2;&#x4E0E; race &#x7684;&#x4EFB;&#x52A1;&#xFF0C;&#x9664;&#x4E86;&#x4F18;&#x80DC;&#x8005;&#xFF08;&#x8BD1;&#x6CE8;&#xFF1A;&#x6700;&#x5148;&#x5B8C;&#x6210;&#x7684;&#x4EFB;&#x52A1;&#xFF09;&#xFF0C;&#x5176;&#x4ED6;&#x4EFB;&#x52A1;&#x90FD;&#x4F1A;&#x88AB;&#x53D6;&#x6D88;&#x3002;</p></li>
+<li><p>&#x5E76;&#x884C;&#x7684; Effect (<code>yield [...]</code>)&#x3002;&#x4E00;&#x65E6;&#x5176;&#x4E2D;&#x4EFB;&#x4F55;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x88AB;&#x62D2;&#x7EDD;&#xFF0C;&#x5E76;&#x884C;&#x7684; Effect &#x5C06;&#x4F1A;&#x88AB;&#x62D2;&#x7EDD;&#xFF08;&#x53D7; <code>Promise.all</code> &#x542F;&#x53D1;&#xFF09;&#x3002;&#x5728;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E2D;&#xFF0C;&#x6240;&#x6709;&#x5176;&#x4ED6;&#x7684; Effect &#x5C06;&#x88AB;&#x81EA;&#x52A8;&#x53D6;&#x6D88;&#x3002;</p></li></ol>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
         </div>
-
-        
-        <a href="../../docs/advanced/ComposingSagas.html" class="navigation navigation-prev " aria-label="Previous page: 组合 Sagas"><i class="fa fa-angle-left"></i></a>
-        
-        
-        <a href="../../docs/advanced/Concurrency.html" class="navigation navigation-next " aria-label="Next page: 常见的并发模式"><i class="fa fa-angle-right"></i></a>
-        
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
     </div>
 </div>
 
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="ComposingSagas.html" class="navigation navigation-prev " aria-label="Previous page: 组合 Sagas">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="ForkModel.html" class="navigation navigation-next " aria-label="Next page: redux-saga 的 fork model">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
         
-<script src="../../gitbook/app.js"></script>
+    </div>
 
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"取消任务","level":"1.4.7","depth":2,"next":{"title":"redux-saga 的 fork model","level":"1.4.8","depth":2,"path":"docs/advanced/ForkModel.md","ref":"docs/advanced/ForkModel.md","articles":[]},"previous":{"title":"组合 Sagas","level":"1.4.6","depth":2,"path":"docs/advanced/ComposingSagas.md","ref":"docs/advanced/ComposingSagas.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism@1.0.0","-highlight","github"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"开始纠错","base":"https://github.com/superRaytin/redux-saga-in-chinese/tree/master"},"github":{"url":"https://github.com/superRaytin/redux-saga-in-chinese"},"sharing":{"facebook":true,"twitter":true,"google":true,"weibo":true,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"prism":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Redux-Saga","gitbook":"3.2.0"},"file":{"path":"docs/advanced/TaskCancellation.md","mtime":"2018-05-28T10:04:29.000Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2018-05-28T10:13:42.471Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
     
-    <script src="../../gitbook/plugins/gitbook-plugin-edit-link/plugin.js"></script>
+        
+        <script src="../../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
     
 
-    
-    <script src="../../gitbook/plugins/gitbook-plugin-ga/plugin.js"></script>
-    
-
-    
-    <script src="../../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
-    
-
-    
-    <script src="../../gitbook/plugins/gitbook-plugin-search/search.js"></script>
-    
-
-    
-    <script src="../../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
-    
-
-    
-    <script src="../../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
-    
-
-<script>
-require(["gitbook"], function(gitbook) {
-    var config = {"edit-link":{"base":"https://github.com/superRaytin/redux-saga-in-chinese/tree/master","label":"开始纠错"},"ga":{"token":"UA-58588801-2","configuration":"auto"},"github":{"url":"https://github.com/superRaytin/redux-saga-in-chinese/"},"sharing":{"facebook":true,"twitter":true,"google":true,"weibo":true,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"prism":{},"search":{},"fontsettings":{"theme":"white","family":"sans","size":2}};
-    gitbook.start(config);
-});
-</script>
-
-        <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-58588801-2', 'auto');ga('send', 'pageview');</script>
     </body>
-    
 </html>
+
