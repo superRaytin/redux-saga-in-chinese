@@ -11,7 +11,7 @@
 可以想像为，一个 saga 就像是应用程序中一个单独的线程，它独自负责处理副作用。
 `redux-saga` 是一个 redux 中间件，意味着这个线程可以通过正常的 redux action 从主应用程序启动，暂停和取消，它能访问完整的 redux state，也可以 dispatch redux action。
 
-redux-saga 使用了 ES6 的 Generator 功能，让异步的流程更易于读取，写入和测试。*（如果你还不熟悉的话，[这里有一些介绍性的链接](/docs/ExternalResources.html)）* 通过这样的方式，这些异步的流程看起来就像是标准同步的 Javascript 代码。（有点像 `async`/`await`，但 Generator 还有一些更棒而且我们也需要的功能）。
+redux-saga 使用了 ES6 的 Generator 功能，让异步的流程更易于读取，写入和测试。*（如果你还不熟悉的话，[这里有一些介绍性的链接](https://redux-saga-in-chinese.js.org/docs/ExternalResources.html)）* 通过这样的方式，这些异步的流程看起来就像是标准同步的 Javascript 代码。（有点像 `async`/`await`，但 Generator 还有一些更棒而且我们也需要的功能）。
 
 你可能已经用了 `redux-thunk` 来处理数据的读取。不同于 redux thunk，你不会再遇到回调地狱了，你可以很容易地测试异步流程并保持你的 action 是干净的。
 
@@ -230,6 +230,8 @@ Redux-Saga 与 TypeScript 配合使用需要 `DOM.Iterable` 或 `ES2015.Iterable
 
 - [Leon Shi@superRaytin](https://github.com/superRaytin)
 - [Kevin He@kevinxh](https://github.com/kevinxh)
+- [zhangyue@Ariel-zhangyue](https://github.com/Ariel-zhangyue)
+- [yelo@imyelo](https://github.com/imyelo)
 
 **如果看到翻译不准确、句子不通顺的地方，欢迎随时指出。本文档翻译流程按照 [ETC 翻译规范](https://github.com/react-guide/ETC)，欢迎你来一起完善。**
 
