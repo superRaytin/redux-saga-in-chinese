@@ -14,14 +14,14 @@ import { runSaga } from 'redux-saga'
 function* saga() { ... }
 
 const myIO = {
-  subscribe: ..., // 用于解决 take Effects
-  dispatch: ...,  // 用于解决 put Effects
-  getState: ...,  // 用于解决 select Effects
+  subscribe: ..., // this will be used to resolve take Effects
+  dispatch: ...,  // this will be used to resolve put Effects
+  getState: ...,  // this will be used to resolve select Effects
 }
 
 runSaga(
-  saga(),
-  myIO
+  myIO,
+  saga,
 )
 ```
 

@@ -4,7 +4,7 @@
 （你也可以直接 yield Promise，但是这会让测试变得困难，就像我们在第一节中看到的一样）。
 
 一个 Saga 所做的实际上是组合那些所有的 Effect，共同实现所需的控制流。
-最简单的是只需把 yield 一个接一个地放置，就可对 yield 过的 Effect 进行排序。你也可以使用熟悉的控制流操作符（`if`, `while`, `for`）
+最简单的例子是直接把 yield 一个接一个地放置来对序列化 yield Effect。你也可以使用熟悉的控制流操作符（`if`, `while`, `for`）
 来实现更复杂的控制流。
 
 我们已经看到，使用 Effect 诸如 `call` 和 `put`，与高阶 API 如 `takeEvery` 相结合，让我们实现与 `redux-thunk` 同样的东西，

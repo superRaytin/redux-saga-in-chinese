@@ -1,26 +1,24 @@
-# 通过 `yield*` 对 Sagas 进行排序
+# 使用 `yield*` 对 Sagas 进行排序
 
 你可以使用内置的 `yield*` 操作符来组合多个 Sagas，使得它们保持顺序。
 这让你可以一种简单的程序风格来排列你的 *宏观任务（macro-tasks）*。
 
 ```javascript
-function* playLevelOne(getState) { ... }
+function* playLevelOne() { ... }
 
-function* playLevelTwo(getState) { ... }
+function* playLevelTwo() { ... }
 
-function* playLevelThree(getState) { ... }
+function* playLevelThree() { ... }
 
-function* game(getState) {
+function* game() {
+  const score1 = yield* playLevelOne()
+  yield put(showScore(score1))
 
-  const score1 = yield* playLevelOne(getState)
-  put(showScore(score1))
+  const score2 = yield* playLevelTwo()
+  yield put(showScore(score2))
 
-  const score2 = yield* playLevelTwo(getState)
-  put(showScore(score2))
-
-  const score3 = yield* playLevelThree(getState)
-  put(showScore(score3))
-
+  const score3 = yield* playLevelThree()
+  yield put(showScore(score3))
 }
 ```
 

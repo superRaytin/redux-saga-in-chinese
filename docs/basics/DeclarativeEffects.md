@@ -2,7 +2,7 @@
 
 在 `redux-saga` 的世界里，Sagas 都用 Generator 函数实现。我们从 Generator 里 yield 纯 JavaScript 对象以表达 Saga 逻辑。
 我们称呼那些对象为 *Effect*。Effect 是一个简单的对象，这个对象包含了一些给 middleware 解释执行的信息。
-你可以把 Effect 看作是发送给 middleware 的指令以执行某些操作（调用某些异步函数，发起一个 action 到 store）。
+你可以把 Effect 看作是发送给 middleware 的指令以执行某些操作（调用某些异步函数，发起一个 action 到 store，等等）。
 
 你可以使用 `redux-saga/effects` 包里提供的函数来创建 Effect。
 
@@ -13,11 +13,11 @@ Sagas 可以多种形式 yield Effect。最简单的方式是 yield 一个 Promi
 举个例子，假设我们有一个监听 `PRODUCTS_REQUESTED` action 的 Saga。每次匹配到 action，它会启动一个从服务器上获取产品列表的任务。
 
 ```javascript
-import { takeEvery } from 'redux-saga'
+import { takeEvery } from 'redux-saga/effects'
 import Api from './path/to/api'
 
-function* watchFetchProduts() {
-  yield* takeEvery('PRODUCTS_REQUESTED', fetchProducts)
+function* watchFetchProducts() {
+  yield takeEvery('PRODUCTS_REQUESTED', fetchProducts)
 }
 
 function* fetchProducts() {
@@ -35,26 +35,24 @@ function* fetchProducts() {
 
 ```javascript
 const iterator = fetchProducts()
-assert.deepEqual( iterator.next().value, ?? ) // 我们期望得到什么？
+assert.deepEqual(iterator.next().value, ??) // 我们期望得到什么？
 ```
 
 我们想要检查 generator yield 的结果的第一个值。在我们的情况里，这个值是执行 `Api.fetch('/products')` 这个 Promise 的结果。
 在测试过程中，执行真正的服务（real service）是一个既不可行也不实用的方法，所以我们必须 *模拟（mock）* `Api.fetch` 函数。
 也就是说，我们需要将真实的函数替换为一个假的，这个假的函数并不会真的发送 AJAX 请求而只会检查是否用正确的参数调用了 `Api.fetch`（在我们的情况里，正确的参数是 `'/products'`）。
 
-
 模拟使测试更加困难和不可靠。另一方面，那些只简单地返回值的函数更加容易测试，因此我们可以使用简单的 `equal()` 来检查结果。
 这是编写最可靠测试用例的方法。
 
 不相信？我建议你阅读 [Eric Elliott's article](https://medium.com/javascript-scene/what-every-unit-test-needs-f6cd34d9836d#.4ttnnzpgc):
 
->(...)`equal()`, by nature answers the two most important questions every unit test must answer,
+> (...)`equal()`, by nature answers the two most important questions every unit test must answer,
 but most don’t:
 - What is the actual output?
 - What is the expected output?
 >
->If you finish a test without answering those two questions, you don’t have a real unit test.
-You have a sloppy, half-baked test.
+> If you finish a test without answering those two questions, you don’t have a real unit test. You have a sloppy, half-baked test.
 
 实际上我们需要的只是保证 `fetchProducts` 任务 yield 一个调用正确的函数，并且函数有着正确的参数。
 
@@ -142,3 +140,5 @@ assert.deepEqual(iterator.next().value, cps(readFile, '/path/to/file') )
 ```
 
 `cps` 同 `call` 的方法调用形式是一样的。
+
+完整列表的 declarative effects 可在这里找到： [API reference](https://redux-saga.js.org/docs/api/#effect-creators)
