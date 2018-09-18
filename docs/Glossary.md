@@ -35,7 +35,8 @@ function* saga() {
   yield call(ApiFn, ...args)      // 阻塞: 将等待 ApiFn (如果 ApiFn 返回一个 Promise 的话)
   yield call(otherSaga, ...args)  // 阻塞: 将等待 otherSaga 结束
 
-  yield put(...)                   // 阻塞: 将同步发起 action (使用 Promise.then)
+  yield put(...)                   // 非阻塞: 将同步发起 action (使用 Promise.then)
+  yield put.resolve(...)                   // 阻塞
 
   const task = yield fork(otherSaga, ...args)  // 非阻塞: 将不会等待 otherSaga
   yield cancel(task)                           // 非阻塞: 将立即恢复执行
