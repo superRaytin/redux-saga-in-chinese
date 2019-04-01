@@ -30,7 +30,7 @@ export function* fetchData(action) {
 import { takeEvery } from 'redux-saga'
 
 function* watchFetchData() {
-  yield* takeEvery('FETCH_REQUESTED', fetchData)
+  yield takeEvery('FETCH_REQUESTED', fetchData)
 }
 ```
 
@@ -45,7 +45,7 @@ function* watchFetchData() {
 import { takeLatest } from 'redux-saga'
 
 function* watchFetchData() {
-  yield* takeLatest('FETCH_REQUESTED', fetchData)
+  yield takeLatest('FETCH_REQUESTED', fetchData)
 }
 ```
 
