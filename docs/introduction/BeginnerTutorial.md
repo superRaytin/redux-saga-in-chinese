@@ -175,9 +175,13 @@ Sagas 被实现为 [Generator functions](https://developer.mozilla.org/en-US/doc
 现在我们有了 2 个 Sagas，我们需要同时启动它们。为了做到这一点，我们将添加一个 `rootSaga`，负责启动其他的 Sagas。在同样的 `sagas.js` 文件中，重构文件如下：
 
 ```javascript
-import { delay } from 'redux-saga'
 import { put, takeEvery, all } from 'redux-saga/effects'
 
+const delay = (ms) => new Promise(res => setTimeout(res, ms))
+
+function* helloSaga() {
+  console.log('Hello Sagas!')
+}
 
 function* incrementAsync() {
   yield delay(1000)
