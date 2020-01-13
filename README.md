@@ -29,7 +29,7 @@ $ npm install --save redux-saga
 $ yarn add redux-saga
 ```
 
-或者，你可以直接在 HTML 页面的 `<script>` 标签中使用提供的 UMD 构建文件。参见 [本节](#using-umd-build-in-the-browser)。
+或者，你可以直接在 HTML 页面的 `<script>` 标签中使用提供的 UMD 构建文件。参见 [本节](#在浏览器中使用-umd-构建版本)。
 
 ## 使用示例
 
