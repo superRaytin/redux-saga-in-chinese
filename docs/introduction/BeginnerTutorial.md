@@ -76,7 +76,7 @@ const action = type => store.dispatch({type})
 
 首先我们引入 `./sagas` 模块中的 Saga。然后使用 `redux-saga` 模块的 `createSagaMiddleware` 工厂函数来创建一个 Saga middleware。
 
-运行 `helloSaga` 之前，我们必须使用 `applyMiddleware` 将 middleware 连接至 Store。然后使用 `sagaMiddleware.run(helloSaga)` 运行 Saga。
+运行 `helloSaga` 之前，我们必须使用 `applyMiddleware` 将 sagaMiddleware 连接至 Store。然后使用 `sagaMiddleware.run(helloSaga)` 运行 Saga。
 
 到目前为止，我们的 Saga 并没做什么特别的事情。它只是打印了一条消息，然后退出。
 
