@@ -27,7 +27,7 @@ export function* fetchData(action) {
 然后在每次 `FETCH_REQUESTED` action 被发起时启动上面的任务。
 
 ```javascript
-import { takeEvery } from 'redux-saga'
+import { takeEvery } from 'redux-saga/effects'
 
 function* watchFetchData() {
   yield takeEvery('FETCH_REQUESTED', fetchData)
@@ -42,7 +42,7 @@ function* watchFetchData() {
 
 
 ```javascript
-import { takeLatest } from 'redux-saga'
+import { takeLatest } from 'redux-saga/effects'
 
 function* watchFetchData() {
   yield takeLatest('FETCH_REQUESTED', fetchData)
